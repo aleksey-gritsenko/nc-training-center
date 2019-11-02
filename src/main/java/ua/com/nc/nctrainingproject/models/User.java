@@ -1,4 +1,4 @@
-package ua.com.nc.nctrainingproject.model;
+package ua.com.nc.nctrainingproject.models;
 
 public class User {
     private String userName;
