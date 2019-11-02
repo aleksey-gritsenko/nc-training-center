@@ -3,11 +3,13 @@ package ua.com.nc.nctrainingproject;
 import com.sun.mail.util.MailSSLSocketFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import ua.com.nc.nctrainingproject.persistance.dao.postgre.UserPostgreDAO;
 
 import java.util.Properties;
 
 @SpringBootApplication
 public class Application {
+
 
 	public static void main(String[] args) {
 
@@ -19,11 +21,8 @@ public class Application {
 			prop.put("mail.smtp.ssl.trust", "*");
 
 			SpringApplication.run(Application.class, args);
-		}
-		catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-
 }
-
