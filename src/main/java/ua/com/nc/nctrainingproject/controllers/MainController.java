@@ -8,7 +8,11 @@ public class MainController {
 
     @GetMapping("/")
     public String welcome() {
-        return "index";
+        return "login";
     }
 
+    @GetMapping("/registration")
+    public String reg(){
+        return "registration";
+    }
 }
