@@ -2,9 +2,10 @@ package ua.com.nc.nctrainingproject.persistance.dao.postgre;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
-import ua.com.nc.nctrainingproject.model.User;
+import ua.com.nc.nctrainingproject.models.User;
 import ua.com.nc.nctrainingproject.persistance.dao.UserDAO;
 import ua.com.nc.nctrainingproject.persistance.dao.postgre.queries.UserQuery;
 import ua.com.nc.nctrainingproject.persistance.mappers.UserRowMapper;
@@ -19,7 +20,11 @@ public class UserPostgreDAO implements UserDAO {
 
     @Override
     public User getUserByUserName(String userName) {
-        return jdbcTemplate.queryForObject(UserQuery.GET_BY_USERNAME, new Object[]{userName}, new UserRowMapper());
+        try {
+            return jdbcTemplate.queryForObject(UserQuery.GET_BY_USERNAME, new Object[]{userName}, new UserRowMapper());
+        } catch (EmptyResultDataAccessException e){
+            return null;
+        }
     }
 
     @Override
