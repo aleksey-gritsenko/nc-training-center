@@ -20,9 +20,13 @@ public class UserPostgreDAO implements UserDAO {
 
     @Override
     public User getUserByUserName(String userName) {
+
+        // return jdbcTemplate.query(UserQuery.GET_BY_USERNAME, new Object[]{userName}, new UserRowMapper()).get(0);
+
         try {
+            //  return jdbcTemplate.query(UserQuery.GET_BY_USERNAME, new Object[]{userName}, new UserRowMapper()).get(0);
             return jdbcTemplate.queryForObject(UserQuery.GET_BY_USERNAME, new Object[]{userName}, new UserRowMapper());
-        } catch (EmptyResultDataAccessException e){
+        } catch (EmptyResultDataAccessException e) {
             return null;
         }
     }
