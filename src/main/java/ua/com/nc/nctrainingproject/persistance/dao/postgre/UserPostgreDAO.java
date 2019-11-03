@@ -31,6 +31,9 @@ public class UserPostgreDAO implements UserDAO {
         }
     }
 
+    public void updatePassword(String password,String userName){
+        jdbcTemplate.update(UserQuery.UPDATE_PASSWORD,password,userName);
+}
     @Override
     public void createUser(User user) {
         jdbcTemplate.update(UserQuery.CREATE_USER, user.getUserName(), user.getUserPassword(), user.getEmail());

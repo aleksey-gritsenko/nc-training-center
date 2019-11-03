@@ -8,6 +8,8 @@ public class UserQuery {
     public static final String USER_PASSWORD = "password";
     public static final String EMAIL = "email";
 
+
+
     public static final String GET_BY_USERNAME = "SELECT * FROM " + TABLE_NAME
             + " WHERE " + USERNAME + " =(?)";
 
@@ -15,4 +17,7 @@ public class UserQuery {
             + " (" + USERNAME + "," + USER_PASSWORD +","+EMAIL+ ")" + " VALUES(?,?,?)";
 
     public static final String GET_ALL = "SELECT * FROM " + TABLE_NAME;
+    public static final String UPDATE_PASSWORD = "UPDATE " + TABLE_NAME+" set "+ USER_PASSWORD +"=(?)" +" where " +USERNAME+ "=(?)";
+
+
 }
