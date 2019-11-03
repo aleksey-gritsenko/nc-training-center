@@ -4,9 +4,9 @@ import org.springframework.context.annotation.Configuration;
 
 import java.util.Properties;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+//import org.springframework.security.core.userdetails.User;
+//import org.springframework.security.core.userdetails.UserDetailsService;
+//import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
 @Configuration
 public class SpringMailConfiguration {
@@ -16,8 +16,8 @@ public class SpringMailConfiguration {
         mailSender.setHost("smtp.gmail.com");
         mailSender.setPort(587);
 
-        mailSender.setUsername("druocab@gmail.com");
-        mailSender.setPassword("gmgf9d96");
+        mailSender.setUsername("enter email");
+        mailSender.setPassword("enter password");
 
         Properties props = mailSender.getJavaMailProperties();
         props.put("mail.transport.protocol", "smtp");
