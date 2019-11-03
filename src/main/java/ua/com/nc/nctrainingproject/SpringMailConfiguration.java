@@ -1,4 +1,4 @@
-package ua.com.nc.nctrainingproject.ua.com.nc.nctrainingproject;
+package ua.com.nc.nctrainingproject;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
