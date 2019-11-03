@@ -1,4 +1,4 @@
-package ua.com.nc.nctrainingproject.ua.com.nc.nctrainingproject;
+package ua.com.nc.nctrainingproject;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -16,8 +16,8 @@ public class SpringMailConfiguration {
         mailSender.setHost("smtp.gmail.com");
         mailSender.setPort(587);
 
-        mailSender.setUsername("enter email");
-        mailSender.setPassword("enter password");
+        mailSender.setUsername("booknetsystem@gmail.com");
+        mailSender.setPassword("booknetgroup1");
 
         Properties props = mailSender.getJavaMailProperties();
         props.put("mail.transport.protocol", "smtp");
