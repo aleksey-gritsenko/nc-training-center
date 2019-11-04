@@ -23,7 +23,9 @@ export class LoginComponent implements OnInit {
     form.append('password', this.model.password);
 
     this.http.post(url,form).subscribe(
+
       res => {
+        alert(JSON.parse(JSON.stringify(res)));
       authorization = JSON.parse(JSON.stringify(res));
       location.reload()},
       err => {
@@ -32,7 +34,7 @@ export class LoginComponent implements OnInit {
       }
     );
 
-    if(authorization){
+    if(authorization == 'true'){
       let role = 'user';
       localStorage.setItem('currentUser',JSON.stringify({login:this.model.login, password:this.model.password, role: role}));
     }
