@@ -1,6 +1,6 @@
 package ua.com.nc.nctrainingproject.persistance.dao;
 
-import ua.com.nc.nctrainingproject.model.User;
+import ua.com.nc.nctrainingproject.models.User;
 
 import java.util.List;
 
