@@ -9,8 +9,8 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  model:LogView = {login:'guest',
-                password:'guest'};
+  model:LogView = {login:'',
+                password:''};
   constructor(private http: HttpClient) { }
 
   ngOnInit() {

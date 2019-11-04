@@ -8,7 +8,11 @@ import { Component, OnInit } from '@angular/core';
 export class NavigationComponent implements OnInit {
   str:string;
   constructor() {
+   if(localStorage.getItem('currentUser')==null){
+      localStorage.setItem('currentUser',JSON.stringify({login:'', password:'', role: 'guest'}));
+   }
    this.str = JSON.parse(localStorage.getItem('currentUser')).login;
+
    }
 
   ngOnInit() {
