@@ -1,17 +1,19 @@
 package ua.com.nc.nctrainingproject.models;
 
-public class User {
+public class Admin {
     private String userName;
     private String userPassword;
     private String email;
-    private String recoverCode;
-    public User(String userName, String userPassword, String email) {
+    private String adminRole;
+
+    public Admin(String userName, String userPassword, String email, String adminRole) {
         this.userName = userName;
         this.userPassword = userPassword;
         this.email = email;
+        this.adminRole = adminRole;
     }
 
-    public User() {
+    public Admin() {
 
     }
 
@@ -39,18 +41,20 @@ public class User {
         this.email = email;
     }
 
-    public String getRecoverCode() {
-        return recoverCode;
+    public String getAdminRole() {
+        return adminRole;
     }
 
-    public void setRecoverCode(String recoverCode) {
-        this.recoverCode = recoverCode;
+    public void setAdminRole(String adminRole) {
+        this.adminRole = adminRole;
     }
+
     @Override
     public String toString() {
-        return "User{" +
+        return "Admin{" +
                 "userName='" + userName + '\'' +
                 ", userPassword='" + userPassword + '\'' +
+                ", email='" + email + '\'' +
                 '}';
     }
 }
