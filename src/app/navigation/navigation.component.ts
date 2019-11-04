@@ -12,6 +12,8 @@ export class NavigationComponent implements OnInit {
   constructor() {
    if(localStorage.getItem('currentUser')==null){
       localStorage.setItem('currentUser',JSON.stringify({login:'', password:'', role: 'guest'}));
+      this.isLogged = false;
+      this.notLogged = true;
    }
   else{
     if(JSON.parse(localStorage.getItem('currentUser')).login == ''){

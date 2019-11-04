@@ -23,11 +23,11 @@ export class LoginComponent implements OnInit {
     form.append('password', this.model.password);
 
     this.http.post(url,form).subscribe(
-      res => {alert(JSON.stringify(res));
+      res => {
       authorization = JSON.parse(JSON.stringify(res));
       location.reload()},
       err => {
-      alert(JSON.parse(JSON.stringify(err)).message);
+      alert(JSON.parse(JSON.stringify(err)).status);
 
       }
     );
