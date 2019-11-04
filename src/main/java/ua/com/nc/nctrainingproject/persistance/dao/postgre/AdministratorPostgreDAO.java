@@ -25,6 +25,10 @@ public class AdministratorPostgreDAO implements AdministratorDAO {
         }
     }
 
+    public void updatePassword(String password, String agminName) {
+        jdbcTemplate.update(AdminQuery.UPDATE_PASSWORD, password, agminName);
+    }
+
     @Override
     public void createAdministrator(Admin admin) {
         jdbcTemplate.update(AdminQuery.CREATE_ADMIN, admin.getUserName(), admin.getUserPassword(), admin.getEmail(), "admin");

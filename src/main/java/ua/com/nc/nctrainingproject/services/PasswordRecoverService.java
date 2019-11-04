@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
+import ua.com.nc.nctrainingproject.persistance.dao.AdministratorDAO;
+import ua.com.nc.nctrainingproject.persistance.dao.postgre.AdministratorPostgreDAO;
 import ua.com.nc.nctrainingproject.persistance.dao.postgre.CodePostgreDAO;
 import ua.com.nc.nctrainingproject.persistance.dao.postgre.UserPostgreDAO;
 
@@ -16,6 +18,8 @@ public class PasswordRecoverService {
     private UserPostgreDAO userPostgreDAO;
     @Autowired
     private  CodePostgreDAO codePostgreDAO;
+    @Autowired
+    private AdministratorPostgreDAO administratorPostgreDAO;
     @Autowired
     private JavaMailSender sender;
     public String generateCode(String userName){
@@ -52,5 +56,14 @@ public class PasswordRecoverService {
         return false;
 
     }
+    public boolean passwordRecoverAdmin(String code,String newPassword,String adminName){
+        String codeDB = codePostgreDAO.getCodeByUserName(adminName);
+        if(code.equals(codeDB)){
+            administratorPostgreDAO.updatePassword(newPassword,adminName);
+            codePostgreDAO.deleteByUserName(adminName);
+            return true;
+        }
+        return false;
 
+    }
 }

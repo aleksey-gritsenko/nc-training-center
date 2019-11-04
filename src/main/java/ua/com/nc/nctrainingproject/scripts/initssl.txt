@@ -1,2 +1,2 @@
-echo "" | openssl s_client -connect smtp.gmail:465 -showcerts 2>/dev/null | openssl x509 -smtp.gmail.sert test.authorize.net.cert
+echo "" | openssl s_client -connect smtp.gmail.com:465 -showcerts 2>/dev/null | openssl x509 -out gmail.ssl.cert
 keytool -import -alias smtp.gmail.com -file gmail.ssl.cert -keystore cacerts
