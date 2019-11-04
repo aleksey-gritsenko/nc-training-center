@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
   }
   login():void{
     let url = 'http://localhost:8080/login';
-    let authorization = 'false';
+    var authorization;
     let form = new FormData();
     form.append('login', this.model.login);
     form.append('password', this.model.password);
@@ -25,18 +25,19 @@ export class LoginComponent implements OnInit {
     this.http.post(url,form).subscribe(
 
       res => {
-        alert(JSON.parse(JSON.stringify(res)));
+        //alert(JSON.parse(JSON.stringify(res)));
       authorization = JSON.parse(JSON.stringify(res));
-      location.reload()},
+        if(authorization){
+          let role = 'user';
+          localStorage.setItem('currentUser',JSON.stringify({login:this.model.login, password:this.model.password, role: role}));
+
+        }
+        },
       err => {
       alert(JSON.parse(JSON.stringify(err)).status);
-
+      authorization = false;
       }
     );
-
-    if(authorization == 'true'){
-      let role = 'user';
-      localStorage.setItem('currentUser',JSON.stringify({login:this.model.login, password:this.model.password, role: role}));
-    }
+    location.reload();
   }
 }
