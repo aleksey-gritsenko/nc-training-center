@@ -1,7 +1,7 @@
 <div class="topnav">
   <a class="active" href="home">Home</a>
   <div class="login-container">
-    <a (click)="logout()">Logout</a>
+    <button on-click="logout()">Logout</button>
   </div>
   <div *ngIf="notLogged" class="login-container">
     <a href="login">Login</a>

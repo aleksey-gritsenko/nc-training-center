@@ -34,5 +34,5 @@ export class NavigationComponent implements OnInit {
   }
   logout():void{
     localStorage.setItem('currentUser',JSON.stringify({login:'', password:'', role: 'guest'}));
-   }
+    location.reload()}
 }
