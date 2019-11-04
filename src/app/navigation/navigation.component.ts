@@ -7,10 +7,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavigationComponent implements OnInit {
   str:string;
-  isLogged:boolean;
-  notLogged:boolean;
+  isLogged: boolean;
+  notLogged: boolean;
   constructor() {
-   if(localStorage.getItem('currentUser')==null){
+   if(localStorage.getItem('currentUser') == null){
       localStorage.setItem('currentUser',JSON.stringify({login:'', password:'', role: 'guest'}));
       this.isLogged = false;
       this.notLogged = true;
@@ -28,9 +28,11 @@ export class NavigationComponent implements OnInit {
   }
    this.str = JSON.parse(localStorage.getItem('currentUser')).login;
 
-   }
+}
 
   ngOnInit() {
   }
-
+  logout():void{
+    localStorage.setItem('currentUser',JSON.stringify({login:'', password:'', role: 'guest'}));
+   }
 }
