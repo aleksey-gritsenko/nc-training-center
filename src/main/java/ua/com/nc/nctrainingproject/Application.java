@@ -9,10 +9,9 @@ import ua.com.nc.nctrainingproject.persistance.dao.postgre.UserPostgreDAO;
 @SpringBootApplication
 public class Application {
     @Autowired
-   static UserPostgreDAO userPostgreDAO;
+    static UserPostgreDAO userPostgreDAO;
 
-
-	public static void main(String[] args) {
-			SpringApplication.run(Application.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(Application.class, args);
+    }
 }
