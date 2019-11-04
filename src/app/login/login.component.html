@@ -1,0 +1,15 @@
+<form method="post" #f="ngForm" (submit)="login()">
+  <table>
+    <tr>
+      <td><label for="login">Login</label></td>
+      <td><input id="login" type="text" name="login" placeholder= "" [(ngModel)]= "model.login"></td>
+    </tr>
+    <tr>
+      <td><label for="password">Password</label></td>
+      <td><input id="password" type="password" name="password" placeholder= ""  [(ngModel)]="model.password"></td>
+    </tr>
+  </table>
+  <input type="submit" value="Log in">
+
+</form>
+<a href="registration">Registration</a>
