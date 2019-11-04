@@ -30,12 +30,19 @@ public class PasswordRecoverController {
         }
     }
 
-    @RequestMapping("/recover")
+    @RequestMapping("/userrecover")
     @ResponseBody
-    public boolean passwordRecover(@RequestParam String code,
+    public boolean passwordRecoverUser(@RequestParam String code,
                                 @RequestParam String userName,
                                 @RequestParam String newPassword) {
     return passwordRecoverService.passwordRecover(code,newPassword,userName);
+    }
+    @RequestMapping("/adminrecover")
+    @ResponseBody
+    public boolean passwordRecoverAdmin(@RequestParam String code,
+                                       @RequestParam String AdminName,
+                                       @RequestParam String newPassword) {
+         return passwordRecoverService.passwordRecoverAdmin(code,newPassword,AdminName);
     }
 
 

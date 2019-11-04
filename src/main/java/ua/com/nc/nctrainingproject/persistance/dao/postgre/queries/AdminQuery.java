@@ -11,4 +11,7 @@ public class AdminQuery {
     public static final String GET_ADMIN_BY_NAME = "SELECT * FROM " + TABLE_NAME + " WHERE name = (?)";
     public static final String CREATE_ADMIN = "INSERT INTO  " + TABLE_NAME +
             " (" + NAME + "," + PASSWORD + "," + EMAIL + "," + ROLE + ")" + " VALUES(?,?,?,?)";
+    public static final String UPDATE_PASSWORD = "UPDATE " + TABLE_NAME+" set "+
+            PASSWORD +"=(?)" +" where " +NAME+ "=(?)";
+
 }
