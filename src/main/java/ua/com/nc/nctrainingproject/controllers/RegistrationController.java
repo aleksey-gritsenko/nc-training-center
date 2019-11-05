@@ -1,15 +1,13 @@
 package ua.com.nc.nctrainingproject.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ua.com.nc.nctrainingproject.persistance.dao.postgre.UserPostgreDAO;
 import ua.com.nc.nctrainingproject.services.RegistrationService;
 
 @RequestMapping("/registration")
 @RestController
+@CrossOrigin
 public class RegistrationController {
 
     @Autowired
@@ -19,9 +17,9 @@ public class RegistrationController {
     RegistrationService registrationService;
 
     @PostMapping
-    public boolean registration(@RequestParam String login,
-                                @RequestParam String password,
-                                @RequestParam String email) {
+    public boolean registration(@RequestParam(name = "login") String login,
+                                @RequestParam(name = "password") String password,
+                                @RequestParam(name = "email") String email) {
         return registrationService.reg(login, password, email);
     }
 }

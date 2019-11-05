@@ -6,13 +6,16 @@ import ua.com.nc.nctrainingproject.services.AuthorizationService;
 
 @RequestMapping("/login")
 @RestController
+@CrossOrigin
 public class AuthorizationController {
 
     @Autowired
     AuthorizationService authorizationService;
 
     @PostMapping
-    public boolean login(@RequestParam String login, @RequestParam String password) {
+    public boolean login(@RequestParam(name = "login") String login, @RequestParam(name = "password") String password) {
+
+
         return authorizationService.auth(login, password);
     }
 }
