@@ -1,10 +1,12 @@
 package ua.com.nc.nctrainingproject.models;
 
 public class User {
+
     private String userName;
     private String userPassword;
     private String email;
     private String recoverCode;
+
     public User(String userName, String userPassword, String email) {
         this.userName = userName;
         this.userPassword = userPassword;
