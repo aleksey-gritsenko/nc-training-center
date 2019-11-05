@@ -19,7 +19,7 @@ public class AdministratorPostgreDAO implements AdministratorDAO {
     @Override
     public Admin getAdministratorByName(String name) {
         try {
-            return jdbcTemplate.query(AdminQuery.GET_ADMIN_BY_NAME, new Object[]{name}, new AdminRowMapper()).get(0);
+            return jdbcTemplate.query(AdminQuery.GET_ADMIN_BY_NAME, new Object[]{name}, new AdminRowMapper());
         } catch (EmptyResultDataAccessException e) {
             return null;
         }

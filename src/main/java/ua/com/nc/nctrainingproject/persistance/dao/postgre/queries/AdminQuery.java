@@ -14,4 +14,6 @@ public class AdminQuery {
     public static final String UPDATE_PASSWORD = "UPDATE " + TABLE_NAME+" set "+
             PASSWORD +"=(?)" +" where " +NAME+ "=(?)";
 
+    public static final String GET_PASSWORD_BY_NAME = "SELECT password FROM " + TABLE_NAME + " WHERE name=(?)";
+
 }

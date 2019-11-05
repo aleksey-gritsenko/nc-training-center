@@ -12,6 +12,8 @@ import ua.com.nc.nctrainingproject.persistance.mappers.CodeRowMapper;
 import ua.com.nc.nctrainingproject.persistance.mappers.UserRowMapper;
 
 import java.util.Date;
+
+
 @Repository
 public class CodePostgreDAO implements CodeRecoverDAO {
 
@@ -23,6 +25,7 @@ public class CodePostgreDAO implements CodeRecoverDAO {
         jdbcTemplate.update(CodeRecoverQuery.CREATE_CODE,code,new Date()
                 ,userName);
     }
+
     public String getCodeByUserName(String userName) {
         try {
             return jdbcTemplate.queryForObject
@@ -34,7 +37,6 @@ public class CodePostgreDAO implements CodeRecoverDAO {
     }
     public void deleteByUserName(String userName){
         jdbcTemplate.update(CodeRecoverQuery.DELETE_CODE_BY_USERNAME,userName);
-
     }
 
 }
