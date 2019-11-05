@@ -28,16 +28,16 @@ public class PasswordRecoverService {
 
 
     public String generateCode(String userName){
-          String generatedString = "";
-          int[] array = new int[6];
-          Random rn = new Random();
-          for (int i = 0; i < array.length; i++) {
-               array[i] = rn.nextInt(9) + 1;
-               generatedString = generatedString+array[i];
-          }
-          codePostgreDAO.createCode(generatedString,userName);
+        String generatedString = "";
+        int[] array = new int[6];
+        Random rn = new Random();
+        for (int i = 0; i < array.length; i++) {
+           array[i] = rn.nextInt(9) + 1;
+           generatedString = generatedString+array[i];
+        }
+        codePostgreDAO.createCode(generatedString,userName);
 
-          return generatedString;
+        return generatedString;
     }
 
     public void makeEmail(String email,String userName) throws Exception {
@@ -68,7 +68,7 @@ public class PasswordRecoverService {
         String codeDB = codePostgreDAO.getCodeByUserName(adminName);
 
         if (code.equals(codeDB)) {
-            administratorPostgreDAO.updatePassword(newPassword,adminName);
+            administratorPostgreDAO.updateAdminPassword(newPassword,adminName);
             codePostgreDAO.deleteByUserName(adminName);
             return true;
         }

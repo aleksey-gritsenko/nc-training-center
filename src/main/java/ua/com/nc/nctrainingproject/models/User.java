@@ -48,6 +48,7 @@ public class User {
     public void setRecoverCode(String recoverCode) {
         this.recoverCode = recoverCode;
     }
+
     @Override
     public String toString() {
         return "User{" +

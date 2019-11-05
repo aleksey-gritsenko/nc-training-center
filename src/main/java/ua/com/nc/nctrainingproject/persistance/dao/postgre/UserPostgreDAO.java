@@ -15,8 +15,12 @@ import java.util.List;
 @Repository
 public class UserPostgreDAO implements UserDAO {
 
+    private final JdbcTemplate jdbcTemplate;
+
     @Autowired
-    JdbcTemplate jdbcTemplate;
+    public UserPostgreDAO(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
 
     @Override
     public User getUserByUserName(String userName) {
