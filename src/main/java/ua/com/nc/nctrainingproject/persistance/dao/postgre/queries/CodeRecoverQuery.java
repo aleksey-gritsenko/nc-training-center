@@ -1,6 +1,7 @@
 package ua.com.nc.nctrainingproject.persistance.dao.postgre.queries;
 
 public class CodeRecoverQuery {
+
     public static final String TABLE_NAME = "recoverCode";
     public static final String CODE = "code";
     public static final String CODE_DATE = "code_date";
