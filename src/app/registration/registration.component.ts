@@ -16,6 +16,8 @@ export class RegistrationComponent implements OnInit {
   };
   constructor(private http: HttpClient) { }
 
+  confirmPassword: string = '';
+
   ngOnInit() {
   }
   register():void{

@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
   }
   login():void{
     let url = 'http://localhost:8080/login';
-    var authorization;
+    let authorization;
     let form = new FormData();
     form.append('login', this.model.login);
     form.append('password', this.model.password);
