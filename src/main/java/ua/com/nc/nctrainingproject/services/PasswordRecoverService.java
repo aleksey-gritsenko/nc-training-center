@@ -9,6 +9,7 @@ import ua.com.nc.nctrainingproject.persistance.dao.postgre.AdministratorPostgreD
 import ua.com.nc.nctrainingproject.persistance.dao.postgre.CodePostgreDAO;
 import ua.com.nc.nctrainingproject.persistance.dao.postgre.UserPostgreDAO;
 
+import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.nio.charset.Charset;
 import java.util.Random;
@@ -34,7 +35,7 @@ public class PasswordRecoverService {
 
         return generatedString;
     }
-    public void makeEmail(String email,String userName) throws Exception {
+    public void makeEmail(String email,String userName) throws MessagingException {
 
         MimeMessage message = sender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);

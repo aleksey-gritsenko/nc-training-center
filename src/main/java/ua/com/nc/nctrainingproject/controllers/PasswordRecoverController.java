@@ -1,6 +1,7 @@
 package ua.com.nc.nctrainingproject.controllers;
 
 
+import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,27 +31,34 @@ public class PasswordRecoverController {
                 passwordRecoverService.makeEmail(email, userName);
                 return new ResponseEntity<>(HttpStatus.OK);
             }
-        } catch (Exception ex) {
+        } catch (MessagingException ex) {
             ex.printStackTrace();
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
     }
 
 
     @RequestMapping("/userrecover")
     @ResponseBody
-    public boolean passwordRecoverUser(@RequestParam String code,
+    public ResponseEntity<?> passwordRecoverUser(@RequestParam String code,
                                 @RequestParam String userName,
                                 @RequestParam String newPassword) {
-    return passwordRecoverService.passwordRecover(code,newPassword,userName);
+    if (passwordRecoverService.passwordRecover(code,newPassword,userName)){
+        return new ResponseEntity<>(HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
     @RequestMapping("/adminrecover")
     @ResponseBody
-    public boolean passwordRecoverAdmin(@RequestParam String code,
+    public ResponseEntity<?> passwordRecoverAdmin(@RequestParam String code,
                                        @RequestParam String AdminName,
                                        @RequestParam String newPassword) {
-         return passwordRecoverService.passwordRecoverAdmin(code,newPassword,AdminName);
+         if( passwordRecoverService.passwordRecoverAdmin(code,newPassword,AdminName)){
+             return new ResponseEntity<>(HttpStatus.OK);
+         }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
 
