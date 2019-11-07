@@ -1,5 +1,5 @@
 package ua.com.nc.nctrainingproject;
-import org.springframework.context.annotation.Bean;
+/*import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.Properties;
@@ -28,3 +28,4 @@ public class SpringMailConfiguration {
         return mailSender;
     }
 }
+*/
