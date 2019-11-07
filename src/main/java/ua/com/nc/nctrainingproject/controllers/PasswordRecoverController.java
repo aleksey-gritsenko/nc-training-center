@@ -4,6 +4,8 @@ package ua.com.nc.nctrainingproject.controllers;
 import javax.mail.internet.MimeMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
@@ -21,17 +23,18 @@ public class PasswordRecoverController {
 
     @RequestMapping("/email")
     @ResponseBody
-    public String emailSender(@RequestParam String email,@RequestParam String userName) {
+    public ResponseEntity<?> emailSender(@RequestParam String email, @RequestParam String userName) {
         try {
             if(passwordRecoverService.verifyEmailUser(userName,email)
                     || passwordRecoverService.verifyEmailAdmin(userName,email)) {
                 passwordRecoverService.makeEmail(email, userName);
-                return "ok";
+                return new ResponseEntity<>(HttpStatus.OK);
             }
         } catch (Exception ex) {
             ex.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        return "error";
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
 
