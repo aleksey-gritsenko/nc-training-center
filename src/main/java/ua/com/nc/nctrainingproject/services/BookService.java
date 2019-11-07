@@ -22,4 +22,23 @@ public class BookService {
 
 		return book;
 	}
+
+	public Book updateBook(int bookId, String title, String header, String author,
+						   String overview, String status, int photoId, int fileId){
+		Book book = bookPostgreDAO.getBookById(bookId);
+
+		if (book != null) {
+			book.setTitle(title);
+			book.setHeader(header);
+			book.setAuthor(author);
+			book.setOverview(overview);
+			book.setStatus(status);
+			book.setPhotoId(photoId);
+			book.setFileId(fileId);
+			bookPostgreDAO.updateBook(book, bookId);
+			return book;
+		} else {
+			return null;
+		}
+	}
 }

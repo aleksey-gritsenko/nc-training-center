@@ -6,15 +6,15 @@ import java.util.List;
 
 public interface BookDAO {
 
+	Book getBookById(int bookId);
+
 	Book getBookByTitle(String title);
 
 	Book getBookByAuthor(String author);
 
 	Book getBookByStatus(String status);
 
-	void updateBook(int book_id, String title, String header,
-					String author, String overview,
-					String status, int photoId, int fileId);
+	void updateBook(Book book, int bookId);
 
 	void createBook(Book book);
 

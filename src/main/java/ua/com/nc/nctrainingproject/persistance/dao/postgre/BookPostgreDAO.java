@@ -22,6 +22,15 @@ public class BookPostgreDAO implements BookDAO {
 	}
 
 	@Override
+	public Book getBookById(int bookId) {
+		try {
+			return jdbcTemplate.queryForObject(BookQuery.GET_BOOK_BY_ID, new Object[]{bookId}, new BookRowMapper());
+		} catch (EmptyResultDataAccessException e) {
+			return null;
+		}
+	}
+
+	@Override
 	public Book getBookByTitle(String title) {
 		try {
 			return jdbcTemplate.queryForObject(BookQuery.GET_BOOK_BY_TITLE, new Object[]{title}, new BookRowMapper());
@@ -60,11 +69,16 @@ public class BookPostgreDAO implements BookDAO {
 				book.getStatus());
 	}
 
-	@Override
-	public void updateBook(int book_id, String title, String header,
+	public void updateBook(int bookId, String title, String header,
 						   String author, String overview,
 						   String status, int photoId, int fileId) {
-		jdbcTemplate.update(BookQuery.UPDATE_BOOK, title, header, author, overview, status, photoId, fileId, book_id);
+		jdbcTemplate.update(BookQuery.UPDATE_BOOK, title, header, author, overview, status, photoId, fileId, bookId);
+	}
+
+	@Override
+	public void updateBook(Book book, int bookId) {
+		jdbcTemplate.update(BookQuery.UPDATE_BOOK, book.getTitle(), book.getHeader(), book.getAuthor(),
+				book.getOverview(), book.getPhotoId(), book.getFileId(), book.getStatus(), bookId);
 	}
 
 

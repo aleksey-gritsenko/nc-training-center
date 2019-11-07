@@ -13,6 +13,9 @@ public class BookQuery {
 	public static final String STATUS = "status";
 	public static final String GENRE_ID = "genre_id";
 
+	public static final String GET_BOOK_BY_ID = "SELECT * FROM " + TABLE_NAME
+			+ " WHERE " + BOOK_ID + " =(?)";
+
 	public static final String GET_BOOK_BY_TITLE = "SELECT * FROM " + TABLE_NAME
 			+ " WHERE " + TITLE + " =(?)";
 
@@ -28,9 +31,9 @@ public class BookQuery {
 
 	public static final String GET_ALL_BOOKS = "SELECT * FROM " + TABLE_NAME;
 
-	public static final String UPDATE_BOOK = "UPDATE " + TABLE_NAME + " set " +
-			TITLE + "=(?)" + HEADER + "=(?)" + AUTHOR + "=(?)" +
-			OVERVIEW + "=(?)" + PHOTO + "=(?)" + FILE + "=(?)" +
-			STATUS + "=(?)" + " where " + BOOK_ID + "=(?)";
+	public static final String UPDATE_BOOK = "UPDATE " + TABLE_NAME + " SET " +
+			TITLE + "=(?), " + HEADER + "=(?), " + AUTHOR + "=(?), " +
+			OVERVIEW + "=(?), " + PHOTO + "=(?), " + FILE + "=(?), " +
+			STATUS + "=(?)" + " WHERE " + BOOK_ID + "=(?)";
 
 }
