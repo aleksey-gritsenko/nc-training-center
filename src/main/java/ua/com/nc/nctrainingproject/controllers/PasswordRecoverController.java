@@ -21,14 +21,19 @@ public class PasswordRecoverController {
 
     @RequestMapping("/email")
     @ResponseBody
-    public void emailSender(@RequestParam String email,@RequestParam String userName) {
+    public String emailSender(@RequestParam String email,@RequestParam String userName) {
         try {
-            passwordRecoverService.makeEmail(email,userName);
-
+            if(passwordRecoverService.verifyEmailUser(userName,email)
+                    || passwordRecoverService.verifyEmailAdmin(userName,email)) {
+                passwordRecoverService.makeEmail(email, userName);
+                return "ok";
+            }
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+        return "error";
     }
+
 
     @RequestMapping("/userrecover")
     @ResponseBody

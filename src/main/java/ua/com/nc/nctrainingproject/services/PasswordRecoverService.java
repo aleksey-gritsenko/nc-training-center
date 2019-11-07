@@ -46,6 +46,19 @@ public class PasswordRecoverService {
 
         sender.send(message);
     }
+    public boolean verifyEmailUser(String userName,String email){
+        if (userPostgreDAO.getUserEmailByUserName(userName,email)== null){
+            return false;
+        }
+        return true;
+    }
+    public boolean verifyEmailAdmin(String adminName,String email){
+        if (administratorPostgreDAO.getAdminEmailByAdminName(adminName,email)==null){
+            return false;
+        }
+        return true;
+    }
+
     public boolean passwordRecover(String code,String newPassword,String userName){
         String codeDB = codePostgreDAO.getCodeByUserName(userName);
         if(code.equals(codeDB)){

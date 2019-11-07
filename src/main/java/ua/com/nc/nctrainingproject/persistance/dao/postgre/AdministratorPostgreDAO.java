@@ -10,6 +10,8 @@ import ua.com.nc.nctrainingproject.persistance.dao.postgre.queries.AdminQuery;
 import ua.com.nc.nctrainingproject.persistance.dao.postgre.queries.UserQuery;
 import ua.com.nc.nctrainingproject.persistance.mappers.AdminRowMapper;
 
+import java.util.List;
+
 
 @Repository
 public class AdministratorPostgreDAO implements AdministratorDAO {
@@ -32,4 +34,17 @@ public class AdministratorPostgreDAO implements AdministratorDAO {
     public void createAdministrator(Admin admin) {
         jdbcTemplate.update(AdminQuery.CREATE_ADMIN, admin.getUserName(), admin.getUserPassword(), admin.getEmail(), "admin");
     }
+
+    public String getAdminEmailByAdminName(String adminName,String email){
+
+        List<Admin> result =    jdbcTemplate.query(AdminQuery.GET_EMAIL_BY_NAME,
+                new AdminRowMapper(),adminName,email);
+        if(result.size() == 0){
+            return null;
+        }
+        return result.get(0).getEmail();
+    }
+
+
+
 }
