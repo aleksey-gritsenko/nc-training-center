@@ -46,6 +46,10 @@ component:RegistrationComponent
 path:'home',
 component: LandingComponent
 },
+  {
+    path: 'books',
+    component: BooksListComponent
+  },
 {
 path:'',
 component: LandingComponent,

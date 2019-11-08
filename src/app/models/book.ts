@@ -1,8 +1,9 @@
 export class Book{
     title: string;
-    author: string;
-    desription: Text; // maybe Text?
-    dateOfPublish: Date; // maybe Date?
-    rate: DoubleRange; // Double or Int
-    genre: string;
+    header: string;
+    author:string;
+    overview: string; // maybe Text?
+    photo:number;
+    file: string; // Double or Int
+    status: number;
 }
