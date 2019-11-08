@@ -1,60 +1,62 @@
 package ua.com.nc.nctrainingproject.models;
 
 public class Admin {
-    private String userName;
-    private String userPassword;
-    private String email;
-    private String adminRole;
 
-    public Admin(String userName, String userPassword, String email, String adminRole) {
-        this.userName = userName;
-        this.userPassword = userPassword;
-        this.email = email;
-        this.adminRole = adminRole;
-    }
+	private String adminName;
+	private String adminPassword;
+	private String email;
+	private String adminRole;
 
-    public Admin() {
+	public Admin(String adminName, String adminPassword, String email, String adminRole) {
+		this.adminName = adminName;
+		this.adminPassword = adminPassword;
+		this.email = email;
+		this.adminRole = adminRole;
+	}
 
-    }
+	public Admin() {
 
-    public String getUserName() {
-        return userName;
-    }
+	}
 
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
+	public String getAdminName() {
+		return adminName;
+	}
 
-    public String getUserPassword() {
-        return userPassword;
-    }
+	public void setAdminName(String adminName) {
+		this.adminName = adminName;
+	}
 
-    public void setUserPassword(String userPassword) {
-        this.userPassword = userPassword;
-    }
+	public String getAdminPassword() {
+		return adminPassword;
+	}
 
-    public String getEmail() {
-        return email;
-    }
+	public void setAdminPassword(String adminPassword) {
+		this.adminPassword = adminPassword;
+	}
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+	public String getEmail() {
+		return email;
+	}
 
-    public String getAdminRole() {
-        return adminRole;
-    }
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-    public void setAdminRole(String adminRole) {
-        this.adminRole = adminRole;
-    }
+	public String getAdminRole() {
+		return adminRole;
+	}
 
-    @Override
-    public String toString() {
-        return "Admin{" +
-                "userName='" + userName + '\'' +
-                ", userPassword='" + userPassword + '\'' +
-                ", email='" + email + '\'' +
-                '}';
-    }
+	public void setAdminRole(String adminRole) {
+		this.adminRole = adminRole;
+	}
+
+	@Override
+	public String toString() {
+		return "Admin{" +
+				"adminName='" + adminName + '\'' +
+				", adminPassword='" + adminPassword + '\'' +
+				", email='" + email + '\'' +
+				", adminRole='" + adminRole + '\'' +
+				'}';
+	}
 }
