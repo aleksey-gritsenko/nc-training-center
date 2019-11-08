@@ -15,11 +15,15 @@
 <!--<a href="registration">Registration</a>-->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <!--CSS style code starts here-->
 <style>
+  .container {
+    all: initial;
+    all: unset;
+    all:
+  }
+
   a:hover,a:focus{
     outline: none;
     text-decoration: none;
@@ -135,7 +139,7 @@
     border-right: none;
     background: transparent;
     opacity: 0;
-    -webkit-transform: rotate(-45deg);
+     -webkit-transform: rotate(-45deg);
     transform: rotate(-45deg);
   }
   .form-horizontal .main-checkbox input[type=checkbox]{ visibility: hidden; }
@@ -189,14 +193,14 @@
 
 <!--HTML code starts here-->
 <div class="container">
-  <div class="row">
+  <div class="row" style="width: 100%">
     <div class="col-md-offset-3 col-md-6">
 
       <div class="tab" role="tabpanel">
         <!-- Nav tabs -->
         <ul class="nav nav-tabs" role="tablist">
-          <li role="presentation" class="active"><a aria-controls="home" role="tab" data-toggle="tab">sign in</a></li>
-          <li role="presentation"><a href="/registration" aria-controls="profile" role="tab" data-toggle="tab">sign up</a></li>
+          <li role="presentation" class="active"><a aria-controls="home" role="tab">sign in</a></li>
+          <li role="presentation"><a href="/registration" aria-controls="profile" role="tab" >sign up</a></li>
         </ul>
         <!-- Tab panes -->
         <div class="tab-content tabs">

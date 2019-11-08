@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { Book } from 'src/app/models/book';
 import { Announcement } from 'src/app/models/announcement';
 import { Review } from 'src/app/models/review';
-import { Filter, BookFilter } from 'src/app/models/bookfilter';
+import { BookFilter } from 'src/app/models/bookfilter';
 
 @Injectable({
   providedIn: 'root'
@@ -42,13 +42,13 @@ export class CommonService {
     return this.http.get<Announcement[]>(this.announcementsUrl);
   }
 
-  getAnnouncementsByFilter() : Observable<Announcement[]>{
+  // getAnnouncementsByFilter() : Observable<Announcement[]>{
+  //
+  // }
 
-  }
-
-  getReviews(book : Book) : Observable<Review[]>{
-
-  }
+  // getReviews(book : Book) : Observable<Review[]>{
+  //
+  // }
 
   recoverPassword(){
 

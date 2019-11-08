@@ -32,6 +32,7 @@ import { ModeratorsListComponent } from './components/moderators-list/moderators
 import { AdminsListComponent } from './components/admins-list/admins-list.component';
 import { ChatComponent } from './components/chat/chat.component';
 import { CalendarComponent } from './components/calendar/calendar.component';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
 
 const appRoutes: Routes = [
 {
@@ -52,10 +53,13 @@ component: LandingComponent,
 pathMatch:'full'
 },
 {
+path: 'user',
+component: UserProfileComponent
+},
+{
 path:'**',
 component:ErrorpageComponent
-}
-
+},
 
 ];
 
@@ -87,7 +91,8 @@ component:ErrorpageComponent
     ModeratorsListComponent,
     AdminsListComponent,
     ChatComponent,
-    CalendarComponent
+    CalendarComponent,
+    SidebarComponent
   ],
   imports: [
     BrowserModule,

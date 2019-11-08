@@ -29,7 +29,7 @@ export class UserService {
 
   manageProfile(user : User){
     const url = `/users/${user.login}`;
-    this.http.update(url, user);
+    // this.http.update(url, user);
   }
 
   searchUser(name : string){
@@ -127,11 +127,11 @@ export class UserService {
   }
 
   getAnnouncementsByFilter(){
-    this.commonService.getAnnouncementsByFilter();
+    // this.commonService.getAnnouncementsByFilter();
   }
 
   getReviews(book : Book){
-    this.commonService.getReviews(book);
+    // this.commonService.getReviews(book);
   }
 
   recoverPassword(){
