@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.*;
 import ua.com.nc.nctrainingproject.models.Book;
 import ua.com.nc.nctrainingproject.services.BookService;
 
+import java.util.List;
+
 @RestController
 @CrossOrigin
 public class BookController {
@@ -39,5 +41,10 @@ public class BookController {
 						   @RequestParam(name = "status") String status) {
 
 		return bookService.updateBook(bookId, title, header, author, overview, status, photoId, fileId);
+	}
+
+	@RequestMapping(value = "/book/all-books", method = RequestMethod.GET)
+	public List<Book> getAllBooks(){
+		return  bookService.getAllBooks();
 	}
 }

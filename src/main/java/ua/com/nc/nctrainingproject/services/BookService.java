@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 import ua.com.nc.nctrainingproject.models.Book;
 import ua.com.nc.nctrainingproject.persistance.dao.postgre.BookPostgreDAO;
 
+import java.util.List;
+
 @Service
 public class BookService {
 
@@ -40,5 +42,9 @@ public class BookService {
 		} else {
 			return null;
 		}
+	}
+
+	public List<Book> getAllBooks(){
+		return bookPostgreDAO.getAllBooks();
 	}
 }
