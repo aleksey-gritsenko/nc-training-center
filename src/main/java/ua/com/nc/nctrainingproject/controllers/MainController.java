@@ -15,4 +15,15 @@ public class MainController {
     public String reg(){
         return "registration";
     }
+
+    @GetMapping("/book")
+    public String addBook(){
+        return "book";
+    }
+
+    @GetMapping("/book/update")
+    public String updateBook(){
+        return "updateBook";
+    }
+
 }
