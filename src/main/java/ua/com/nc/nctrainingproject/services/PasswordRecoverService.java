@@ -4,36 +4,42 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
-import ua.com.nc.nctrainingproject.persistance.dao.AdministratorDAO;
 import ua.com.nc.nctrainingproject.persistance.dao.postgre.AdministratorPostgreDAO;
 import ua.com.nc.nctrainingproject.persistance.dao.postgre.CodePostgreDAO;
 import ua.com.nc.nctrainingproject.persistance.dao.postgre.UserPostgreDAO;
 
 import javax.mail.internet.MimeMessage;
-import java.nio.charset.Charset;
 import java.util.Random;
 @Service
 public class PasswordRecoverService {
+
+    private final UserPostgreDAO userPostgreDAO;
+    private final CodePostgreDAO codePostgreDAO;
+    private final AdministratorPostgreDAO administratorPostgreDAO;
+    private final JavaMailSender sender;
+
     @Autowired
-    private UserPostgreDAO userPostgreDAO;
-    @Autowired
-    private  CodePostgreDAO codePostgreDAO;
-    @Autowired
-    private AdministratorPostgreDAO administratorPostgreDAO;
-    @Autowired
-    private JavaMailSender sender;
+    public PasswordRecoverService(JavaMailSender sender, AdministratorPostgreDAO administratorPostgreDAO, CodePostgreDAO codePostgreDAO, UserPostgreDAO userPostgreDAO) {
+        this.sender = sender;
+        this.administratorPostgreDAO = administratorPostgreDAO;
+        this.codePostgreDAO = codePostgreDAO;
+        this.userPostgreDAO = userPostgreDAO;
+    }
+
+
     public String generateCode(String userName){
-        String generatedString = new String();
+        String generatedString = "";
         int[] array = new int[6];
         Random rn = new Random();
-        for(int i = 0; i < array.length; i++){
-             array[i] = rn.nextInt(9) + 1;
-             generatedString = generatedString+array[i];
+        for (int i = 0; i < array.length; i++) {
+           array[i] = rn.nextInt(9) + 1;
+           generatedString = generatedString+array[i];
         }
         codePostgreDAO.createCode(generatedString,userName);
 
         return generatedString;
     }
+
     public void makeEmail(String email,String userName) throws Exception {
 
         MimeMessage message = sender.createMimeMessage();
@@ -46,24 +52,26 @@ public class PasswordRecoverService {
 
         sender.send(message);
     }
+
     public boolean passwordRecover(String code,String newPassword,String userName){
         String codeDB = codePostgreDAO.getCodeByUserName(userName);
-        if(code.equals(codeDB)){
-        userPostgreDAO.updatePassword(newPassword,userName);
-        codePostgreDAO.deleteByUserName(userName);
-        return true;
+
+        if (code.equals(codeDB)) {
+            userPostgreDAO.updatePassword(newPassword,userName);
+            codePostgreDAO.deleteByUserName(userName);
+            return true;
         }
         return false;
-
     }
+
     public boolean passwordRecoverAdmin(String code,String newPassword,String adminName){
         String codeDB = codePostgreDAO.getCodeByUserName(adminName);
-        if(code.equals(codeDB)){
-            administratorPostgreDAO.updatePassword(newPassword,adminName);
+
+        if (code.equals(codeDB)) {
+            administratorPostgreDAO.updateAdminPassword(newPassword,adminName);
             codePostgreDAO.deleteByUserName(adminName);
             return true;
         }
         return false;
-
     }
 }
