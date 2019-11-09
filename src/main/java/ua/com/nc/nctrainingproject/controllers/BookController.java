@@ -40,4 +40,11 @@ public class BookController {
 
 		return bookService.updateBook(bookId, title, header, author, overview, status, photoId, fileId);
 	}
+  @RequestMapping(value = "/book/title", method = RequestMethod.GET)
+  @ResponseBody
+  public Book findBookByTitle(@RequestParam(name = "title") String title){
+	  return bookService.findBookByTitle(title);
+
+  }
+
 }

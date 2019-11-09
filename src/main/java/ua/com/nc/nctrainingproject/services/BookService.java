@@ -22,7 +22,10 @@ public class BookService {
 
 		return book;
 	}
+  public Book findBookByTitle(String name){
+    return bookPostgreDAO.getBookByTitle(name);
 
+  }
 	public Book updateBook(int bookId, String title, String header, String author,
 						   String overview, String status, int photoId, int fileId){
 		Book book = bookPostgreDAO.getBookById(bookId);

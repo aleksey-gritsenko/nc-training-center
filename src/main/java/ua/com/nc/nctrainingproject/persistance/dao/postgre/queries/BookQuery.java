@@ -8,8 +8,8 @@ public class BookQuery {
 	public static final String HEADER = "header";
 	public static final String AUTHOR = "author";
 	public static final String OVERVIEW = "overview";
-	public static final String PHOTO = "photo";
-	public static final String FILE = "file";
+	public static final String PHOTO = "photo_id";
+	public static final String FILE = "file_id";
 	public static final String STATUS = "status";
 	public static final String GENRE_ID = "genre_id";
 
@@ -17,7 +17,7 @@ public class BookQuery {
 			+ " WHERE " + BOOK_ID + " =(?)";
 
 	public static final String GET_BOOK_BY_TITLE = "SELECT * FROM " + TABLE_NAME
-			+ " WHERE " + TITLE + " =(?)";
+			+ " WHERE " + HEADER + " =(?)";
 
 	public static final String GET_BOOK_BY_AUTHOR = "SELECT * FROM " + TABLE_NAME
 			+ " WHERE " + AUTHOR + " =(?)";
