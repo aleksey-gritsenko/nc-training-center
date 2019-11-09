@@ -16,13 +16,13 @@ public class BookQuery {
 	public static final String GET_BOOK_BY_ID = "SELECT * FROM " + TABLE_NAME
 			+ " WHERE " + BOOK_ID + " =(?)";
 
-	public static final String GET_BOOK_BY_TITLE = "SELECT * FROM " + TABLE_NAME
+	public static final String GET_BOOKS_BY_TITLE = "SELECT * FROM " + TABLE_NAME
 			+ " WHERE " + TITLE + " =(?)";
 
-	public static final String GET_BOOK_BY_AUTHOR = "SELECT * FROM " + TABLE_NAME
+	public static final String GET_BOOKS_BY_AUTHOR = "SELECT * FROM " + TABLE_NAME
 			+ " WHERE " + AUTHOR + " =(?)";
 
-	public static final String GET_BOOK_BY_STATUS = "SELECT * FROM " + TABLE_NAME
+	public static final String GET_BOOKS_BY_STATUS = "SELECT * FROM " + TABLE_NAME
 			+ " WHERE " + STATUS + " =(?)";
 
 	public static final String CREATE_BOOK = "INSERT INTO " + TABLE_NAME
