@@ -1,5 +1,9 @@
 /*package ua.com.nc.nctrainingproject;
 import org.springframework.context.annotation.Bean;
+=======
+package ua.com.nc.nctrainingproject;
+/*import org.springframework.context.annotation.Bean;
+>>>>>>> develop
 import org.springframework.context.annotation.Configuration;
 
 import java.util.Properties;
