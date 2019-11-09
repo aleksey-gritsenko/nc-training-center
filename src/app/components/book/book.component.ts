@@ -13,17 +13,10 @@ export class BookComponent implements OnInit {
 
   ngOnInit() {
   }
-
-  getBook(){
-
-  }
-
   goBack(): void {
-    this.location.back();
   }
-
-  save(): void {
-    this.apiService.updateBook(this.book)
-      .subscribe(() => this.goBack());
+  updateBook(): void {
+    this.apiService.updateBook(this.book);
+    window.location.reload();
   }
 }

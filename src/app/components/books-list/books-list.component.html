@@ -1,6 +1,6 @@
 <div><h1>Books</h1></div>
 <div>
-  <form action="" (submit)="createBook()">
+  <form action="">
     <table>
       <tr>
         <td><label for="title">Title</label></td>
@@ -20,26 +20,26 @@
       </tr>
       <tr>
         <td><label for="file">File</label></td>
-        <td><input type="text" [(ngModel)]="model.file" id="file" name="file"></td>
+        <td><input type="number" [(ngModel)]="model.file" id="file" name="file"></td>
       </tr>
       <tr>
         <td><label for="status">Status</label></td>
-        <td><input type="number" [(ngModel)]="model.status" id="status" name="status"></td>
+        <td><input type="text" [(ngModel)]="model.status" id="status" name="status"></td>
       </tr>
       <tr>
         <td><label for="overview">Overview</label></td>
         <td><textarea type="text" [(ngModel)]="model.overview"  id="overview" name="overview" rows="5"></textarea></td>
       </tr>
     </table>
-    <button type="createBook()">Add book</button>
+    <button (click)="createBook();">Add book</button>
   </form>
 </div>
 <div>
   <ul>
-    <li *ngFor="let book of books">
-      <a routerLink="/{{book.title}}">
-        {{book.title}}
-      </a>
+    <li *ngFor="let book of books" (click)="getBook(book)">
+      <div><a routerLink="/{{book.title}}">{{book.title}}</a></div>
+      <div>{{book.overview}}</div>
+      <button  (click)="deleteBook(book)">delete</button>
     </li>
   </ul>
 </div>

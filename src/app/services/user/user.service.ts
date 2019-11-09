@@ -126,14 +126,14 @@ export class UserService {
     this.commonService.getAnnouncements();
   }
 
-  getAnnouncementsByFilter(){
+ /* getAnnouncementsByFilter(){
     this.commonService.getAnnouncementsByFilter();
   }
 
   getReviews(book : Book){
     this.commonService.getReviews(book);
   }
-
+*/
   recoverPassword(){
     this.commonService.recoverPassword();
   }

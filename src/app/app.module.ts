@@ -47,7 +47,7 @@ path:'home',
 component: LandingComponent
 },
   {
-    path: 'books',
+    path: 'book',
     component: BooksListComponent
   },
 {
