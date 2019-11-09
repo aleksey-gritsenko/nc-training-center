@@ -52,7 +52,7 @@ public class PasswordRecoverController {
     if (passwordRecoverService.passwordRecover(code,newPassword,userName)){
         return new ResponseEntity<>(HttpStatus.OK);
         }
-        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
     @RequestMapping("/adminrecover")
