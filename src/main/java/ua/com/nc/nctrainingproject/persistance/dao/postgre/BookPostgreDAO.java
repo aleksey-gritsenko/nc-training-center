@@ -31,27 +31,27 @@ public class BookPostgreDAO implements BookDAO {
 	}
 
 	@Override
-	public Book getBookByTitle(String title) {
+	public List<Book> getBooksByTitle(String title) {
 		try {
-			return jdbcTemplate.queryForObject(BookQuery.GET_BOOK_BY_TITLE, new Object[]{title}, new BookRowMapper());
+			return jdbcTemplate.query(BookQuery.GET_BOOKS_BY_TITLE, new Object[]{title}, new BookRowMapper());
 		} catch (EmptyResultDataAccessException e) {
 			return null;
 		}
 	}
 
 	@Override
-	public Book getBookByAuthor(String author) {
+	public List<Book> getBooksByAuthor(String author) {
 		try {
-			return jdbcTemplate.queryForObject(BookQuery.GET_BOOK_BY_AUTHOR, new Object[]{author}, new BookRowMapper());
+			return jdbcTemplate.query(BookQuery.GET_BOOKS_BY_AUTHOR, new Object[]{author}, new BookRowMapper());
 		} catch (EmptyResultDataAccessException e) {
 			return null;
 		}
 	}
 
 	@Override
-	public Book getBookByStatus(String status) {
+	public List<Book> getBooksByStatus(String status) {
 		try {
-			return jdbcTemplate.queryForObject(BookQuery.GET_BOOK_BY_STATUS, new Object[]{status}, new BookRowMapper());
+			return jdbcTemplate.query(BookQuery.GET_BOOKS_BY_STATUS, new Object[]{status}, new BookRowMapper());
 		} catch (EmptyResultDataAccessException e) {
 			return null;
 		}
