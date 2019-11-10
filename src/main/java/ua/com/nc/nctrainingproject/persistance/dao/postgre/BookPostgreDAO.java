@@ -7,18 +7,24 @@ import org.springframework.stereotype.Repository;
 import ua.com.nc.nctrainingproject.models.Book;
 import ua.com.nc.nctrainingproject.persistance.dao.BookDAO;
 import ua.com.nc.nctrainingproject.persistance.dao.postgre.queries.BookQuery;
+import ua.com.nc.nctrainingproject.persistance.dao.postgre.queries.FilterCriterionQuery;
 import ua.com.nc.nctrainingproject.persistance.mappers.BookRowMapper;
 
+import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Repository
 public class BookPostgreDAO implements BookDAO {
 
 	private final JdbcTemplate jdbcTemplate;
+	private final FilterCriterionQuery filterCriterionQuery;
 
 	@Autowired
-	public BookPostgreDAO(JdbcTemplate jdbcTemplate) {
+	public BookPostgreDAO(JdbcTemplate jdbcTemplate,FilterCriterionQuery filterCriterionQuery) {
 		this.jdbcTemplate = jdbcTemplate;
+		this.filterCriterionQuery =filterCriterionQuery;
 	}
 
 	@Override
@@ -86,4 +92,42 @@ public class BookPostgreDAO implements BookDAO {
 	public List<Book> getAllBooks() {
 		return jdbcTemplate.query(BookQuery.GET_ALL_BOOKS, new BookRowMapper());
 	}
+	public List<Book> filterBooks
+    (FilterCriterionQuery filterCriterionQuery){
+	  return jdbcTemplate.query(BookQuery.JOIN_BOOKS_ANNOUNCEMENT+filterCriterionQuery.getConditionsQuery()
+      ,new BookRowMapper(),filterCriterionQuery.
+        getSqlCriteriaMap().get(BookQuery.CONDITIONS_NAME),
+      filterCriterionQuery.getSqlCriteriaMap().get(BookQuery.CONDITIONS_GENRES),
+      filterCriterionQuery.getSqlCriteriaMap().get(BookQuery.CONDITIONS_GENRES)
+    );
+  }
+	public String makeQuery(String name, String genre, String author, Date dateFrom,Date dateTo){
+    String query = BookQuery.JOIN_BOOKS_ANNOUNCEMENT;
+	  /* String query = BookQuery.JOIN_BOOKS_ANNOUNCEMENT;
+	  if(genre !=null ){
+	    query =query +BookQuery.CONDITIONS_GENRES;
+    }
+    query = query+" OR ";
+	  if(author !=null){
+	    query =query+ BookQuery.CONDITION_AUTHOR;
+    }
+    query = query+" OR ";
+
+    if(name!=null){
+	    query= query + BookQuery.CONDITIONS_NAME;
+    }
+    query = query+" OR ";
+	  if( dateFrom != null && dateTo !=null){
+	    query = query + BookQuery.CONDITION_ANNOUNCEMENT_DATE;
+    }
+    query = query+";";
+	  return query;*/
+
+	 Set<String> keys =filterCriterionQuery.getSqlCriteriaMap().keySet();
+    for (String key:keys ) {
+      query = query+key;
+
+    }
+    return query;
+  }
 }

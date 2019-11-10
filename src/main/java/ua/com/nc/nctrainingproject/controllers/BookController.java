@@ -28,6 +28,7 @@ public class BookController {
 						@RequestParam(name = "status") String status) {
 
 		return bookService.createBook(title, header, author, overview, status, photoId, fileId);
+
 	}
 
 	@RequestMapping(value = "/book/update", method = RequestMethod.POST)
@@ -54,4 +55,9 @@ public class BookController {
 	public List<Book> getAllBooks(){
 		return  bookService.getAllBooks();
 	}
+	public List<Book> filterBook( @RequestParam(name = "genre") String genre,
+                                @RequestParam(name = "header") String header,
+                                @RequestParam(name = "author") String author,){
+	  return bookService.filterBooks(genre,header,author);
+  }
 }
