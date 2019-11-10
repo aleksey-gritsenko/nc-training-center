@@ -58,6 +58,15 @@ public class BookPostgreDAO implements BookDAO {
 	}
 
 	@Override
+	public List<Book> getBooksByGenre(String genre) {
+		try {
+			return jdbcTemplate.query(BookQuery.GET_BOOKS_BY_GENRE, new Object[]{genre}, new BookRowMapper());
+		} catch (EmptyResultDataAccessException e) {
+			return null;
+		}
+	}
+
+	@Override
 	public void createBook(Book book) {
 		jdbcTemplate.update(BookQuery.CREATE_BOOK,
 				book.getTitle(),
@@ -66,19 +75,21 @@ public class BookPostgreDAO implements BookDAO {
 				book.getOverview(),
 				book.getPhotoId(),
 				book.getFileId(),
-				book.getStatus());
+				book.getStatus(),
+				book.getGenre());
 	}
 
 	public void updateBook(int bookId, String title, String header,
 						   String author, String overview,
-						   String status, int photoId, int fileId) {
-		jdbcTemplate.update(BookQuery.UPDATE_BOOK, title, header, author, overview, status, photoId, fileId, bookId);
+						   String status, int photoId, int fileId, String genre) {
+		jdbcTemplate.update(BookQuery.UPDATE_BOOK, title, header, author, overview,
+				status, photoId, fileId, genre, bookId);
 	}
 
 	@Override
 	public void updateBook(Book book, int bookId) {
 		jdbcTemplate.update(BookQuery.UPDATE_BOOK, book.getTitle(), book.getHeader(), book.getAuthor(),
-				book.getOverview(), book.getPhotoId(), book.getFileId(), book.getStatus(), bookId);
+				book.getOverview(), book.getPhotoId(), book.getFileId(), book.getStatus(), book.getGenre(), bookId);
 	}
 
 

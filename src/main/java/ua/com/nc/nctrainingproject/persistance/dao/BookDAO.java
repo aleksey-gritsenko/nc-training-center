@@ -14,6 +14,8 @@ public interface BookDAO {
 
 	List<Book> getBooksByStatus(String status);
 
+	List<Book> getBooksByGenre(String genre);
+
 	void updateBook(Book book, int bookId);
 
 	void createBook(Book book);

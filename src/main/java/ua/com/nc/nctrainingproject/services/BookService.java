@@ -18,15 +18,15 @@ public class BookService {
 	}
 
 	public Book createBook(String title, String header, String author, String overview,
-						   String status, int photoId, int fileId) {
-		Book book = new Book(title, header, author, overview, status, photoId, fileId);
+						   String status, int photoId, int fileId, String genre) {
+		Book book = new Book(title, header, author, overview, status, photoId, fileId, genre);
 		bookPostgreDAO.createBook(book);
 
 		return book;
 	}
 
 	public Book updateBook(int bookId, String title, String header, String author,
-						   String overview, String status, int photoId, int fileId){
+						   String overview, String status, int photoId, int fileId, String genre){
 		Book book = bookPostgreDAO.getBookById(bookId);
 
 		if (book != null) {
@@ -37,6 +37,7 @@ public class BookService {
 			book.setStatus(status);
 			book.setPhotoId(photoId);
 			book.setFileId(fileId);
+			book.setGenre(genre);
 			bookPostgreDAO.updateBook(book, bookId);
 			return book;
 		} else {

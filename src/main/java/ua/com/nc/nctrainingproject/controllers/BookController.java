@@ -25,9 +25,10 @@ public class BookController {
 						@RequestParam(name = "overview") String overview,
 						@RequestParam(name = "photo") int photoId,
 						@RequestParam(name = "file") int fileId,
-						@RequestParam(name = "status") String status) {
+						@RequestParam(name = "status") String status,
+						@RequestParam(name = "genre") String genre) {
 
-		return bookService.createBook(title, header, author, overview, status, photoId, fileId);
+		return bookService.createBook(title, header, author, overview, status, photoId, fileId, genre);
 	}
 
 	@RequestMapping(value = "/book/update", method = RequestMethod.POST)
@@ -38,9 +39,10 @@ public class BookController {
 						   @RequestParam(name = "overview") String overview,
 						   @RequestParam(name = "photo") int photoId,
 						   @RequestParam(name = "file") int fileId,
-						   @RequestParam(name = "status") String status) {
+						   @RequestParam(name = "status") String status,
+						   @RequestParam(name = "genre") String genre) {
 
-		return bookService.updateBook(bookId, title, header, author, overview, status, photoId, fileId);
+		return bookService.updateBook(bookId, title, header, author, overview, status, photoId, fileId, genre);
 	}
 
 	@RequestMapping(value = "/book/all-books", method = RequestMethod.GET)

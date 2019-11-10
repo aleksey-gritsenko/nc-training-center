@@ -11,7 +11,7 @@ public class BookQuery {
 	public static final String PHOTO = "photo";
 	public static final String FILE = "file";
 	public static final String STATUS = "status";
-	public static final String GENRE_ID = "genre_id";
+	public static final String GENRE = "genre";
 
 	public static final String GET_BOOK_BY_ID = "SELECT * FROM " + TABLE_NAME
 			+ " WHERE " + BOOK_ID + " =(?)";
@@ -25,15 +25,19 @@ public class BookQuery {
 	public static final String GET_BOOKS_BY_STATUS = "SELECT * FROM " + TABLE_NAME
 			+ " WHERE " + STATUS + " =(?)";
 
+	public static final String GET_BOOKS_BY_GENRE = "SELECT * FROM " + TABLE_NAME
+			+ " WHERE " + GENRE + " =(?)";
+
 	public static final String CREATE_BOOK = "INSERT INTO " + TABLE_NAME
 			+ " (" + TITLE + "," + HEADER + "," + AUTHOR + ","
-			+ OVERVIEW + "," + PHOTO + "," + FILE +  "," + STATUS + ")" + " VALUES(?,?,?,?,?,?,?)";
+			+ OVERVIEW + "," + PHOTO + "," + FILE +  "," + STATUS + "," + GENRE
+			+ ")" + " VALUES(?,?,?,?,?,?,?,?)";
 
 	public static final String GET_ALL_BOOKS = "SELECT * FROM " + TABLE_NAME;
 
 	public static final String UPDATE_BOOK = "UPDATE " + TABLE_NAME + " SET " +
 			TITLE + "=(?), " + HEADER + "=(?), " + AUTHOR + "=(?), " +
 			OVERVIEW + "=(?), " + PHOTO + "=(?), " + FILE + "=(?), " +
-			STATUS + "=(?)" + " WHERE " + BOOK_ID + "=(?)";
+			STATUS + "=(?), " + GENRE + "=(?)" + " WHERE " + BOOK_ID + "=(?)";
 
 }
