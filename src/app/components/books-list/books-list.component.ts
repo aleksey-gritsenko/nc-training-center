@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {CommonService} from '../../services/common/common.service';
 import {Book} from '../../models/book'
 import { ActivatedRoute } from '@angular/router';
+import {BookFilter} from '../../models/bookfilter';
 
 @Component({
   selector: 'app-books-list',
@@ -13,22 +14,69 @@ export class BooksListComponent implements OnInit {
   books:Book[]=[];
   selectedBook:Book;
   searchBook:string;
+  bookFilter:BookFilter = new BookFilter();
+
+  allAuthorList:string[] = [];
+  allGenreList:string[] = [];
 
   model:Book = {
-    id: null,
     title:'',
     header:'',
     author:'',
     overview:'',
     photo:0,
     file:0,
-    status:''
+    status:'',
+    id:0
   };
   constructor(private apiService: CommonService,private route: ActivatedRoute) { }
 
   ngOnInit() {
-   this.getBooks();
+  //this.getBooks();
+  // this.getAllAuthor();
+  // this.getAllGenre();
   }
+
+  getAllAuthor(){
+    this.apiService.getAllAuthor().subscribe(
+      res=>{
+        this.allAuthorList = res;
+      },
+      err=>{alert("error in get all author")}
+    );
+  }
+
+  getAllGenre(){
+    this.apiService.getAllGenre().subscribe(
+      res=>{
+        this.allGenreList = res;
+      },
+      err=>{alert("error in get all genre")}
+    );
+  }
+
+
+  addGenreToFilter(genre:string) {
+    this.bookFilter.genre = genre;
+  }
+
+  addAuthorToFilter(author:string){
+    this.bookFilter.author = author;
+  }
+
+  searchByFilter(){
+    if(this.bookFilter!=null){
+      console.log(this.bookFilter);
+      this.apiService.getBooksByFilter(this.bookFilter);
+    }
+  }
+
+  resetFiler(){
+    this.bookFilter.author = "";
+    this.bookFilter.genre = "";
+    //TODO: reset filter in DB
+  }
+
 
   getBooks():void{
     this.apiService.getBooks().subscribe(

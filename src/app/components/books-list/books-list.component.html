@@ -3,6 +3,29 @@
 <div>
   <input type="text" [(ngModel)]="searchBook" placeholder="serch books">
 </div>
+
+<div>
+  <!------------ DELETE------------>
+  <div (click)="addAuthorToFilter('author')">
+    addauthor
+  </div>
+  <div (click)="addGenreToFilter('genre')">
+    addgenre
+  </div>
+  <!------------- DELETE----------->
+  <ul>
+    <li *ngFor="let author of allAuthorList " (click)="addAuthorToFilter(author)">
+      <div>{{author}}</div>
+    </li>
+  </ul>
+  <ul>
+    <li *ngFor="let genre of allGenreList " (click)="addGenreToFilter(genre)">
+      <div>{{genre}}</div>
+    </li>
+  </ul>
+  <button (click)="searchByFilter()">Search by filter</button>
+  <button (click)="resetFiler()">Reset filter</button>
+</div>
 <div>
   <form action="">
     <table>

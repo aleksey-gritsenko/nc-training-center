@@ -25,7 +25,6 @@ export class CommonService {
 
   constructor(private http: HttpClient) {
   }
-
   httpOptions = {headers:new HttpHeaders().set('Content-Type', 'application/json')
       .set('Accept', 'application/json').set('Access-Control-Allow-Origin','*')};
 
@@ -34,12 +33,13 @@ export class CommonService {
 
     const url = `${this.booksUrl}\\all`;
     return this.http.get<Book[]>(url);
+    //return null;
   }
   getBooksByFilter(filter: BookFilter): Observable<Book[]> { // + filter ?
     const url = `${this.booksUrl}/${filter.author}/${filter.genre}`;
     return this.http.get<Book[]>(url);
   }
-  getBookById(id:string){
+  getBookById(id:number){
     const url = `${this.booksUrl}/?id=${id}`;
     return this.http.get<Book>(url);
   }
@@ -47,24 +47,33 @@ export class CommonService {
     console.log(book);
     return this.http.post<Book>(this.booksUrl, book, this.httpOptions);
   }
-  deleteBook(id:string):Observable<Book>{
+  deleteBook(id:number):Observable<Book>{
     const url = `${this.booksUrl}/?id=${id}`;
     return this.http.delete<Book>(url);
   }
   updateBook(book:Book){
     this.http.post(this.booksUrl, book, this.httpOptions);
   }
-
   getAnnouncements(): Observable<Announcement[]> {
     return this.http.get<Announcement[]>(this.announcementsUrl);
   }
-
   getAnnouncementsByFilter() : Observable<Announcement[]>{
   }
 
-  getReviews(id:string) : Observable<Review[]>{
+  getAllAuthor():Observable<string[]>{
+    const url = `${this.booksUrl}/author`;
+    //return this.http.get<string[]>(url);
+    return null;
+  }
+  getAllGenre():Observable<string[]>{
+    const url = `${this.booksUrl}/genre`;
+    //return this.http.get<string[]>(url);
+    return null;
+  }
+  getReviews(id:number) : Observable<Review[]>{
     const url = `${this.booksUrl}/${id}`;
-    return this.http.get<Review[]>(url);
+   // return this.http.get<Review[]>(url);
+    return null;
   }
 
   recoverPassword() {

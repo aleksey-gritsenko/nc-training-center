@@ -17,7 +17,7 @@ export class BookComponent implements OnInit {
 
 
   ngOnInit() {
-    this.getReviews();
+    //this.getReviews();
   }
   goBack(): void {
   }
