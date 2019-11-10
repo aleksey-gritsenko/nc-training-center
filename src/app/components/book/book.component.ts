@@ -10,14 +10,18 @@ import {Review} from '../../models/review';
 })
 export class BookComponent implements OnInit {
   @Input() book:Book;
+
   reviews:Review[]=[];
   constructor(private apiService:CommonService) { }
+
+
 
   ngOnInit() {
     this.getReviews();
   }
   goBack(): void {
   }
+
   updateBook(): void {
     this.apiService.updateBook(this.book);
     window.location.reload();

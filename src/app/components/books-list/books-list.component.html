@@ -1,4 +1,8 @@
 <div><h1>Books</h1></div>
+
+<div>
+  <input type="text" [(ngModel)]="searchBook" placeholder="serch books">
+</div>
 <div>
   <form action="">
     <table>
@@ -36,7 +40,7 @@
 </div>
 <div>
   <ul>
-    <li *ngFor="let book of books" (click)="getBook(book)"  [class.selected]="book === selectedBook">
+    <li *ngFor="let book of books | bookSearchTitle:searchBook" (click)="getBook(book)"  [class.selected]="book === selectedBook">
       <div><a>{{book.title}}</a></div>
       <div>{{book.overview}}</div>
       <button  (click)="deleteBook(book)">delete</button>

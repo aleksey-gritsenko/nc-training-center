@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {CommonService} from '../../services/common/common.service';
 import {Book} from '../../models/book'
-
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -13,6 +12,8 @@ export class BooksListComponent implements OnInit {
 
   books:Book[]=[];
   selectedBook:Book;
+  searchBook:string;
+
   model:Book = {
     id: null,
     title:'',

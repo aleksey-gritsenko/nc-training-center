@@ -32,6 +32,7 @@ import { ModeratorsListComponent } from './components/moderators-list/moderators
 import { AdminsListComponent } from './components/admins-list/admins-list.component';
 import { ChatComponent } from './components/chat/chat.component';
 import { CalendarComponent } from './components/calendar/calendar.component';
+import { BookSearchTitlePipe } from './services/search/book-search-title.pipe';
 
 const appRoutes: Routes = [
 {
@@ -95,7 +96,8 @@ component:ErrorpageComponent
     ModeratorsListComponent,
     AdminsListComponent,
     ChatComponent,
-    CalendarComponent
+    CalendarComponent,
+    BookSearchTitlePipe
   ],
   imports: [
     BrowserModule,
