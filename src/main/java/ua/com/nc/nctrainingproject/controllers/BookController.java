@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.*;
 import ua.com.nc.nctrainingproject.models.Book;
 import ua.com.nc.nctrainingproject.services.BookService;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -25,10 +27,11 @@ public class BookController {
 						@RequestParam(name = "overview") String overview,
 						@RequestParam(name = "photo") int photoId,
 						@RequestParam(name = "file") int fileId,
-						@RequestParam(name = "status") String status) {
+						@RequestParam(name = "status") String status,
+						@RequestParam(name = "genre") String genre) {
 
-		return bookService.createBook(title, header, author, overview, status, photoId, fileId);
 
+		return bookService.createBook(title, header, author, overview, status, photoId, fileId, genre);
 	}
 
 	@RequestMapping(value = "/book/update", method = RequestMethod.POST)
@@ -39,9 +42,10 @@ public class BookController {
 						   @RequestParam(name = "overview") String overview,
 						   @RequestParam(name = "photo") int photoId,
 						   @RequestParam(name = "file") int fileId,
-						   @RequestParam(name = "status") String status) {
+						   @RequestParam(name = "status") String status,
+						   @RequestParam(name = "genre") String genre) {
 
-		return bookService.updateBook(bookId, title, header, author, overview, status, photoId, fileId);
+		return bookService.updateBook(bookId, title, header, author, overview, status, photoId, fileId, genre);
 	}
   @RequestMapping(value = "/book/title", method = RequestMethod.GET)
   @ResponseBody
@@ -51,13 +55,21 @@ public class BookController {
   }
 
 
-	@RequestMapping(value = "/book/all-books", method = RequestMethod.GET)
+	@RequestMapping(value = "/book/all", method = RequestMethod.GET)
 	public List<Book> getAllBooks(){
 		return  bookService.getAllBooks();
 	}
-	public List<Book> filterBook( @RequestParam(name = "genre") String genre,
-                                @RequestParam(name = "header") String header,
-                                @RequestParam(name = "author") String author,){
-	  return bookService.filterBooks(genre,header,author);
+  @RequestMapping(value = "/book/filter", method = RequestMethod.GET)
+
+  public List<Book> filterBook
+      ( @RequestParam(name = "header") String header){
+       // @RequestParam(name = "genre") ArrayList<String> genre,
+        //@RequestParam(name = "author") ArrayList<String> author){
+	  ArrayList<String> genres = new ArrayList<>();
+
+	  genres.add("fiction");
+	  ArrayList<String> authors = new ArrayList<>();
+	  authors.add("none");
+	  return bookService.filterBooks(header+"%",genres,authors);
   }
 }

@@ -12,7 +12,8 @@ public class BookQuery {
 	public static final String PHOTO = "photo_id";
 	public static final String FILE = "file_id";
 	public static final String STATUS = "status";
-	public static final String GENRE= "genre";
+
+	public static final String GENRE = "genre";
 
 	public static final String GET_BOOK_BY_ID = "SELECT * FROM " + TABLE_NAME
 			+ " WHERE " + BOOK_ID + " =(?)";
@@ -26,25 +27,32 @@ public class BookQuery {
 	public static final String GET_BOOKS_BY_STATUS = "SELECT * FROM " + TABLE_NAME
 			+ " WHERE " + STATUS + " =(?)";
 
+	public static final String GET_BOOKS_BY_GENRE = "SELECT * FROM " + TABLE_NAME
+			+ " WHERE " + GENRE + " =(?)";
+
 	public static final String CREATE_BOOK = "INSERT INTO " + TABLE_NAME
 			+ " (" + TITLE + "," + HEADER + "," + AUTHOR + ","
-			+ OVERVIEW + "," + PHOTO + "," + FILE +  "," + STATUS + ")" + " VALUES(?,?,?,?,?,?,?)";
+			+ OVERVIEW + "," + PHOTO + "," + FILE +  "," + STATUS + "," + GENRE
+			+ ")" + " VALUES(?,?,?,?,?,?,?,?)";
 
 	public static final String GET_ALL_BOOKS = "SELECT * FROM " + TABLE_NAME;
 
 	public static final String UPDATE_BOOK = "UPDATE " + TABLE_NAME + " SET " +
 			TITLE + "=(?), " + HEADER + "=(?), " + AUTHOR + "=(?), " +
 			OVERVIEW + "=(?), " + PHOTO + "=(?), " + FILE + "=(?), " +
-			STATUS + "=(?)" + " WHERE " + BOOK_ID + "=(?)";
+			STATUS + "=(?), " + GENRE + "=(?)" + " WHERE " + BOOK_ID + "=(?)";
 
-  public static final String JOIN_BOOKS_ANNOUNCEMENT =
-    "select" +TITLE+HEADER+AUTHOR+OVERVIEW+PHOTO+FILE+STATUS +
+ /*public static final String JOIN_BOOKS_ANNOUNCEMENT =
+    "select " +TITLE+HEADER+AUTHOR+OVERVIEW+PHOTO+FILE+STATUS +
       "from "+TABLE_NAME +" join"+ TABLE_NAME_ANNOUNCEMENTS +
-    "    on books.book_id = announcements.book_id WHERE ";
-
+    "    on books.book_id = announcements.book_id WHERE ";*/
+  public static final String JOIN_BOOKS=
+    "select * " +
+      "from "+TABLE_NAME +" WHERE ";
   public static final String CONDITIONS_GENRES = GENRE + "=(?)";
-  public static final String CONDITIONS_NAME =HEADER +"=(?)";
-  public static final String CONDITION_AUTHOR = AUTHOR+"=(?)";
+  public static final String CONDITIONS_NAME =HEADER +" LIKE "+"(?) ";
+ // public static final String CONDITIONS_NAME = HEADER +" =(?) ";
+  public static final String CONDITION_AUTHOR = AUTHOR+" =(?)";
   public static final String CONDITION_ANNOUNCEMENT_DATE ="announcements.date is between"
     +"=(?)" +" AND "+"=(?)";
 

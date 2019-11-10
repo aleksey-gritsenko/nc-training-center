@@ -8,10 +8,11 @@ public class Book {
 	private String status;
 	private int photoId;
 	private int fileId;
-	private int genre;
+
+	private String genre;
 
 	public Book(String title, String header, String author, String overview,
-				String status, int photoId, int fileId) {
+				String status, int photoId, int fileId, String genre) {
 		this.title = title;
 		this.header = header;
 		this.author = author;
@@ -20,6 +21,7 @@ public class Book {
 		this.photoId = photoId;
 		this.fileId = fileId;
 
+		this.genre = genre;
 	}
 
 	public Book() {
@@ -82,12 +84,13 @@ public class Book {
 		this.fileId = fileId;
 	}
 
-	/*public String getGenre() {
+	public String getGenre() {
 		return genre;
-	}*/
+	}
 
-/*	public void setGenre(String genre) {	  this.genre = genre;
-	}*/
+	public void setGenre(String  genre) {
+		this.genre = genre;
+	}
 
 	@Override
 	public String toString() {
@@ -99,7 +102,7 @@ public class Book {
 				", status='" + status + '\'' +
 				", photoId=" + photoId +
 				", fileId=" + fileId +
-				/*", genre_id=" + genre_id +*/
+				", genre=" + genre +
 				'}';
 	}
 }
