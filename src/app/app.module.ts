@@ -50,6 +50,10 @@ component: LandingComponent
     path: 'book',
     component: BooksListComponent
   },
+  {
+    path: 'book/:id',
+    component: BookComponent
+  },
 {
 path:'',
 component: LandingComponent,

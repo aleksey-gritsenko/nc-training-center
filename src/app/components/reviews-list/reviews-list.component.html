@@ -1,1 +1,10 @@
-<p>reviews-list works!</p>
+<div>
+  <ul>
+    <li *ngFor="let review  of reviews">
+      <div>
+        <div>{{review.user.login}}</div>
+        <div>{{review.text}}</div>
+      </div>
+    </li>
+  </ul>
+</div>

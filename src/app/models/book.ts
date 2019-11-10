@@ -1,4 +1,6 @@
-export class Book{
+import {Id} from '../models/id'
+
+export class Book extends Id{
   title: string;
   header: string;
   author:string;

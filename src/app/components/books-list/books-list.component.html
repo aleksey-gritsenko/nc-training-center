@@ -36,10 +36,13 @@
 </div>
 <div>
   <ul>
-    <li *ngFor="let book of books" (click)="getBook(book)">
-      <div><a routerLink="/{{book.title}}">{{book.title}}</a></div>
+    <li *ngFor="let book of books" (click)="getBook(book)"  [class.selected]="book === selectedBook">
+      <div><a>{{book.title}}</a></div>
       <div>{{book.overview}}</div>
       <button  (click)="deleteBook(book)">delete</button>
     </li>
   </ul>
 </div>
+
+
+<app-book [book] = "selectedBook"></app-book>

@@ -29,32 +29,30 @@ export class CommonService {
   httpOptions = {headers:new HttpHeaders().set('Content-Type', 'application/json')
       .set('Accept', 'application/json').set('Access-Control-Allow-Origin','*')};
 
+
   getBooks(): Observable<Book[]> {
-    return this.http.get<Book[]>(this.booksUrl);
+
+    const url = `${this.booksUrl}\\all`;
+    return this.http.get<Book[]>(url);
   }
   getBooksByFilter(filter: BookFilter): Observable<Book[]> { // + filter ?
     const url = `${this.booksUrl}/${filter.author}/${filter.genre}`;
     return this.http.get<Book[]>(url);
   }
-  getBookByTitle(title:string){
-    const url = `${this.booksUrl}/?title=${title}`;
+  getBookById(id:string){
+    const url = `${this.booksUrl}/?id=${id}`;
     return this.http.get<Book>(url);
   }
   createBook(book:Book){
     console.log(book);
-    this.http.post(this.booksUrl, book, this.httpOptions);
+    return this.http.post<Book>(this.booksUrl, book, this.httpOptions);
   }
-  deleteBook(title:string){
-    const url = `${this.booksUrl}/?title=${title}`;
-    return this.http.post<Book>(this.booksUrl,title, this.httpOptions);
+  deleteBook(id:string):Observable<Book>{
+    const url = `${this.booksUrl}/?id=${id}`;
+    return this.http.delete<Book>(url);
   }
   updateBook(book:Book){
     this.http.post(this.booksUrl, book, this.httpOptions);
-  }
-
-  getBookByName(name: string): Observable<Book> {
-    const url = `${this.booksUrl}/${name}`;
-    return this.http.get<Book>(url);
   }
 
   getAnnouncements(): Observable<Announcement[]> {
@@ -64,8 +62,9 @@ export class CommonService {
   getAnnouncementsByFilter() : Observable<Announcement[]>{
   }
 
-  getReviews(book : Book) : Observable<Review[]>{
-
+  getReviews(id:string) : Observable<Review[]>{
+    const url = `${this.booksUrl}/${id}`;
+    return this.http.get<Review[]>(url);
   }
 
   recoverPassword() {
