@@ -1,53 +1,16 @@
-import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
 import {FormsModule} from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http';
+import {HttpClientModule} from '@angular/common/http'
 
-import {AppRoutingModule} from './app-routing.module';
-import {AppComponent} from './app.component';
-import {NavigationComponent} from './navigation/navigation.component';
-import {LoginComponent} from './login/login.component';
-import {RegistrationComponent} from './registration/registration.component';
-import {LandingComponent} from './landing/landing.component';
-import {ErrorpageComponent} from './errorpage/errorpage.component';
-import { RecoverComponent } from './recover/recover.component';
-import { ChangeComponent } from './change/change.component';
-
-const appRoutes: Routes = [
-  {
-    path: 'login',
-    component: LoginComponent
-  },
-  {
-    path: 'registration',
-    component: RegistrationComponent
-  },
-  {
-    path: 'home',
-    component: LandingComponent
-  },
-  {
-    path: 'recover',
-    component: RecoverComponent
-  },
-  {
-    path: 'change',
-    component: ChangeComponent
-  },
-  {
-    path: '',
-    component: LandingComponent,
-    pathMatch: 'full'
-  },
-
-  {
-    path: '**',
-    component: ErrorpageComponent
-  }
-
-
-];
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { NavigationComponent } from './navigation/navigation.component';
+import { LoginComponent } from './login/login.component';
+import { RegistrationComponent } from './registration/registration.component';
+import { LandingComponent } from './landing/landing.component';
+import { ErrorpageComponent } from './errorpage/errorpage.component';
+import { AuthenticationService } from './services/authentication.service'
 
 @NgModule({
   declarations: [
@@ -56,18 +19,15 @@ const appRoutes: Routes = [
     LoginComponent,
     RegistrationComponent,
     LandingComponent,
-    ErrorpageComponent,
-    RecoverComponent,
-    ChangeComponent
+    ErrorpageComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     FormsModule,
-    RouterModule.forRoot(appRoutes)
+    AppRoutingModule
   ],
-  providers: [],
+  providers: [AuthenticationService],
   bootstrap: [AppComponent]
 })
-export class AppModule {
-}
+export class AppModule { }
