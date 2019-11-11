@@ -119,8 +119,8 @@ public class BookPostgreDAO implements BookDAO {
   public List<Book> filterBooks
     (FilterCriterionQuery filterCriterionQuery) {
     String q = filterCriterionQuery.makeQuery();
-    List<Object> argsList = new ArrayList<Object>();
-    argsList.addAll(filterCriterionQuery.getGenre());
+   // List<Object> argsList = new ArrayList<Object>();
+  //  argsList.addAll(filterCriterionQuery.getGenre());
   //  argsList.addAll(argsList.size()-1,filterCriterionQuery.getAuthor());
    // argsList.add(filterCriterionQuery.getHeader());
 

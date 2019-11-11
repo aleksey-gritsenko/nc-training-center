@@ -1,11 +1,8 @@
 package ua.com.nc.nctrainingproject.persistance.dao.postgre.queries;
 
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
-import java.sql.Date;
 import java.util.*;
 
 @Component
@@ -32,19 +29,32 @@ public class FilterCriterionQuery {
   author = new ArrayList<>();
   }
   public String makeQuery(){
-    return BookQuery.JOIN_BOOKS + makeHeaderCondition()+
-      makeAuthorConditins()+makeGenresConditins();
+    return BookQuery.JOIN_BOOKS+
+      makeAuthorConditins()+makeGenresConditins() + makeHeaderCondition();
+  }
+  private Object[] makeArray(ArrayList <String> first, ArrayList <String> second, ArrayList <String> third){
+    ArrayList<String> result = new ArrayList<>();
+    for (int i =0;i <first.size();i++){
+      result.add(first.get(i));
+    }
+    for (int i = first.size()-1;i<second.size();i++){
+      result.add(second.get(i));
+    }
+    for (int i = second.size();i<third.size();i++){
+      result.add(third.get(i));
+    }
+    return result.toArray();
   }
 public Object[] makeArrayArgs(){
-  List<Object> argsList = new ArrayList<Object>();
-  List<String> headers = new ArrayList<>();
+  ArrayList<Object> argsList = new ArrayList<Object>();
+  ArrayList<String> headers = new ArrayList<>();
   headers.add(header);
-  argsList.addAll(0,headers);
-  argsList.addAll(headers.size()-1,author);
-  argsList.addAll(author.size()-1,genre);
+ // headers.add("harry%");
 
-  //  argsList.addAll(argsList.size()-1,filterCriterionQuery.getAuthor());
-  // argsList.add(filterCriterionQuery.getHeader());
+  argsList.addAll(author);
+  argsList.addAll(genre);
+  argsList.addAll(headers);
+
 
    args = argsList.toArray();
    return args;
@@ -56,7 +66,7 @@ public Object[] makeArrayArgs(){
     }
     for (int i =0;i <genre.size();i++){
       genresCondition =genresCondition +BookQuery.CONDITIONS_GENRES;
-      if(i < genre.size()-1){
+      if(i < genre.size()){
         genresCondition = genresCondition + " OR ";
       }
     }
@@ -76,7 +86,7 @@ public Object[] makeArrayArgs(){
     return authorCondition;
   }
   private String makeHeaderCondition(){
-    return BookQuery.CONDITIONS_NAME + " OR ";
+    return BookQuery.CONDITIONS_NAME ;
  }
   public ArrayList<String> getGenre() {
     return genre;

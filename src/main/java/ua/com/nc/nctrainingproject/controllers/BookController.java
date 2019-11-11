@@ -6,6 +6,7 @@ import ua.com.nc.nctrainingproject.models.Book;
 import ua.com.nc.nctrainingproject.services.BookService;
 
 import java.lang.reflect.Array;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,12 +63,15 @@ public class BookController {
   @RequestMapping(value = "/book/filter", method = RequestMethod.GET)
 
   public List<Book> filterBook
-      ( @RequestParam(name = "header") String header){
+      ( @RequestParam(name = "header") String header,
+        @RequestParam(name = "date") ArrayList<Date> dates){
        // @RequestParam(name = "genre") ArrayList<String> genre,
-        //@RequestParam(name = "author") ArrayList<String> author){
+        //@RequestParam(name = "author") ArrayList<String> author
+    // ){
 	  ArrayList<String> genres = new ArrayList<>();
 
 	  genres.add("fiction");
+	  genres.add("drama");
 	  ArrayList<String> authors = new ArrayList<>();
 	  authors.add("none");
 	  return bookService.filterBooks(header+"%",genres,authors);
