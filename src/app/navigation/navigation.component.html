@@ -1,5 +1,6 @@
 <div class="topnav">
   <a class="active" href="home">Home</a>
+
   <div class="login-container">
     <button on-click="logout()">Logout</button>
   </div>
@@ -9,4 +10,5 @@
   <div *ngIf="isLogged" class="login-container">
     <a href="login">{{this.str}}</a>
   </div>
+
 </div>
