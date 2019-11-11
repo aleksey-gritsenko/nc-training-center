@@ -32,9 +32,19 @@ public class UserPostgreDAO implements UserDAO {
         }
     }
 
-    public void updatePassword(String password, String userName) {
-        jdbcTemplate.update(UserQuery.UPDATE_PASSWORD, password, userName);
+    public String getUserEmailByUserName(String userName,String email){
+
+        List<User>result =    jdbcTemplate.query(UserQuery.GET_EMAIL_BY_USERNAME,
+                new UserRowMapper(),userName,email);
+        if(result.size() == 0){
+            return null;
+        }
+        return result.get(0).getEmail();
     }
+
+    public void updatePassword(String password,String userName){
+        jdbcTemplate.update(UserQuery.UPDATE_PASSWORD,password,userName);
+}
 
     @Override
     public void createUser(User user) {

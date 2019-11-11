@@ -8,11 +8,13 @@ public interface BookDAO {
 
 	Book getBookById(int bookId);
 
-	Book getBookByTitle(String title);
+	List<Book> getBooksByTitle(String title);
 
-	Book getBookByAuthor(String author);
+	List<Book> getBooksByAuthor(String author);
 
-	Book getBookByStatus(String status);
+	List<Book> getBooksByStatus(String status);
+
+	List<Book> getBooksByGenre(String genre);
 
 	void updateBook(Book book, int bookId);
 
