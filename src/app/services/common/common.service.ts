@@ -6,9 +6,6 @@ import { Announcement } from 'src/app/models/announcement';
 import { Review } from 'src/app/models/review';
 import { /*Filter,*/BookFilter } from 'src/app/models/bookfilter';
 
-import { catchError, map, tap, retry} from 'rxjs/operators';
-import set = Reflect.set;
-
 @Injectable({
   providedIn: 'root'
 })
@@ -41,9 +38,7 @@ export class CommonService {
       .set('header' , filter.header)
       .set('genre', filter.genre.toString())
       .set('author', filter.author.toString());
-
     console.log(params);
-
     const url = this.booksUrl;
     return this.http.post<Book[]>(url,params);
   }
@@ -62,7 +57,6 @@ export class CommonService {
       .set('overview', book.overview)
       .set('file', book.file.toString())
       .set('photo', book.photo.toString());
-
     console.log(body);
     return this.http.post<Book>(this.booksUrl, body, this.httpOptions);
   }
@@ -90,9 +84,9 @@ export class CommonService {
   getAnnouncements(): Observable<Announcement[]> {
     return this.http.get<Announcement[]>(this.announcementsUrl);
   }
-  getAnnouncementsByFilter() : Observable<Announcement[]>{
+  /*getAnnouncementsByFilter() : Observable<Announcement[]>{
   }
-
+*/
   getAllAuthor():Observable<string[]>{
     const url = `${this.booksUrl}/author`;
     //return this.http.get<string[]>(url);
@@ -103,6 +97,7 @@ export class CommonService {
     //return this.http.get<string[]>(url);
     return null;
   }
+
   getReviews(id:number) : Observable<Review[]>{
     const url = `${this.booksUrl}/${id}`;
    // return this.http.get<Review[]>(url);

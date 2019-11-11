@@ -30,7 +30,6 @@ export class BooksListComponent implements OnInit {
   selectedAuthors:SelectedItem[] = [{name:'author1', selected: false},{name:'author2', selected: false}];
   selectedGenres:SelectedItem[] = [{name:'genre1', selected: false},{name:'genre2', selected: false}];
 
-
   listOfSelectedGenres:SelectedItem[] = [];
   listOfSelectedAuthor:SelectedItem[] = [];
 
@@ -40,7 +39,7 @@ export class BooksListComponent implements OnInit {
   }
 
   ngOnInit() {
-  //this.getBooks();
+  // this.getBooks();
   // this.getAllAuthor();
   // this.getAllGenre();
 
@@ -107,9 +106,7 @@ export class BooksListComponent implements OnInit {
       this.selectedAuthors[i].selected = false;
     }
 
-
     //this.getBooks();
-
   }
 
   getBooks():void{
