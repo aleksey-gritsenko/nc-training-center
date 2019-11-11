@@ -57,6 +57,7 @@ public class BookService {
 	public List<Book> getAllBooks(){
 		return bookPostgreDAO.getAllBooks();
 	}
+
 	public List<Book> filterBooks(String header,ArrayList<String> genre,
                                 ArrayList<String>  author){
 	  filterCriterionQuery.setAuthor(author);

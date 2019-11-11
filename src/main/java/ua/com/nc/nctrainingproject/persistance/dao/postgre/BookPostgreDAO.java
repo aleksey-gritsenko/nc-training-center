@@ -104,25 +104,9 @@ public class BookPostgreDAO implements BookDAO {
   }
 
 
-/*public List<Book> filterBooks
-    (FilterCriterionQuery filterCriterionQuery){
-	  return jdbcTemplate.query(BookQuery.JOIN_BOOKS_ANNOUNCEMENT + filterCriterionQuery.getConditionsQuery()
-      ,new BookRowMapper(),filterCriterionQuery.
-        getSqlCriteriaMap().get(BookQuery.CONDITIONS_NAME),
-      filterCriterionQuery.getSqlCriteriaMap().get(BookQuery.CONDITIONS_GENRES),
-      filterCriterionQuery.getSqlCriteriaMap().get(BookQuery.CONDITIONS_GENRES)
-    );
-  }
-
-	 */
-
   public List<Book> filterBooks
     (FilterCriterionQuery filterCriterionQuery) {
     String q = filterCriterionQuery.makeQuery();
-   // List<Object> argsList = new ArrayList<Object>();
-  //  argsList.addAll(filterCriterionQuery.getGenre());
-  //  argsList.addAll(argsList.size()-1,filterCriterionQuery.getAuthor());
-   // argsList.add(filterCriterionQuery.getHeader());
 
 
     Object[] args =filterCriterionQuery.makeArrayArgs();

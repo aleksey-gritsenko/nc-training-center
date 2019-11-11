@@ -64,16 +64,16 @@ public class BookController {
 
   public List<Book> filterBook
       ( @RequestParam(name = "header") String header,
-        @RequestParam(name = "date") ArrayList<Date> dates){
-       // @RequestParam(name = "genre") ArrayList<String> genre,
-        //@RequestParam(name = "author") ArrayList<String> author
-    // ){
+        @RequestParam(name = "date") ArrayList<Date> dates,
+       @RequestParam(name = "genre") ArrayList<String> genre,
+        @RequestParam(name = "author") ArrayList<String> author
+     ){
 	  ArrayList<String> genres = new ArrayList<>();
 
-	  genres.add("fiction");
-	  genres.add("drama");
+	//  genres.add("fiction");
+	//  genres.add("drama");
 	  ArrayList<String> authors = new ArrayList<>();
-	  authors.add("none");
+	//  authors.add("none");
 	  return bookService.filterBooks(header+"%",genres,authors);
   }
 }

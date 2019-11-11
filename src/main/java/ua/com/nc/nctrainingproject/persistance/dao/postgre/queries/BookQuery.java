@@ -46,7 +46,7 @@ public class BookQuery {
     "select " +TITLE+HEADER+AUTHOR+OVERVIEW+PHOTO+FILE+STATUS +
       "from "+TABLE_NAME +" join"+ TABLE_NAME_ANNOUNCEMENTS +
     "    on books.book_id = announcements.book_id WHERE ";*/
-  public static final String JOIN_BOOKS=
+  public static final String GET_BOOKS=
     "select * " +
       "from "+TABLE_NAME +" WHERE ";
   public static final String CONDITIONS_GENRES = GENRE + "=(?)";
