@@ -30,28 +30,33 @@ export class CommonService {
 
 
   getBooks(): Observable<Book[]> {
-
     const url = `${this.booksUrl}\\all`;
     return this.http.get<Book[]>(url);
     //return null;
   }
+
   getBooksByFilter(filter: BookFilter): Observable<Book[]> { // + filter ?
     const url = `${this.booksUrl}/${filter.author}/${filter.genre}`;
     return this.http.get<Book[]>(url);
   }
+
   getBookById(id:number){
     const url = `${this.booksUrl}/?id=${id}`;
     return this.http.get<Book>(url);
   }
-  createBook(book:Book){
+
+  createBook(book:Book):Observable<Book>{
     console.log(book);
     return this.http.post<Book>(this.booksUrl, book, this.httpOptions);
   }
+
   deleteBook(id:number):Observable<Book>{
     const url = `${this.booksUrl}/?id=${id}`;
     return this.http.delete<Book>(url);
   }
+
   updateBook(book:Book){
+    const url = `${this.booksUrl}\\update\\?id=${book.id}`;
     this.http.post(this.booksUrl, book, this.httpOptions);
   }
   getAnnouncements(): Observable<Announcement[]> {

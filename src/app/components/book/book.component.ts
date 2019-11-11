@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import {Book} from '../../models/book';
 import{ CommonService } from "../../services/common/common.service";
 import {Review} from '../../models/review';
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-book',
@@ -12,19 +13,23 @@ export class BookComponent implements OnInit {
   @Input() book:Book;
 
   reviews:Review[]=[];
-  constructor(private apiService:CommonService) { }
-
-
+  constructor(private apiService:CommonService,private route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.getBook();
     //this.getReviews();
   }
-  goBack(): void {
-  }
+  updateBook():void {
+    const id = +this.route.snapshot.paramMap.get('id');
+    this.book.id  = id;
+    const newCreatedBook:Book = Object.assign({},this.book);
+    this.apiService.updateBook(newCreatedBook);
+    console.log(newCreatedBook);
+}
 
-  updateBook(): void {
-    this.apiService.updateBook(this.book);
-    window.location.reload();
+  getBook():void{
+    const id = +this.route.snapshot.paramMap.get('id');
+    this.apiService.getBookById(id).subscribe(book=>this.book=book);
   }
 
   getReviews(){

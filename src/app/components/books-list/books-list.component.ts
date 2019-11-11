@@ -21,6 +21,7 @@ export class BooksListComponent implements OnInit {
 
   books:Book[]=[];
   selectedBook:Book;
+  createdBook:Book = new Book();
   bookFilter:BookFilter = new BookFilter();
 
   listOfAllAuthors:string[] =  [];
@@ -34,24 +35,9 @@ export class BooksListComponent implements OnInit {
   listOfSelectedAuthor:SelectedItem[] = [];
 
 
-  model:Book = {
-    title:'',
-    header:'',
-    author:'',
-    overview:'',
-    photo:0,
-    file:0,
-    status:'',
-    id:0
-  };
-
 
   constructor(private apiService: CommonService,private route: ActivatedRoute) {
-
-
   }
-
-
 
   ngOnInit() {
   //this.getBooks();
@@ -135,12 +121,17 @@ export class BooksListComponent implements OnInit {
     );
   }
 
-
-  createBook() {
+  createBook():void{
     //delete this part start
-   this.books.push(this.model);
+   this.books.push(this.createdBook);
     //delete  this part end
-    this.apiService.createBook(this.model).subscribe(res=>{this.books.push(this.model)},err=>{alert("Error in create book");});
+
+    const newCreatedBook:Book = Object.assign({},this.createdBook);
+
+    this.apiService.createBook(newCreatedBook)
+      .subscribe(res=>{this.books.push(this.createdBook)},
+          err=>{alert("Error in create book");
+      });
   }
   getBook(book:Book): void {
     this.selectedBook = book;

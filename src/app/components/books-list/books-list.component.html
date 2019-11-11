@@ -35,31 +35,31 @@
     <table>
       <tr>
         <td><label for="title">Title</label></td>
-        <td><input type="text" [(ngModel)]="model.title" id="title" name="title"></td>
+        <td><input type="text" [(ngModel)]="createdBook.title" id="title" name="title"></td>
       </tr>
       <tr>
         <td><label for="header">Header</label></td>
-        <td><input type="text" [(ngModel)]="model.header" id="header" name="header"></td>
+        <td><input type="text" [(ngModel)]="createdBook.header" id="header" name="header"></td>
       </tr>
       <tr>
         <td><label for="author">Author</label></td>
-        <td><input type="text" [(ngModel)]="model.author" id="author" name="author"></td>
+        <td><input type="text" [(ngModel)]="createdBook.author" id="author" name="author"></td>
       </tr>
       <tr>
         <td><label for="photo">Photo</label></td>
-        <td><input type="number" [(ngModel)]="model.photo" id="photo" name="photo"></td>
+        <td><input type="number" [(ngModel)]="createdBook.photo" id="photo" name="photo"></td>
       </tr>
       <tr>
         <td><label for="file">File</label></td>
-        <td><input type="number" [(ngModel)]="model.file" id="file" name="file"></td>
+        <td><input type="number" [(ngModel)]="createdBook.file" id="file" name="file"></td>
       </tr>
       <tr>
         <td><label for="status">Status</label></td>
-        <td><input type="text" [(ngModel)]="model.status" id="status" name="status"></td>
+        <td><input type="text" [(ngModel)]="createdBook.status" id="status" name="status"></td>
       </tr>
       <tr>
         <td><label for="overview">Overview</label></td>
-        <td><textarea type="text" [(ngModel)]="model.overview"  id="overview" name="overview" rows="5"></textarea></td>
+        <td><textarea type="text" [(ngModel)]="createdBook.overview"  id="overview" name="overview" rows="5"></textarea></td>
       </tr>
     </table>
     <button (click)="createBook();">Add book</button>
