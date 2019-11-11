@@ -8,6 +8,7 @@ import ua.com.nc.nctrainingproject.persistance.dao.postgre.AdministratorPostgreD
 import ua.com.nc.nctrainingproject.persistance.dao.postgre.CodePostgreDAO;
 import ua.com.nc.nctrainingproject.persistance.dao.postgre.UserPostgreDAO;
 
+import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.util.Random;
 @Service
@@ -39,8 +40,8 @@ public class PasswordRecoverService {
 
         return generatedString;
     }
+    public void makeEmail(String email,String userName) throws MessagingException {
 
-    public void makeEmail(String email,String userName) throws Exception {
 
         MimeMessage message = sender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);
@@ -52,6 +53,19 @@ public class PasswordRecoverService {
 
         sender.send(message);
     }
+    public boolean verifyEmailUser(String userName,String email){
+        if (userPostgreDAO.getUserEmailByUserName(userName,email)== null){
+            return false;
+        }
+        return true;
+    }
+    public boolean verifyEmailAdmin(String adminName,String email){
+        if (administratorPostgreDAO.getAdminEmailByAdminName(adminName,email)==null){
+            return false;
+        }
+        return true;
+    }
+
 
     public boolean passwordRecover(String code,String newPassword,String userName){
         String codeDB = codePostgreDAO.getCodeByUserName(userName);

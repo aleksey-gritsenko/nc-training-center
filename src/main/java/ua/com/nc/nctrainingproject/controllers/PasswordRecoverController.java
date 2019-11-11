@@ -1,5 +1,14 @@
 package ua.com.nc.nctrainingproject.controllers;
 
+
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,28 +27,44 @@ public class PasswordRecoverController {
 
     @RequestMapping("/email")
     @ResponseBody
-    public void emailSender(@RequestParam String email,@RequestParam String userName) {
+    public ResponseEntity<?> emailSender(@RequestParam String email, @RequestParam String userName) {
         try {
-            passwordRecoverService.makeEmail(email,userName);
-        } catch (Exception ex) {
+            if(passwordRecoverService.verifyEmailUser(userName,email)
+                    || passwordRecoverService.verifyEmailAdmin(userName,email)) {
+                passwordRecoverService.makeEmail(email, userName);
+                return new ResponseEntity<>(HttpStatus.OK);
+            }
+        } catch (MessagingException ex) {
+
             ex.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
     }
+
 
     @RequestMapping("/userrecover")
     @ResponseBody
-    public boolean passwordRecoverUser(@RequestParam String code,
-                                       @RequestParam String userName,
-                                       @RequestParam String newPassword) {
-    return passwordRecoverService.passwordRecover(code,newPassword,userName);
+    public ResponseEntity<?> passwordRecoverUser(@RequestParam String code,
+                                @RequestParam String userName,
+                                @RequestParam String newPassword) {
+    if (passwordRecoverService.passwordRecover(code,newPassword,userName)){
+        return new ResponseEntity<>(HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
     @RequestMapping("/adminrecover")
     @ResponseBody
-    public boolean passwordRecoverAdmin(@RequestParam String code,
-                                        @RequestParam String AdminName,
-                                        @RequestParam String newPassword) {
-         return passwordRecoverService.passwordRecoverAdmin(code,newPassword,AdminName);
+    public ResponseEntity<?> passwordRecoverAdmin(@RequestParam String code,
+                                       @RequestParam String AdminName,
+                                       @RequestParam String newPassword) {
+         if( passwordRecoverService.passwordRecoverAdmin(code,newPassword,AdminName)){
+             return new ResponseEntity<>(HttpStatus.OK);
+         }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
     }
 
 
