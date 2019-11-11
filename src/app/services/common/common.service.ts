@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpErrorResponse} from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpErrorResponse,HttpParams} from '@angular/common/http';
 import { Observable,of,throwError  } from 'rxjs';
 import { Book } from 'src/app/models/book';
 import { Announcement } from 'src/app/models/announcement';
@@ -25,7 +25,7 @@ export class CommonService {
 
   constructor(private http: HttpClient) {
   }
-  httpOptions = {headers:new HttpHeaders().set('Content-Type', 'application/json')
+  httpOptions = {headers:new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded;charset=UTF-8')
       .set('Accept', 'application/json').set('Access-Control-Allow-Origin','*')};
 
 
@@ -35,9 +35,17 @@ export class CommonService {
     //return null;
   }
 
-  getBooksByFilter(filter: BookFilter): Observable<Book[]> { // + filter ?
-    const url = `${this.booksUrl}/${filter.author}/${filter.genre}`;
-    return this.http.get<Book[]>(url);
+  getBooksByFilter(filter: BookFilter): Observable<Book[]> {
+
+    let params = new HttpParams()
+      .set('header' , filter.header)
+      .set('genre', filter.genre.toString())
+      .set('author', filter.author.toString());
+
+    console.log(params);
+
+    const url = this.booksUrl;
+    return this.http.post<Book[]>(url,params);
   }
 
   getBookById(id:number){
@@ -46,8 +54,17 @@ export class CommonService {
   }
 
   createBook(book:Book):Observable<Book>{
-    console.log(book);
-    return this.http.post<Book>(this.booksUrl, book, this.httpOptions);
+    const body = new HttpParams()
+      .set('title', book.title)
+      .set('header', book.header)
+      .set('author', book.author)
+      .set('status', book.status)
+      .set('overview', book.overview)
+      .set('file', book.file.toString())
+      .set('photo', book.photo.toString());
+
+    console.log(body);
+    return this.http.post<Book>(this.booksUrl, body, this.httpOptions);
   }
 
   deleteBook(id:number):Observable<Book>{
@@ -56,8 +73,19 @@ export class CommonService {
   }
 
   updateBook(book:Book){
+    const body = new HttpParams()
+      .set('bookId',book.id.toString())
+      .set('title', book.title)
+      .set('header', book.header)
+      .set('author', book.author)
+      .set('status', book.status)
+      .set('overview', book.overview)
+      .set('file', book.file.toString())
+      .set('photo', book.photo.toString());
+
+    console.log(body);
     const url = `${this.booksUrl}\\update\\?id=${book.id}`;
-    this.http.post(this.booksUrl, book, this.httpOptions);
+    this.http.post(this.booksUrl, body, this.httpOptions);
   }
   getAnnouncements(): Observable<Announcement[]> {
     return this.http.get<Announcement[]>(this.announcementsUrl);
