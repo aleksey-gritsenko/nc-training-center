@@ -4,20 +4,35 @@ import {Book} from '../../models/book'
 import { ActivatedRoute } from '@angular/router';
 import {BookFilter} from '../../models/bookfilter';
 
+
+export class SelectedItem{
+  selected:boolean;
+  name:string;
+}
+
 @Component({
   selector: 'app-books-list',
   templateUrl: './books-list.component.html',
   styleUrls: ['./books-list.component.css']
 })
+
+
 export class BooksListComponent implements OnInit {
 
   books:Book[]=[];
   selectedBook:Book;
-  searchBook:string;
   bookFilter:BookFilter = new BookFilter();
 
-  allAuthorList:string[] = [];
-  allGenreList:string[] = [];
+  listOfAllAuthors:string[] =  [];
+  listOfAllGenres:string[] =  [];
+
+  selectedAuthors:SelectedItem[] = [{name:'author1', selected: false},{name:'author2', selected: false}];
+  selectedGenres:SelectedItem[] = [{name:'genre1', selected: false},{name:'genre2', selected: false}];
+
+
+  listOfSelectedGenres:SelectedItem[] = [];
+  listOfSelectedAuthor:SelectedItem[] = [];
+
 
   model:Book = {
     title:'',
@@ -29,54 +44,87 @@ export class BooksListComponent implements OnInit {
     status:'',
     id:0
   };
-  constructor(private apiService: CommonService,private route: ActivatedRoute) { }
+
+
+  constructor(private apiService: CommonService,private route: ActivatedRoute) {
+
+
+  }
+
+
 
   ngOnInit() {
   //this.getBooks();
   // this.getAllAuthor();
   // this.getAllGenre();
+
   }
 
   getAllAuthor(){
     this.apiService.getAllAuthor().subscribe(
       res=>{
-        this.allAuthorList = res;
+        this.listOfAllAuthors = res;
       },
       err=>{alert("error in get all author")}
     );
-  }
 
+    for (var i=0; i<this.listOfAllAuthors.length;i++)
+    {
+      this.selectedAuthors.push({name:this.listOfAllAuthors[i], selected:false});
+    }
+  }
   getAllGenre(){
     this.apiService.getAllGenre().subscribe(
       res=>{
-        this.allGenreList = res;
+        this.listOfAllGenres = res;
       },
       err=>{alert("error in get all genre")}
     );
-  }
-
-
-  addGenreToFilter(genre:string) {
-    this.bookFilter.genre = genre;
-  }
-
-  addAuthorToFilter(author:string){
-    this.bookFilter.author = author;
-  }
-
-  searchByFilter(){
-    if(this.bookFilter!=null){
-      console.log(this.bookFilter);
-      this.apiService.getBooksByFilter(this.bookFilter);
+    for (var i=0; i<this.listOfAllGenres.length;i++)
+    {
+      this.selectedGenres.push({name:this.listOfAllGenres[i], selected:false});
     }
   }
 
-  resetFiler(){
-    this.bookFilter.author = "";
-    this.bookFilter.genre = "";
-    //TODO: reset filter in DB
+  searchByFilter(){
+    this.bookFilter.author = [];
+    this.bookFilter.genre = [];
+
+    this.listOfSelectedGenres= this.selectedGenres
+      .filter(v => v.selected != false);
+   this.listOfSelectedAuthor= this.selectedAuthors
+      .filter(v => v.selected != false);
+
+   for (var i = 0; i<this.listOfSelectedAuthor.length;i++)
+    {
+      this.bookFilter.author.push(this.listOfSelectedAuthor[i].name);
+    }
+    for (var i = 0; i<this.listOfSelectedGenres.length;i++)
+    {
+      this.bookFilter.genre.push(this.listOfSelectedGenres[i].name);
+    }
+
+    console.log(this.bookFilter);
+    this.apiService.getBooksByFilter(this.bookFilter);
+
   }
 
+  resetFiler(){
+   this.bookFilter.header = "";
+   this.bookFilter.author = [];
+   this.bookFilter.genre = [];
+
+   for(var i = 0; i<this.selectedGenres.length;i++){
+     this.selectedGenres[i].selected = false;
+   }
+    for(var i = 0; i<this.selectedAuthors.length;i++){
+      this.selectedAuthors[i].selected = false;
+    }
+
+
+    //this.getBooks();
+
+  }
 
   getBooks():void{
     this.apiService.getBooks().subscribe(
@@ -86,6 +134,8 @@ export class BooksListComponent implements OnInit {
       err=>{alert("Error in get all reviews")}
     );
   }
+
+
   createBook() {
     //delete this part start
    this.books.push(this.model);
@@ -117,3 +167,9 @@ export class BooksListComponent implements OnInit {
     }
   }
 }
+
+
+
+
+
+

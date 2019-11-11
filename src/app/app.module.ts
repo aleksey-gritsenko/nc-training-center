@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {FormsModule} from '@angular/forms';
+import {FormsModule,ReactiveFormsModule } from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http'
 
 import { AppRoutingModule } from './app-routing.module';
@@ -32,7 +32,6 @@ import { ModeratorsListComponent } from './components/moderators-list/moderators
 import { AdminsListComponent } from './components/admins-list/admins-list.component';
 import { ChatComponent } from './components/chat/chat.component';
 import { CalendarComponent } from './components/calendar/calendar.component';
-import { BookSearchTitlePipe } from './services/search/book-search-title.pipe';
 
 const appRoutes: Routes = [
 {
@@ -96,13 +95,13 @@ component:ErrorpageComponent
     ModeratorsListComponent,
     AdminsListComponent,
     ChatComponent,
-    CalendarComponent,
-    BookSearchTitlePipe
+    CalendarComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     RouterModule.forRoot(appRoutes)
   ],
   providers: [],
