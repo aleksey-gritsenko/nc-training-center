@@ -10,6 +10,7 @@ import ua.com.nc.nctrainingproject.persistance.dao.UserDAO;
 import ua.com.nc.nctrainingproject.persistance.dao.postgre.queries.UserQuery;
 import ua.com.nc.nctrainingproject.persistance.mappers.UserRowMapper;
 
+import java.sql.Types;
 import java.util.List;
 
 @Repository
@@ -55,5 +56,14 @@ public class UserPostgreDAO implements UserDAO {
     public List<User> getAllUsers() {
         return jdbcTemplate.query(UserQuery.GET_ALL, new UserRowMapper());
     }
+
+  @Override
+  public void updateUserByName(String userName, User user) {
+    Object[] params = {user.getUserName(), user.getUserPassword(), user.getEmail(), userName};
+    int[] types = {Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR};
+    int rows = jdbcTemplate.update(UserQuery.UPDATE_BY_USERNAME, params, types);
+
+    System.out.println(rows);
+  }
 
 }

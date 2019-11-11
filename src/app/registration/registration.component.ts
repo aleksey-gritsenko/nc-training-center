@@ -3,6 +3,8 @@ import { User } from '../mdls/user';
 import { RegView} from '../mdls/regview';
 import { HttpClient } from '@angular/common/http';
 
+import { AuthenticationService } from '../services/authentication.service'
+
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
@@ -14,20 +16,25 @@ export class RegistrationComponent implements OnInit {
     password:'',
     email:''
   };
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private serv: AuthenticationService) { }
 
   confirmPassword: string = '';
 
   ngOnInit() {
   }
   register():void{
-    let url = 'http://localhost:8080/registration';
+    let url = 'http://localhost:8080/user/update';
     let form = new FormData();
-    form.append('login', this.model.login);
-    form.append('password', this.model.password);
-    form.append('email',this.model.email)
+    let log;
+    this.serv.currentUser.subscribe(x => log = x);
+    form.append('login', log);
+    form.append('newLogin', this.model.login);
+    form.append('newPassword', this.model.password);
+    form.append('newEmail',this.model.email);
     this.http.post(url,form).subscribe(
-      res => {location.reload()},
+      res => {
+      alert(JSON.stringify(res));
+      location.reload();},
       err => {alert(JSON.parse(JSON.stringify(err)).message);}
     );
   }
