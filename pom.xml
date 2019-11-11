@@ -82,6 +82,13 @@
 			<version>2.2.0.RELEASE</version>
 		</dependency>
 
+		<!--JSONObject-->
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20180130</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>

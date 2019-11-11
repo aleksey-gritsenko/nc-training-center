@@ -26,8 +26,15 @@ export class RegistrationComponent implements OnInit {
     form.append('login', this.model.login);
     form.append('password', this.model.password);
     form.append('email',this.model.email)
+
     this.http.post(url,form).subscribe(
-      res => {location.reload()},
+      res => {
+        if (res != null) {
+          localStorage.setItem('isAdmin', 'false');
+          localStorage.setItem('currentUser', JSON.stringify(res));
+          location.assign('/');
+        }
+      },
       err => {alert(JSON.parse(JSON.stringify(err)).message);}
     );
   }

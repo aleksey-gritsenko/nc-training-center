@@ -28,7 +28,7 @@ export class UserService {
   // Personal methods
 
   manageProfile(user : User){
-    const url = `/users/${user.login}`;
+    const url = `/users/${user.userName}`;
     // this.http.update(url, user);
   }
 
