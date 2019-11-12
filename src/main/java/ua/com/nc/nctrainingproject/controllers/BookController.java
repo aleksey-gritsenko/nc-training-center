@@ -70,10 +70,10 @@ public class BookController {
      ){
 	  ArrayList<String> genres = new ArrayList<>();
 
-	//  genres.add("fiction");
-	//  genres.add("drama");
-	  ArrayList<String> authors = new ArrayList<>();
-	//  authors.add("none");
-	  return bookService.filterBooks(header+"%",genres,authors);
+	 //genres.add("fiction");
+	 //genres.add("drama");
+	//  ArrayList<String> authors = new ArrayList<>();
+	 // authors.add("none");
+	  return bookService.filterBooks(header+"%",genres,author);
   }
 }

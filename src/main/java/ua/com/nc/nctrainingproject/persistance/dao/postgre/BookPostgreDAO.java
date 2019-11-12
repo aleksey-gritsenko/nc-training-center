@@ -109,7 +109,7 @@ public class BookPostgreDAO implements BookDAO {
     String q = filterCriterionQuery.makeQuery();
 
 
-    Object[] args =filterCriterionQuery.makeArrayArgs();
+    Object[] args =filterCriterionQuery.makeArrayArgsStream();
     return jdbcTemplate.query(q,
       args, new BookRowMapper());
 
