@@ -1,6 +1,4 @@
 <div><h1>Books</h1></div>
-
-
 <form action="">
   <div>
     <input type="text" [(ngModel)]="bookFilter.header" placeholder="search books" name="header">
@@ -22,8 +20,6 @@
           </div>
         </div>
       </div>
-
-
       <button (click)="searchByFilter()">Search by filter</button>
       <button (click)="searchByTitle()">Search by title</button>
       <button (click)="resetFiler()">Reset filter</button>
@@ -34,10 +30,6 @@
 
   <form action="">
     <table>
-      <tr>
-        <td><label for="title">Title</label></td>
-        <td><input type="text" [(ngModel)]="createdBook.title" id="title" name="title"></td>
-      </tr>
       <tr>
         <td><label for="header">Header</label></td>
         <td><input type="text" [(ngModel)]="createdBook.header" id="header" name="header"></td>
@@ -55,10 +47,6 @@
         <td><input type="number" [(ngModel)]="createdBook.file" id="file" name="file"></td>
       </tr>
       <tr>
-        <td><label for="file">Genre</label></td>
-        <td><input type="text" [(ngModel)]="createdBook.genre" id="genre" name="genre"></td>
-      </tr>
-      <tr>
         <td><label for="status">Status</label></td>
         <td><input type="text" [(ngModel)]="createdBook.status" id="status" name="status"></td>
       </tr>
@@ -72,12 +60,10 @@
 </div>
 <div>
   <ul>
-    <li *ngFor="let book of books" (click)="getBook(book)"  [class.selected]="book === selectedBook">
-      <div><a routerLink="book/{{book.id}}">Title: {{book.title}}</a></div>
-      <div>Header: {{book.header}}</div>
+    <li *ngFor="let book of books">
+      <div><a routerLink="book/{{book.id}}">Header: {{book.header}}</a></div>
       <div>Author: {{book.author}}</div>
       <div>Overview: {{book.overview}}</div>
-      <div>Genre: {{book.genre}}</div>
     </li>
   </ul>
 </div>

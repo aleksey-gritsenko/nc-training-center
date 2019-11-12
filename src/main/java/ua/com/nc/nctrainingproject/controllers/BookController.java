@@ -65,10 +65,10 @@ public class BookController {
 
   public List<Book> filterBook
       ( @RequestParam(name = "header") String header,
+
        @RequestParam(name = "genre") ArrayList<String> genres,
         @RequestParam(name = "author") ArrayList<String> authors
      ){
-
 	  return bookService.filterBooks(header+"%",genres,authors);
   }
 }

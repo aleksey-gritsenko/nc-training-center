@@ -3,20 +3,13 @@ import {CommonService} from '../../services/common/common.service';
 import {Book} from '../../models/book'
 import { ActivatedRoute } from '@angular/router';
 import {BookFilter} from '../../models/bookfilter';
-import {error} from "util";
-
-
-export class SelectedItem{
-  selected:boolean;
-  name:string;
-}
+import {SelectedItem} from '../../models/selected-item-filter';
 
 @Component({
   selector: 'app-books-list',
   templateUrl: './books-list.component.html',
   styleUrls: ['./books-list.component.css']
 })
-
 
 export class BooksListComponent implements OnInit {
 
@@ -27,14 +20,10 @@ export class BooksListComponent implements OnInit {
 
   listOfAllAuthors:string[] =  [];
   listOfAllGenres:string[] =  [];
-
   selectedAuthors:SelectedItem[] = [{name:'author1', selected: false},{name:'author2', selected: false}];
   selectedGenres:SelectedItem[] = [{name:'genre1', selected: false},{name:'genre2', selected: false}];
-
   listOfSelectedGenres:SelectedItem[] = [];
   listOfSelectedAuthor:SelectedItem[] = [];
-
-
 
   constructor(private apiService: CommonService,private route: ActivatedRoute) {
   }
@@ -42,12 +31,10 @@ export class BooksListComponent implements OnInit {
 
   ngOnInit() {
     this.getBooks();
-
-  // this.getAllAuthor();
+  //  this.getAllAuthor();
   // this.getAllGenre();
 
   }
-
   getAllAuthor(){
     this.apiService.getAllAuthor().subscribe(
       res=>{
@@ -55,11 +42,7 @@ export class BooksListComponent implements OnInit {
       },
       err=>{alert("error in get all author")}
     );
-
-    for (var i=0; i<this.listOfAllAuthors.length;i++)
-    {
-      this.selectedAuthors.push({name:this.listOfAllAuthors[i], selected:false});
-    }
+    this.listOfAllAuthors.forEach(author=>{this.selectedAuthors.push({name:author,selected:false})});
   }
   getAllGenre(){
     this.apiService.getAllGenre().subscribe(
@@ -68,10 +51,7 @@ export class BooksListComponent implements OnInit {
       },
       err=>{alert("error in get all genre")}
     );
-    for (var i=0; i<this.listOfAllGenres.length;i++)
-    {
-      this.selectedGenres.push({name:this.listOfAllGenres[i], selected:false});
-    }
+    this.listOfAllGenres.forEach(genre=>{this.selectedGenres.push({name:genre,selected:false})});
   }
 
   searchByFilter(){
@@ -80,9 +60,8 @@ export class BooksListComponent implements OnInit {
 
     this.listOfSelectedGenres= this.selectedGenres
       .filter(v => v.selected != false);
-   this.listOfSelectedAuthor= this.selectedAuthors
+    this.listOfSelectedAuthor= this.selectedAuthors
       .filter(v => v.selected != false);
-
 
     this.listOfSelectedGenres.forEach(genre=>this.bookFilter.genre.push(genre.name));
     this.listOfSelectedAuthor.forEach(author=>this.bookFilter.author.push(author.name));
@@ -98,10 +77,8 @@ export class BooksListComponent implements OnInit {
    this.bookFilter.header = "";
    this.bookFilter.author = [];
    this.bookFilter.genre = [];
-
    this.selectedGenres.forEach(genre=>genre.selected = false);
    this.selectedAuthors.forEach(author=>author.selected = false);
-
    this.getBooks();
   }
 
@@ -114,20 +91,12 @@ export class BooksListComponent implements OnInit {
     );
   }
 
-
-
   createBook():void{
     const newCreatedBook:Book = Object.assign({},this.createdBook);
     this.apiService.createBook(newCreatedBook)
       .subscribe(res=>{this.books.push(this.createdBook)},
           err=>{alert("Error in create book");
       });
-  }
-  getBook(book:Book): void {
-    this.selectedBook = book;
-
-    //this.apiService.getBookByName(selectedBook.title)
-     // .subscribe(book => this.selectedBook = selectedBook);
   }
 
   searchByTitle(){
@@ -138,8 +107,6 @@ export class BooksListComponent implements OnInit {
       );
     }
   }
-
-
   /*
   deleteBook(book:Book) {
    //delete this part start
@@ -159,9 +126,7 @@ export class BooksListComponent implements OnInit {
       );
     }
   }
-
  */
-
 
 }
 

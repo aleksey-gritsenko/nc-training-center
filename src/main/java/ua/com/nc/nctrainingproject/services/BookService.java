@@ -19,7 +19,6 @@ public class BookService {
 	public BookService(BookPostgreDAO bookPostgreDAO,FilterCriterionQuery filterCriterionQuery) {
 		this.bookPostgreDAO = bookPostgreDAO;
 		this.filterCriterionQuery = filterCriterionQuery;
-
 	}
 
 	public Book createBook(String title, String header, String author, String overview,
