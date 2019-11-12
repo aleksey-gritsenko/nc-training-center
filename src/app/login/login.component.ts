@@ -2,6 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { User } from '../mdls/user';
 import { LogView} from '../mdls/logview';
 import { HttpClient } from '@angular/common/http';
+import { first } from 'rxjs/operators';
+import { Router, ActivatedRoute } from '@angular/router';
+
+import { AuthenticationService } from '../services/authentication.service'
+
 
 @Component({
   selector: 'app-login',
@@ -11,33 +16,28 @@ import { HttpClient } from '@angular/common/http';
 export class LoginComponent implements OnInit {
   model:LogView = {login:'',
                 password:''};
-  constructor(private http: HttpClient) { }
+
+  returnUrl: string;
+  constructor(
+        private http: HttpClient, public serv:AuthenticationService,
+        private route: ActivatedRoute,
+        private router: Router) { }
 
   ngOnInit() {
+
+        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
   login():void{
-    let url = 'http://localhost:8080/login';
-    let authorization;
-    let form = new FormData();
-    form.append('login', this.model.login);
-    form.append('password', this.model.password);
+        this.serv.login(this.model.login,this.model.password)
+            .pipe(first())
+            .subscribe(
+                data => {
+                    this.router.navigate([this.returnUrl]);
+                },
+                error => {
+                  //  this.error = error;
+                  //  this.loading = false;
+                });
 
-    this.http.post(url,form).subscribe(
-
-      res => {
-        //alert(JSON.parse(JSON.stringify(res)));
-
-        if(JSON.parse(JSON.stringify(res))){
-          let role = 'user';
-          localStorage.setItem('currentUser',JSON.stringify({login:this.model.login, password:this.model.password, role: role}));
-
-        }
-        },
-      err => {
-      alert(JSON.parse(JSON.stringify(err)).status);
-      authorization = false;
-      }
-    );
-  //  location.reload();
    }
 }

@@ -3,10 +3,10 @@
   <div class="login-container">
     <button on-click="logout()">Logout</button>
   </div>
-  <div *ngIf="notLogged" class="login-container">
+  <div *ngIf="!user" class="login-container">
     <a href="login">Login</a>
   </div>
-  <div *ngIf="isLogged" class="login-container">
-    <a href="login">{{this.str}}</a>
+  <div *ngIf="user" class="login-container">
+    <a href="login">{{this.user.userName}}</a>
   </div>
 </div>
