@@ -14,7 +14,6 @@ import java.util.List;
 
 @Repository
 public class UserPostgreDAO implements UserDAO {
-
     private final JdbcTemplate jdbcTemplate;
 
     @Autowired
