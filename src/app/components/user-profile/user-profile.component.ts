@@ -12,11 +12,13 @@ export class UserProfileComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.user = JSON.parse(localStorage.getItem('currentUser'));
+    if (!JSON.parse(localStorage.getItem('currentUser'))) {
+      location.assign('/login');
+    }
+    this.user = JSON.parse(localStorage.getItem('currentUser'))['user'];
   }
 
   updateUser() {
-
   }
 
 }

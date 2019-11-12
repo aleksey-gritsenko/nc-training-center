@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
 import {FormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http'
 
@@ -33,35 +32,7 @@ import { AdminsListComponent } from './components/admins-list/admins-list.compon
 import { ChatComponent } from './components/chat/chat.component';
 import { CalendarComponent } from './components/calendar/calendar.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
-
-const appRoutes: Routes = [
-{
-path:'login',
-component:LoginComponent
-},
-{
-path:'registration',
-component:RegistrationComponent
-},
-{
-path:'home',
-component: LandingComponent
-},
-{
-path:'',
-component: LandingComponent,
-pathMatch:'full'
-},
-{
-path: 'user',
-component: UserProfileComponent
-},
-{
-path:'**',
-component:ErrorpageComponent
-},
-
-];
+import { AuthenticationService } from "./services/authentification/authentication.service";
 
 @NgModule({
   declarations: [
@@ -98,9 +69,9 @@ component:ErrorpageComponent
     BrowserModule,
     HttpClientModule,
     FormsModule,
-    RouterModule.forRoot(appRoutes)
+    AppRoutingModule
   ],
-  providers: [],
+  providers: [AuthenticationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

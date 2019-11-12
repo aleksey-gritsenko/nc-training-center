@@ -1,25 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {User} from "../../models/user";
+import {AuthenticationService} from "../../services/authentification/authentication.service";
 
 @Component({
-  selector: 'app-navigation',
-  templateUrl: './navigation.component.html',
-  styleUrls: ['./navigation.component.css']
+    selector: 'app-navigation',
+    templateUrl: './navigation.component.html',
+    styleUrls: ['./navigation.component.css']
 })
 export class NavigationComponent implements OnInit {
-  str:string;
-  isLogged: boolean;
-  constructor() {}
+    user: User;
+    isLogged: boolean;
 
-  ngOnInit() {
-      if(JSON.parse(localStorage.getItem('currentUser')) == null) {
-          this.isLogged = false;
-      } else {
-          this.isLogged = true;
-          this.str = JSON.parse(localStorage.getItem('currentUser')).userName;
-      }
-  }
-  logout():void{
-      localStorage.setItem('currentUser', null);
-      localStorage.setItem('isAdmin', null);
-    location.assign('/')}
+    constructor(public serv:AuthenticationService) {
+        this.serv.currentUser.subscribe(x => this.user = x);
+    }
+
+    ngOnInit() {
+    }
+
+    logout(): void {
+        this.serv.logout();
+        location.reload();
+    }
 }

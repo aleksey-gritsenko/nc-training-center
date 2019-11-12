@@ -1,39 +1,47 @@
-import { Component, OnInit } from '@angular/core';
-import { User } from '../../models/user';
-import { LogView} from '../../models/logview';
-import { HttpClient } from '@angular/common/http';
+import {Component, OnInit} from '@angular/core';
+import {LogView} from '../../models/logview';
+import {HttpClient} from '@angular/common/http';
+import {first} from 'rxjs/operators';
+import {Router, ActivatedRoute} from '@angular/router';
+
+import {AuthenticationService} from "../../services/authentification/authentication.service";
 
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+    selector: 'app-login',
+    templateUrl: './login.component.html',
+    styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-    model:LogView = {login:'',
-                password:''};
+    model: LogView = {
+        login: '',
+        password: ''
+    };
 
+    returnUrl: string;
 
-  constructor(private http: HttpClient) { }
+    constructor(
+        private http: HttpClient, public serv: AuthenticationService,
+        private route: ActivatedRoute,
+        private router: Router) {
+    }
 
-  ngOnInit() {
-  }
+    ngOnInit() {
 
-  login():void{
-    let url = 'http://localhost:8080/login';
-    let authorization;
-    let form = new FormData();
-    form.append('login', this.model.login);
-    form.append('password', this.model.password);
+        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+    }
 
-      this.http.post(url,form).subscribe (
-          res => {
-              if (res != null) {
-                  localStorage.setItem('isAdmin', JSON.stringify(res['isAdmin']));
-                  localStorage.setItem('currentUser', JSON.stringify(res['user']))
-                  location.assign('/');
-              }
-          }
-      )
-   }
+    login(): void {
+        this.serv.login(this.model.login, this.model.password)
+            .pipe(first())
+            .subscribe(
+                data => {
+                    this.router.navigate([this.returnUrl]);
+                },
+                error => {
+                    //  this.error = error;
+                    //  this.loading = false;
+                }
+                );
+    }
 }

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {AuthenticationService} from "../../services/authentification/authentication.service";
+import {User} from "../../models/user";
 
 @Component({
   selector: 'app-sidebar',
@@ -7,10 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SidebarComponent implements OnInit {
   isLogged: boolean;
-  constructor() { }
+  user: User;
+
+  constructor(public serv:AuthenticationService) {
+    this.serv.currentUser.subscribe(x => this.user = x);
+  }
 
   ngOnInit() {
-    if (JSON.parse(localStorage.getItem('currentUser')) != null) {
+    if (this.user) {
       this.isLogged = true;
     }
   }

@@ -204,7 +204,7 @@
             <form class="form-horizontal" method="post" #f="ngForm" (submit)="register()">
               <div class="form-group">
                 <label for="exampleInputLogin1">Login</label>
-                <input type="text" class="form-control" name="login" id="exampleInputLogin1" [(ngModel)]= "model.login">
+                <input type="text" class="form-control" autocomplete="off" name="login" id="exampleInputLogin1" [(ngModel)]= "model.login">
               </div>
               <div class="form-group">
                 <label for="exampleInputEmail1">Email address</label>
@@ -212,11 +212,11 @@
               </div>
               <div class="form-group">
                 <label for="exampleInputPassword1">Password</label>
-                <input type="password" class="form-control" name="password" id="exampleInputPassword1" [(ngModel)]= "model.password">
+                <input type="password" class="form-control" autocomplete="off" name="password" id="exampleInputPassword1" [(ngModel)]= "model.password">
               </div>
               <div class="form-group">
                 <label for="exampleInputPasswordConfirm1">Confirm password</label>
-                <input type="password" class="form-control" name="passwordConfirm" id="exampleInputPasswordConfirm1" [(ngModel)]="confirmPassword">
+                <input type="password" class="form-control" autocomplete="off" name="passwordConfirm" id="exampleInputPasswordConfirm1" [(ngModel)]="confirmPassword">
               </div>
               <div class="form-group">
                 <button type="submit" [disabled]="!(this.model.login.length != 0 && this.model.password.length > 0
