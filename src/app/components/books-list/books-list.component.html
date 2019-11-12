@@ -25,6 +25,7 @@
 
 
       <button (click)="searchByFilter()">Search by filter</button>
+      <button (click)="searchByTitle()">Search by title</button>
       <button (click)="resetFiler()">Reset filter</button>
   </form>
 
@@ -50,8 +51,12 @@
         <td><input type="number" [(ngModel)]="createdBook.photo" id="photo" name="photo"></td>
       </tr>
       <tr>
-        <td><label for="file">File</label></td>
+        <td><label for="photo">File</label></td>
         <td><input type="number" [(ngModel)]="createdBook.file" id="file" name="file"></td>
+      </tr>
+      <tr>
+        <td><label for="file">Genre</label></td>
+        <td><input type="text" [(ngModel)]="createdBook.genre" id="genre" name="genre"></td>
       </tr>
       <tr>
         <td><label for="status">Status</label></td>
@@ -68,12 +73,13 @@
 <div>
   <ul>
     <li *ngFor="let book of books" (click)="getBook(book)"  [class.selected]="book === selectedBook">
-      <div><a>{{book.title}}</a></div>
-      <div>{{book.overview}}</div>
-      <button  (click)="deleteBook(book)">delete</button>
+      <div><a routerLink="book/{{book.id}}">Title: {{book.title}}</a></div>
+      <div>Header: {{book.header}}</div>
+      <div>Author: {{book.author}}</div>
+      <div>Overview: {{book.overview}}</div>
+      <div>Genre: {{book.genre}}</div>
     </li>
   </ul>
 </div>
 
 
-<app-book [book] = "selectedBook"></app-book>

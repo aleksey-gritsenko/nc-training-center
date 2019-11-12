@@ -5,6 +5,7 @@ import { Book } from 'src/app/models/book';
 import { Announcement } from 'src/app/models/announcement';
 import { Review } from 'src/app/models/review';
 import { /*Filter,*/BookFilter } from 'src/app/models/bookfilter';
+import {arrayify} from "tslint/lib/utils";
 
 @Injectable({
   providedIn: 'root'
@@ -34,17 +35,28 @@ export class CommonService {
 
   getBooksByFilter(filter: BookFilter): Observable<Book[]> {
 
-    let params = new HttpParams()
-      .set('header' , filter.header)
-      .set('genre', filter.genre.toString())
-      .set('author', filter.author.toString());
-    console.log(params);
-    const url = this.booksUrl;
-    return this.http.post<Book[]>(url,params);
+  let body = {
+    'header':filter.header,
+    'author':filter.author,
+    'genre':filter.genre
+  }
+
+    const url = `${this.booksUrl}\\filter`;
+    return this.http.get<Book[]>(url,{ params:body});
   }
 
 
 
+
+
+  getBooksByTitle(title:string):Observable<Book[]>{
+    const url = `${this.booksUrl}\\title`;
+    let params = new HttpParams()
+      .set('title' , title);
+
+    return  this.http.get<Book[]>(url, {params:params});
+
+  }
   getBookById(id:number){
     const url = `${this.booksUrl}/?id=${id}`;
     return this.http.get<Book>(url);
@@ -57,9 +69,11 @@ export class CommonService {
       .set('author', book.author)
       .set('status', book.status)
       .set('overview', book.overview)
-      .set('file', book.file.toString())
-      .set('photo', book.photo.toString());
+      .set('genre', book.genre)
+      .set('photo', book.photo.toString())
+      .set('file', book.photo.toString());
     console.log(body);
+
     return this.http.post<Book>(this.booksUrl, body, this.httpOptions);
   }
 
@@ -76,7 +90,7 @@ export class CommonService {
       .set('author', book.author)
       .set('status', book.status)
       .set('overview', book.overview)
-      .set('file', book.file.toString())
+      .set('genre', book.genre)
       .set('photo', book.photo.toString());
 
     console.log(body);

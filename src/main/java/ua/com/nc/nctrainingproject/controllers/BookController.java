@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import ua.com.nc.nctrainingproject.models.Book;
 import ua.com.nc.nctrainingproject.services.BookService;
 
+import javax.sound.midi.SysexMessage;
 import java.lang.reflect.Array;
 import java.sql.Date;
 import java.util.ArrayList;
@@ -64,16 +65,10 @@ public class BookController {
 
   public List<Book> filterBook
       ( @RequestParam(name = "header") String header,
-        @RequestParam(name = "date") ArrayList<Date> dates,
-       @RequestParam(name = "genre") ArrayList<String> genre,
-        @RequestParam(name = "author") ArrayList<String> author
+       @RequestParam(name = "genre") ArrayList<String> genres,
+        @RequestParam(name = "author") ArrayList<String> authors
      ){
-	  ArrayList<String> genres = new ArrayList<>();
 
-	//  genres.add("fiction");
-	//  genres.add("drama");
-	  ArrayList<String> authors = new ArrayList<>();
-	//  authors.add("none");
 	  return bookService.filterBooks(header+"%",genres,authors);
   }
 }
