@@ -1,59 +1,65 @@
 package ua.com.nc.nctrainingproject.models;
 
-public class User {
+public class User extends Entity {
+  private String userName;
+  private String userPassword;
+  private String email;
+  private String recoverCode;
+  private int userRole;
 
-    private String userName;
-    private String userPassword;
-    private String email;
-    private String recoverCode;
+  public User(int id, String userName, String userPassword, String email, String recoverCode, int userRole) {
+    super(id);
+    this.userName = userName;
+    this.userPassword = userPassword;
+    this.email = email;
+    this.recoverCode = recoverCode;
+    this.userRole = userRole;
+  }
 
-    public User(String userName, String userPassword, String email) {
-        this.userName = userName;
-        this.userPassword = userPassword;
-        this.email = email;
-    }
+  public User() {
+    super();
+  }
 
-    public User() {
+  public User(String newLogin, String newPassword, String newEmail) {
+  }
 
-    }
+  public String getUserName() {
+    return userName;
+  }
 
-    public String getUserName() {
-        return userName;
-    }
+  public void setUserName(String userName) {
+    this.userName = userName;
+  }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
+  public String getUserPassword() {
+    return userPassword;
+  }
 
-    public String getUserPassword() {
-        return userPassword;
-    }
+  public void setUserPassword(String userPassword) {
+    this.userPassword = userPassword;
+  }
 
-    public void setUserPassword(String userPassword) {
-        this.userPassword = userPassword;
-    }
+  public String getEmail() {
+    return email;
+  }
 
-    public String getEmail() {
-        return email;
-    }
+  public void setEmail(String email) {
+    this.email = email;
+  }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+  public String getRecoverCode() {
+    return recoverCode;
+  }
 
-    public String getRecoverCode() {
-        return recoverCode;
-    }
+  public void setRecoverCode(String recoverCode) {
+    this.recoverCode = recoverCode;
+  }
 
-    public void setRecoverCode(String recoverCode) {
-        this.recoverCode = recoverCode;
-    }
+  public int getUserRole() {
+    return userRole;
+  }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "userName='" + userName + '\'' +
-                ", userPassword='" + userPassword + '\'' +
-                '}';
-    }
+  public void setUserRole(int userRole) {
+    this.userRole = userRole;
+  }
 }

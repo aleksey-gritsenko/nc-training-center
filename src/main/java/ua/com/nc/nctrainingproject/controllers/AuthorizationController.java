@@ -15,7 +15,7 @@ public class AuthorizationController {
         this.authorizationService = authorizationService;
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    @RequestMapping(value = "/login2", method = RequestMethod.POST)
     public User login(@RequestParam(name = "login") String login,
                       @RequestParam(name = "password") String password) {
 
@@ -29,4 +29,10 @@ public class AuthorizationController {
 
         return authorizationService.register(login, password, email);
     }
+
+  @RequestMapping(value = "/testFeature", method = RequestMethod.POST)
+    public void loginUser(@RequestParam(name = "login") String login,
+                          @RequestParam(name = "password") String password){
+    authorizationService.loginUser();
+  }
 }
