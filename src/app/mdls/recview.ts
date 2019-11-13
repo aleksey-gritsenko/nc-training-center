@@ -1,3 +1,5 @@
-export class RecView{
-  email:string;
+
+export class RecView {
+  login: string;
+  email: string;
 }
