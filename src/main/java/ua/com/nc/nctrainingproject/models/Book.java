@@ -8,6 +8,7 @@ public class Book {
 	private String status;
 	private int photoId;
 	private int fileId;
+
 	private String genre;
 
 	public Book(String title, String header, String author, String overview,
@@ -19,6 +20,7 @@ public class Book {
 		this.status = status;
 		this.photoId = photoId;
 		this.fileId = fileId;
+
 		this.genre = genre;
 	}
 

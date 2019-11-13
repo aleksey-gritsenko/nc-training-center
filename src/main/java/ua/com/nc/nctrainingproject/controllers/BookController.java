@@ -5,6 +5,9 @@ import org.springframework.web.bind.annotation.*;
 import ua.com.nc.nctrainingproject.models.Book;
 import ua.com.nc.nctrainingproject.services.BookService;
 
+import java.lang.reflect.Array;
+import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -28,6 +31,7 @@ public class BookController {
 						@RequestParam(name = "status") String status,
 						@RequestParam(name = "genre") String genre) {
 
+
 		return bookService.createBook(title, header, author, overview, status, photoId, fileId, genre);
 	}
 
@@ -44,9 +48,32 @@ public class BookController {
 
 		return bookService.updateBook(bookId, title, header, author, overview, status, photoId, fileId, genre);
 	}
+  @RequestMapping(value = "/book/title", method = RequestMethod.GET)
+  @ResponseBody
+  public List<Book> findBookByTitle(@RequestParam(name = "title") String title){
+	  return bookService.findBookByTitle(title);
 
-	@RequestMapping(value = "/book/all-books", method = RequestMethod.GET)
+  }
+
+
+	@RequestMapping(value = "/book/all", method = RequestMethod.GET)
 	public List<Book> getAllBooks(){
 		return  bookService.getAllBooks();
 	}
+  @RequestMapping(value = "/book/filter", method = RequestMethod.GET)
+
+  public List<Book> filterBook
+      ( @RequestParam(name = "header") String header,
+        @RequestParam(name = "date") ArrayList<Date> dates,
+       @RequestParam(name = "genre") ArrayList<String> genre,
+        @RequestParam(name = "author") ArrayList<String> author
+     ){
+	  ArrayList<String> genres = new ArrayList<>();
+
+	 //genres.add("fiction");
+	 //genres.add("drama");
+	//  ArrayList<String> authors = new ArrayList<>();
+	 // authors.add("none");
+	  return bookService.filterBooks(header+"%",genres,author);
+  }
 }
