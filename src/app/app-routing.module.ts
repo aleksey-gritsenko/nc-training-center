@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-
-import { LoginComponent } from './login/login.component';
-import { RegistrationComponent } from './registration/registration.component';
-import { LandingComponent } from './landing/landing.component';
-import { ErrorpageComponent } from './errorpage/errorpage.component';
+import {LoginComponent} from "./components/login/login.component";
+import {RegistrationComponent} from "./components/registration/registration.component";
+import {LandingComponent} from "./components/landing/landing.component";
+import {ErrorpageComponent} from "./components/errorpage/errorpage.component";
+import {UserProfileComponent} from "./components/user-profile/user-profile.component";
 
 const routes: Routes = [{
 path:'login',
@@ -19,6 +19,10 @@ path:'home',
 component: LandingComponent
 },
 {
+path: 'user',
+component: UserProfileComponent
+},
+{
 path:'',
 component: LandingComponent,
 pathMatch:'full'
@@ -27,7 +31,6 @@ pathMatch:'full'
 path:'**',
 component:ErrorpageComponent
 }
-
 ];
 
 @NgModule({

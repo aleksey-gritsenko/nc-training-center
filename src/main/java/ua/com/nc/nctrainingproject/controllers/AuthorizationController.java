@@ -20,6 +20,7 @@ public class AuthorizationController {
                       @RequestParam(name = "password") String password) {
 
         return authorizationService.auth(login, password);
+
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)

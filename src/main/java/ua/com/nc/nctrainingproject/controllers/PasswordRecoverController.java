@@ -27,11 +27,11 @@ public class PasswordRecoverController {
 
     @RequestMapping("/email")
     @ResponseBody
-    public ResponseEntity<?> emailSender(@RequestParam String email, @RequestParam String userName) {
+    public ResponseEntity<?> emailSender(@RequestParam String login, @RequestParam String email) {
         try {
-            if(passwordRecoverService.verifyEmailUser(userName,email)
-                    || passwordRecoverService.verifyEmailAdmin(userName,email)) {
-                passwordRecoverService.makeEmail(email, userName);
+            if(passwordRecoverService.verifyEmailUser(login,email)
+                    || passwordRecoverService.verifyEmailAdmin(login,email)) {
+                passwordRecoverService.makeEmail(email, login);
                 return new ResponseEntity<>(HttpStatus.OK);
             }
         } catch (MessagingException ex) {
@@ -44,12 +44,13 @@ public class PasswordRecoverController {
     }
 
 
-    @RequestMapping("/userrecover")
+    @RequestMapping("/change")
     @ResponseBody
-    public ResponseEntity<?> passwordRecoverUser(@RequestParam String code,
-                                @RequestParam String userName,
+    public ResponseEntity<?> passwordRecoverUser(
+                                @RequestParam String login,
+                                @RequestParam String recoverCode,
                                 @RequestParam String newPassword) {
-    if (passwordRecoverService.passwordRecover(code,newPassword,userName)){
+    if (passwordRecoverService.passwordRecover(recoverCode,newPassword,login)){
         return new ResponseEntity<>(HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
