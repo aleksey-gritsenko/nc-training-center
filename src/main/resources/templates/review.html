@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Review add</title>
+</head>
+<body>
+<form method="post" action="/review">
+  <table>
+    <tr>
+      <td><label for="book">bookId(int)</label></td>
+      <td><input id="book" type="number" name="book"></td>
+    </tr>
+    <tr>
+      <td><label for="user">userId(int)</label></td>
+      <td><input id="user" type="number" name="user"></td>
+    </tr>
+    <tr>
+      <td><label for="text">text</label></td>
+      <td><input id="text" type="text" name="text"></td>
+    </tr>
+    <tr>
+      <td><label for="review-date">ReviewDate(Date)</label></td>
+      <td><input id="review-date" type="date" name="reviewDate"></td>
+    </tr>
+    <tr>
+      <td><label for="grade">grade(int)</label></td>
+      <td><input id="grade" type="number" name="grade"></td>
+    </tr>
+    <tr>
+      <td><label for="admin">admin(int)</label></td>
+      <td><input id="admin" type="number" name="file"></td>
+    </tr>
+  </table>
+  <input type="submit" value="Add review">
+</form>
+
+</body>
+</html>

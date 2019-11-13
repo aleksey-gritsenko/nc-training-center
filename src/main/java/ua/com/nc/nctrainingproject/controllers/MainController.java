@@ -26,4 +26,7 @@ public class MainController {
         return "updateBook";
     }
 
+    @GetMapping("/review")
+    public String addReview() {return "review";}
+
 }
