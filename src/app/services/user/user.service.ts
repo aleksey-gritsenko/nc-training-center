@@ -27,9 +27,16 @@ export class UserService {
 
   // Personal methods
 
-  manageProfile(user : User){
-    const url = `/users/${user.userName}`;
-    // this.http.update(url, user);
+  updateProfile(login: string ,user: User){
+    let url = 'http://localhost:8080/user/update';
+    let form = new FormData();
+
+    form.append('login', login);
+    form.append('newLogin', user.userName);
+    form.append('newPassword', user.userPassword);
+    form.append('newEmail', user.email);
+
+    return this.http.post<User>(url, form);
   }
 
   searchUser(name : string){

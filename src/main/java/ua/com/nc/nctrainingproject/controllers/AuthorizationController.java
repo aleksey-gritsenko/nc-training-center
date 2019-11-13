@@ -1,12 +1,9 @@
 package ua.com.nc.nctrainingproject.controllers;
 
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ua.com.nc.nctrainingproject.models.User;
 import ua.com.nc.nctrainingproject.services.AuthorizationService;
-
-import java.util.Map;
 
 @RestController
 @CrossOrigin
@@ -19,14 +16,15 @@ public class AuthorizationController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public Map<String, Object> login(@RequestParam(name = "login") String login,
+    public User login(@RequestParam(name = "userName") String login,
                                      @RequestParam(name = "password") String password) {
 
         return authorizationService.auth(login, password);
+
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public User registration(@RequestParam(name = "login") String login,
+    public User registration(@RequestParam(name = "userName") String login,
                              @RequestParam(name = "password") String password,
                              @RequestParam(name = "email") String email) {
 

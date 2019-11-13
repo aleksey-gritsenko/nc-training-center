@@ -54,6 +54,8 @@ public class User {
         return "User{" +
                 "userName='" + userName + '\'' +
                 ", userPassword='" + userPassword + '\'' +
+                ", email='" + email + '\'' +
+                ", recoverCode='" + recoverCode + '\'' +
                 '}';
     }
 }
