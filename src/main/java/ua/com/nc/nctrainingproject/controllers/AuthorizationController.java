@@ -7,7 +7,6 @@ import ua.com.nc.nctrainingproject.models.Book;
 import ua.com.nc.nctrainingproject.models.User;
 import ua.com.nc.nctrainingproject.persistance.dao.postgre.AuthorPostgreDAO;
 import ua.com.nc.nctrainingproject.persistance.dao.postgre.BookPostgreDAO;
-import ua.com.nc.nctrainingproject.persistance.dao.postgre.GenrePostgreDAO;
 import ua.com.nc.nctrainingproject.services.AuthorizationService;
 
 import java.util.ArrayList;
@@ -43,6 +42,7 @@ public class AuthorizationController {
   public void loginUser(@RequestParam(name = "login") String login,
                         @RequestParam(name = "password") String password) {
     authorizationService.auth(login, password);
+
   }
 }
 

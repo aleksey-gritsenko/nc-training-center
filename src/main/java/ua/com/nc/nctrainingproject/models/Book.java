@@ -9,19 +9,19 @@ public class Book extends Entity {
   private String status;
   private int photoId;
   private int fileId;
-  private String genre;
+  private int genreId;
 
-  public Book(String header, List<Author> authors, String overview, String status, int photoId, int fileId, String genre) {
+  public Book(String header, List<Author> authors, String overview, String status, int photoId, int fileId, int genreId) {
     this.header = header;
     this.authors = authors;
     this.overview = overview;
     this.status = status;
     this.photoId = photoId;
     this.fileId = fileId;
-    this.genre = genre;
+    this.genreId = genreId;
   }
 
-  public Book(int id, String header, List<Author> authors, String overview, String status, int photoId, int fileId, String genre) {
+  public Book(int id, String header, List<Author> authors, String overview, String status, int photoId, int fileId, int genreId) {
     super(id);
     this.header = header;
     this.authors = authors;
@@ -29,7 +29,7 @@ public class Book extends Entity {
     this.status = status;
     this.photoId = photoId;
     this.fileId = fileId;
-    this.genre = genre;
+    this.genreId = genreId;
   }
 
   public Book() {
@@ -84,13 +84,11 @@ public class Book extends Entity {
     this.fileId = fileId;
   }
 
-  public void setGenre(String genre) {
-    this.genre = genre;
+  public int getGenreId() {
+    return genreId;
   }
 
-  public String getGenre() {
-    return genre;
+  public void setGenreId(int genreId) {
+    this.genreId = genreId;
   }
-
-
 }

@@ -13,15 +13,6 @@ public class BookQuery {
   public static final String STATUS = "status";
   public static final String GENRE_ID = "genre_id";
 
-  public static final String GENRE = "genre_name";
-  public static final String GENRES_TABLE = "genres";
-
-
-  public static final String GET_ALL ="SELECT *" + " FROM " + TABLE_NAME + " INNER JOIN " + GENRES_TABLE + " ON " + TABLE_NAME + "." + GENRE_ID + " = " +
-    GENRES_TABLE + "." + GENRE_ID;
-
-  public static final String GET_BOOK = GET_ALL+" WHERE "+TABLE_NAME+"."+BOOK_ID+" =(?)";
-
   public static final String GET_BOOK_BY_ID = "SELECT * FROM " + TABLE_NAME
     + " WHERE " + BOOK_ID + " =(?)";
 
@@ -48,17 +39,17 @@ public class BookQuery {
   public static final String DELETE_BOOK_BY_ID = "DELETE FROM " + TABLE_NAME + " WHERE " + BOOK_ID + " =(?)";
 
 
-  public static final String GET_BOOKS_BY_TITLE = "SELECT * FROM " + TABLE_NAME
-    + " WHERE " + HEADER + " =(?)";
+	public static final String GET_BOOKS_BY_TITLE = "SELECT * FROM " + TABLE_NAME
+			+ " WHERE " + HEADER + " =(?)";
 
-  public static final String GET_BOOKS_BY_AUTHOR = "SELECT * FROM " + TABLE_NAME
-    + " WHERE " + AUTHOR + " =(?)";
+	public static final String GET_BOOKS_BY_AUTHOR = "SELECT * FROM " + TABLE_NAME
+			+ " WHERE " + AUTHOR + " =(?)";
 
-  public static final String GET_BOOKS_BY_STATUS = "SELECT * FROM " + TABLE_NAME
-    + " WHERE " + STATUS + " =(?)";
+	public static final String GET_BOOKS_BY_STATUS = "SELECT * FROM " + TABLE_NAME
+			+ " WHERE " + STATUS + " =(?)";
 
-  public static final String GET_BOOKS_BY_GENRE = "SELECT * FROM " + TABLE_NAME
-    + " WHERE " + GENRE_ID + " =(?)";
+	public static final String GET_BOOKS_BY_GENRE = "SELECT * FROM " + TABLE_NAME
+			+ " WHERE " + GENRE_ID + " =(?)";
 
 //	public static final String CREATE_BOOK = "INSERT INTO " + TABLE_NAME
 //			+ " (" + TITLE + "," + HEADER + "," + AUTHOR + ","
