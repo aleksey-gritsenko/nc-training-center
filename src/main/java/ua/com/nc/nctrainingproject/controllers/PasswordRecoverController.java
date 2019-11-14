@@ -30,7 +30,8 @@ public class PasswordRecoverController {
     public ResponseEntity<?> emailSender( @RequestParam String email) {
       if(email !=null) {
         try {
-          if (passwordRecoverService.verifyEmail(email)) {
+          if (passwordRecoverService.isEmail(email) &&
+            passwordRecoverService.verifyEmail(email)) {
             passwordRecoverService.makeEmail(email);
             return new ResponseEntity<>(HttpStatus.OK);
           }
