@@ -1,4 +1,4 @@
-import {Id} from '../models/id'
+import {Id} from './id'
 
 export class Book extends Id{
   header: string;
