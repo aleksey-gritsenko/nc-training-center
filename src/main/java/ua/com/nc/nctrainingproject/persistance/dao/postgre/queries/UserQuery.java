@@ -20,7 +20,7 @@ public class UserQuery {
   public static final String UPDATE_PASSWORD = "UPDATE " + TABLE_NAME + " set " + USER_PASSWORD + "=(?)" + " where " + USERNAME + "=(?)";
 
   public static final String GET_EMAIL_BY_USERNAME =
-    "SELECT * FROM " + TABLE_NAME + " WHERE " + USERNAME + "=(?)"+" AND " + EMAIL +" =(?)";
+    "SELECT * FROM " + TABLE_NAME + " WHERE " + USERNAME + "=(?)" + " AND " + EMAIL + " =(?)";
 
   public static final String UPDATE_BY_USERNAME = "UPDATE " + TABLE_NAME + " SET " +
     USERNAME + " =(?), " +

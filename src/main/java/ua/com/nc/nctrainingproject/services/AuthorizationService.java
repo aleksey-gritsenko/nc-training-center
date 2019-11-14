@@ -3,15 +3,18 @@ package ua.com.nc.nctrainingproject.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ua.com.nc.nctrainingproject.models.User;
+import ua.com.nc.nctrainingproject.persistance.dao.BookSqlDAO;
 import ua.com.nc.nctrainingproject.persistance.dao.postgre.UserPostgreDAO;
 
 @Service
 public class AuthorizationService {
   private final UserPostgreDAO userPostgreDAO;
+  private final BookSqlDAO bookSqlDAO;
 
   @Autowired
-  public AuthorizationService(UserPostgreDAO userPostgreDAO) {
+  public AuthorizationService(UserPostgreDAO userPostgreDAO, BookSqlDAO bookSqlDAO) {
     this.userPostgreDAO = userPostgreDAO;
+    this.bookSqlDAO = bookSqlDAO;
   }
 
   public User auth(String login, String password) {
@@ -34,6 +37,9 @@ public class AuthorizationService {
     return null;
   }
 
+
+
+
   public void loginUser() {
 //    System.out.println(userPostgreDAO.getUserByUserName("first").getUserName());
 //    System.out.println(userPostgreDAO.getUserById(1).getUserName());
@@ -41,8 +47,12 @@ public class AuthorizationService {
 //      System.out.println(user.getUserName());
 //    }
 //    System.out.println(userPostgreDAO.getUserEmailByUserName("first","dimaskorohodov3@gmail.com"));
-    User user = new User("NEW", "NEW", "NEW");
-    userPostgreDAO.updateUserByName("first", user);
+    //  User user = new User("NEW", "NEW", "NEW");
+    //userPostgreDAO.updateUserByName("first", user);
+
+    User user = bookSqlDAO.getEntityById(2);
+    System.out.println(user.getUserName());
+
   }
 
 }

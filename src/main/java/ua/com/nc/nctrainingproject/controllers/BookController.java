@@ -9,35 +9,35 @@ import ua.com.nc.nctrainingproject.services.BookService;
 @CrossOrigin
 public class BookController {
 
-	private final BookService bookService;
-
-	@Autowired
-	public BookController(BookService bookService) {
-		this.bookService = bookService;
-	}
-
-	@RequestMapping(value = "/book", method = RequestMethod.POST)
-	public Book addBook(@RequestParam(name = "title") String title,
-						@RequestParam(name = "header") String header,
-						@RequestParam(name = "author") String author,
-						@RequestParam(name = "overview") String overview,
-						@RequestParam(name = "photo") int photoId,
-						@RequestParam(name = "file") int fileId,
-						@RequestParam(name = "status") String status) {
-
-		return bookService.createBook(title, header, author, overview, status, photoId, fileId);
-	}
-
-	@RequestMapping(value = "/book/update", method = RequestMethod.POST)
-	public Book updateBook(@RequestParam(name = "bookId") int bookId,
-						   @RequestParam(name = "title") String title,
-						   @RequestParam(name = "header") String header,
-						   @RequestParam(name = "author") String author,
-						   @RequestParam(name = "overview") String overview,
-						   @RequestParam(name = "photo") int photoId,
-						   @RequestParam(name = "file") int fileId,
-						   @RequestParam(name = "status") String status) {
-
-		return bookService.updateBook(bookId, title, header, author, overview, status, photoId, fileId);
-	}
+//	private final BookService bookService;
+//
+//	@Autowired
+//	public BookController(BookService bookService) {
+//		this.bookService = bookService;
+//	}
+//
+//	@RequestMapping(value = "/book", method = RequestMethod.POST)
+//	public Book addBook(@RequestParam(name = "title") String title,
+//						@RequestParam(name = "header") String header,
+//						@RequestParam(name = "author") String author,
+//						@RequestParam(name = "overview") String overview,
+//						@RequestParam(name = "photo") int photoId,
+//						@RequestParam(name = "file") int fileId,
+//						@RequestParam(name = "status") String status) {
+//
+//		return bookService.createBook(title, header, author, overview, status, photoId, fileId);
+//	}
+//
+//	@RequestMapping(value = "/book/update", method = RequestMethod.POST)
+//	public Book updateBook(@RequestParam(name = "bookId") int bookId,
+//						   @RequestParam(name = "title") String title,
+//						   @RequestParam(name = "header") String header,
+//						   @RequestParam(name = "author") String author,
+//						   @RequestParam(name = "overview") String overview,
+//						   @RequestParam(name = "photo") int photoId,
+//						   @RequestParam(name = "file") int fileId,
+//						   @RequestParam(name = "status") String status) {
+//
+//		return bookService.updateBook(bookId, title, header, author, overview, status, photoId, fileId);
+//	}
 }
