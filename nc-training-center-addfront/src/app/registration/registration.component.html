@@ -1,0 +1,17 @@
+<form method="post" #f="ngForm" (submit)="register()">
+  <table>
+    <tr>
+      <td><label for="login">Login</label></td>
+      <td><input id="login" type="text" name="login" placeholder= "" [(ngModel)]= "model.login"></td>
+    </tr>
+    <tr>
+      <td><label for="password">Password</label></td>
+      <td><input id="password" type="password" name="password" placeholder= ""  [(ngModel)]="model.password"></td>
+    </tr>
+    <tr>
+      <td><label for="email">email</label></td>
+      <td><input id="email" type="email" name="email" placeholder= ""  [(ngModel)]="model.email"></td>
+    </tr>
+  </table>
+  <input type="submit" value="Register">
+</form>
