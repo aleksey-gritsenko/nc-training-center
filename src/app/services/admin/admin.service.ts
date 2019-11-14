@@ -4,6 +4,7 @@ import { ManagingService } from '../managing/managing.service';
 import { SearchService } from '../search/search.service';
 import { Book } from 'src/app/models/book';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {BookFilter} from "../../models/bookfilter";
 
 @Injectable({
   providedIn: 'root'
@@ -41,8 +42,8 @@ export class AdminService {
     this.commonService.getBooks();
   }
 
- getBooksByFilter(){
-    this.commonService.getBooksByFilter();
+ getBooksByFilter(filter: BookFilter){
+    this.commonService.getBooksByFilter(filter);
   }
 
   getBookByName(name : string){
@@ -58,7 +59,7 @@ export class AdminService {
   }
 
   getReviews(book : Book){
-    this.commonService.getReviews(book);
+    this.commonService.getReviews(book.id);
   }
 
   recoverPassword(){

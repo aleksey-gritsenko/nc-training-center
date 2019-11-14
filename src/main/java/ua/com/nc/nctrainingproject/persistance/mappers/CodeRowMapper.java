@@ -2,9 +2,7 @@ package ua.com.nc.nctrainingproject.persistance.mappers;
 
 import org.springframework.jdbc.core.RowMapper;
 import ua.com.nc.nctrainingproject.models.RecoverCode;
-import ua.com.nc.nctrainingproject.models.User;
 import ua.com.nc.nctrainingproject.persistance.dao.postgre.queries.CodeRecoverQuery;
-import ua.com.nc.nctrainingproject.persistance.dao.postgre.queries.UserQuery;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

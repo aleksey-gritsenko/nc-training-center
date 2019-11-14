@@ -4,18 +4,19 @@ import { ManagingService } from '../managing/managing.service';
 import { SearchService } from '../search/search.service';
 import { Book } from 'src/app/models/book';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {BookFilter} from "../../models/bookfilter";
 
 @Injectable({
   providedIn: 'root'
 })
 export class SuperadminService {
-                                // extends CommonService, ManagingService, SearchService {
+  // extends CommonService, ManagingService, SearchService {
 
   constructor(
-    private commonService : CommonService,
-    private managingService : ManagingService,
-    private searchService : SearchService,
-    private http : HttpClient,
+      private commonService : CommonService,
+      private managingService : ManagingService,
+      private searchService : SearchService,
+      private http : HttpClient,
   ) { }
 
   // Personal methods
@@ -55,8 +56,8 @@ export class SuperadminService {
     this.commonService.getBooks();
   }
 
-  getBooksByFilter(){
-    this.commonService.getBooksByFilter();
+  getBooksByFilter(filter: BookFilter){
+    this.commonService.getBooksByFilter(filter);
   }
 
   getBookByName(name : string){
@@ -72,7 +73,7 @@ export class SuperadminService {
   }
 
   getReviews(book : Book){
-    this.commonService.getReviews(book);
+    this.commonService.getReviews(book.id);
   }
 
   recoverPassword(){

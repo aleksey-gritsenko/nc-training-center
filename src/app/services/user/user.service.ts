@@ -27,9 +27,16 @@ export class UserService {
 
   // Personal methods
 
-  manageProfile(user : User){
-    const url = `/users/${user.login}`;
-    this.http.update(url, user);
+  updateProfile(login: string ,user: User){
+    let url = 'http://localhost:8080/user/update';
+    let form = new FormData();
+
+    form.append('login', login);
+    form.append('newLogin', user.userName);
+    form.append('newPassword', user.userPassword);
+    form.append('newEmail', user.email);
+
+    return this.http.post<User>(url, form);
   }
 
   searchUser(name : string){
@@ -126,14 +133,14 @@ export class UserService {
     this.commonService.getAnnouncements();
   }
 
- /* getAnnouncementsByFilter(){
-    this.commonService.getAnnouncementsByFilter();
+  getAnnouncementsByFilter(){
+    // this.commonService.getAnnouncementsByFilter();
   }
 
   getReviews(book : Book){
-    this.commonService.getReviews(book);
+    // this.commonService.getReviews(book);
   }
-*/
+
   recoverPassword(){
     this.commonService.recoverPassword();
   }

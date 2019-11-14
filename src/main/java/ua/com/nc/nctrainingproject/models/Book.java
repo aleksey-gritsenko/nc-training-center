@@ -1,108 +1,94 @@
 package ua.com.nc.nctrainingproject.models;
 
-public class Book {
-	private String title;
-	private String header;
-	private String author;
-	private String overview;
-	private String status;
-	private int photoId;
-	private int fileId;
+import java.util.List;
 
-	private String genre;
+public class Book extends Entity {
+  private String header;
+  private List<Author> authors;
+  private String overview;
+  private String status;
+  private int photoId;
+  private int fileId;
+  private int genreId;
 
-	public Book(String title, String header, String author, String overview,
-				String status, int photoId, int fileId, String genre) {
-		this.title = title;
-		this.header = header;
-		this.author = author;
-		this.overview = overview;
-		this.status = status;
-		this.photoId = photoId;
-		this.fileId = fileId;
+  public Book(String header, List<Author> authors, String overview, String status, int photoId, int fileId, int genreId) {
+    this.header = header;
+    this.authors = authors;
+    this.overview = overview;
+    this.status = status;
+    this.photoId = photoId;
+    this.fileId = fileId;
+    this.genreId = genreId;
+  }
 
-		this.genre = genre;
-	}
+  public Book(int id, String header, List<Author> authors, String overview, String status, int photoId, int fileId, int genreId) {
+    super(id);
+    this.header = header;
+    this.authors = authors;
+    this.overview = overview;
+    this.status = status;
+    this.photoId = photoId;
+    this.fileId = fileId;
+    this.genreId = genreId;
+  }
 
-	public Book() {
+  public Book() {
 
-	}
+  }
 
-	public String getTitle() {
-		return title;
-	}
+  public String getHeader() {
+    return header;
+  }
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
+  public void setHeader(String header) {
+    this.header = header;
+  }
 
-	public String getHeader() {
-		return header;
-	}
+  public List<Author> getAuthors() {
+    return authors;
+  }
 
-	public void setHeader(String header) {
-		this.header = header;
-	}
+  public void setAuthors(List<Author> authors) {
+    this.authors = authors;
+  }
 
-	public String getAuthor() {
-		return author;
-	}
+  public String getOverview() {
+    return overview;
+  }
 
-	public void setAuthor(String author) {
-		this.author = author;
-	}
+  public void setOverview(String overview) {
+    this.overview = overview;
+  }
 
-	public String getOverview() {
-		return overview;
-	}
+  public String getStatus() {
+    return status;
+  }
 
-	public void setOverview(String overview) {
-		this.overview = overview;
-	}
+  public void setStatus(String status) {
+    this.status = status;
+  }
 
-	public String getStatus() {
-		return status;
-	}
+  public int getPhotoId() {
+    return photoId;
+  }
 
-	public void setStatus(String status) {
-		this.status = status;
-	}
+  public void setPhotoId(int photoId) {
+    this.photoId = photoId;
+  }
 
-	public int getPhotoId() {
-		return photoId;
-	}
+  public int getFileId() {
+    return fileId;
+  }
 
-	public void setPhotoId(int photoId) {
-		this.photoId = photoId;
-	}
+  public void setFileId(int fileId) {
+    this.fileId = fileId;
+  }
 
-	public int getFileId() {
-		return fileId;
-	}
+  public int getGenreId() {
+    return genreId;
+  }
 
-	public void setFileId(int fileId) {
-		this.fileId = fileId;
-	}
-
-	public String getGenre() {
-		return genre;
-	}
-
-	public void setGenre(String  genre) {
-		this.genre = genre;
-	}
-
-	@Override
-	public String toString() {
-		return "Book{" +
-				"title='" + title + '\'' +
-				", header='" + header + '\'' +
-				", author='" + author + '\'' +
-				", overview='" + overview + '\'' +
-				", status='" + status + '\'' +
-				", photoId=" + photoId +
-				", fileId=" + fileId +
-				", genre=" + genre +
-				'}';
-	}
+  public void setGenreId(int genreId) {
+    this.genreId = genreId;
+  }
 }

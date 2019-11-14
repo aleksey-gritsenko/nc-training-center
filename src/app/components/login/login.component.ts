@@ -1,43 +1,47 @@
-import { Component, OnInit } from '@angular/core';
-import { User } from '../../models/user';
-import { LogView} from '../../models/logview';
-import { HttpClient } from '@angular/common/http';
+import {Component, OnInit} from '@angular/core';
+import {LogView} from '../../models/logview';
+import {HttpClient} from '@angular/common/http';
+import {first} from 'rxjs/operators';
+import {Router, ActivatedRoute} from '@angular/router';
+
+import {AuthenticationService} from "../../services/authentification/authentication.service";
+
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+    selector: 'app-login',
+    templateUrl: './login.component.html',
+    styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  model:LogView = {login:'',
-                password:''};
-  constructor(private http: HttpClient) { }
+    model: LogView = {
+        login: '',
+        password: ''
+    };
 
-  ngOnInit() {
-  }
-  login():void{
-    let url = 'http://localhost:8080/login';
-    let authorization;
-    let form = new FormData();
-    form.append('login', this.model.login);
-    form.append('password', this.model.password);
+    returnUrl: string;
 
-    this.http.post(url,form).subscribe(
+    constructor(
+        private http: HttpClient, public serv: AuthenticationService,
+        private route: ActivatedRoute,
+        private router: Router) {
+    }
 
-      res => {
-        //alert(JSON.parse(JSON.stringify(res)));
+    ngOnInit() {
 
-        if(JSON.parse(JSON.stringify(res))){
-          let role = 'user';
-          localStorage.setItem('currentUser',JSON.stringify({login:this.model.login, password:this.model.password, role: role}));
+        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+    }
 
-        }
-        },
-      err => {
-      alert(JSON.parse(JSON.stringify(err)).status);
-      authorization = false;
-      }
-    );
-  //  location.reload();
-   }
+    login(): void {
+        this.serv.login(this.model.login, this.model.password)
+            .pipe(first())
+            .subscribe(
+                data => {
+                    this.router.navigate([this.returnUrl]);
+                },
+                error => {
+                    //  this.error = error;
+                    //  this.loading = false;
+                }
+                );
+    }
 }

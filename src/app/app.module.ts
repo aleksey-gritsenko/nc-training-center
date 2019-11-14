@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
-import {FormsModule,ReactiveFormsModule } from '@angular/forms';
+import {FormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http'
 
 import { AppRoutingModule } from './app-routing.module';
@@ -32,40 +31,8 @@ import { ModeratorsListComponent } from './components/moderators-list/moderators
 import { AdminsListComponent } from './components/admins-list/admins-list.component';
 import { ChatComponent } from './components/chat/chat.component';
 import { CalendarComponent } from './components/calendar/calendar.component';
-
-const appRoutes: Routes = [
-{
-path:'login',
-component:LoginComponent
-},
-{
-path:'registration',
-component:RegistrationComponent
-},
-{
-path:'home',
-component: LandingComponent
-},
-  {
-    path: 'book',
-    component: BooksListComponent
-  },
-  {
-    path: 'book/:id',
-    component: BookComponent
-  },
-{
-path:'',
-component: LandingComponent,
-pathMatch:'full'
-},
-{
-path:'**',
-component:ErrorpageComponent
-}
-
-
-];
+import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { AuthenticationService } from "./services/authentification/authentication.service";
 
 @NgModule({
   declarations: [
@@ -95,16 +62,16 @@ component:ErrorpageComponent
     ModeratorsListComponent,
     AdminsListComponent,
     ChatComponent,
-    CalendarComponent
+    CalendarComponent,
+    SidebarComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule,
-    RouterModule.forRoot(appRoutes)
+    AppRoutingModule
   ],
-  providers: [],
+  providers: [AuthenticationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

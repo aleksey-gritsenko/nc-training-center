@@ -10,4 +10,6 @@ public interface UserDAO {
     void createUser(User user);
 
     List<User> getAllUsers();
+
+    void updateUserByName(String userName, User user);
 }
