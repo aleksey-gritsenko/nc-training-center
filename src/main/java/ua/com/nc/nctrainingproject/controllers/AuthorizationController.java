@@ -17,6 +17,7 @@ import java.util.List;
 public class AuthorizationController {
   private final AuthorizationService authorizationService;
 
+
   @Autowired
   public AuthorizationController(AuthorizationService authorizationService) {
     this.authorizationService = authorizationService;
@@ -40,26 +41,13 @@ public class AuthorizationController {
   @RequestMapping(value = "/testFeature", method = RequestMethod.POST)
   public void loginUser(@RequestParam(name = "login") String login,
                         @RequestParam(name = "password") String password) {
-    authorizationService.loginUser();
+    authorizationService.auth(login, password);
+
   }
-
-  @Autowired
-  BookPostgreDAO bookPostgreDAO;
-
-  @Autowired
-  AuthorPostgreDAO authorPostgreDAO;
-
-
-//  @RequestMapping(value = "/test", method = RequestMethod.GET)
-//  public void test() {
-////    for(Author author:authorPostgreDAO.getAllAuthors()){
-////      System.out.println(author.getName());
-////    }
-//
-//    authorPostgreDAO.deleteAuthorById(1);
-//
-//   // System.out.println(authorPostgreDAO.getAuthorById(1).getBooks().size());
-//
-//  }
-
 }
+
+
+
+
+
+

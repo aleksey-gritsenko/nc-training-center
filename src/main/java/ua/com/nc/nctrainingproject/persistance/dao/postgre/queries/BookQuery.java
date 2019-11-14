@@ -39,4 +39,44 @@ public class BookQuery {
   public static final String DELETE_BOOK_BY_ID = "DELETE FROM " + TABLE_NAME + " WHERE " + BOOK_ID + " =(?)";
 
 
+	public static final String GET_BOOKS_BY_TITLE = "SELECT * FROM " + TABLE_NAME
+			+ " WHERE " + HEADER + " =(?)";
+
+	public static final String GET_BOOKS_BY_AUTHOR = "SELECT * FROM " + TABLE_NAME
+			+ " WHERE " + AUTHOR + " =(?)";
+
+	public static final String GET_BOOKS_BY_STATUS = "SELECT * FROM " + TABLE_NAME
+			+ " WHERE " + STATUS + " =(?)";
+
+	public static final String GET_BOOKS_BY_GENRE = "SELECT * FROM " + TABLE_NAME
+			+ " WHERE " + GENRE_ID + " =(?)";
+
+//	public static final String CREATE_BOOK = "INSERT INTO " + TABLE_NAME
+//			+ " (" + TITLE + "," + HEADER + "," + AUTHOR + ","
+//			+ OVERVIEW + "," + PHOTO + "," + FILE +  "," + STATUS + "," + GENRE
+//			+ ")" + " VALUES(?,?,?,?,?,?,?,?)";
+//
+//	public static final String GET_ALL_BOOKS = "SELECT * FROM " + TABLE_NAME;
+//
+//	public static final String UPDATE_BOOK = "UPDATE " + TABLE_NAME + " SET " +
+//			TITLE + "=(?), " + HEADER + "=(?), " + AUTHOR + "=(?), " +
+//			OVERVIEW + "=(?), " + PHOTO + "=(?), " + FILE + "=(?), " +
+//			STATUS + "=(?), " + GENRE + "=(?)" + " WHERE " + BOOK_ID + "=(?)";
+//
+// /*public static final String JOIN_BOOKS_ANNOUNCEMENT =
+//    "select " +TITLE+HEADER+AUTHOR+OVERVIEW+PHOTO+FILE+STATUS +
+//      "from "+TABLE_NAME +" join"+ TABLE_NAME_ANNOUNCEMENTS +
+//    "    on books.book_id = announcements.book_id WHERE ";*/
+//  public static final String GET_BOOKS=
+//    "select * " +
+//      "from "+TABLE_NAME +" WHERE ";
+//  public static final String CONDITIONS_GENRES = GENRE + "=(?)";
+//  public static final String CONDITIONS_NAME =HEADER +" LIKE "+"(?) ";
+// // public static final String CONDITIONS_NAME = HEADER +" =(?) ";
+//  public static final String CONDITION_AUTHOR = AUTHOR+" =(?)";
+//  public static final String CONDITION_ANNOUNCEMENT_DATE ="announcements.date is between"
+//    +"=(?)" +" AND "+"=(?)";
+//>>>>>>> 6370a182546e95818761b382343272ba4d99af66
+
+
 }

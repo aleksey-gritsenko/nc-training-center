@@ -38,8 +38,6 @@ mvn spring-boot:run
 - Diana Teper
 - Dmitriy Skorohodov
 - Artem Tarasenko
-- Valeriya Salivon
-
 
 ## Deploy
 
