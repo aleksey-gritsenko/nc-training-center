@@ -1,89 +1,61 @@
 package ua.com.nc.nctrainingproject.persistance.dao.postgre;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import ua.com.nc.nctrainingproject.models.Author;
 import ua.com.nc.nctrainingproject.models.Book;
-import ua.com.nc.nctrainingproject.persistance.dao.BookDAO;
+import ua.com.nc.nctrainingproject.persistance.dao.AbstractDAO;
 import ua.com.nc.nctrainingproject.persistance.dao.postgre.queries.BookQuery;
+
+import ua.com.nc.nctrainingproject.persistance.dao.postgre.queries.UserQuery;
+
 import ua.com.nc.nctrainingproject.persistance.mappers.BookRowMapper;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class BookPostgreDAO implements BookDAO {
+public class BookPostgreDAO extends AbstractDAO<Book> {
 
-	private final JdbcTemplate jdbcTemplate;
+  private final AuthorBookPostgreDAO authorBookPostgreDAO;
 
-	@Autowired
-	public BookPostgreDAO(JdbcTemplate jdbcTemplate) {
-		this.jdbcTemplate = jdbcTemplate;
-	}
+  @Autowired
+  public BookPostgreDAO(JdbcTemplate jdbcTemplate, AuthorBookPostgreDAO authorBookPostgreDAO) {
+    super(jdbcTemplate);
+    this.authorBookPostgreDAO = authorBookPostgreDAO;
+  }
 
-	@Override
-	public Book getBookById(int bookId) {
-		try {
-			return jdbcTemplate.queryForObject(BookQuery.GET_BOOK_BY_ID, new Object[]{bookId}, new BookRowMapper());
-		} catch (EmptyResultDataAccessException e) {
-			return null;
-		}
-	}
+  public Book getBookById(int bookId) {
+    Book book = super.getEntityById(BookQuery.GET_BOOK_BY_ID, new BookRowMapper(), bookId);
+    book.setAuthors(authorBookPostgreDAO.getAuthorsByBookId(bookId));
+    return book;
+  }
 
-	@Override
-	public Book getBookByTitle(String title) {
-		try {
-			return jdbcTemplate.queryForObject(BookQuery.GET_BOOK_BY_TITLE, new Object[]{title}, new BookRowMapper());
-		} catch (EmptyResultDataAccessException e) {
-			return null;
-		}
-	}
+  public List<Book> getAllBooks() {
+    List<Book> books = super.getAllEntities(BookQuery.GET_ALL_BOOKS, new BookRowMapper());
+    for (Book book : books) {
+      book.setAuthors(authorBookPostgreDAO.getAuthorsByBookId(book.getId()));
+    }
+    return books;
+  }
 
-	@Override
-	public Book getBookByAuthor(String author) {
-		try {
-			return jdbcTemplate.queryForObject(BookQuery.GET_BOOK_BY_AUTHOR, new Object[]{author}, new BookRowMapper());
-		} catch (EmptyResultDataAccessException e) {
-			return null;
-		}
-	}
+  public void deleteBookById(int bookId) {
+    super.deleteEntityById(BookQuery.DELETE_BOOK_BY_ID, bookId);
+  }
 
-	@Override
-	public Book getBookByStatus(String status) {
-		try {
-			return jdbcTemplate.queryForObject(BookQuery.GET_BOOK_BY_STATUS, new Object[]{status}, new BookRowMapper());
-		} catch (EmptyResultDataAccessException e) {
-			return null;
-		}
-	}
+  public void createBook(Book book) {
+    jdbcTemplate.update(BookQuery.CREATE_BOOK, book.getHeader(), book.getOverview(), book.getFileId(), book.getStatus(),
+      book.getGenreId(), book.getPhotoId());
 
-	@Override
-	public void createBook(Book book) {
-		jdbcTemplate.update(BookQuery.CREATE_BOOK,
-				book.getTitle(),
-				book.getHeader(),
-				book.getAuthor(),
-				book.getOverview(),
-				book.getPhotoId(),
-				book.getFileId(),
-				book.getStatus());
-	}
+    for (Author author : book.getAuthors()) {
+      authorBookPostgreDAO.createAuthorBookConnection(book.getId(), author.getId());
+    }
+  }
 
-	public void updateBook(int bookId, String title, String header,
-						   String author, String overview,
-						   String status, int photoId, int fileId) {
-		jdbcTemplate.update(BookQuery.UPDATE_BOOK, title, header, author, overview, status, photoId, fileId, bookId);
-	}
-
-	@Override
-	public void updateBook(Book book, int bookId) {
-		jdbcTemplate.update(BookQuery.UPDATE_BOOK, book.getTitle(), book.getHeader(), book.getAuthor(),
-				book.getOverview(), book.getPhotoId(), book.getFileId(), book.getStatus(), bookId);
-	}
-
-
-	@Override
-	public List<Book> getAllBooks() {
-		return jdbcTemplate.query(BookQuery.GET_ALL_BOOKS, new BookRowMapper());
-	}
+  public void updateBookById(int id, Book book) {
+    Object[] params = new Object[]{book.getHeader(), book.getOverview(), book.getFileId(), book.getStatus(), book.getGenreId(), book.getPhotoId(), id};
+    super.updateEntityById(id, params, BookQuery.UPDATE_BOOK);
+  }
 }
+

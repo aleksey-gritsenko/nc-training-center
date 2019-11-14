@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Changeview} from '../mdls/changeview';
+import {Changeview} from '../models/changeview';
 import {HttpClient} from '@angular/common/http';
 
 @Component({

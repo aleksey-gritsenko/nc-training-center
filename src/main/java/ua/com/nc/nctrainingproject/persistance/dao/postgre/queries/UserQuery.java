@@ -23,6 +23,7 @@ public class UserQuery {
   public static final String GET_EMAIL =
     "SELECT * FROM " + TABLE_NAME + " WHERE "  + EMAIL +" =(?)";
 
+
   public static final String UPDATE_BY_USERNAME = "UPDATE " + TABLE_NAME + " SET " +
     USERNAME + " =(?), " +
     USER_PASSWORD + " =(?), " +

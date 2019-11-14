@@ -4,18 +4,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import ua.com.nc.nctrainingproject.models.User;
+import ua.com.nc.nctrainingproject.persistance.dao.AbstractDAO;
 import ua.com.nc.nctrainingproject.persistance.dao.postgre.queries.UserQuery;
 import ua.com.nc.nctrainingproject.persistance.mappers.UserRowMapper;
 
 import java.util.List;
 
 @Repository
-public class UserPostgreDAO {
-  private final JdbcTemplate jdbcTemplate;
+public class UserPostgreDAO extends AbstractDAO<User> {
 
   @Autowired
   public UserPostgreDAO(JdbcTemplate jdbcTemplate) {
-    this.jdbcTemplate = jdbcTemplate;
+    super(jdbcTemplate);
+
   }
 
 
@@ -54,6 +55,7 @@ public class UserPostgreDAO {
     List<User>result =    jdbcTemplate.query(UserQuery.GET_BY_EMAIL,
       new UserRowMapper(),email);
     if(result.size() == 0){
+
       return null;
     }
     return result.get(0).getEmail();
@@ -67,8 +69,12 @@ public class UserPostgreDAO {
   }
   public void updatePassword(String password,String email){
     jdbcTemplate.update(UserQuery.UPDATE_PASSWORD_BY_EMAIL,password,email);
+
   }
 
+  public void createUser(User user) {
+    jdbcTemplate.update(UserQuery.CREATE_USER, user.getUserName(), user.getUserPassword(), user.getEmail());
+  }
 
 
 //  public List<User> get
