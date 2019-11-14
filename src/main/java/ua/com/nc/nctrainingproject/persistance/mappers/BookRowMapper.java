@@ -19,6 +19,7 @@ public class BookRowMapper implements RowMapper<Book> {
     book.setFileId(resultSet.getInt(BookQuery.FILE));
     book.setStatus(resultSet.getString(BookQuery.STATUS));
     book.setGenre(resultSet.getString(BookQuery.GENRE));
+    // book.setId(resultSet.getInt(BookQuery.BOOK_ID));
     return book;
   }
 //=======

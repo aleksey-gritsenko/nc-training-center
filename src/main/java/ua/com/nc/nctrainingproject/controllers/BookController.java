@@ -46,12 +46,12 @@ public class BookController {
 //		return bookService.updateBook(bookId, title, header, author, overview, status, photoId, fileId);
 //	}
 //=======
-//	private final BookService bookService;
-//
-//	@Autowired
-//	public BookController(BookService bookService) {
-//		this.bookService = bookService;
-//	}
+	private final BookService bookService;
+
+	@Autowired
+	public BookController(BookService bookService) {
+		this.bookService = bookService;
+	}
 //
 //	@RequestMapping(value = "/book", method = RequestMethod.POST)
 //	public Book addBook(@RequestParam(name = "title") String title,
@@ -92,21 +92,21 @@ public class BookController {
 //	public List<Book> getAllBooks(){
 //		return  bookService.getAllBooks();
 //	}
-//  @RequestMapping(value = "/book/filter", method = RequestMethod.GET)
-//
-//  public List<Book> filterBook
-//      ( @RequestParam(name = "header") String header,
-//        @RequestParam(name = "date") ArrayList<Date> dates,
-//       @RequestParam(name = "genre") ArrayList<String> genre,
-//        @RequestParam(name = "author") ArrayList<String> author
-//     ){
-//	  ArrayList<String> genres = new ArrayList<>();
-//
-//	 //genres.add("fiction");
-//	 //genres.add("drama");
-//	//  ArrayList<String> authors = new ArrayList<>();
-//	 // authors.add("none");
-//	  return bookService.filterBooks(header+"%",genres,author);
-//  }
+  @RequestMapping(value = "/book/filter", method = RequestMethod.GET)
+
+  public List<Book> filterBook
+      ( @RequestParam(name = "header") String header
+       // @RequestParam(name = "date") ArrayList<Date> dates,
+    //   @RequestParam(name = "genre") ArrayList<String> genre,
+       // @RequestParam(name = "author") ArrayList<String> author
+     ){
+	  ArrayList<String> genres = new ArrayList<>();
+
+	 genres.add("fiction");
+	 //genres.add("drama");
+	ArrayList<String> authors = new ArrayList<>();
+	  authors.add("none");
+	  return bookService.filterBooks(header+"%",genres,authors);
+  }
 //>>>>>>> 6370a182546e95818761b382343272ba4d99af66
 }

@@ -6,8 +6,10 @@ import org.springframework.stereotype.Repository;
 import ua.com.nc.nctrainingproject.models.Author;
 import ua.com.nc.nctrainingproject.models.Book;
 import ua.com.nc.nctrainingproject.persistance.dao.AbstractDAO;
+import ua.com.nc.nctrainingproject.persistance.dao.postgre.queries.AuthorBookQuery;
 import ua.com.nc.nctrainingproject.persistance.dao.postgre.queries.BookQuery;
 
+import ua.com.nc.nctrainingproject.persistance.dao.postgre.queries.FilterCriterionQuery;
 import ua.com.nc.nctrainingproject.persistance.mappers.BookRowMapper;
 
 import java.util.List;
@@ -56,6 +58,19 @@ public class BookPostgreDAO extends AbstractDAO<Book> {
   public void updateBookById(int id, Book book) {
     Object[] params = new Object[]{book.getHeader(), book.getOverview(), book.getFileId(), book.getStatus(), genrePostgreDAO.getIdByGenre(book.getGenre()), book.getPhotoId(), id};
     super.updateEntityById(id, params, BookQuery.UPDATE_BOOK);
+  }
+
+  public List<Book> filterBooks
+    (FilterCriterionQuery filterCriterionQuery) {
+    String q = filterCriterionQuery.makeQuery();
+
+    Object[] args = filterCriterionQuery.makeArrayArgs();
+    List<Book> books = jdbcTemplate.query(q,
+      args, new BookRowMapper());
+    for (Book book : books) {
+      book.setAuthors(authorBookPostgreDAO.getAuthorsByBookId(book.getId()));
+    }
+    return books;
   }
 }
 

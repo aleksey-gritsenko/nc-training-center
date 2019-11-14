@@ -6,7 +6,7 @@ public class BookQuery {
   public static final String BOOK_ID = "book_id";
   public static final String TITLE = "name";
   public static final String HEADER = "header";
-  public static final String AUTHOR = "author";
+  public static final String AUTHOR = "author_name";
   public static final String OVERVIEW = "overview";
   public static final String PHOTO = "photo_id";
   public static final String FILE = "file";
@@ -59,7 +59,19 @@ public class BookQuery {
 
   public static final String GET_BOOKS_BY_GENRE = "SELECT * FROM " + TABLE_NAME
     + " WHERE " + GENRE_ID + " =(?)";
+  public static final String GET_BOOKS_FILTRATION=
+    "select "+ TABLE_NAME + "."+BOOK_ID +" , "+ HEADER+ ", " + AUTHOR+ ", " + OVERVIEW+ " ," + STATUS+ " ," + PHOTO+ ", " + FILE+ ", " + GENRE + " " +
+      " from " + TABLE_NAME +" join "+GENRES_TABLE +" ON " + TABLE_NAME + "." + GENRE_ID + " = " + GENRES_TABLE + "." + GENRE_ID+
+     " join "+ AuthorBookQuery.TABLE_NAME  + " on "+ TABLE_NAME + "." + BOOK_ID +" = " +AuthorBookQuery.TABLE_NAME+ "." + AuthorBookQuery.BOOK_ID+
+      " join "+AuthorQuery.TABLE_NAME +" on " +AuthorBookQuery.TABLE_NAME+ "." + AuthorBookQuery.AUTHOR_ID+" = " + AuthorQuery.TABLE_NAME+ "." +  AuthorQuery.ID+" where ";
 
+  /*select header,author,overview,status,photo_id,file,genre_name from books join genres on books.genre_id = genres.genre_id join book_author ba on books.book_id = ba.book_id
+join authors on ba.author_id = authors.id
+
+   */
+  public static final String CONDITIONS_GENRES = GENRE + "=(?)";
+  public static final String CONDITIONS_NAME =HEADER +" LIKE "+"(?) ";
+  public static final String CONDITION_AUTHOR = AUTHOR+" =(?)";
 //	public static final String CREATE_BOOK = "INSERT INTO " + TABLE_NAME
 //			+ " (" + TITLE + "," + HEADER + "," + AUTHOR + ","
 //			+ OVERVIEW + "," + PHOTO + "," + FILE +  "," + STATUS + "," + GENRE
@@ -76,13 +88,8 @@ public class BookQuery {
 //    "select " +TITLE+HEADER+AUTHOR+OVERVIEW+PHOTO+FILE+STATUS +
 //      "from "+TABLE_NAME +" join"+ TABLE_NAME_ANNOUNCEMENTS +
 //    "    on books.book_id = announcements.book_id WHERE ";*/
-//  public static final String GET_BOOKS=
-//    "select * " +
-//      "from "+TABLE_NAME +" WHERE ";
-//  public static final String CONDITIONS_GENRES = GENRE + "=(?)";
-//  public static final String CONDITIONS_NAME =HEADER +" LIKE "+"(?) ";
-// // public static final String CONDITIONS_NAME = HEADER +" =(?) ";
-//  public static final String CONDITION_AUTHOR = AUTHOR+" =(?)";
+
+ // public static final String CONDITIONS_NAME = HEADER +" =(?) ";
 //  public static final String CONDITION_ANNOUNCEMENT_DATE ="announcements.date is between"
 //    +"=(?)" +" AND "+"=(?)";
 //>>>>>>> 6370a182546e95818761b382343272ba4d99af66
