@@ -18,7 +18,7 @@ public class BookRowMapper implements RowMapper<Book> {
     book.setPhotoId(resultSet.getInt(BookQuery.PHOTO));
     book.setFileId(resultSet.getInt(BookQuery.FILE));
     book.setStatus(resultSet.getString(BookQuery.STATUS));
-    book.setGenreId(resultSet.getInt(BookQuery.GENRE_ID));
+    book.setGenre(resultSet.getString(BookQuery.GENRE));
     return book;
   }
 //=======
