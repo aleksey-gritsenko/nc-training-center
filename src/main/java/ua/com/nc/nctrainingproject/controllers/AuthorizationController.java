@@ -49,16 +49,17 @@ public class AuthorizationController {
   @Autowired
   AuthorPostgreDAO authorPostgreDAO;
 
-  @RequestMapping(value = "/test", method = RequestMethod.GET)
-  public void test() {
-//    for(Author author:authorPostgreDAO.getAllAuthors()){
-//      System.out.println(author.getName());
-//    }
 
-    authorPostgreDAO.deleteAuthorById(1);
-
-   // System.out.println(authorPostgreDAO.getAuthorById(1).getBooks().size());
-
-  }
+//  @RequestMapping(value = "/test", method = RequestMethod.GET)
+//  public void test() {
+////    for(Author author:authorPostgreDAO.getAllAuthors()){
+////      System.out.println(author.getName());
+////    }
+//
+//    authorPostgreDAO.deleteAuthorById(1);
+//
+//   // System.out.println(authorPostgreDAO.getAuthorById(1).getBooks().size());
+//
+//  }
 
 }
