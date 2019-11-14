@@ -23,6 +23,10 @@ const routes: Routes = [{
     component: UserProfileComponent
   },
   {
+    path: 'book',
+    component: UserProfileComponent
+  },
+  {
     path:'',
     component: LandingComponent,
     pathMatch:'full'

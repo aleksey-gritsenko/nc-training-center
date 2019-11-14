@@ -108,10 +108,25 @@ export class CommonService {
   }
 
   getReviews(id:number) : Observable<Review[]>{
-    const url = `${this.booksUrl}/${id}`;
+    const url = `${this.booksUrl}/${id}/review`;
     // return this.http.get<Review[]>(url);
     return null;
   }
+
+  createReview(review:Review):Observable<Review>{
+    const body = new HttpParams()
+        .set('book', review.book.toString())
+        .set('user', review.user.toString())
+        .set('text', review.text)
+        .set('reviewDate', review.reviewDate.toDateString())
+        .set('grade', review.grade.toString())
+        .set('adminId', review.adminId.toString());
+    console.log(body);
+
+    return this.http.post<Review>(this.booksUrl, body, this.httpOptions);
+  }
+
+
 
   getAnnouncementsByFilter() : Observable<Announcement[]>{
     return null;
