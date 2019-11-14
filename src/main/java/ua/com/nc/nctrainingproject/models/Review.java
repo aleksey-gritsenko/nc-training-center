@@ -12,9 +12,7 @@ public class Review {
   private int grade;
   private int adminId;
 
-  public void setUserId(int userId) {
-    this.userId = userId;
-  }
+
 
   @Override
   public String toString() {
@@ -27,6 +25,8 @@ public class Review {
       ", adminId=" + adminId +
       '}';
   }
+
+  public void setUserId(int userId) { this.userId = userId; }
 
   public void setBookId(int bookId) {
     this.bookId = bookId;
@@ -76,9 +76,8 @@ public class Review {
     return grade;
   }
 
-  public int getAdminId() {
-    return adminId;
-  }
+  public int getAdminId() { return adminId; }
+
   public int getUserId() {
     return userId;
   }

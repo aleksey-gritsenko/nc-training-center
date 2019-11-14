@@ -5,6 +5,7 @@
     <title>Review add</title>
 </head>
 <body>
+<h1>Create review</h1>
 <form method="post" action="/review">
   <table>
     <tr>
@@ -20,16 +21,12 @@
       <td><input id="text" type="text" name="text"></td>
     </tr>
     <tr>
-      <td><label for="review-date">ReviewDate(Date)</label></td>
-      <td><input id="review-date" type="date" name="reviewDate"></td>
-    </tr>
-    <tr>
       <td><label for="grade">grade(int)</label></td>
       <td><input id="grade" type="number" name="grade"></td>
     </tr>
     <tr>
-      <td><label for="admin">admin(int)</label></td>
-      <td><input id="admin" type="number" name="file"></td>
+      <td><label for="admin">adminId(int)</label></td>
+      <td><input id="admin" type="number" name="admin"></td>
     </tr>
   </table>
   <input type="submit" value="Add review">

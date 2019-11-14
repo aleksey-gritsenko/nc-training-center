@@ -18,6 +18,7 @@ public class ReviewService
 
   public Review createReview(int userId, int bookId, String text, Date reviewDate, int grade, int adminId){
     Review review = new Review(userId,bookId,text,reviewDate,grade,adminId);
+    reviewPostgresDAO.createReview(review);
     return review;
   }
 

@@ -22,10 +22,9 @@ public class ReviewController {
   public Review addReview(@RequestParam(name = "book") int bookId,
                           @RequestParam(name = "user") int userId,
                           @RequestParam(name = "text") String text,
-                          @RequestParam(name = "reviewDate") Date reviewDate,
                           @RequestParam(name = "grade") int grade,
-                          @RequestParam(name = "adminId") int adminId){
-    return reviewService.createReview(bookId, userId, text, reviewDate, grade, adminId);
+                          @RequestParam(name = "admin") int adminId){
+    return reviewService.createReview(bookId, userId, text, new Date(), grade, adminId);
   }
 
   @RequestMapping(value="/reviews", method = RequestMethod.GET)
