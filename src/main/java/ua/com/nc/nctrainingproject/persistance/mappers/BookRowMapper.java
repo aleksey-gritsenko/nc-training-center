@@ -21,6 +21,11 @@ public class BookRowMapper implements RowMapper<Book> {
     book.setGenre(resultSet.getString(BookQuery.GENRE));
     return book;
   }
+
+
+
+
+
 //=======
 //	@Override
 //	public Book mapRow(ResultSet resultSet, int i) throws SQLException {

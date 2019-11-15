@@ -8,6 +8,7 @@ import ua.com.nc.nctrainingproject.models.User;
 import ua.com.nc.nctrainingproject.persistance.dao.postgre.AuthorPostgreDAO;
 import ua.com.nc.nctrainingproject.persistance.dao.postgre.BookPostgreDAO;
 import ua.com.nc.nctrainingproject.persistance.dao.postgre.GenrePostgreDAO;
+import ua.com.nc.nctrainingproject.persistance.dao.postgre.UserBooksPostgreDAO;
 import ua.com.nc.nctrainingproject.services.AuthorizationService;
 
 import java.util.ArrayList;
@@ -17,7 +18,6 @@ import java.util.List;
 @CrossOrigin
 public class AuthorizationController {
   private final AuthorizationService authorizationService;
-
 
   @Autowired
   public AuthorizationController(AuthorizationService authorizationService) {
@@ -43,6 +43,16 @@ public class AuthorizationController {
   public void loginUser(@RequestParam(name = "login") String login,
                         @RequestParam(name = "password") String password) {
     authorizationService.auth(login, password);
+  }
+
+  @Autowired
+  UserBooksPostgreDAO userBooksPostgreDAO;
+
+  @RequestMapping(value = "/test", method = RequestMethod.GET)
+  public void test() {
+    //   userBooksPostgreDAO.markBookAsFavourite(2, 2);
+    userBooksPostgreDAO.removeFromFavourite(2, 2);
+    userBooksPostgreDAO.removeFromRead(2, 2);
   }
 }
 
