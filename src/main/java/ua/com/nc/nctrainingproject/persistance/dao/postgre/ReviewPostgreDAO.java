@@ -11,11 +11,11 @@ import ua.com.nc.nctrainingproject.persistance.mappers.ReviewRowMapper;
 
 import java.util.List;
 @Repository
-public class ReviewPostgresDAO implements ReviewDAO {
+public class ReviewPostgreDAO implements ReviewDAO {
   private final JdbcTemplate jdbcTemplate;
 
   @Autowired
-  public ReviewPostgresDAO(JdbcTemplate jdbcTemplate) {
+  public ReviewPostgreDAO(JdbcTemplate jdbcTemplate) {
     this.jdbcTemplate = jdbcTemplate;
   }
 
@@ -24,7 +24,7 @@ public class ReviewPostgresDAO implements ReviewDAO {
     try {
       return jdbcTemplate.query(ReviewQuery.GET_REVIEWS_OF_BOOK, new Object[]{book_id}, new ReviewRowMapper());
     }
-      catch(EmptyResultDataAccessException e){
+    catch(EmptyResultDataAccessException e){
       return null;
     }
   }
@@ -35,7 +35,6 @@ public class ReviewPostgresDAO implements ReviewDAO {
       review.getUserId(),
       review.getBookId(),
       review.getText(),
-      review.getReviewDate(),
       review.getGrade(),
       review.getAdminId());
   }

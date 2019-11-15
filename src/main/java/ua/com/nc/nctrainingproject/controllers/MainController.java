@@ -29,4 +29,7 @@ public class MainController {
     @GetMapping("/review")
     public String addReview() {return "review";}
 
+    @GetMapping("/userBook")
+    public String addUserBook() {return "userbook";}
+
 }

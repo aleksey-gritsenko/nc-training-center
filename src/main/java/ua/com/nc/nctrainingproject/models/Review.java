@@ -51,13 +51,13 @@ public class Review {
   public Review(){
   }
 
-  public Review(int userId, int bookId, String text, Date reviewDate, int grade, int adminId){
+  public Review(int userId, int bookId, String text, int grade, int adminId){
     this.userId = userId;
     this.bookId = bookId;
     this.text = text;
-    this.reviewDate = reviewDate;
     this.grade = grade;
     this.adminId=adminId;
+    this.reviewDate = new Date();
   }
 
   public int getBookId() {
