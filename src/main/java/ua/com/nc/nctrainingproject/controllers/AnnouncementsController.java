@@ -10,6 +10,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin
+@RequestMapping(value = "/announcements")
 public class AnnouncementsController {
 
   private final AnnouncementService announcementService;
@@ -19,23 +20,23 @@ public class AnnouncementsController {
     this.announcementService = announcementService;
   }
 
-  @RequestMapping(value = "/announcements", method = RequestMethod.GET)
+  @RequestMapping(method = RequestMethod.GET)
   public List<Announcement> getPublishedAnnouncements(){
     return announcementService.getPublishedAnnouncements();
   }
 
-  @RequestMapping(value = "/announcements/new", method = RequestMethod.GET)
+  @RequestMapping(value = "/new", method = RequestMethod.GET)
   public List<Announcement> getUnpublishedAnnouncements(){
     return announcementService.getUnpublishedAnnouncements();
   }
 
-  @RequestMapping(value = "/announcements/all", method = RequestMethod.GET)
+  @RequestMapping(value = "/all", method = RequestMethod.GET)
   public List<Announcement> getAllAnnouncements(){
     return announcementService.getAnnouncements();
   }
 
-  @RequestMapping(value = "/announcement", method = RequestMethod.GET)
-  public Announcement getAnnouncement(int id){
+  @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+  public Announcement getAnnouncement(@PathVariable("id") int id){
     return announcementService.getAnnouncement(id);
   }
 
@@ -64,17 +65,17 @@ public class AnnouncementsController {
     announcementService.proposeAnnouncement(announcement);
   }
 
-  @RequestMapping(value = "/announcements/new/", method = RequestMethod.POST)
-  public void publishAnnouncement(@RequestParam(name = "id") int id){
+  @RequestMapping(value = "/new/{id}", method = RequestMethod.POST)
+  public void publishAnnouncement(@PathVariable("id") int id){
     announcementService.publishAnnouncement(id);
   }
 
-  @RequestMapping(value = "/announcements/delete", method = RequestMethod.POST)
-  public void deleteAnnouncement(@RequestParam(name = "id") int id){
+  @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
+  public void deleteAnnouncement(@PathVariable("id") int id){
     announcementService.deleteAnnouncement(id);
   }
 
-  @RequestMapping(value = "/announcements/update", method = RequestMethod.POST)
+  @RequestMapping(value = "/update", method = RequestMethod.PUT)
   public void updateAnnouncement(
     @RequestParam(name = "description") String description,
     @RequestParam(name = "announcementDate") Date announcementDate,
