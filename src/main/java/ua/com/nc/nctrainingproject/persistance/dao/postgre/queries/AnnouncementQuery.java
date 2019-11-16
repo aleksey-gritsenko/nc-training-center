@@ -1,7 +1,7 @@
 package ua.com.nc.nctrainingproject.persistance.dao.postgre.queries;
 
 public class AnnouncementQuery {
-  public static final String TABLE_NAME = "announcements";
+  public static final String TABLE_NAME = "announcement";
   public static final String ANNOUNCEMENT_ID = "announcement_ID";
   public static final String DESCRIPTION = "description";
   public static final String ANNOUNCEMENT_DATE = "announcement_date";
@@ -10,16 +10,16 @@ public class AnnouncementQuery {
   public static final String ADMIN_ID = "admin_id";
   public static final String STATUS = "status";
 
-  private static final String UNPUBLISHED = "UNPUBLISHED";
-  private static final String PUBLISHED = "PUBLISHED";
+  public static final String UNPUBLISHED = "UNPUBLISHED";
+  public static final String PUBLISHED = "PUBLISHED";
 
   public static final String GET_ANNOUNCEMENTS = "SELECT * FROM " + TABLE_NAME;
 
   public static final String GET_UNPUBLISHED_ANNOUNCEMENTS = "SELECT * FROM " + TABLE_NAME +
-    "WHERE " + STATUS + " = " + UNPUBLISHED;
+    " WHERE " + STATUS + " = '" + UNPUBLISHED +"'";
 
   public static final String GET_PUBLISHED_ANNOUNCEMENTS = "SELECT * FROM " + TABLE_NAME +
-    "WHERE " + STATUS + " = " + PUBLISHED;
+    " WHERE " + STATUS + " = '" + PUBLISHED + "'";
 
   public static final String GET_ANNOUNCEMENT_BY_ID = "SELECT * FROM " + TABLE_NAME
     + " WHERE " + ANNOUNCEMENT_ID + " =(?)";
@@ -34,11 +34,7 @@ public class AnnouncementQuery {
 
   public static final String CREATE_ANNOUNCEMENT = "INSERT INTO " + TABLE_NAME
     + " (" + DESCRIPTION + "," + ANNOUNCEMENT_DATE + "," + BOOK_ID + "," + PRIORITY + ","
-    + ADMIN_ID + STATUS + ")" + " VALUES(?,?,?,?,?,?)";
-
-  public static final String PROPOSE_ANNOUNCEMENT = "INSERT INTO " + TABLE_NAME
-    + " (" + DESCRIPTION + "," + ANNOUNCEMENT_DATE + "," + BOOK_ID + "," + PRIORITY + ","
-    + ADMIN_ID + STATUS + ")" + " VALUES(?,?,?,?,?," + UNPUBLISHED + ")";
+    + ADMIN_ID + ","+ STATUS + ")" + " VALUES(?,?,?,?,?,?)";
 
   public static final String PUBLISH_ANNOUNCEMENT = "UPDATE " + TABLE_NAME + " SET " +
     STATUS + "=" + PUBLISHED + " WHERE " + ANNOUNCEMENT_ID + "=(?)";
@@ -48,6 +44,6 @@ public class AnnouncementQuery {
 
   public static final String UPDATE_ANNOUNCEMENT = "UPDATE " + TABLE_NAME + " SET " +
     DESCRIPTION + "=(?), " + ANNOUNCEMENT_DATE + "=(?), " + BOOK_ID + "=(?), "
-    + PRIORITY + "=(?)," + ADMIN_ID + "=(?)" + STATUS + "=(?)"
+    + PRIORITY + "=(?)," + ADMIN_ID + "=(?), " + STATUS + "=(?)"
     + " WHERE " + ANNOUNCEMENT_ID + "=(?)";
 }
