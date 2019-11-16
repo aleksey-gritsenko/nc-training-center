@@ -26,4 +26,9 @@ public class MainController {
         return "updateBook";
     }
 
+    @GetMapping("/user/update")
+    public String updateUser(){
+        return "updateUser";
+    }
+
 }
