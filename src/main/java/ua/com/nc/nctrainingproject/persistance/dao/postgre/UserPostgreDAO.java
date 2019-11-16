@@ -49,7 +49,7 @@ public class UserPostgreDAO extends AbstractDAO<User> {
       user.getUserName(),
       user.getUserPassword(),
       user.getEmail(),
-      userName.toString());
+      userName);
   }
 
   public List<User> getAllUsers() {

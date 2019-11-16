@@ -21,6 +21,9 @@ public class User extends Entity {
   }
 
   public User(String newLogin, String newPassword, String newEmail) {
+    this.userName=newLogin;
+    this.userPassword=newPassword;
+    this.email=newEmail;
   }
 
   public String getUserName() {

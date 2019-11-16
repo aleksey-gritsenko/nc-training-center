@@ -5,10 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import ua.com.nc.nctrainingproject.models.Author;
 import ua.com.nc.nctrainingproject.models.Book;
 import ua.com.nc.nctrainingproject.models.User;
-import ua.com.nc.nctrainingproject.persistance.dao.postgre.AuthorPostgreDAO;
-import ua.com.nc.nctrainingproject.persistance.dao.postgre.BookPostgreDAO;
-import ua.com.nc.nctrainingproject.persistance.dao.postgre.GenrePostgreDAO;
-import ua.com.nc.nctrainingproject.persistance.dao.postgre.UserBooksPostgreDAO;
+import ua.com.nc.nctrainingproject.persistance.dao.postgre.*;
 import ua.com.nc.nctrainingproject.services.AuthorizationService;
 
 import java.util.ArrayList;
@@ -44,6 +41,7 @@ public class AuthorizationController {
                         @RequestParam(name = "password") String password) {
     authorizationService.auth(login, password);
   }
+
 }
 
 
