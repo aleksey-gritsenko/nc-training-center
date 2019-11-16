@@ -5,11 +5,22 @@ import {RegistrationComponent} from "./components/registration/registration.comp
 import {LandingComponent} from "./components/landing/landing.component";
 import {ErrorpageComponent} from "./components/errorpage/errorpage.component";
 import {UserProfileComponent} from "./components/user-profile/user-profile.component";
+import {AnnouncementComponent} from "./components/announcement/announcement.component";
+import {AnnouncementListComponent} from "./components/announcement-list/announcement-list.component";
 
 const routes: Routes = [{
-path:'login',
-component:LoginComponent
+  path:'login',
+  component:LoginComponent
 },
+  {
+    path:'announcement',
+    component:AnnouncementComponent
+  },
+
+  {
+    path:'announcementlist',
+    component:AnnouncementListComponent
+  },
 {
 path:'registration',
 component:RegistrationComponent
