@@ -11,9 +11,9 @@ public class CodeRowMapper implements RowMapper<RecoverCode> {
     @Override
     public RecoverCode mapRow(ResultSet resultSet, int i) throws SQLException {
         RecoverCode recoverCode = new RecoverCode();
-        //recoverCode.setUserName(resultSet.getString(CodeRecoverQuery.USERNAME));
+        recoverCode.setEmail(resultSet.getString(CodeRecoverQuery.EMAIL));
         recoverCode.setCode(resultSet.getString(CodeRecoverQuery.CODE));
-       // recoverCode.setDate(resultSet.getDate(CodeRecoverQuery.CODE_DATE));
+       recoverCode.setDate(resultSet.getDate(CodeRecoverQuery.GENERATE_DATE));
         return recoverCode;
     }
 }

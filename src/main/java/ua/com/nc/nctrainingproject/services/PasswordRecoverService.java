@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
+import ua.com.nc.nctrainingproject.models.RecoverCode;
 import ua.com.nc.nctrainingproject.persistance.dao.postgre.AdministratorPostgreDAO;
 import ua.com.nc.nctrainingproject.persistance.dao.postgre.CodePostgreDAO;
 import ua.com.nc.nctrainingproject.persistance.dao.postgre.UserPostgreDAO;
@@ -11,81 +12,77 @@ import ua.com.nc.nctrainingproject.persistance.dao.postgre.UserPostgreDAO;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.util.Random;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 @Service
 public class PasswordRecoverService {
 
-    private final UserPostgreDAO userPostgreDAO;
-    private final CodePostgreDAO codePostgreDAO;
-    private final AdministratorPostgreDAO administratorPostgreDAO;
-    private final JavaMailSender sender;
+  private final UserPostgreDAO userPostgreDAO;
+  private final CodePostgreDAO codePostgreDAO;
+  private final AdministratorPostgreDAO administratorPostgreDAO;
+  private final JavaMailSender sender;
 
-    @Autowired
-    public PasswordRecoverService(JavaMailSender sender, AdministratorPostgreDAO administratorPostgreDAO, CodePostgreDAO codePostgreDAO, UserPostgreDAO userPostgreDAO) {
-        this.sender = sender;
-        this.administratorPostgreDAO = administratorPostgreDAO;
-        this.codePostgreDAO = codePostgreDAO;
-        this.userPostgreDAO = userPostgreDAO;
+  @Autowired
+  public PasswordRecoverService(JavaMailSender sender, AdministratorPostgreDAO administratorPostgreDAO, CodePostgreDAO codePostgreDAO, UserPostgreDAO userPostgreDAO) {
+    this.sender = sender;
+    this.administratorPostgreDAO = administratorPostgreDAO;
+    this.codePostgreDAO = codePostgreDAO;
+    this.userPostgreDAO = userPostgreDAO;
+  }
+
+
+  public String generateCode(String email) {
+    String generatedString = "";
+    int[] array = new int[6];
+    Random rn = new Random();
+    for (int i = 0; i < array.length; i++) {
+      array[i] = rn.nextInt(9) + 1;
+      generatedString = generatedString + array[i];
     }
+    codePostgreDAO.createCode(generatedString, email);
+
+    return generatedString;
+  }
+
+  public void makeEmail(String email) throws MessagingException {
 
 
-    public String generateCode(String userName){
-        String generatedString = "";
-        int[] array = new int[6];
-        Random rn = new Random();
-        for (int i = 0; i < array.length; i++) {
-           array[i] = rn.nextInt(9) + 1;
-           generatedString = generatedString+array[i];
-        }
-        codePostgreDAO.createCode(generatedString,userName);
+    MimeMessage message = sender.createMimeMessage();
+    MimeMessageHelper helper = new MimeMessageHelper(message);
+    helper.setTo(email);
 
-        return generatedString;
+    helper.setText(generateCode(email));
+    helper.setSubject("Password recover email");
+
+    sender.send(message);
+  }
+
+  public boolean verifyEmail(String email) {
+    if (userPostgreDAO.getUserEmail(email) == null) {
+      return false;
     }
-    public void makeEmail(String email,String userName) throws MessagingException {
+    return true;
+  }
+
+  public boolean isEmail(String email) {
+    String emailRegex = "^[A-Za-z0-9+_.-]+@(.+)$";
+    Pattern pattern = Pattern.compile(emailRegex, Pattern.CASE_INSENSITIVE);
+    Matcher matcher = pattern.matcher(email);
+    return matcher.matches();
+
+  }
 
 
-        MimeMessage message = sender.createMimeMessage();
-        MimeMessageHelper helper = new MimeMessageHelper(message);
-        helper.setTo(email);
-       // helper.setTo("druocab@gmail.com");
+  public boolean passwordRecover(String code, String newPassword) {
+    RecoverCode codeDB = codePostgreDAO.getCodeByUserName(code);
 
-        helper.setText(generateCode(userName));
-        helper.setSubject("Password recover email");
-
-        sender.send(message);
+    if (code.equals(codeDB.getCode())) {
+      userPostgreDAO.updatePassword(newPassword, codeDB.getEmail());
+      codePostgreDAO.deleteByCode(code);
+      return true;
     }
-    public boolean verifyEmailUser(String userName,String email){
-        if (userPostgreDAO.getUserEmailByUserName(userName,email)== null){
-            return false;
-        }
-        return true;
-    }
-    public boolean verifyEmailAdmin(String adminName,String email){
-        if (administratorPostgreDAO.getAdminEmailByAdminName(adminName,email)==null){
-            return false;
-        }
-        return true;
-    }
+    return false;
+  }
 
-
-    public boolean passwordRecover(String code,String newPassword,String userName){
-        String codeDB = codePostgreDAO.getCodeByUserName(userName);
-
-        if (code.equals(codeDB)) {
-            userPostgreDAO.updatePassword(newPassword,userName);
-            codePostgreDAO.deleteByUserName(userName);
-            return true;
-        }
-        return false;
-    }
-
-    public boolean passwordRecoverAdmin(String code,String newPassword,String adminName){
-        String codeDB = codePostgreDAO.getCodeByUserName(adminName);
-
-        if (code.equals(codeDB)) {
-            administratorPostgreDAO.updateAdminPassword(newPassword,adminName);
-            codePostgreDAO.deleteByUserName(adminName);
-            return true;
-        }
-        return false;
-    }
 }

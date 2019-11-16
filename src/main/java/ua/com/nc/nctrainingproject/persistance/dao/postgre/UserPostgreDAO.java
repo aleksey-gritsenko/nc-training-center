@@ -19,13 +19,7 @@ public class UserPostgreDAO extends AbstractDAO<User> {
 
   }
 
-  public User getUserByEmail(String email) {
-    List<User> users = jdbcTemplate.query(UserQuery.GET_BY_EMAIL, new UserRowMapper(), email);
-    if (users.size() == 0) {
-      return null;
-    }
-    return users.get(0);
-  }
+
 
 
   public User getUserById(int id) {
@@ -56,18 +50,26 @@ public class UserPostgreDAO extends AbstractDAO<User> {
     return jdbcTemplate.query(UserQuery.GET_ALL, new UserRowMapper());
   }
 
-  public String getUserEmailByUserName(String userName, String email) {
+  public String getUserEmail(String email){
 
-    List<User> result = jdbcTemplate.query(UserQuery.GET_EMAIL_BY_USERNAME,
-      new UserRowMapper(), userName, email);
-    if (result.size() == 0) {
+    List<User>result =    jdbcTemplate.query(UserQuery.GET_BY_EMAIL,
+      new UserRowMapper(),email);
+    if(result.size() == 0){
+
       return null;
     }
     return result.get(0).getEmail();
   }
+  public User getUserByEmail(String email) {
+    List<User> users = jdbcTemplate.query(UserQuery.GET_BY_EMAIL, new UserRowMapper(), email);
+    if (users.size() == 0) {
+      return null;
+    }
+    return users.get(0);
+  }
+  public void updatePassword(String password,String email){
+    jdbcTemplate.update(UserQuery.UPDATE_PASSWORD_BY_EMAIL,password,email);
 
-  public void updatePassword(String password, String userName) {
-    jdbcTemplate.update(UserQuery.UPDATE_PASSWORD, password, userName);
   }
 
   public void createUser(User user) {

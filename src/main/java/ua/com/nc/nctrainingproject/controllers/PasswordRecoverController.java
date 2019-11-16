@@ -27,46 +27,36 @@ public class PasswordRecoverController {
 
     @RequestMapping("/email")
     @ResponseBody
-    public ResponseEntity<?> emailSender(@RequestParam String login, @RequestParam String email) {
+    public ResponseEntity<?> emailSender( @RequestParam String email) {
+      if(email !=null) {
         try {
-            if(passwordRecoverService.verifyEmailUser(login,email)
-                    || passwordRecoverService.verifyEmailAdmin(login,email)) {
-                passwordRecoverService.makeEmail(email, login);
-                return new ResponseEntity<>(HttpStatus.OK);
-            }
+          if (passwordRecoverService.isEmail(email) &&
+            passwordRecoverService.verifyEmail(email)) {
+            passwordRecoverService.makeEmail(email);
+            return new ResponseEntity<>(HttpStatus.OK);
+          }
         } catch (MessagingException ex) {
 
-            ex.printStackTrace();
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+          ex.printStackTrace();
+          return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+      }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
     }
 
 
-    @RequestMapping("/change")
-    @ResponseBody
-    public ResponseEntity<?> passwordRecoverUser(
-                                @RequestParam String login,
-                                @RequestParam String recoverCode,
-                                @RequestParam String newPassword) {
-    if (passwordRecoverService.passwordRecover(recoverCode,newPassword,login)){
+  @RequestMapping("/change")
+  @ResponseBody
+  public ResponseEntity<?> passwordRecoverUser(
+    @RequestParam String recoverCode,
+    @RequestParam String newPassword) {
+    if ( recoverCode != null && newPassword != null) {
+      if (passwordRecoverService.passwordRecover(recoverCode, newPassword)) {
         return new ResponseEntity<>(HttpStatus.OK);
-        }
-        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+      }
     }
-
-    @RequestMapping("/adminrecover")
-    @ResponseBody
-    public ResponseEntity<?> passwordRecoverAdmin(@RequestParam String code,
-                                       @RequestParam String AdminName,
-                                       @RequestParam String newPassword) {
-         if( passwordRecoverService.passwordRecoverAdmin(code,newPassword,AdminName)){
-             return new ResponseEntity<>(HttpStatus.OK);
-         }
-        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-
-    }
-
+    return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+  }
 
 }
