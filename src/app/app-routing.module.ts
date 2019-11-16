@@ -5,6 +5,7 @@ import {RegistrationComponent} from './components/registration/registration.comp
 import {LandingComponent} from './components/landing/landing.component';
 import {ErrorpageComponent} from './components/errorpage/errorpage.component';
 import {UserProfileComponent} from './components/user-profile/user-profile.component';
+import {RecoverComponent} from './components/recover/recover.component';
 
 const routes: Routes = [{
   path: 'login',
@@ -21,6 +22,10 @@ const routes: Routes = [{
   {
     path: 'user',
     component: UserProfileComponent
+  },
+  {
+    path: 'recover',
+    component: RecoverComponent
   },
   {
     path: '',

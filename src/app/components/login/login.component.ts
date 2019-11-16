@@ -4,44 +4,44 @@ import {HttpClient} from '@angular/common/http';
 import {first} from 'rxjs/operators';
 import {Router, ActivatedRoute} from '@angular/router';
 
-import {AuthenticationService} from "../../services/authentification/authentication.service";
+import {AuthenticationService} from '../../services/authentification/authentication.service';
 
 
 @Component({
-    selector: 'app-login',
-    templateUrl: './login.component.html',
-    styleUrls: ['./login.component.css']
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-    model: LogView = {
-        login: '',
-        password: ''
-    };
+  model: LogView = {
+    login: '',
+    password: ''
+  };
 
-    returnUrl: string;
+  returnUrl: string;
 
-    constructor(
-        private http: HttpClient, public serv: AuthenticationService,
-        private route: ActivatedRoute,
-        private router: Router) {
-    }
+  constructor(
+    private http: HttpClient, public serv: AuthenticationService,
+    private route: ActivatedRoute,
+    private router: Router) {
+  }
 
-    ngOnInit() {
+  ngOnInit() {
 
-        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-    }
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+  }
 
-    login(): void {
-        this.serv.login(this.model.login, this.model.password)
-            .pipe(first())
-            .subscribe(
-                data => {
-                    this.router.navigate([this.returnUrl]);
-                },
-                error => {
-                    //  this.error = error;
-                    //  this.loading = false;
-                }
-                );
-    }
+  login(): void {
+    this.serv.login(this.model.login, this.model.password)
+      .pipe(first())
+      .subscribe(
+        data => {
+          this.router.navigate([this.returnUrl]);
+        },
+        error => {
+          //  this.error = error;
+          //  this.loading = false;
+        }
+      );
+  }
 }

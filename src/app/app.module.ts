@@ -33,6 +33,7 @@ import { ChatComponent } from './components/chat/chat.component';
 import { CalendarComponent } from './components/calendar/calendar.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { AuthenticationService } from "./services/authentification/authentication.service";
+import { RecoverComponent } from './components/recover/recover.component';
 
 @NgModule({
   declarations: [
@@ -63,7 +64,8 @@ import { AuthenticationService } from "./services/authentification/authenticatio
     AdminsListComponent,
     ChatComponent,
     CalendarComponent,
-    SidebarComponent
+    SidebarComponent,
+    RecoverComponent
   ],
   imports: [
     BrowserModule,
