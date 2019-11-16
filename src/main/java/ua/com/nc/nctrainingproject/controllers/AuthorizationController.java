@@ -44,16 +44,6 @@ public class AuthorizationController {
                         @RequestParam(name = "password") String password) {
     authorizationService.auth(login, password);
   }
-
-  @Autowired
-  UserBooksPostgreDAO userBooksPostgreDAO;
-
-  @RequestMapping(value = "/test", method = RequestMethod.GET)
-  public void test() {
-    //   userBooksPostgreDAO.markBookAsFavourite(2, 2);
-    userBooksPostgreDAO.removeFromFavourite(2, 2);
-    userBooksPostgreDAO.removeFromRead(2, 2);
-  }
 }
 
 
