@@ -4,6 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ua.com.nc.nctrainingproject.models.Announcement;
 import ua.com.nc.nctrainingproject.services.AnnouncementService;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -41,13 +44,15 @@ public class AnnouncementsController {
   @RequestMapping(value = "/announcements/newAnnouncement", method = RequestMethod.POST)
   public Announcement createAnnouncement(
     @RequestParam(name = "description") String description,
-    @RequestParam(name = "announcementDate") Date announcementDate,
+    @RequestParam(name = "announcementDate") String announcementDate,
     @RequestParam(name = "bookID") int bookID,
     @RequestParam(name = "priority") String priority,
     @RequestParam(name = "adminID") int adminID,
     @RequestParam(name = "status") String status
-  )  {
-    Announcement announcement = new Announcement(description, announcementDate, bookID, priority, adminID, status);
+  ) throws ParseException {
+    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+    Date date = formatter.parse(announcementDate);
+    Announcement announcement = new Announcement(description, date, bookID, priority, adminID, status);
     announcementService.createAnnouncement(announcement);
     return announcement;
   }
@@ -55,12 +60,14 @@ public class AnnouncementsController {
   @RequestMapping(value = "/announcements/proposeAnnouncement", method = RequestMethod.POST)
   public Announcement proposeAnnouncement(
     @RequestParam(name = "description") String description,
-    @RequestParam(name = "announcementDate") Date announcementDate,
+    @RequestParam(name = "announcementDate") String announcementDate,
     @RequestParam(name = "bookID") int bookID,
     @RequestParam(name = "priority") String priority,
     @RequestParam(name = "adminID") int adminID
-  )  {
-    Announcement announcement = new Announcement(description, announcementDate, bookID, priority, adminID);
+  ) throws ParseException {
+    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+    Date date = formatter.parse(announcementDate);
+    Announcement announcement = new Announcement(description, date, bookID, priority, adminID);
     announcementService.proposeAnnouncement(announcement);
     return announcement;
   }
@@ -77,13 +84,15 @@ public class AnnouncementsController {
   public Announcement updateAnnouncement(
     @RequestParam(name = "announcementId") int announcementID,
     @RequestParam(name = "description") String description,
-    @RequestParam(name = "announcementDate") Date announcementDate,
+    @RequestParam(name = "announcementDate") String announcementDate,
     @RequestParam(name = "bookID") int bookID,
     @RequestParam(name = "priority") String priority,
     @RequestParam(name = "adminID") int adminID,
     @RequestParam(name = "status") String status
-  ) {
-    Announcement announcement = new Announcement(announcementID, description, announcementDate,
+  ) throws ParseException {
+    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+    Date date = formatter.parse(announcementDate);
+    Announcement announcement = new Announcement(announcementID, description, date,
       bookID, priority, adminID, status);
     announcementService.updateAnnouncement(announcement);
     return announcement;
