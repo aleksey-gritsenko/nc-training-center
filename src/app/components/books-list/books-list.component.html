@@ -57,7 +57,7 @@
 <div>
   <ul>
     <li *ngFor="let book of books">
-      <div><a routerLink="{{book.id}}">Header: {{book.header}}</a></div>
+      <div (click)="onSelect(book)">Header: {{book.header}}</div>
       <div>Overview: {{book.overview}}</div>
     </li>
   </ul>

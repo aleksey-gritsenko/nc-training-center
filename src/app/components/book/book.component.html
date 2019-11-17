@@ -16,8 +16,6 @@
     </ul>
   </div>
   <div>
-  </div>
-  <div>
     <label>Status:<input type="text" [(ngModel)]="book.status"></label>
   </div>
   <div>
@@ -30,8 +28,8 @@
     <label>File<input type="number" [(ngModel)]="book.file"></label>
   </div>
   <button (click)="updateBook()">Save changes</button>
+
   <div>
     <app-reviews-list></app-reviews-list>
   </div>
 </div>
-

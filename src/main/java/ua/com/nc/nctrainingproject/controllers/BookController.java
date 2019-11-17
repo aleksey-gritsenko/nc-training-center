@@ -49,7 +49,6 @@ public class BookController {
   @ResponseBody
   public Book getBookById(@RequestParam(name = "id") int bookId){
 	  return bookService.getBookById(bookId);
-
   }
 
 

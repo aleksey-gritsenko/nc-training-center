@@ -30,7 +30,6 @@ export class CommonService {
   getBooks(): Observable<Book[]> {
     const url = `${this.booksUrl}\\all`;
     return this.http.get<Book[]>(url);
-    //return null;
   }
 
   getBooksByFilter(filter: BookFilter): Observable<Book[]> {
@@ -47,12 +46,12 @@ export class CommonService {
     const url = `${this.booksUrl}\\title`;
     let params = new HttpParams()
       .set('title' , title);
-
     return  this.http.get<Book[]>(url, {params:params});
   }
 
-  getBookById(id:number){
+  getBookById(id:number):Observable<Book>{
     const url = `${this.booksUrl}/id?id=${id}`;
+    console.log(this.http.get<Book>(url));
     return this.http.get<Book>(url);
   }
 
@@ -63,7 +62,6 @@ export class CommonService {
       .set('overview', book.overview)
       .set('photo', book.photo)
       .set('file', book.photo.toString());
-    console.log(body);
 
     return this.http.post<Book>(this.booksUrl, body, this.httpOptions);
   }

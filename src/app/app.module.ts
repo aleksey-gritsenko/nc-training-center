@@ -54,7 +54,7 @@ component: LandingComponent
     component: BooksListComponent
   },
   {
-    path: 'book/:id',
+    path: 'books/:id',
     component: BookComponent
   },
 {

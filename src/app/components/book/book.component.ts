@@ -9,26 +9,38 @@ import {ActivatedRoute} from "@angular/router";
   styleUrls: ['./book.component.css']
 })
 export class BookComponent implements OnInit {
-  @Input() book:Book;
-
+  book:Book=new Book();
   constructor(private apiService:CommonService,private route: ActivatedRoute) { }
-
+  id:any;
   ngOnInit() {
+    this.id = parseInt(this.route.snapshot.paramMap.get('id'));
     this.getBook();
   }
   updateBook():void {
-    const id = +this.route.snapshot.paramMap.get('id');
-    this.book.id  = id;
     const newCreatedBook:Book = Object.assign({},this.book);
-    console.log(newCreatedBook);
     this.apiService.updateBook(newCreatedBook);
 
 }
   getBook():void{
-    const id = +this.route.snapshot.paramMap.get('id');
-    this.apiService.getBookById(id).subscribe(book=>this.book=book);
-    console.log(this.book);
+    console.log(this.id);
+    this.apiService.getBookById(this.id).subscribe(
+        res=> {
+          this.book = res;
+          console.log(this.book.header + " " + this.book.overview + " " + this.book.status + " " + this.book.file);
+        },
+        err=>{alert("Error in get book by id")}
+      );
   }
 
-
 }
+/*
+  getBooks():void{
+    this.apiService.getBooks().subscribe(
+      res=>{
+        this.books = res;
+        console.log(this.books);
+      },
+      err=>{alert("Error in get all reviews")}
+    );
+  }
+*/
