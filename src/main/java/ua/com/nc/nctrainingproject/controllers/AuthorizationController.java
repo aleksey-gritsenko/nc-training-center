@@ -2,19 +2,14 @@ package ua.com.nc.nctrainingproject.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import ua.com.nc.nctrainingproject.models.Author;
-import ua.com.nc.nctrainingproject.models.Book;
 import ua.com.nc.nctrainingproject.models.User;
-import ua.com.nc.nctrainingproject.persistance.dao.postgre.*;
 import ua.com.nc.nctrainingproject.services.AuthorizationService;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @RestController
 @CrossOrigin
 public class AuthorizationController {
   private final AuthorizationService authorizationService;
+
 
   @Autowired
   public AuthorizationController(AuthorizationService authorizationService) {
@@ -41,11 +36,4 @@ public class AuthorizationController {
                         @RequestParam(name = "password") String password) {
     authorizationService.auth(login, password);
   }
-
 }
-
-
-
-
-
-

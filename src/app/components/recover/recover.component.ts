@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {RecView} from '../../models/recview';
-import {HttpClient, HttpRequest} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 
 @Component({
   selector: 'app-recover',
@@ -14,18 +14,18 @@ export class RecoverComponent implements OnInit {
   };
 
   constructor(private http: HttpClient) {
-
   }
 
   ngOnInit() {
   }
 
+
   recover(): void {
-    const url = 'http://localhost:8080/userrrecover';
-    const form = new FormData();
+    let url = 'http://localhost:8080/userrrecover';
+    let form = new FormData();
+    form.append('login', this.model.login);
     form.append('email', this.model.email);
     this.http.post(url, form).subscribe();
     alert(this.model.email);
   }
-
 }

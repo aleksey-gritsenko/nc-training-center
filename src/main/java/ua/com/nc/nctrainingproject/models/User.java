@@ -20,10 +20,17 @@ public class User extends Entity {
     super();
   }
 
+<<<<<<< HEAD
   public User(String newLogin, String newPassword, String newEmail) {
     this.userName=newLogin;
     this.userPassword=newPassword;
     this.email=newEmail;
+=======
+  public User(String userName, String userPassword, String email) {
+    this.userName = userName;
+    this.userPassword = userPassword;
+    this.email = email;
+>>>>>>> 138d052c6e33e70be10edad21e3201db95af2e11
   }
 
   public String getUserName() {
