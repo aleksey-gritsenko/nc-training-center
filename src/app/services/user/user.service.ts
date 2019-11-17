@@ -1,13 +1,13 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { CommonService } from '../common/common.service';
-import { User } from 'src/app/models/user';
-import { Book } from 'src/app/models/book';
-import { Announcement } from 'src/app/models/announcement';
-import { Review } from 'src/app/models/review';
-import { Chat } from 'src/app/models/chat';
-import { Message } from 'src/app/models/message';
-import { BookFilter } from 'src/app/models/bookfilter';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {CommonService} from '../common/common.service';
+import {User} from 'src/app/models/user';
+import {Book} from 'src/app/models/book';
+import {Announcement} from 'src/app/models/announcement';
+import {Review} from 'src/app/models/review';
+import {Chat} from 'src/app/models/chat';
+import {Message} from 'src/app/models/message';
+import {BookFilter} from 'src/app/models/bookfilter';
 
 @Injectable({
   providedIn: 'root'
@@ -16,18 +16,23 @@ export class UserService {
 
   // private userUlr = '/user';
   // private usersUlr = '/users/:login';
-  user : User;
-  friend : User;
-  book : Book;
+  user: User;
+  friend: User;
+  book: Book;
 
   constructor(
-    private http : HttpClient,
-    private commonService : CommonService,
-  ) { }
+    private http: HttpClient,
+    private commonService: CommonService,
+  ) {
+  }
 
   // Personal methods
 
+<<<<<<< HEAD
   updateProfile(login: string , user: User){
+=======
+  updateProfile(login: string, user: User) {
+>>>>>>> recoverPasswordFeature
     let url = 'http://localhost:8080/user/update';
     let form = new FormData();
 
@@ -39,119 +44,125 @@ export class UserService {
     return this.http.post<User>(url, form);
   }
 
+<<<<<<< HEAD
   searchUser(userName: string){
     const url = "http://localhost:8080/user/" + userName;
     return this.http.get<User>(url);
+=======
+  searchUser(name: string) {
+
+>>>>>>> recoverPasswordFeature
   }
 
-  getFriends(){
-
-  }
-
-  addFriend(friend : User){
-
-  }
-
-  removeFriend(friend : User){
+  getFriends() {
 
   }
 
-  manageFriendActivities(){
+  addFriend(friend: User) {
 
   }
 
-  proposeAnnouncement(announcement : Announcement){
+  removeFriend(friend: User) {
 
   }
 
-  proposeBookOverview(book : Book){
+  manageFriendActivities() {
 
   }
 
-  proposeBookReview(book : Book, review : Review){
+  proposeAnnouncement(announcement: Announcement) {
 
   }
 
-  addBookToRead(book : Book){
+  proposeBookOverview(book: Book) {
 
   }
 
-  addBookToFavourite(book : Book){
+  proposeBookReview(book: Book, review: Review) {
 
   }
 
-  removeBookFromRead(book : Book){
+  addBookToRead(book: Book) {
 
   }
 
-  removeBookFromFavourite(book : Book){
+  addBookToFavourite(book: Book) {
 
   }
 
-  manageCalendar(){
+  removeBookFromRead(book: Book) {
 
   }
 
-  createChat(){
+  removeBookFromFavourite(book: Book) {
 
   }
 
-  changeChatName(chat : Chat){
+  manageCalendar() {
 
   }
 
-  addFriendToChat(friend : User, chat : Chat){
+  createChat() {
 
   }
 
-  sendMessage(message: Message){
+  changeChatName(chat: Chat) {
 
   }
 
-  saveHistory(){
+  addFriendToChat(friend: User, chat: Chat) {
 
   }
 
-  leaveChat(){
+  sendMessage(message: Message) {
+
+  }
+
+  saveHistory() {
+
+  }
+
+  leaveChat() {
 
   }
 
   //#region Common service
 
-  getBooks(){
+  getBooks() {
     this.commonService.getBooks();
   }
 
-  getBooksByFilter(filter : BookFilter){
+  getBooksByFilter(filter: BookFilter) {
     this.commonService.getBooksByFilter(filter);
   }
 
-  getBookByName(name : string){
+  getBookByName(name: string) {
     this.commonService.getBookByName(name);
   }
 
-  getAnnouncements(){
+  getAnnouncements() {
     this.commonService.getAnnouncements();
   }
 
-  getAnnouncementsByFilter(){
+  getAnnouncementsByFilter() {
     // this.commonService.getAnnouncementsByFilter();
   }
 
-  getReviews(book : Book){
+  getReviews(book: Book) {
     // this.commonService.getReviews(book);
   }
 
-  recoverPassword(){
+  recoverPassword() {
     this.commonService.recoverPassword();
   }
 
-  manageNotifications(){
+  manageNotifications() {
     this.commonService.manageNotifications();
   }
 
-  login(){
+  login() {
     this.commonService.login();
   }
+
   //#endregion
 }
