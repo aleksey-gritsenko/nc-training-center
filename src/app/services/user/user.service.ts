@@ -1,13 +1,13 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { CommonService } from '../common/common.service';
-import { User } from 'src/app/models/user';
-import { Book } from 'src/app/models/book';
-import { Announcement } from 'src/app/models/announcement';
-import { Review } from 'src/app/models/review';
-import { Chat } from 'src/app/models/chat';
-import { Message } from 'src/app/models/message';
-import { BookFilter } from 'src/app/models/bookfilter';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {CommonService} from '../common/common.service';
+import {User} from 'src/app/models/user';
+import {Book} from 'src/app/models/book';
+import {Announcement} from 'src/app/models/announcement';
+import {Review} from 'src/app/models/review';
+import {Chat} from 'src/app/models/chat';
+import {Message} from 'src/app/models/message';
+import {BookFilter} from 'src/app/models/bookfilter';
 
 @Injectable({
   providedIn: 'root'
@@ -16,18 +16,19 @@ export class UserService {
 
   // private userUlr = '/user';
   // private usersUlr = '/users/:login';
-  user : User;
-  friend : User;
-  book : Book;
+  user: User;
+  friend: User;
+  book: Book;
 
   constructor(
-    private http : HttpClient,
-    private commonService : CommonService,
-  ) { }
+    private http: HttpClient,
+    private commonService: CommonService,
+  ) {
+  }
 
   // Personal methods
 
-  updateProfile(login: string ,user: User){
+  updateProfile(login: string, user: User) {
     let url = 'http://localhost:8080/user/update';
     let form = new FormData();
 
@@ -39,118 +40,119 @@ export class UserService {
     return this.http.post<User>(url, form);
   }
 
-  searchUser(name : string){
+  searchUser(name: string) {
 
   }
 
-  getFriends(){
+  getFriends() {
 
   }
 
-  addFriend(friend : User){
+  addFriend(friend: User) {
 
   }
 
-  removeFriend(friend : User){
+  removeFriend(friend: User) {
 
   }
 
-  manageFriendActivities(){
+  manageFriendActivities() {
 
   }
 
-  proposeAnnouncement(announcement : Announcement){
+  proposeAnnouncement(announcement: Announcement) {
 
   }
 
-  proposeBookOverview(book : Book){
+  proposeBookOverview(book: Book) {
 
   }
 
-  proposeBookReview(book : Book, review : Review){
+  proposeBookReview(book: Book, review: Review) {
 
   }
 
-  addBookToRead(book : Book){
+  addBookToRead(book: Book) {
 
   }
 
-  addBookToFavourite(book : Book){
+  addBookToFavourite(book: Book) {
 
   }
 
-  removeBookFromRead(book : Book){
+  removeBookFromRead(book: Book) {
 
   }
 
-  removeBookFromFavourite(book : Book){
+  removeBookFromFavourite(book: Book) {
 
   }
 
-  manageCalendar(){
+  manageCalendar() {
 
   }
 
-  createChat(){
+  createChat() {
 
   }
 
-  changeChatName(chat : Chat){
+  changeChatName(chat: Chat) {
 
   }
 
-  addFriendToChat(friend : User, chat : Chat){
+  addFriendToChat(friend: User, chat: Chat) {
 
   }
 
-  sendMessage(message: Message){
+  sendMessage(message: Message) {
 
   }
 
-  saveHistory(){
+  saveHistory() {
 
   }
 
-  leaveChat(){
+  leaveChat() {
 
   }
 
   //#region Common service
 
-  getBooks(){
+  getBooks() {
     this.commonService.getBooks();
   }
 
-  getBooksByFilter(filter : BookFilter){
+  getBooksByFilter(filter: BookFilter) {
     this.commonService.getBooksByFilter(filter);
   }
 
-  getBookByName(name : string){
+  getBookByName(name: string) {
     this.commonService.getBookByName(name);
   }
 
-  getAnnouncements(){
+  getAnnouncements() {
     this.commonService.getAnnouncements();
   }
 
-  getAnnouncementsByFilter(){
+  getAnnouncementsByFilter() {
     // this.commonService.getAnnouncementsByFilter();
   }
 
-  getReviews(book : Book){
+  getReviews(book: Book) {
     // this.commonService.getReviews(book);
   }
 
-  recoverPassword(){
+  recoverPassword() {
     this.commonService.recoverPassword();
   }
 
-  manageNotifications(){
+  manageNotifications() {
     this.commonService.manageNotifications();
   }
 
-  login(){
+  login() {
     this.commonService.login();
   }
+
   //#endregion
 }

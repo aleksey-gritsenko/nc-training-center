@@ -6,6 +6,7 @@ import {LandingComponent} from './components/landing/landing.component';
 import {ErrorpageComponent} from './components/errorpage/errorpage.component';
 import {UserProfileComponent} from './components/user-profile/user-profile.component';
 import {RecoverComponent} from './components/recover/recover.component';
+import {ChangePasswordComponent} from './components/change-password/change-password.component';
 
 const routes: Routes = [{
   path: 'login',
@@ -26,6 +27,10 @@ const routes: Routes = [{
   {
     path: 'recover',
     component: RecoverComponent
+  },
+  {
+    path: 'change',
+    component: ChangePasswordComponent
   },
   {
     path: '',
