@@ -4,6 +4,8 @@ package ua.com.nc.nctrainingproject.persistance.dao.postgre.queries;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Component
 
@@ -30,12 +32,13 @@ public class FilterCriterionQuery {
     author = new ArrayList<>();
   }
 
-  public String makeQuery() {
-    return BookQuery.GET_BOOKS +
+ /* public String makeQuery() {
+    return BookQuery.GET_BOOKS_FILTRATION +
       makeAuthorConditins() + makeGenresConditins() + makeHeaderCondition();
   }
-
+*/
   public Object[] makeArrayArgs() {
+
     ArrayList<Object> argsList = new ArrayList<Object>();
     ArrayList<String> headers = new ArrayList<>();
     headers.add(header);
@@ -50,36 +53,45 @@ public class FilterCriterionQuery {
     return args;
   }
 
-  private String makeGenresConditins() {
-    String genresCondition = "";
-    if (genre.size() == 0) {
-      return "";
-    }
-    for (int i = 0; i < genre.size(); i++) {
-      genresCondition = genresCondition + BookQuery.CONDITIONS_GENRES;
-      if (i < genre.size()) {
-        genresCondition = genresCondition + " OR ";
+  public Object[] makeArrayArgsStream() {
+    ArrayList<String> headers = new ArrayList<>();
+    headers.add(header);
+    args = Stream.concat(Stream.concat(genre.stream(), author.stream()),
+      headers.stream()).toArray();
+
+    return args;
+  }
+
+  private StringBuilder makeGenresConditins() {
+    StringBuilder genresCondition = new StringBuilder("");
+    if (genre.size() != 0) {
+
+      for (int i = 0; i < genre.size(); i++) {
+        genresCondition.append(BookQuery.CONDITIONS_GENRES);
+        if (i < genre.size()) {
+          genresCondition.append(" OR ");
+        }
       }
     }
     return genresCondition;
   }
+/*
+  private StringBuilder makeAuthorConditins() {
+    StringBuilder authorCondition = new StringBuilder("");
+    if (author.size() != 0) {
 
-  private String makeAuthorConditins() {
-    String authorCondition = "";
-    if (author.size() == 0) {
-      return "";
-    }
-    for (int i = 0; i < author.size(); i++) {
-      authorCondition = authorCondition + BookQuery.CONDITION_AUTHOR;
-      if (i < author.size()) {
-        authorCondition = authorCondition + " OR ";
+      for (int i = 0; i < author.size(); i++) {
+        authorCondition.append(BookQuery.CONDITION_AUTHOR);
+
+        authorCondition.append(" OR ");
+
       }
     }
     return authorCondition;
   }
-
-  private String makeHeaderCondition() {
-    return BookQuery.CONDITIONS_NAME;
+*/
+  private StringBuilder makeHeaderCondition() {
+    return new  StringBuilder(BookQuery.CONDITIONS_NAME);
   }
 
   public ArrayList<String> getGenre() {

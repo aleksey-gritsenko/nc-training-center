@@ -7,6 +7,7 @@ import { Review } from 'src/app/models/review';
 import { /*Filter,*/BookFilter } from 'src/app/models/bookfilter';
 import {arrayify} from "tslint/lib/utils";
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -55,10 +56,10 @@ export class CommonService {
     return this.http.get<Book>(url);
   }
 
+
   createBook(book:Book):Observable<Book>{
     const body = new HttpParams()
       .set('header', book.header)
-      .set('author', book.author)
       .set('status', book.status)
       .set('overview', book.overview)
       .set('photo', book.photo.toString())
@@ -77,7 +78,6 @@ export class CommonService {
     const body = new HttpParams()
       .set('bookId',book.id.toString())
       .set('header', book.header)
-      .set('author', book.author)
       .set('status', book.status)
       .set('overview', book.overview)
       .set('photo', book.photo.toString());
@@ -103,11 +103,18 @@ export class CommonService {
     return null;
   }
 
-  getReviews(id:number) : Observable<Review[]>{
+  getReviews(id:number) : Observable<Review[]> {
     const url = `${this.booksUrl}/${id}`;
-   // return this.http.get<Review[]>(url);
+    // return this.http.get<Review[]>(url);
     return null;
   }
+  // getAnnouncementsByFilter() : Observable<Announcement[]>{
+  //
+  // }
+
+  // getReviews(book : Book) : Observable<Review[]>{
+  //
+  // }
 
   recoverPassword() {
 

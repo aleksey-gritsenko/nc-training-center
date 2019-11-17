@@ -41,25 +41,29 @@ export class AdminService {
     this.commonService.getBooks();
   }
 
- getBooksByFilter(){
-    this.commonService.getBooksByFilter();
-  }
+
+
+
+  // getBooksByFilter(){
+  //   this.commonService.getBooksByFilter();
+  // }
+/*
 
   getBookByName(name : string){
     this.commonService.getBookByName(name);
   }
-
+*/
   getAnnouncements(){
     this.commonService.getAnnouncements();
   }
 
-  getAnnouncementsByFilter(){
-    this.commonService.getAnnouncementsByFilter();
-  }
+  // getAnnouncementsByFilter(){
+  //   this.commonService.getAnnouncementsByFilter();
+  // }
 
-  getReviews(book : Book){
-    this.commonService.getReviews(book);
-  }
+  // getReviews(book : Book){
+  //   this.commonService.getReviews(book);
+  // }
 
   recoverPassword(){
     this.commonService.recoverPassword();

@@ -2,10 +2,11 @@ import {Id} from '../models/id'
 
 export class Book extends Id{
   header: string;
-  author:string;
+  authors:string;
   overview: string; // maybe Text?
-  photo:number;
+  photo:string;
   file:number;
   status: string;
+  genre:string;
 }
 

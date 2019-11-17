@@ -1,118 +1,76 @@
 package ua.com.nc.nctrainingproject.persistance.dao.postgre;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import ua.com.nc.nctrainingproject.models.Author;
 import ua.com.nc.nctrainingproject.models.Book;
-import ua.com.nc.nctrainingproject.persistance.dao.BookDAO;
+import ua.com.nc.nctrainingproject.persistance.dao.AbstractDAO;
+import ua.com.nc.nctrainingproject.persistance.dao.postgre.queries.AuthorBookQuery;
 import ua.com.nc.nctrainingproject.persistance.dao.postgre.queries.BookQuery;
+
 import ua.com.nc.nctrainingproject.persistance.dao.postgre.queries.FilterCriterionQuery;
 import ua.com.nc.nctrainingproject.persistance.mappers.BookRowMapper;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class BookPostgreDAO implements BookDAO {
+public class BookPostgreDAO extends AbstractDAO<Book> {
 
-  private final JdbcTemplate jdbcTemplate;
-  private final FilterCriterionQuery filterCriterionQuery;
+  private final AuthorBookPostgreDAO authorBookPostgreDAO;
+  private final GenrePostgreDAO genrePostgreDAO;
 
   @Autowired
-  public BookPostgreDAO(JdbcTemplate jdbcTemplate, FilterCriterionQuery filterCriterionQuery) {
-    this.jdbcTemplate = jdbcTemplate;
-    this.filterCriterionQuery = filterCriterionQuery;
+  public BookPostgreDAO(JdbcTemplate jdbcTemplate, AuthorBookPostgreDAO authorBookPostgreDAO, GenrePostgreDAO genrePostgreDAO) {
+    super(jdbcTemplate);
+    this.authorBookPostgreDAO = authorBookPostgreDAO;
+    this.genrePostgreDAO = genrePostgreDAO;
   }
 
-  @Override
   public Book getBookById(int bookId) {
-    try {
-      return jdbcTemplate.queryForObject(BookQuery.GET_BOOK_BY_ID, new Object[]{bookId}, new BookRowMapper());
-    } catch (EmptyResultDataAccessException e) {
-      return null;
-    }
+    Book book = super.getEntityById(BookQuery.GET_BOOK, new BookRowMapper(), bookId);
+    /*book.setAuthors(authorBookPostgreDAO.getAuthorsByBookId(bookId));*/
+    return book;
   }
 
-  @Override
-  public List<Book> getBooksByTitle(String title) {
-    try {
-      return jdbcTemplate.query(BookQuery.GET_BOOKS_BY_TITLE, new Object[]{title}, new BookRowMapper());
-    } catch (EmptyResultDataAccessException e) {
-      return null;
-    }
+  public List<Book> getAllBooks() {
+    List<Book> books = super.getAllEntities(BookQuery.GET_ALL, new BookRowMapper());
+  /*  for (Book book : books) {
+      book.setAuthors(authorBookPostgreDAO.getAuthorsByBookId(book.getId()));
+    }*/
+    return books;
   }
 
-  @Override
-  public List<Book> getBooksByAuthor(String author) {
-    try {
-      return jdbcTemplate.query(BookQuery.GET_BOOKS_BY_AUTHOR, new Object[]{author}, new BookRowMapper());
-    } catch (EmptyResultDataAccessException e) {
-      return null;
-    }
+  public void deleteBookById(int bookId) {
+    super.deleteEntityById(BookQuery.DELETE_BOOK_BY_ID, bookId);
   }
 
-  @Override
-  public List<Book> getBooksByStatus(String status) {
-    try {
-      return jdbcTemplate.query(BookQuery.GET_BOOKS_BY_STATUS, new Object[]{status}, new BookRowMapper());
-    } catch (EmptyResultDataAccessException e) {
-      return null;
-    }
-  }
 
-  @Override
-  public List<Book> getBooksByGenre(String genre) {
-    try {
-      return jdbcTemplate.query(BookQuery.GET_BOOKS_BY_GENRE, new Object[]{genre}, new BookRowMapper());
-    } catch (EmptyResultDataAccessException e) {
-      return null;
-    }
-  }
-
-  @Override
   public void createBook(Book book) {
-    jdbcTemplate.update(BookQuery.CREATE_BOOK,
-      book.getTitle(),
-      book.getHeader(),
-      book.getAuthor(),
-      book.getOverview(),
-      book.getPhotoId(),
-      book.getFileId(),
-      book.getStatus(),
-      book.getGenre());
+    jdbcTemplate.update(BookQuery.CREATE_BOOK, book.getHeader(), book.getOverview(), book.getFileId(), book.getStatus(),
+      genrePostgreDAO.getIdByGenre(book.getGenre()), book.getPhotoId());
+
+    for (Author author : book.getAuthors()) {
+      authorBookPostgreDAO.createAuthorBookConnection(book.getId(), author.getId());
+    }
   }
 
-  public void updateBook(int bookId, String title, String header,
-                         String author, String overview,
-                         String status, int photoId, int fileId, String genre) {
-    jdbcTemplate.update(BookQuery.UPDATE_BOOK, title, header, author, overview,
-      status, photoId, fileId, genre, bookId);
+  public void updateBookById(int id, Book book) {
+    Object[] params = new Object[]{book.getHeader(), book.getOverview(), book.getFileId(), book.getStatus(), genrePostgreDAO.getIdByGenre(book.getGenre()), book.getPhotoId(), id};
+    super.updateEntityById(id, params, BookQuery.UPDATE_BOOK);
   }
-
-  @Override
-  public void updateBook(Book book, int bookId) {
-    jdbcTemplate.update(BookQuery.UPDATE_BOOK, book.getTitle(), book.getHeader(), book.getAuthor(),
-      book.getOverview(), book.getPhotoId(), book.getFileId(), book.getStatus(), book.getGenre(), bookId);
-  }
-
-
-  @Override
-  public List<Book> getAllBooks()
-  {
-    return jdbcTemplate.query(BookQuery.GET_ALL_BOOKS, new BookRowMapper());
-  }
-
-
+/*
   public List<Book> filterBooks
     (FilterCriterionQuery filterCriterionQuery) {
     String q = filterCriterionQuery.makeQuery();
 
-
-    Object[] args =filterCriterionQuery.makeArrayArgs();
-    return jdbcTemplate.query(q,
+    Object[] args = filterCriterionQuery.makeArrayArgs();
+    List<Book> books = jdbcTemplate.query(q,
       args, new BookRowMapper());
-
-  }
+    for (Book book : books) {
+      book.setAuthors(authorBookPostgreDAO.getAuthorsByBookId(book.getId()));
+    }
+    return books;
+  }*/
 }
 

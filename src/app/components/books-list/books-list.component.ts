@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {CommonService} from '../../services/common/common.service';
 import {Book} from '../../models/book'
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute} from '@angular/router';
 import {BookFilter} from '../../models/bookfilter';
 import {SelectedItem} from '../../models/selected-item-filter';
 
@@ -86,6 +86,7 @@ export class BooksListComponent implements OnInit {
     this.apiService.getBooks().subscribe(
       res=>{
         this.books = res;
+        console.log(this.books);
       },
       err=>{alert("Error in get all reviews")}
     );

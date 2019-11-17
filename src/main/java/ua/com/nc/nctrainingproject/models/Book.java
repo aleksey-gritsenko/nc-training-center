@@ -1,108 +1,93 @@
 package ua.com.nc.nctrainingproject.models;
 
-public class Book {
-	private String title;
-	private String header;
-	private String author;
-	private String overview;
-	private String status;
-	private int photoId;
-	private int fileId;
+import java.util.List;
 
-	private String genre;
+public class Book extends Entity {
+  private String header;
+  private List<Author> authors;
+  private String overview;
+  private String status;
+  private String photo;
+  private int fileId;
+  private String genre;
 
-	public Book(String title, String header, String author, String overview,
-				String status, int photoId, int fileId, String genre) {
-		this.title = title;
-		this.header = header;
-		this.author = author;
-		this.overview = overview;
-		this.status = status;
-		this.photoId = photoId;
-		this.fileId = fileId;
+  public Book(String header,  String overview, String status, String photo, int fileId) {
+    this.header = header;
+    this.overview = overview;
+    this.status = status;
+    this.photo = photo;
+    this.fileId = fileId;
+  }
 
-		this.genre = genre;
-	}
+  public Book(int id, String header,  String overview, String status, String photo, int fileId, String genre) {
+    super(id);
+    this.header = header;
+    this.overview = overview;
+    this.status = status;
+    this.photo = photo;
+    this.fileId = fileId;
+    this.genre = genre;
+  }
 
-	public Book() {
+  public Book() {
 
-	}
+  }
 
-	public String getTitle() {
-		return title;
-	}
+  public String getHeader() {
+    return header;
+  }
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
+  public void setHeader(String header) {
+    this.header = header;
+  }
 
-	public String getHeader() {
-		return header;
-	}
+  public List<Author> getAuthors() {
+    return authors;
+  }
 
-	public void setHeader(String header) {
-		this.header = header;
-	}
+  public void setAuthors(List<Author> authors) {
+    this.authors = authors;
+  }
 
-	public String getAuthor() {
-		return author;
-	}
+  public String getOverview() {
+    return overview;
+  }
 
-	public void setAuthor(String author) {
-		this.author = author;
-	}
+  public void setOverview(String overview) {
+    this.overview = overview;
+  }
 
-	public String getOverview() {
-		return overview;
-	}
+  public String getStatus() {
+    return status;
+  }
 
-	public void setOverview(String overview) {
-		this.overview = overview;
-	}
+  public void setStatus(String status) {
+    this.status = status;
+  }
 
-	public String getStatus() {
-		return status;
-	}
+  public String getPhotoId() {
+    return photo;
+  }
 
-	public void setStatus(String status) {
-		this.status = status;
-	}
+  public void setPhotoId(String photo) {
+    this.photo = photo;
+  }
 
-	public int getPhotoId() {
-		return photoId;
-	}
+  public int getFileId() {
+    return fileId;
+  }
 
-	public void setPhotoId(int photoId) {
-		this.photoId = photoId;
-	}
+  public void setFileId(int fileId) {
+    this.fileId = fileId;
+  }
 
-	public int getFileId() {
-		return fileId;
-	}
+  public void setGenre(String genre) {
+    this.genre = genre;
+  }
 
-	public void setFileId(int fileId) {
-		this.fileId = fileId;
-	}
+  public String getGenre() {
+    return genre;
+  }
 
-	public String getGenre() {
-		return genre;
-	}
 
-	public void setGenre(String  genre) {
-		this.genre = genre;
-	}
-
-	@Override
-	public String toString() {
-		return "Book{" +
-				"title='" + title + '\'' +
-				", header='" + header + '\'' +
-				", author='" + author + '\'' +
-				", overview='" + overview + '\'' +
-				", status='" + status + '\'' +
-				", photoId=" + photoId +
-				", fileId=" + fileId +
-				", genre=" + genre +
-				'}';
-	}
 }

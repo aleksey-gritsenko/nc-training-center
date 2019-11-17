@@ -1,9 +1,8 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
 import {RouterModule, Routes} from '@angular/router';
 import {FormsModule,ReactiveFormsModule } from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http'
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
@@ -13,7 +12,6 @@ import { LandingComponent } from './components/landing/landing.component';
 import { ErrorpageComponent } from './components/errorpage/errorpage.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { AnnouncementListComponent } from './components/announcement-list/announcement-list.component';
-import { BooksListComponent } from './components/books-list/books-list.component';
 import { ReviewsListComponent } from './components/reviews-list/reviews-list.component';
 import { NotificationsListComponent } from './components/notifications-list/notifications-list.component';
 import { BookOverviewPropositionComponent } from './components/book-overview-proposition/book-overview-proposition.component';
@@ -32,6 +30,10 @@ import { ModeratorsListComponent } from './components/moderators-list/moderators
 import { AdminsListComponent } from './components/admins-list/admins-list.component';
 import { ChatComponent } from './components/chat/chat.component';
 import { CalendarComponent } from './components/calendar/calendar.component';
+import { BooksListComponent } from './components/books-list/books-list.component'
+import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { AuthenticationService } from "./services/authentification/authentication.service";
+
 
 const appRoutes: Routes = [
 {
@@ -47,7 +49,7 @@ path:'home',
 component: LandingComponent
 },
   {
-    path: 'book',
+    path: 'books',
     component: BooksListComponent
   },
   {
@@ -63,10 +65,7 @@ pathMatch:'full'
 path:'**',
 component:ErrorpageComponent
 }
-
-
 ];
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -95,16 +94,18 @@ component:ErrorpageComponent
     ModeratorsListComponent,
     AdminsListComponent,
     ChatComponent,
-    CalendarComponent
+    CalendarComponent,
+    SidebarComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    AppRoutingModule
   ],
-  providers: [],
+  providers: [AuthenticationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
