@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {NewPassword} from "../mdls/newpassword";
+import {NewPassword} from "../../models/newpassword";
 import {HttpClient} from "@angular/common/http";
 
 @Component({

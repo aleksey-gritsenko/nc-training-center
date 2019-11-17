@@ -27,7 +27,7 @@ export class UserService {
 
   // Personal methods
 
-  updateProfile(login: string ,user: User){
+  updateProfile(login: string , user: User){
     let url = 'http://localhost:8080/user/update';
     let form = new FormData();
 
@@ -39,8 +39,9 @@ export class UserService {
     return this.http.post<User>(url, form);
   }
 
-  searchUser(name : string){
-
+  searchUser(userName: string){
+    const url = "http://localhost:8080/user/" + userName;
+    return this.http.get<User>(url);
   }
 
   getFriends(){
