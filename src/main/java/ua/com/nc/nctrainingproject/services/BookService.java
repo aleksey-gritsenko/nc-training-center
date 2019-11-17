@@ -12,7 +12,6 @@ import java.util.List;
 @Service
 public class BookService {
 
-//<<<<<<< HEAD
 //	private final BookPostgreDAO bookPostgreDAO;
 //
 //	@Autowired
@@ -46,7 +45,6 @@ public class BookService {
 //			return null;
 //		}
 //	}
-//=======
 //	private final BookPostgreDAO bookPostgreDAO;
 //	private final FilterCriterionQuery filterCriterionQuery;
 //
@@ -100,5 +98,4 @@ public class BookService {
 //	  filterCriterionQuery.setHeader(header);
 //	  return bookPostgreDAO.filterBooks(filterCriterionQuery);
 //  }
-//>>>>>>> 6370a182546e95818761b382343272ba4d99af66
 }

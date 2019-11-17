@@ -7,54 +7,59 @@ import {ErrorpageComponent} from './components/errorpage/errorpage.component';
 import {UserProfileComponent} from './components/user-profile/user-profile.component';
 import {RecoverComponent} from './components/recover/recover.component';
 import {ChangePasswordComponent} from './components/change-password/change-password.component';
-
+import {BookComponent} from './components/book/book.component';
 const routes: Routes = [
-  {
-    path: 'recover',
-    component: RecoverComponent
-  },
-  {
-    path: 'change',
-    component: ChangePasswordComponent
-  },
-  {
-    path: 'registration',
-    component: RegistrationComponent
-  },
-  {
-    path: 'login',
-    component: LoginComponent
-  },
-  {
-    path: 'home',
-    component: LandingComponent
-  },
-  {
-    path: 'user',
-    component: UserProfileComponent
-  },
-  {
-    path: 'user/:userName',
-    component: UserProfileComponent
-  },
-  {
-    path: 'error',
-    component: ErrorpageComponent
-  },
-  {
-    path: '',
-    component: LandingComponent,
-    pathMatch: 'full'
-  },
-  {
-    path: '**',
-    component: ErrorpageComponent
-  }
+    {
+        path: 'recover',
+        component: RecoverComponent
+    },
+    {
+        path: 'change',
+        component: ChangePasswordComponent
+    },
+    {
+        path: 'registration',
+        component: RegistrationComponent
+    },
+    {
+        path: 'login',
+        component: LoginComponent
+    },
+    {
+        path: 'home',
+        component: LandingComponent
+    },
+    {
+        path: 'user',
+        component: UserProfileComponent
+    },
+    {
+        path: 'book',
+        component: BookComponent
+    },
+
+    {
+        path: 'user/:userName',
+        component: UserProfileComponent
+    },
+    {
+        path: 'error',
+        component: ErrorpageComponent
+    },
+    {
+        path: '',
+        component: LandingComponent,
+        pathMatch: 'full'
+    },
+    {
+        path: '**',
+        component: ErrorpageComponent
+    }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+    imports: [RouterModule.forRoot(routes)],
+    exports: [RouterModule]
 })
 
 export class AppRoutingModule {

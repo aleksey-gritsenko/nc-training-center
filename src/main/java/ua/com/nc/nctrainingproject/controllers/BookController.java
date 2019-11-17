@@ -45,7 +45,7 @@ public class BookController {
 //
 //		return bookService.updateBook(bookId, title, header, author, overview, status, photoId, fileId);
 //	}
-//=======
+//
 //	private final BookService bookService;
 //
 //	@Autowired
@@ -108,5 +108,4 @@ public class BookController {
 //	 // authors.add("none");
 //	  return bookService.filterBooks(header+"%",genres,author);
 //  }
-//>>>>>>> 6370a182546e95818761b382343272ba4d99af66
 }
