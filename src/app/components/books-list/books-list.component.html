@@ -36,11 +36,11 @@
       </tr>
       <tr>
         <td><label for="photo">Photo</label></td>
-        <td><input type="text" [(ngModel)]="createdBook.photoId" id="photo" name="photo"></td>
+        <td><input type="text" [(ngModel)]="createdBook.photo" id="photo" name="photo"></td>
       </tr>
       <tr>
         <td><label for="photo">File</label></td>
-        <td><input type="number" [(ngModel)]="createdBook.fileId" id="file" name="file"></td>
+        <td><input type="number" [(ngModel)]="createdBook.file" id="file" name="file"></td>
       </tr>
       <tr>
         <td><label for="status">Status</label></td>
@@ -57,7 +57,7 @@
 <div>
   <ul>
     <li *ngFor="let book of books">
-      <div><a routerLink="book/{{book.id}}">Header: {{book.header}}</a></div>
+      <div><a routerLink="{{book.id}}">Header: {{book.header}}</a></div>
       <div>Overview: {{book.overview}}</div>
     </li>
   </ul>

@@ -11,36 +11,32 @@ import java.util.Map;
 
 @Service
 public class AuthorizationService {
-  private final UserPostgreDAO userPostgreDAO;
+    private final UserPostgreDAO userPostgreDAO;
 
-  @Autowired
-  public AuthorizationService(UserPostgreDAO userPostgreDAO) {
-    this.userPostgreDAO = userPostgreDAO;
-  }
-
-  public User auth(String login, String password) {
-    User user = userPostgreDAO.getUserByUserName(login);
-    Admin admin = null;
-    Map<String, Object> response;
-
-    if (user != null) {
-      if (user.getUserPassword().equals(password)) {
-        return user;
-      }
+    @Autowired
+    public AuthorizationService(UserPostgreDAO userPostgreDAO) {
+        this.userPostgreDAO = userPostgreDAO;
     }
-    return null;
-  }
 
-  public User register(String login, String password, String email) {
-    User user = userPostgreDAO.getUserByUserName(login);
+    public User auth(String login, String password) {
+        User user = userPostgreDAO.getUserByUserName(login);
 
-    if (user == null) {
-      user = new User(login, password, email);
-      userPostgreDAO.createUser(user);
-
-      return user;
+        if (user != null) {
+            if (user.getUserPassword().equals(password)) {
+                return user;
+            }
+        }
+        return null;
     }
-    return null;
-  }
+
+    public User register(String login, String password, String email) {
+        if (userPostgreDAO.getUserByUserName(login) == null && userPostgreDAO.getUserByEmail(email) == null) {
+            User user = new User(login, password, email);
+            userPostgreDAO.createUser(user);
+
+            return userPostgreDAO.getUserByUserName(login);
+        }
+        return null;
+    }
 
 }

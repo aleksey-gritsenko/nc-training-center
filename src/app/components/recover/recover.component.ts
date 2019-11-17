@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {RecView} from '../models/recview';
+import {RecView} from '../../models/recview';
 import {HttpClient} from '@angular/common/http';
 
 @Component({

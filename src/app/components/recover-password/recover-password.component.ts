@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {RecView} from "../mdls/recview";
+import {RecView} from "../../models/recview";
 import {HttpClient} from "@angular/common/http";
 
 @Component({
@@ -9,6 +9,7 @@ import {HttpClient} from "@angular/common/http";
 })
 export class RecoverPasswordComponent implements OnInit {
   model: RecView = {
+    login: '',
     email: ''
   };
 
@@ -17,7 +18,9 @@ export class RecoverPasswordComponent implements OnInit {
   }
 
   ngOnInit() {
+
   }
+
 
   recover(): void {
     let url = 'http://localhost:8080/recover';

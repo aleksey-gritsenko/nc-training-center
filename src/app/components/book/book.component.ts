@@ -20,12 +20,15 @@ export class BookComponent implements OnInit {
     const id = +this.route.snapshot.paramMap.get('id');
     this.book.id  = id;
     const newCreatedBook:Book = Object.assign({},this.book);
-    this.apiService.updateBook(newCreatedBook);
     console.log(newCreatedBook);
+    this.apiService.updateBook(newCreatedBook);
+
 }
   getBook():void{
     const id = +this.route.snapshot.paramMap.get('id');
     this.apiService.getBookById(id).subscribe(book=>this.book=book);
+    console.log(this.book);
   }
+
 
 }

@@ -31,9 +31,8 @@ export class BooksListComponent implements OnInit {
 
   ngOnInit() {
     this.getBooks();
-  //  this.getAllAuthor();
-  // this.getAllGenre();
-
+    //this.getAllAuthor();
+    //this.getAllGenre();
   }
   getAllAuthor(){
     this.apiService.getAllAuthor().subscribe(

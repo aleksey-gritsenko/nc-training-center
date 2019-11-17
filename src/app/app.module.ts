@@ -33,6 +33,7 @@ import { CalendarComponent } from './components/calendar/calendar.component';
 import { BooksListComponent } from './components/books-list/books-list.component'
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { AuthenticationService } from "./services/authentification/authentication.service";
+import {RecoverComponent} from "./components/recover/recover.component";
 
 
 const appRoutes: Routes = [
@@ -95,7 +96,8 @@ component:ErrorpageComponent
     AdminsListComponent,
     ChatComponent,
     CalendarComponent,
-    SidebarComponent
+    SidebarComponent,
+    RecoverComponent
   ],
   imports: [
     BrowserModule,

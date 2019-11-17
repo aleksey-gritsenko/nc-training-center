@@ -31,7 +31,7 @@ export class RegistrationComponent implements OnInit {
     this.http.post(url,form).subscribe(
       res => {
         if (res != null) {
-          localStorage.setItem('isAdmin', 'false');
+          // localStorage.setItem('isAdmin', 'false');
           localStorage.setItem('currentUser', JSON.stringify(res));
           location.assign('/');
         }

@@ -3,15 +3,35 @@
   <div>
     <label>Name:<input [(ngModel)]="book.header" placeholder="name"/></label>
   </div>
-  <div>
-    <label>Author:<input type="text" [(ngModel)]="book.author"></label>
+  <div *ngIf="book.genres">
+    <div>Genres:</div>
+    <ul *ngFor="let genre of book.genres">
+      <li>{{genre}}</li>
+    </ul>
   </div>
   <div>
-    <h2>Overview</h2>
-    <div>{{book.overview}}</div>
+    <div *ngIf="book.authors">Authors:</div>
+    <ul *ngFor="let author of book.authors">
+      <li>{{author}}</li>
+    </ul>
+  </div>
+  <div>
+  </div>
+  <div>
+    <label>Status:<input type="text" [(ngModel)]="book.status"></label>
+  </div>
+  <div>
+    <label>Overview<input type="text" [(ngModel)]="book.overview"></label>
+  </div>
+  <div>
+    <label>Photo<input type="text" [(ngModel)]="book.photo"></label>
+  </div>
+  <div>
+    <label>File<input type="number" [(ngModel)]="book.file"></label>
   </div>
   <button (click)="updateBook()">Save changes</button>
   <div>
     <app-reviews-list></app-reviews-list>
   </div>
 </div>
+
