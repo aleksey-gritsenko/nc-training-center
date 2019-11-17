@@ -1,18 +1,16 @@
 package ua.com.nc.nctrainingproject.services;
 
 import org.springframework.stereotype.Service;
-import ua.com.nc.nctrainingproject.persistance.dao.postgre.UserBookPostgreDAO;
+import ua.com.nc.nctrainingproject.persistance.dao.postgre.UserBooksPostgreDAO;
 
 @Service
 public class UserBookService {
-  private final UserBookPostgreDAO userBookPostgreDAO;
-
-  public UserBookService(UserBookPostgreDAO userBookPostgreDAO) {
-    this.userBookPostgreDAO = userBookPostgreDAO;
+  private final UserBooksPostgreDAO userBooksPostgreDAO;
+  public UserBookService(UserBooksPostgreDAO userBooksPostgreDAO) {
+    this.userBooksPostgreDAO = userBooksPostgreDAO;
   }
-
-  public void addBook(int userId, int bookId) {
-    userBookPostgreDAO.addBook(userId, bookId);
+  public void addBookToUser(int userId, int bookId) {
+    userBooksPostgreDAO.addBookToUser(userId, bookId);
   }
 }
 

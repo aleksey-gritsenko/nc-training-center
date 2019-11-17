@@ -17,9 +17,9 @@ public class UserBookController {
   }
 
   @RequestMapping(value = "userBook", method = RequestMethod.POST)
-  public void addBook(@RequestParam(name = "user") int userId,
+  public void addBookToUser(@RequestParam(name = "user") int userId,
                       @RequestParam(name  = "book") int bookId) {
-    userBookService.addBook(userId,bookId);
+    userBookService.addBookToUser(userId,bookId);
   }
 }
 
