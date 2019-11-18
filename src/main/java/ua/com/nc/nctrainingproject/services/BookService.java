@@ -47,6 +47,19 @@ public class BookService {
 //			return null;
 //		}
 //	}
+//<<<<<<< HEAD
+//=======
+////=======
+//	private final BookPostgreDAO bookPostgreDAO;
+//	private final FilterCriterionQuery filterCriterionQuery;
+//
+//	@Autowired
+//	public BookService(BookPostgreDAO bookPostgreDAO,FilterCriterionQuery filterCriterionQuery) {
+//		this.bookPostgreDAO = bookPostgreDAO;
+//		this.filterCriterionQuery = filterCriterionQuery;
+//
+//	}
+//>>>>>>> 5e8f7985b1827f2253e072a1798cc1dc3eff8321
 //	private final BookPostgreDAO bookPostgreDAO;
 //	private final FilterCriterionQuery filterCriterionQuery;
 //
@@ -93,6 +106,9 @@ public class BookService {
 //		return bookPostgreDAO.getAllBooks();
 //	}
 //
+//<<<<<<< HEAD
+//=======
+//
 //	public List<Book> filterBooks(String header,ArrayList<String> genre,
 //                                ArrayList<String>  author){
 //	  filterCriterionQuery.setAuthor(author);
@@ -100,6 +116,16 @@ public class BookService {
 //	  filterCriterionQuery.setHeader(header);
 //	  return bookPostgreDAO.filterBooks(filterCriterionQuery);
 //  }
+//>>>>>>> 6370a182546e95818761b382343272ba4d99af66
+//>>>>>>> 5e8f7985b1827f2253e072a1798cc1dc3eff8321
+//	public List<Book> filterBooks(String header,ArrayList<String> genre,
+//                                ArrayList<String>  author){
+//	  filterCriterionQuery.setAuthor(author);
+//	  filterCriterionQuery.setGenre(genre);
+//	  filterCriterionQuery.setHeader(header);
+//	  return bookPostgreDAO.filterBooks(filterCriterionQuery);
+//  }
+//<<<<<<< HEAD
 
 	private final BookPostgreDAO bookPostgreDAO;
 	private final FilterCriterionQuery filterCriterionQuery;
@@ -149,4 +175,6 @@ public class BookService {
   }
 */
 
+//=======
+//>>>>>>> 5e8f7985b1827f2253e072a1798cc1dc3eff8321
 }

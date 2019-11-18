@@ -47,6 +47,16 @@ public class BookController {
 //
 //		return bookService.updateBook(bookId, title, header, author, overview, status, photoId, fileId);
 //	}
+//<<<<<<< HEAD
+//=======
+////=======
+//	private final BookService bookService;
+//
+//	@Autowired
+//	public BookController(BookService bookService) {
+//		this.bookService = bookService;
+//	}
+//>>>>>>> 5e8f7985b1827f2253e072a1798cc1dc3eff8321
 //
 //	private final BookService bookService;
 //
@@ -94,6 +104,26 @@ public class BookController {
 //	public List<Book> getAllBooks(){
 //		return  bookService.getAllBooks();
 //	}
+//<<<<<<< HEAD
+//=======
+//  @RequestMapping(value = "/book/filter", method = RequestMethod.GET)
+//
+//  public List<Book> filterBook
+//      ( @RequestParam(name = "header") String header
+//       // @RequestParam(name = "date") ArrayList<Date> dates,
+//    //   @RequestParam(name = "genre") ArrayList<String> genre,
+//       // @RequestParam(name = "author") ArrayList<String> author
+//     ){
+//	  ArrayList<String> genres = new ArrayList<>();
+//
+//	 genres.add("fiction");
+//	 //genres.add("drama");
+//	ArrayList<String> authors = new ArrayList<>();
+//	  authors.add("none");
+//	  return bookService.filterBooks(header+"%",genres,authors);
+//  }
+//>>>>>>> 6370a182546e95818761b382343272ba4d99af66
+//>>>>>>> 5e8f7985b1827f2253e072a1798cc1dc3eff8321
 //  @RequestMapping(value = "/book/filter", method = RequestMethod.GET)
 //
 //  public List<Book> filterBook
@@ -110,6 +140,7 @@ public class BookController {
 //	 // authors.add("none");
 //	  return bookService.filterBooks(header+"%",genres,author);
 //  }
+//<<<<<<< HEAD
 
 
 
@@ -172,4 +203,6 @@ public class BookController {
   }
 */
 
+//=======
+//>>>>>>> 5e8f7985b1827f2253e072a1798cc1dc3eff8321
 }
