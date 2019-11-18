@@ -7,6 +7,7 @@ public class UserQuery {
   public static final String USERNAME = "user_name";
   public static final String USER_PASSWORD = "password";
   public static final String EMAIL = "email";
+  public static final String ROLE = "role";
 
   public static final String GET_ALL_USERS = "SELECT * FROM " + TABLE_NAME;
 

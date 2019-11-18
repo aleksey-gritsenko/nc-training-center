@@ -11,6 +11,7 @@ import {ActivatedRoute} from "@angular/router";
 export class UserProfileComponent implements OnInit {
     user: User;
     currentUser: string;
+    loggedUserName: string;
     isLoggedUserProfile: boolean;
     isAdmin: boolean;
 
@@ -24,17 +25,21 @@ export class UserProfileComponent implements OnInit {
             location.assign('/login');
         }
         this.user = JSON.parse(localStorage.getItem('currentUser'));
-        this.currentUser = this.user.userName;
+        this.loggedUserName = this.user.userName;
+        this.isAdmin = this.user.userRole != 0;
 
-        await this.userService.searchUser(this.route.snapshot.paramMap.get('userName'))
-            .toPromise().then(user => this.user = user);
+        this.currentUser = this.route.snapshot.paramMap.get('userName');
+        await this.userService.searchUser(this.currentUser)
+            .toPromise().then(user => {
+                if (user.userRole != 0) this.user = null;
+                else this.user = user;
+            });
 
         if (this.user == null) {
             location.assign('/error');
         }
 
-        this.isLoggedUserProfile = this.currentUser === this.user.userName;
-        this.isAdmin = this.user.userRole != 0;
+        this.isLoggedUserProfile = this.loggedUserName === this.user.userName;
     }
 
     addFriend() {
@@ -45,7 +50,7 @@ export class UserProfileComponent implements OnInit {
         this.userService.updateProfile(this.currentUser, this.user)
             .subscribe(
                 user => {
-                    localStorage.setItem('currentUser', JSON.stringify(user));
+                    if (!this.isAdmin) localStorage.setItem('currentUser', JSON.stringify(user));
                     location.assign('/user/' + user.userName);
                 }
             );
