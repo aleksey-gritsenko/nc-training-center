@@ -31,6 +31,7 @@ export class RegistrationComponent implements OnInit {
     form.append('email', this.model.email);
 
     this.http.post(url, form).subscribe(
+
       res => {
         if (res != null) {
           // localStorage.setItem('isAdmin', 'false');

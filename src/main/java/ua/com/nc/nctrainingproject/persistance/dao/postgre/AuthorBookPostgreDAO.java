@@ -20,11 +20,11 @@ public class AuthorBookPostgreDAO {
   public AuthorBookPostgreDAO(JdbcTemplate jdbcTemplate) {
     this.jdbcTemplate = jdbcTemplate;
   }
-
+/*
   public List<Book> getBooksByAuthorId(int id) {
     return jdbcTemplate.query(AuthorBookQuery.GET_ALL_BOOKS_BY_AUTHOR_ID, new BookRowMapper(), id);
   }
-
+*/
   public List<Author> getAuthorsByBookId(int id) {
     return jdbcTemplate.query(AuthorBookQuery.GET_ALL_AUTHORS_BY_BOOK_ID, new AuthorMapper(), id);
   }

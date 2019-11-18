@@ -1,3 +1,4 @@
+
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
@@ -35,6 +36,7 @@ import {SidebarComponent} from './components/sidebar/sidebar.component';
 import {AuthenticationService} from './services/authentification/authentication.service';
 import {RecoverComponent} from './components/recover/recover.component';
 import {ChangePasswordComponent} from './components/change-password/change-password.component';
+
 
 @NgModule({
   declarations: [

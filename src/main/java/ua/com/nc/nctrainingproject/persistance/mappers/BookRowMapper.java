@@ -15,10 +15,10 @@ public class BookRowMapper implements RowMapper<Book> {
     book.setId(resultSet.getInt(BookQuery.BOOK_ID));
     book.setHeader(resultSet.getString(BookQuery.HEADER));
     book.setOverview(resultSet.getString(BookQuery.OVERVIEW));
-    book.setPhotoId(resultSet.getInt(BookQuery.PHOTO));
+    book.setPhotoId(resultSet.getString(BookQuery.PHOTO));
     book.setFileId(resultSet.getInt(BookQuery.FILE));
     book.setStatus(resultSet.getString(BookQuery.STATUS));
-    book.setGenre(resultSet.getString(BookQuery.GENRE));
+    // book.setId(resultSet.getInt(BookQuery.BOOK_ID));
     return book;
   }
 

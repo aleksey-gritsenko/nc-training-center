@@ -7,6 +7,7 @@ import { Review } from 'src/app/models/review';
 import { /*Filter,*/BookFilter } from 'src/app/models/bookfilter';
 import {arrayify} from "tslint/lib/utils";
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -29,15 +30,16 @@ export class CommonService {
   getBooks(): Observable<Book[]> {
     const url = `${this.booksUrl}\\all`;
     return this.http.get<Book[]>(url);
-    //return null;
   }
 
   getBooksByFilter(filter: BookFilter): Observable<Book[]> {
+
     let body = {
       'header':filter.header,
       'author':filter.author,
       'genre':filter.genre
     };
+
     const url = `${this.booksUrl}\\filter`;
     return this.http.get<Book[]>(url,{ params:body});
   }
@@ -54,20 +56,21 @@ export class CommonService {
     return null;
   }
 
-  getBookById(id:number){
-    const url = `${this.booksUrl}/?id=${id}`;
+
+
+  getBookById(id:number):Observable<Book>{
+    const url = `${this.booksUrl}/id?id=${id}`;
     return this.http.get<Book>(url);
   }
 
   createBook(book:Book):Observable<Book>{
     const body = new HttpParams()
-        .set('header', book.header)
-        .set('author', book.author)
-        .set('status', book.status)
-        .set('overview', book.overview)
-        .set('photo', book.photo.toString())
-        .set('file', book.photo.toString());
-    console.log(body);
+      .set('header', book.header)
+      .set('status', book.status)
+      .set('overview', book.overview)
+      .set('photo', book.photoId)
+      .set('file', book.fileId.toString());
+
 
     return this.http.post<Book>(this.booksUrl, body, this.httpOptions);
   }
@@ -77,32 +80,34 @@ export class CommonService {
     return this.http.delete<Book>(url);
   }
 
-  updateBook(book:Book){
+  updateBook(book:Book):Observable<Book>{
+    console.log(book.id);
     const body = new HttpParams()
-        .set('bookId',book.id.toString())
-        .set('header', book.header)
-        .set('author', book.author)
-        .set('status', book.status)
-        .set('overview', book.overview)
-        .set('photo', book.photo.toString());
+      .set('bookId',book.id.toString())
+      .set('header', book.header)
+      .set('overview', book.overview)
+      .set('photo', book.photoId)
+      .set('file', book.fileId.toString())
+      .set('status', book.status);
+
 
     console.log(body);
-    const url = `${this.booksUrl}\\update\\?id=${book.id}`;
-    this.http.post(this.booksUrl, body, this.httpOptions);
+    const url = `${this.booksUrl}\\update`;
+    return this.http.post<Book>(this.booksUrl, body, this.httpOptions);
   }
   getAnnouncements(): Observable<Announcement[]> {
     return this.http.get<Announcement[]>(this.announcementsUrl);
   }
-  /*getAnnouncementsByFilter() : Observable<Announcement[]>{
-  }
-*/
+  // getAnnouncementsByFilter() : Observable<Announcement[]>{
+  // }
+
   getAllAuthor():Observable<string[]>{
-    const url = `${this.booksUrl}/author`;
+    const url = `${this.booksUrl}/authors`;
     //return this.http.get<string[]>(url);
     return null;
   }
   getAllGenre():Observable<string[]>{
-    const url = `${this.booksUrl}/genre`;
+    const url = `${this.booksUrl}/genres`;
     //return this.http.get<string[]>(url);
     return null;
   }
@@ -131,6 +136,7 @@ export class CommonService {
   getAnnouncementsByFilter() : Observable<Announcement[]>{
     return null;
   }
+
 
   recoverPassword() {
 
