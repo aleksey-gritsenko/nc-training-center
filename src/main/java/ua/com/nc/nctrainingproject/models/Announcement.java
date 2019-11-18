@@ -16,6 +16,14 @@ public class Announcement extends Entity {
   public Announcement() { }
 
   public Announcement(String description, Date announcementDate,
+                      int bookID, String priority) {
+    this.description = description;
+    this.announcementDate = announcementDate;
+    this.bookID = bookID;
+    this.priority = priority;
+  }
+
+  public Announcement(String description, Date announcementDate,
                       int bookID, String priority, int adminID) {
     this.description = description;
     this.announcementDate = announcementDate;
