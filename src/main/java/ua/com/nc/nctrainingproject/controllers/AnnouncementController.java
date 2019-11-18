@@ -1,5 +1,6 @@
 package ua.com.nc.nctrainingproject.controllers;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ua.com.nc.nctrainingproject.models.Announcement;
@@ -8,6 +9,7 @@ import ua.com.nc.nctrainingproject.services.AnnouncementService;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
 import java.util.List;
 
 @RestController
@@ -96,5 +98,7 @@ public class AnnouncementController {
       bookID, priority, adminID, status);
     announcementService.updateAnnouncement(announcement);
     return announcement;
+
+
   }
 }
