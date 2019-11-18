@@ -12,4 +12,6 @@ public interface UserDAO {
     List<User> getAllUsers();
 
     void updateUserByName(String userName, User user);
+
+    List<User> getUsersByNameAndEmail(String userName, String email);
 }

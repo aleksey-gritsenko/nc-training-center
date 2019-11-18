@@ -1,4 +1,5 @@
 export class BookFilter{
-    author: string[];
-    genre: string[];
+    author: string[] = [];
+    genre: string[] = [];
+    header: string = "";
 }

@@ -1,1 +1,17 @@
-<p>book works!</p>
+<div *ngIf="book">
+  <h2>{{book.header | uppercase}} Details</h2>
+  <div>
+    <label>Name:<input [(ngModel)]="book.header" placeholder="name"/></label>
+  </div>
+  <div>
+    <label>Author:<input type="text" [(ngModel)]="book.author"></label>
+  </div>
+  <div>
+    <h2>Overview</h2>
+    <div>{{book.overview}}</div>
+  </div>
+  <button (click)="updateBook()">Save changes</button>
+  <div>
+    <app-reviews-list></app-reviews-list>
+  </div>
+</div>

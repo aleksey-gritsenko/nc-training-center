@@ -18,8 +18,16 @@ public abstract class AbstractDAO<T extends Entity> {
     this.jdbcTemplate = jdbcTemplate;
   }
 
-  protected void create(String query, Entity entity) {
-    jdbcTemplate.update(query, entity);
+  // protected void create(String query, Entity entity) {
+  // jdbcTemplate.update(query, entity);
+  //}
+
+  protected void create(String query, Object[] params) {
+    jdbcTemplate.update(query, params);
+  }
+
+  protected void update(String query, Object[] params) {
+    jdbcTemplate.update(query, params);
   }
 
   public T getEntityById(String query, RowMapper<T> rowMapper, int id) {

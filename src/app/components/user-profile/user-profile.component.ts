@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {User} from "../../models/user";
 import {UserService} from "../../services/user/user.service";
-import {LogView} from "../../models/logview";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
     selector: 'app-user-profile',
@@ -11,17 +11,34 @@ import {LogView} from "../../models/logview";
 export class UserProfileComponent implements OnInit {
     user: User;
     currentUser: string;
+    isLoggedUserProfile: boolean;
+    isAdmin: boolean;
 
-    constructor(private userService: UserService) {
+    constructor(private userService: UserService,
+                private route: ActivatedRoute) {
+
     }
 
-    ngOnInit() {
-        this.user = JSON.parse(localStorage.getItem('currentUser'));
-        if (!this.user) {
+    async ngOnInit() {
+        if (!JSON.parse(localStorage.getItem('currentUser'))) {
             location.assign('/login');
         }
-
+        this.user = JSON.parse(localStorage.getItem('currentUser'));
         this.currentUser = this.user.userName;
+
+        await this.userService.searchUser(this.route.snapshot.paramMap.get('userName'))
+            .toPromise().then(user => this.user = user);
+
+        if (this.user == null) {
+            location.assign('/error');
+        }
+
+        this.isLoggedUserProfile = this.currentUser === this.user.userName;
+        this.isAdmin = this.user.userRole != 0;
+    }
+
+    addFriend() {
+        //Function for adding friends
     }
 
     update(): void {
@@ -29,8 +46,7 @@ export class UserProfileComponent implements OnInit {
             .subscribe(
                 user => {
                     localStorage.setItem('currentUser', JSON.stringify(user));
-                    this.user = user;
-                    this.currentUser = this.user.userName;
+                    location.assign('/user/' + user.userName);
                 }
             );
     }

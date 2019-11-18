@@ -53,6 +53,13 @@ public class BookController {
 		this.bookService = bookService;
 	}
 //
+//	private final BookService bookService;
+//
+//	@Autowired
+//	public BookController(BookService bookService) {
+//		this.bookService = bookService;
+//	}
+//
 //	@RequestMapping(value = "/book", method = RequestMethod.POST)
 //	public Book addBook(@RequestParam(name = "title") String title,
 //						@RequestParam(name = "header") String header,
@@ -109,4 +116,20 @@ public class BookController {
 	  return bookService.filterBooks(header+"%",genres,authors);
   }
 //>>>>>>> 6370a182546e95818761b382343272ba4d99af66
+//  @RequestMapping(value = "/book/filter", method = RequestMethod.GET)
+//
+//  public List<Book> filterBook
+//      ( @RequestParam(name = "header") String header,
+//        @RequestParam(name = "date") ArrayList<Date> dates,
+//       @RequestParam(name = "genre") ArrayList<String> genre,
+//        @RequestParam(name = "author") ArrayList<String> author
+//     ){
+//	  ArrayList<String> genres = new ArrayList<>();
+//
+//	 //genres.add("fiction");
+//	 //genres.add("drama");
+//	//  ArrayList<String> authors = new ArrayList<>();
+//	 // authors.add("none");
+//	  return bookService.filterBooks(header+"%",genres,author);
+//  }
 }

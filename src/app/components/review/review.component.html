@@ -1,1 +1,22 @@
-<p>review works!</p>
+<div *ngIf="review">
+    <h2>Review</h2>
+    <div>
+        <label>Book:<input type="text" [(ngModel)]="review.book"/></label>
+    </div>
+    <div>
+        <label>User:<input type="text" [(ngModel)]="review.user"></label>
+    </div>
+    <div>
+        <label>Grade:<input type="number" [(ngModel)]="review.grade"/></label>
+    </div>
+    <div>
+        <label>Date:<input type="number" [(ngModel)]="review.reviewDate"></label>
+    </div>
+    <div>
+        <h2>Review text: </h2>
+        <div><span>{{review.text}}</span></div>
+    </div>
+    <div>
+        <app-reviews-list></app-reviews-list>
+    </div>
+</div>

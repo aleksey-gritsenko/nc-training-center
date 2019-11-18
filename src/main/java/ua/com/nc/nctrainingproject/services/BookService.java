@@ -12,7 +12,6 @@ import java.util.List;
 @Service
 public class BookService {
 
-//<<<<<<< HEAD
 //	private final BookPostgreDAO bookPostgreDAO;
 //
 //	@Autowired
@@ -56,6 +55,15 @@ public class BookService {
 		this.filterCriterionQuery = filterCriterionQuery;
 
 	}
+//	private final BookPostgreDAO bookPostgreDAO;
+//	private final FilterCriterionQuery filterCriterionQuery;
+//
+//	@Autowired
+//	public BookService(BookPostgreDAO bookPostgreDAO,FilterCriterionQuery filterCriterionQuery) {
+//		this.bookPostgreDAO = bookPostgreDAO;
+//		this.filterCriterionQuery = filterCriterionQuery;
+//
+//	}
 //
 //	public Book createBook(String title, String header, String author, String overview,
 //
@@ -93,6 +101,7 @@ public class BookService {
 //		return bookPostgreDAO.getAllBooks();
 //	}
 //
+
 	public List<Book> filterBooks(String header,ArrayList<String> genre,
                                 ArrayList<String>  author){
 	  filterCriterionQuery.setAuthor(author);
@@ -101,4 +110,11 @@ public class BookService {
 	  return bookPostgreDAO.filterBooks(filterCriterionQuery);
   }
 //>>>>>>> 6370a182546e95818761b382343272ba4d99af66
+//	public List<Book> filterBooks(String header,ArrayList<String> genre,
+//                                ArrayList<String>  author){
+//	  filterCriterionQuery.setAuthor(author);
+//	  filterCriterionQuery.setGenre(genre);
+//	  filterCriterionQuery.setHeader(header);
+//	  return bookPostgreDAO.filterBooks(filterCriterionQuery);
+//  }
 }
