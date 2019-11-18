@@ -1,1 +1,16 @@
-<h1>{{id}}</h1>
+<!-- <h1>{{id}}</h1>-->
+<div>
+  <div>
+    <label>Title:<input type="text" name="title" [(ngModel)]="model.title"/></label>
+  </div>
+  <div>
+    <label>Text:<input type="text"  name="description"  [(ngModel)]="model.description"></label>
+  </div>
+  <div>
+    <label>Date:<input type="text" name="date" [(ngModel)]="model.date"></label>
+  </div>
+
+  <button (click)="createAnnouncement()">Save</button>
+
+</div>
+

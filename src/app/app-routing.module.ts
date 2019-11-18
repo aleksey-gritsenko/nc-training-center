@@ -10,12 +10,22 @@ import {ChangePasswordComponent} from './components/change-password/change-passw
 import {BookComponent} from './components/book/book.component';
 import {BooksListComponent} from "./components/books-list/books-list.component";
 import {AnnouncementComponent} from "./components/announcement/announcement.component";
+import {AnnouncementListComponent} from "./components/announcement-list/announcement-list.component";
 
 const routes: Routes = [
     {
         path: 'recover',
         component: RecoverComponent
     },
+  {
+    path:'announcement',
+    component:AnnouncementComponent
+  },
+
+  {
+    path:'announcementlist',
+    component:AnnouncementListComponent
+  },
     {
         path: 'change',
         component: ChangePasswordComponent
@@ -70,6 +80,7 @@ const routes: Routes = [
         path: '**',
         component: ErrorpageComponent
     }
+
 
 ];
 
