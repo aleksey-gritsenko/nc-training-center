@@ -28,7 +28,9 @@
     <label>File<input type="number" [(ngModel)]="book.fileId"></label>
   </div>
   <button (click)="updateBook()">Save changes</button>
-
+  <div>
+    <a [routerLink]="['/books',book.id,'announcement']">Announcement</a>
+  </div>
   <div>
     <app-reviews-list></app-reviews-list>
   </div>

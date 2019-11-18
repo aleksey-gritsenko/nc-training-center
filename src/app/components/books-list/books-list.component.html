@@ -57,11 +57,12 @@
 <div>
   <ul>
     <li *ngFor="let book of books">
-      <div (click)="onSelect(book)">Header: {{book.header}}</div>
-      <div>Overview: {{book.overview}}</div>
-      <div>Photo: {{book.photoId}}</div>
-    </li>
-  </ul>
+      <!--   <div (click)="onSelect(book)">Header: {{book.header}}</div>-->
+      <a [routerLink]="['/books', book.id]"> {{book.header}}</a>
+     <div>Overview: {{book.overview}}</div>
+     <div>Photo: {{book.photoId}}</div>
+   </li>
+ </ul>
 </div>
 
 

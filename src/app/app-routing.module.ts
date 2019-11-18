@@ -9,6 +9,7 @@ import {ErrorpageComponent} from "./components/errorpage/errorpage.component";
 import {UserProfileComponent} from "./components/user-profile/user-profile.component";
 import {BooksListComponent} from "./components/books-list/books-list.component";
 import {BookComponent} from "./components/book/book.component";
+import {AnnouncementComponent} from "./components/announcement/announcement.component";
 const routes: Routes = [
     {
         path: 'recover',
@@ -29,6 +30,10 @@ const routes: Routes = [
     {
         path: 'books',
         component:BooksListComponent
+    },
+    {
+      path: 'books/:id/announcement',
+      component: AnnouncementComponent
     },
     {
       path: 'books/:id',

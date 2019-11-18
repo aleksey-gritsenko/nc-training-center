@@ -57,6 +57,10 @@ component: LandingComponent
     path: 'books/:id',
     component: BookComponent
   },
+  {
+    path: 'books/:id/announcement',
+    component: AnnouncementComponent
+  },
 {
 path:'',
 component: LandingComponent,
