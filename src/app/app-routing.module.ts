@@ -8,6 +8,9 @@ import {UserProfileComponent} from './components/user-profile/user-profile.compo
 import {RecoverComponent} from './components/recover/recover.component';
 import {ChangePasswordComponent} from './components/change-password/change-password.component';
 import {BookComponent} from './components/book/book.component';
+import {BooksListComponent} from "./components/books-list/books-list.component";
+import {AnnouncementComponent} from "./components/announcement/announcement.component";
+
 const routes: Routes = [
     {
         path: 'recover',
@@ -28,6 +31,18 @@ const routes: Routes = [
     {
         path: 'home',
         component: LandingComponent
+    },
+    {
+        path: 'books',
+        component:BooksListComponent
+    },
+    {
+      path: 'books/:id/announcement',
+      component: AnnouncementComponent
+    },
+    {
+      path: 'books/:id',
+      component: BookComponent
     },
     {
         path: 'user',
@@ -55,6 +70,7 @@ const routes: Routes = [
         path: '**',
         component: ErrorpageComponent
     }
+
 ];
 
 @NgModule({

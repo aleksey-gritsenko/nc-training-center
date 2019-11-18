@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {CommonService} from '../../services/common/common.service';
 import {Book} from '../../models/book'
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {BookFilter} from '../../models/bookfilter';
 import {SelectedItem} from '../../models/selected-item-filter';
 
@@ -14,7 +14,6 @@ import {SelectedItem} from '../../models/selected-item-filter';
 export class BooksListComponent implements OnInit {
 
   books:Book[]=[];
-  selectedBook:Book;
   createdBook:Book = new Book();
   bookFilter:BookFilter = new BookFilter();
 
@@ -25,15 +24,14 @@ export class BooksListComponent implements OnInit {
   listOfSelectedGenres:SelectedItem[] = [];
   listOfSelectedAuthor:SelectedItem[] = [];
 
-  constructor(private apiService: CommonService,private route: ActivatedRoute) {
+  constructor(private apiService: CommonService,private route: ActivatedRoute, private router: Router) {
   }
 
 
   ngOnInit() {
     this.getBooks();
-  //  this.getAllAuthor();
-  // this.getAllGenre();
-
+    //this.getAllAuthor();
+    //this.getAllGenre();
   }
   getAllAuthor(){
     this.apiService.getAllAuthor().subscribe(
@@ -86,6 +84,7 @@ export class BooksListComponent implements OnInit {
     this.apiService.getBooks().subscribe(
       res=>{
         this.books = res;
+        console.log(this.books);
       },
       err=>{alert("Error in get all reviews")}
     );
@@ -127,6 +126,10 @@ export class BooksListComponent implements OnInit {
     }
   }
  */
+
+  onSelect(book){
+    this.router.navigate(['books/',book.id]);
+  }
 
 }
 

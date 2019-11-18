@@ -35,16 +35,12 @@
         <td><input type="text" [(ngModel)]="createdBook.header" id="header" name="header"></td>
       </tr>
       <tr>
-        <td><label for="author">Author</label></td>
-        <td><input type="text" [(ngModel)]="createdBook.author" id="author" name="author"></td>
-      </tr>
-      <tr>
         <td><label for="photo">Photo</label></td>
-        <td><input type="number" [(ngModel)]="createdBook.photo" id="photo" name="photo"></td>
+        <td><input type="text" [(ngModel)]="createdBook.photoId" id="photo" name="photo"></td>
       </tr>
       <tr>
         <td><label for="photo">File</label></td>
-        <td><input type="number" [(ngModel)]="createdBook.file" id="file" name="file"></td>
+        <td><input type="number" [(ngModel)]="createdBook.fileId" id="file" name="file"></td>
       </tr>
       <tr>
         <td><label for="status">Status</label></td>
@@ -61,11 +57,12 @@
 <div>
   <ul>
     <li *ngFor="let book of books">
-      <div><a routerLink="book/{{book.id}}">Header: {{book.header}}</a></div>
-      <div>Author: {{book.author}}</div>
-      <div>Overview: {{book.overview}}</div>
-    </li>
-  </ul>
+      <!--   <div (click)="onSelect(book)">Header: {{book.header}}</div>-->
+      <a [routerLink]="['/books', book.id]"> {{book.header}}</a>
+     <div>Overview: {{book.overview}}</div>
+     <div>Photo: {{book.photoId}}</div>
+   </li>
+ </ul>
 </div>
 
 

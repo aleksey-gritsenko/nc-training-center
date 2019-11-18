@@ -32,11 +32,11 @@ public class FilterCriterionQuery {
     author = new ArrayList<>();
   }
 
-  public String makeQuery() {
+ /* public String makeQuery() {
     return BookQuery.GET_BOOKS_FILTRATION +
       makeAuthorConditins() + makeGenresConditins() + makeHeaderCondition();
   }
-
+*/
   public Object[] makeArrayArgs() {
 
     ArrayList<Object> argsList = new ArrayList<Object>();
@@ -75,7 +75,7 @@ public class FilterCriterionQuery {
     }
     return genresCondition;
   }
-
+/*
   private StringBuilder makeAuthorConditins() {
     StringBuilder authorCondition = new StringBuilder("");
     if (author.size() != 0) {
@@ -89,7 +89,7 @@ public class FilterCriterionQuery {
     }
     return authorCondition;
   }
-
+*/
   private StringBuilder makeHeaderCondition() {
     return new  StringBuilder(BookQuery.CONDITIONS_NAME);
   }

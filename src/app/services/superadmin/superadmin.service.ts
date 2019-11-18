@@ -60,9 +60,9 @@ export class SuperadminService {
     this.commonService.getBooksByFilter(filter);
   }
 
-  getBookByName(name : string){
-    this.commonService.getBookByName(name);
-  }
+  // getBookByName(name : string){
+  //   this.commonService.getBookByName(name);
+  // }
 
   getAnnouncements(){
     this.commonService.getAnnouncements();

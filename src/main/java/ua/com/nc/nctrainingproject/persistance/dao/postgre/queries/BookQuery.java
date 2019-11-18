@@ -4,21 +4,18 @@ public class BookQuery {
 
   public static final String TABLE_NAME = "books";
   public static final String BOOK_ID = "book_id";
-  public static final String TITLE = "name";
   public static final String HEADER = "header";
-  public static final String AUTHOR = "author_name";
   public static final String OVERVIEW = "overview";
-  public static final String PHOTO = "photo_id";
+  public static final String PHOTO = "photo";
   public static final String FILE = "file";
   public static final String STATUS = "status";
-  public static final String GENRE_ID = "genre_id";
+
 
   public static final String GENRE = "genre_name";
   public static final String GENRES_TABLE = "genres";
 
 
-  public static final String GET_ALL ="SELECT *" + " FROM " + TABLE_NAME + " INNER JOIN " + GENRES_TABLE + " ON " + TABLE_NAME + "." + GENRE_ID + " = " +
-    GENRES_TABLE + "." + GENRE_ID;
+  public static final String GET_ALL ="SELECT *" + " FROM " + TABLE_NAME;
 
   public static final String GET_BOOK = GET_ALL+" WHERE "+TABLE_NAME+"."+BOOK_ID+" =(?)";
 
@@ -26,23 +23,21 @@ public class BookQuery {
     + " WHERE " + BOOK_ID + " =(?)";
 
   public static final String GET_BOOK_BY_TITLE = "SELECT * FROM " + TABLE_NAME
-    + " WHERE " + TITLE + " =(?)";
+    + " WHERE " + HEADER + " =(?)";
 
-  public static final String GET_BOOK_BY_AUTHOR = "SELECT * FROM " + TABLE_NAME
-    + " WHERE " + AUTHOR + " =(?)";
 
   public static final String GET_BOOK_BY_STATUS = "SELECT * FROM " + TABLE_NAME
     + " WHERE " + STATUS + " =(?)";
 
   public static final String CREATE_BOOK = "INSERT INTO " + TABLE_NAME
     + " (" + HEADER + ","
-    + OVERVIEW + "," + FILE + "," + STATUS + "," + GENRE_ID + "," + PHOTO + ")" + " VALUES(?,?,?,?,?,?)";
+    + OVERVIEW + "," + FILE + "," + STATUS  + "," + PHOTO + ")" + " VALUES(?,?,?,?,?)";
 
   public static final String GET_ALL_BOOKS = "SELECT * FROM " + TABLE_NAME;
 
   public static final String UPDATE_BOOK = "UPDATE " + TABLE_NAME + " SET " +
     HEADER + "=(?), " +
-    OVERVIEW + "=(?), " + FILE + "=(?), " + STATUS + "=(?)," + GENRE_ID + "=(?)," + PHOTO + "=(?) " +
+    OVERVIEW + "=(?), " + FILE + "=(?), " + STATUS + "=(?)," + PHOTO + "=(?) " +
     " WHERE " + BOOK_ID + "=(?)";
 
   public static final String DELETE_BOOK_BY_ID = "DELETE FROM " + TABLE_NAME + " WHERE " + BOOK_ID + " =(?)";
@@ -51,27 +46,24 @@ public class BookQuery {
   public static final String GET_BOOKS_BY_TITLE = "SELECT * FROM " + TABLE_NAME
     + " WHERE " + HEADER + " =(?)";
 
-  public static final String GET_BOOKS_BY_AUTHOR = "SELECT * FROM " + TABLE_NAME
-    + " WHERE " + AUTHOR + " =(?)";
 
   public static final String GET_BOOKS_BY_STATUS = "SELECT * FROM " + TABLE_NAME
     + " WHERE " + STATUS + " =(?)";
 
-  public static final String GET_BOOKS_BY_GENRE = "SELECT * FROM " + TABLE_NAME
-    + " WHERE " + GENRE_ID + " =(?)";
+/*
   public static final String GET_BOOKS_FILTRATION=
     "select "+ TABLE_NAME + "."+BOOK_ID +" , "+ HEADER+ ", " + AUTHOR+ ", " + OVERVIEW+ " ," + STATUS+ " ," + PHOTO+ ", " + FILE+ ", " + GENRE + " " +
       " from " + TABLE_NAME +" join "+GENRES_TABLE +" ON " + TABLE_NAME + "." + GENRE_ID + " = " + GENRES_TABLE + "." + GENRE_ID+
      " join "+ AuthorBookQuery.TABLE_NAME  + " on "+ TABLE_NAME + "." + BOOK_ID +" = " +AuthorBookQuery.TABLE_NAME+ "." + AuthorBookQuery.BOOK_ID+
       " join "+AuthorQuery.TABLE_NAME +" on " +AuthorBookQuery.TABLE_NAME+ "." + AuthorBookQuery.AUTHOR_ID+" = " + AuthorQuery.TABLE_NAME+ "." +  AuthorQuery.ID+" where ";
-
+*/
   /*select header,author,overview,status,photo_id,file,genre_name from books join genres on books.genre_id = genres.genre_id join book_author ba on books.book_id = ba.book_id
 join authors on ba.author_id = authors.id
 
    */
   public static final String CONDITIONS_GENRES = GENRE + "=(?)";
   public static final String CONDITIONS_NAME =HEADER +" LIKE "+"(?) ";
-  public static final String CONDITION_AUTHOR = AUTHOR+" =(?)";
+//  public static final String CONDITION_AUTHOR = AUTHOR+" =(?)";
 //	public static final String CREATE_BOOK = "INSERT INTO " + TABLE_NAME
 //			+ " (" + TITLE + "," + HEADER + "," + AUTHOR + ","
 //			+ OVERVIEW + "," + PHOTO + "," + FILE +  "," + STATUS + "," + GENRE
@@ -92,7 +84,7 @@ join authors on ba.author_id = authors.id
  // public static final String CONDITIONS_NAME = HEADER +" =(?) ";
 //  public static final String CONDITION_ANNOUNCEMENT_DATE ="announcements.date is between"
 //    +"=(?)" +" AND "+"=(?)";
-//>>>>>>> 6370a182546e95818761b382343272ba4d99af66
+
 
 
 }
