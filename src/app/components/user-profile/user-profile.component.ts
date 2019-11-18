@@ -31,7 +31,7 @@ export class UserProfileComponent implements OnInit {
         this.currentUser = this.route.snapshot.paramMap.get('userName');
         await this.userService.searchUser(this.currentUser)
             .toPromise().then(user => {
-                if (user.userRole != 0) this.user = null;
+                if (!this.isAdmin && user.userRole != 0) this.user = null;
                 else this.user = user;
             });
 
