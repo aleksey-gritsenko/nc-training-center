@@ -28,11 +28,10 @@ export class UserService {
 
   // Personal methods
 
-<<<<<<< HEAD
   updateProfile(login: string , user: User){
-=======
-  updateProfile(login: string, user: User) {
->>>>>>> recoverPasswordFeature
+// =======
+//   updateProfile(login: string, user: User) {
+//       >>>>>>> recoverPasswordFeature
     let url = 'http://localhost:8080/user/update';
     let form = new FormData();
 
@@ -44,14 +43,14 @@ export class UserService {
     return this.http.post<User>(url, form);
   }
 
-<<<<<<< HEAD
+
   searchUser(userName: string){
     const url = "http://localhost:8080/user/" + userName;
     return this.http.get<User>(url);
-=======
-  searchUser(name: string) {
-
->>>>>>> recoverPasswordFeature
+// =======
+//   searchUser(name: string) {
+//
+// >>>>>>> recoverPasswordFeature
   }
 
   getFriends() {
