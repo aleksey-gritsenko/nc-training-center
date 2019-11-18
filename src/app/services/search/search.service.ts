@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -11,14 +11,15 @@ export class SearchService {
   // private adminsUrl = '/admin';
   // private superAdmin = '/superadmin';
 
-  constructor(private http : HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
-  search(value : string){
+  search(value: string) {
     const url = `/search/${value}`;
     this.http.get(url);
   }
 
-  searchProfile(profile : string) {
+  searchProfile(profile: string) {
 
     // switch(profile){
     //   case 'superadmin':
@@ -28,7 +29,7 @@ export class SearchService {
     //   case 'moderators':
     //     return this.http.get(this.moderatorsUrl);
     //   // search specific admin/moderator by value
-      
+
     //   // ...............................
 
     // }

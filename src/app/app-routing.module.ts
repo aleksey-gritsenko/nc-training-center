@@ -1,17 +1,21 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
+import {LoginComponent} from './components/login/login.component';
+import {RegistrationComponent} from './components/registration/registration.component';
+import {LandingComponent} from './components/landing/landing.component';
+import {ErrorpageComponent} from './components/errorpage/errorpage.component';
+import {UserProfileComponent} from './components/user-profile/user-profile.component';
 import {RecoverComponent} from './components/recover/recover.component';
-import {ChangeComponent} from './change/change.component';
-import {LoginComponent} from "./components/login/login.component";
-import {RegistrationComponent} from "./components/registration/registration.component";
-import {LandingComponent} from "./components/landing/landing.component";
-import {ErrorpageComponent} from "./components/errorpage/errorpage.component";
-import {UserProfileComponent} from "./components/user-profile/user-profile.component";
-
+import {ChangePasswordComponent} from './components/change-password/change-password.component';
+import {BookComponent} from './components/book/book.component';
 const routes: Routes = [
     {
         path: 'recover',
         component: RecoverComponent
+    },
+    {
+        path: 'change',
+        component: ChangePasswordComponent
     },
     {
         path: 'registration',
@@ -29,6 +33,11 @@ const routes: Routes = [
         path: 'user',
         component: UserProfileComponent
     },
+    {
+        path: 'book',
+        component: BookComponent
+    },
+
     {
         path: 'user/:userName',
         component: UserProfileComponent
