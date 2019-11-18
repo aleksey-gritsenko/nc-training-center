@@ -7,29 +7,26 @@ public class Book extends Entity {
   private List<Author> authors;
   private String overview;
   private String status;
-  private int photoId;
+  private String photo;
   private int fileId;
-  private int genreId;
+  private String genre;
 
-  public Book(String header, List<Author> authors, String overview, String status, int photoId, int fileId, int genreId) {
+  public Book(String header,  String overview, String status, String photo, int fileId) {
     this.header = header;
-    this.authors = authors;
     this.overview = overview;
     this.status = status;
-    this.photoId = photoId;
+    this.photo = photo;
     this.fileId = fileId;
-    this.genreId = genreId;
   }
 
-  public Book(int id, String header, List<Author> authors, String overview, String status, int photoId, int fileId, int genreId) {
+  public Book(int id, String header,  String overview, String status, String photo, int fileId, String genre) {
     super(id);
     this.header = header;
-    this.authors = authors;
     this.overview = overview;
     this.status = status;
-    this.photoId = photoId;
+    this.photo = photo;
     this.fileId = fileId;
-    this.genreId = genreId;
+    this.genre = genre;
   }
 
   public Book() {
@@ -68,12 +65,12 @@ public class Book extends Entity {
     this.status = status;
   }
 
-  public int getPhotoId() {
-    return photoId;
+  public String getPhotoId() {
+    return photo;
   }
 
-  public void setPhotoId(int photoId) {
-    this.photoId = photoId;
+  public void setPhotoId(String photo) {
+    this.photo = photo;
   }
 
   public int getFileId() {
@@ -84,11 +81,13 @@ public class Book extends Entity {
     this.fileId = fileId;
   }
 
-  public int getGenreId() {
-    return genreId;
+  public void setGenre(String genre) {
+    this.genre = genre;
   }
 
-  public void setGenreId(int genreId) {
-    this.genreId = genreId;
+  public String getGenre() {
+    return genre;
   }
+
+
 }

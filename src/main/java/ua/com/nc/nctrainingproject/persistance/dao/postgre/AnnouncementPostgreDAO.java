@@ -5,7 +5,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import ua.com.nc.nctrainingproject.models.Announcement;
 import ua.com.nc.nctrainingproject.persistance.dao.AbstractDAO;
-import ua.com.nc.nctrainingproject.persistance.dao.AnnouncementsDAO;
 import ua.com.nc.nctrainingproject.persistance.dao.postgre.queries.AnnouncementQuery;
 import ua.com.nc.nctrainingproject.persistance.dao.postgre.queries.BookQuery;
 import ua.com.nc.nctrainingproject.persistance.mappers.AnnouncementRowMapper;
@@ -17,20 +16,20 @@ import java.util.List;
 @Repository
 public class AnnouncementPostgreDAO extends AbstractDAO<Announcement>{
 
-   @Autowired
-   public AnnouncementPostgreDAO(JdbcTemplate jdbcTemplate){
-     super(jdbcTemplate);
-   }
+  @Autowired
+  public AnnouncementPostgreDAO(JdbcTemplate jdbcTemplate){
+    super(jdbcTemplate);
+  }
 
   public Announcement getAnnouncementByID(int id){
     Announcement announcement = super.getEntityById(AnnouncementQuery.GET_ANNOUNCEMENT_BY_ID,
-                                                    new AnnouncementRowMapper(), id);
+      new AnnouncementRowMapper(), id);
     return announcement;
   }
 
   public List<Announcement> getAnnouncements(){
     List<Announcement> announcements = super.getAllEntities(AnnouncementQuery.GET_ANNOUNCEMENTS,
-                                                            new AnnouncementRowMapper());
+      new AnnouncementRowMapper());
     return announcements;
   }
 
@@ -57,10 +56,10 @@ public class AnnouncementPostgreDAO extends AbstractDAO<Announcement>{
   }
 
   public void proposeAnnouncement(Announcement announcement){
-     announcement.setStatus(AnnouncementQuery.UNPUBLISHED);
-     jdbcTemplate.update(AnnouncementQuery.CREATE_ANNOUNCEMENT, announcement.getDescription(),
-       announcement.getAnnouncementDate(), announcement.getBookID(),
-       announcement.getPriority(), announcement.getAdminID(), announcement.getStatus());
+    announcement.setStatus(AnnouncementQuery.UNPUBLISHED);
+    jdbcTemplate.update(AnnouncementQuery.CREATE_ANNOUNCEMENT, announcement.getDescription(),
+      announcement.getAnnouncementDate(), announcement.getBookID(),
+      announcement.getPriority(), announcement.getAdminID(), announcement.getStatus());
   }
 
   public void publishAnnouncement(int id){

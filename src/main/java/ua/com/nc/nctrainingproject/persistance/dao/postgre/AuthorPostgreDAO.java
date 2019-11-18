@@ -20,13 +20,12 @@ public class AuthorPostgreDAO extends AbstractDAO<Author> {
     super(jdbcTemplate);
     this.authorBookPostgreDAO = authorBookPostgreDAO;
   }
-
+/*
   public Author getAuthorById(int id) {
     Author author = super.getEntityById(AuthorQuery.GET_AUTHOR_BY_ID, new AuthorMapper(), id);
     author.setBooks(authorBookPostgreDAO.getBooksByAuthorId(id));
     return author;
   }
-
   public List<Author> getAllAuthors() {
     List<Author> authors = super.getAllEntities(AuthorQuery.GET_ALL_AUTHORS, new AuthorMapper());
     for (Author author : authors) {
@@ -34,7 +33,7 @@ public class AuthorPostgreDAO extends AbstractDAO<Author> {
     }
     return authors;
   }
-
+*/
   public void deleteAuthorById(int id) {
     authorBookPostgreDAO.deleteAuthorsById(id);
     super.deleteEntityById(AuthorQuery.DELETE_BY_ID, id);

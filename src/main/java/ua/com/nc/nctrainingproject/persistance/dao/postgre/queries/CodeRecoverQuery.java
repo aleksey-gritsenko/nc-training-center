@@ -4,18 +4,18 @@ public class CodeRecoverQuery {
 
     public static final String TABLE_NAME = "recoverCode";
     public static final String CODE = "code";
-    public static final String CODE_DATE = "code_date";
-    public static final String USERNAME = "user_name";
+    public static final String GENERATE_DATE = "generate_date";
+    public static final String EMAIL = "email";
 
     public static final String CREATE_CODE =  "INSERT INTO "
             + TABLE_NAME
-            + " (" + CODE + "," + CODE_DATE +","+USERNAME+ ")" +
+            + " (" + CODE + "," + GENERATE_DATE +","+EMAIL+ ")" +
             " VALUES(?,?,?)";
 
-    public static final String GET_CODE_BY_USERNAME ="SELECT " + CODE +" FROM "
-            + TABLE_NAME + " WHERE "+ USERNAME + " =(?)";
+    public static final String GET_CODE ="SELECT * FROM "
+            + TABLE_NAME + " WHERE "+ CODE + " =(?)";
 
-    public static final String DELETE_CODE_BY_USERNAME ="DELETE FROM "
-            + TABLE_NAME + " WHERE "+ USERNAME + " =(?)";
+    public static final String DELETE_CODE ="DELETE FROM "
+            + TABLE_NAME + " WHERE "+ CODE + " =(?)";
 
 }

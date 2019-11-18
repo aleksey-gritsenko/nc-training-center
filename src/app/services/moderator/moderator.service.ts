@@ -59,7 +59,7 @@ export class ModeratorService {
 
   }
 
-  //#region Services Methods 
+  //#region Services Methods
 
   // Common service
   getBooks(){
@@ -70,9 +70,9 @@ export class ModeratorService {
   //   this.commonService.getBooksByFilter();
   // }
 
-  getBookByName(name : string){
-    this.commonService.getBookByName(name);
-  }
+  // getBookByName(name : string){
+  //   this.commonService.getBookByName(name);
+  // }
 
   getAnnouncements(){
     this.commonService.getAnnouncements();
@@ -102,6 +102,6 @@ export class ModeratorService {
   searchProfile(profile : string){
     this.searchService.searchProfile(profile);
   }
-  
+
   //#endregion
 }

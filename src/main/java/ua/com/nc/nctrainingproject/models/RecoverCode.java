@@ -5,7 +5,7 @@ import java.util.Date;
 public class RecoverCode {
 	private String code;
 	private Date date;
-	private String userName;
+	private String email;
 
 	public String getCode() {
 		return code;
@@ -23,12 +23,12 @@ public class RecoverCode {
 		this.date = date;
 	}
 
-	public String getUserName() {
-		return userName;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setEmail(String userName) {
+		this.email = userName;
 	}
 
 	@Override
@@ -36,7 +36,7 @@ public class RecoverCode {
 		return "RecoverCode{" +
 				"code='" + code + '\'' +
 				", date=" + date +
-				", userName='" + userName + '\'' +
+				", userName='" + email + '\'' +
 				'}';
 	}
 }

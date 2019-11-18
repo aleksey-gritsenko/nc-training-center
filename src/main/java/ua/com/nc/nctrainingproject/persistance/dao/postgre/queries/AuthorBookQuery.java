@@ -14,13 +14,13 @@ public class AuthorBookQuery {
     " ON " + TABLE_NAME + "." + AUTHOR_ID + " = " + AuthorQuery.TABLE_NAME + "." + AuthorQuery.ID + " WHERE " +
     TABLE_NAME + "." + BOOK_ID + " =(?)";
 
-
+/*
   public static final String GET_ALL_BOOKS_BY_AUTHOR_ID = "Select " + BookQuery.TABLE_NAME + "." + BookQuery.BOOK_ID + "," + BookQuery.TABLE_NAME + "." + BookQuery.HEADER
     + "," + BookQuery.TABLE_NAME + "." + BookQuery.OVERVIEW + "," + BookQuery.TABLE_NAME + "." + BookQuery.FILE + "," + BookQuery.TABLE_NAME + "." + BookQuery.STATUS
-    + "," + BookQuery.TABLE_NAME + "." + BookQuery.GENRE_ID + "," + BookQuery.TABLE_NAME + "." + BookQuery.PHOTO + " FROM " + TABLE_NAME + " INNER JOIN " + BookQuery.TABLE_NAME +
+    + ","+ BookQuery.TABLE_NAME + "." + BookQuery.PHOTO + " FROM " + TABLE_NAME + " INNER JOIN " + BookQuery.TABLE_NAME +
     " ON " + TABLE_NAME + "." + BOOK_ID + " = " + BookQuery.TABLE_NAME + "." + BookQuery.BOOK_ID + " WHERE " + TABLE_NAME + "." + AUTHOR_ID + " =(?)";
 
-
+*/
   public static final String CREATE = "INSERT INTO " + TABLE_NAME + "(" + BOOK_ID + "," + AUTHOR_ID + ")" + " VALUES(?,?)";
 
 

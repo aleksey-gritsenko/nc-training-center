@@ -1,5 +1,5 @@
 export class Announcement{
     title: string;
-    date: string;
-    description: string;
+  description: string;
+  date: string;
 }

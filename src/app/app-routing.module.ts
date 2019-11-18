@@ -1,83 +1,94 @@
-<<<<<<< HEAD
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
+import {LoginComponent} from './components/login/login.component';
+import {RegistrationComponent} from './components/registration/registration.component';
+import {LandingComponent} from './components/landing/landing.component';
+import {ErrorpageComponent} from './components/errorpage/errorpage.component';
+import {UserProfileComponent} from './components/user-profile/user-profile.component';
+import {RecoverComponent} from './components/recover/recover.component';
+import {ChangePasswordComponent} from './components/change-password/change-password.component';
+import {BookComponent} from './components/book/book.component';
+import {BooksListComponent} from "./components/books-list/books-list.component";
+import {AnnouncementComponent} from "./components/announcement/announcement.component";
+import {AnnouncementListComponent} from "./components/announcement-list/announcement-list.component";
 
-import {LoginComponent} from './login/login.component';
-import {RegistrationComponent} from './registration/registration.component';
-import {LandingComponent} from './landing/landing.component';
-import {ErrorpageComponent} from './errorpage/errorpage.component';
-import {RecoverComponent} from './recover/recover.component';
-import {ChangeComponent} from './change/change.component';
-=======
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import {LoginComponent} from "./components/login/login.component";
-import {RegistrationComponent} from "./components/registration/registration.component";
-import {LandingComponent} from "./components/landing/landing.component";
-import {ErrorpageComponent} from "./components/errorpage/errorpage.component";
-import {UserProfileComponent} from "./components/user-profile/user-profile.component";
->>>>>>> 6370a182546e95818761b382343272ba4d99af66
-
-const routes: Routes = [{
-  path: 'login',
-  component: LoginComponent
-},
-<<<<<<< HEAD
+const routes: Routes = [
+    {
+        path: 'recover',
+        component: RecoverComponent
+    },
   {
-    path: 'registration',
-    component: RegistrationComponent
-  },
-  {
-    path: 'home',
-    component: LandingComponent
-  },
-  {
-    path: 'recover',
-    component: RecoverComponent
+    path:'announcement',
+    component:AnnouncementComponent
   },
 
   {
-    path: '',
-    component: LandingComponent,
-    pathMatch: 'full'
+    path:'announcementlist',
+    component:AnnouncementListComponent
   },
-  {
-    path: '**',
-    component: ErrorpageComponent
-  }
+    {
+        path: 'change',
+        component: ChangePasswordComponent
+    },
+    {
+        path: 'registration',
+        component: RegistrationComponent
+    },
+    {
+        path: 'login',
+        component: LoginComponent
+    },
+    {
+        path: 'home',
+        component: LandingComponent
+    },
+    {
+        path: 'books',
+        component:BooksListComponent
+    },
+    {
+      path: 'books/:id/announcement',
+      component: AnnouncementComponent
+    },
+    {
+      path: 'books/:id',
+      component: BookComponent
+    },
+    {
+        path: 'user',
+        component: UserProfileComponent
+    },
+    {
+        path: 'book',
+        component: BookComponent
+    },
 
-=======
-{
-path:'registration',
-component:RegistrationComponent
-},
-{
-path:'home',
-component: LandingComponent
-},
-{
-path: 'user',
-component: UserProfileComponent
-},
-{
-path:'',
-component: LandingComponent,
-pathMatch:'full'
-},
-{
-path:'**',
-component:ErrorpageComponent
-}
->>>>>>> 6370a182546e95818761b382343272ba4d99af66
+    {
+        path: 'user/:userName',
+        component: UserProfileComponent
+    },
+    {
+        path: 'error',
+        component: ErrorpageComponent
+    },
+    {
+        path: '',
+        component: LandingComponent,
+        pathMatch: 'full'
+    },
+    {
+        path: '**',
+        component: ErrorpageComponent
+    }
+
+
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+    imports: [RouterModule.forRoot(routes)],
+    exports: [RouterModule]
 })
-<<<<<<< HEAD
+
 export class AppRoutingModule {
 }
-=======
-export class AppRoutingModule { }
->>>>>>> 6370a182546e95818761b382343272ba4d99af66
+

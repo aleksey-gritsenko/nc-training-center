@@ -40,7 +40,7 @@ public class AnnouncementQuery {
     STATUS + "='" + PUBLISHED + "' WHERE " + ANNOUNCEMENT_ID + "=(?)";
 
   public static final String DELETE_ANNOUNCEMENT_BY_ID = "DELETE FROM " + TABLE_NAME +
-                                                         " WHERE " + ANNOUNCEMENT_ID + " =(?)";
+    " WHERE " + ANNOUNCEMENT_ID + " =(?)";
 
   public static final String UPDATE_ANNOUNCEMENT = "UPDATE " + TABLE_NAME + " SET " +
     DESCRIPTION + "=(?), " + ANNOUNCEMENT_DATE + "=(?), " + BOOK_ID + "=(?), "

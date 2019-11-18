@@ -26,8 +26,10 @@ public class MainController {
         return "updateBook";
     }
 
-//    @GetMapping("/announcement")
-//    public String addAnnouncement(){
-//    return "announcement";
-//  }
+    @GetMapping("/review")
+    public String addReview() {return "review";}
+
+    @GetMapping("/userBook")
+    public String addUserBook() {return "userbook";}
+
 }

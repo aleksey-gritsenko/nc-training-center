@@ -1,1 +1,68 @@
-<p>books-list works!</p>
+<div><h1>Books</h1></div>
+<form action="">
+  <div>
+    <input type="text" [(ngModel)]="bookFilter.header" placeholder="search books" name="header">
+  </div>
+  <h2>Author</h2>
+      <div>
+        <div *ngFor="let author of selectedAuthors;">
+          <div>
+            <input type="checkbox" [(ngModel)]="author.selected"  name="{{author.name}}">{{author.name}}
+          </div>
+        </div>
+      </div>
+
+      <h2>Genre</h2>
+      <div>
+        <div *ngFor="let genre of selectedGenres;">
+          <div>
+            <input type="checkbox" [(ngModel)]="genre.selected" name="{{genre.name}}">{{genre.name}}
+          </div>
+        </div>
+      </div>
+      <button (click)="searchByFilter()">Search by filter</button>
+      <button (click)="searchByTitle()">Search by title</button>
+      <button (click)="resetFiler()">Reset filter</button>
+  </form>
+
+
+<div>
+
+  <form action="">
+    <table>
+      <tr>
+        <td><label for="header">Header</label></td>
+        <td><input type="text" [(ngModel)]="createdBook.header" id="header" name="header"></td>
+      </tr>
+      <tr>
+        <td><label for="photo">Photo</label></td>
+        <td><input type="text" [(ngModel)]="createdBook.photoId" id="photo" name="photo"></td>
+      </tr>
+      <tr>
+        <td><label for="photo">File</label></td>
+        <td><input type="number" [(ngModel)]="createdBook.fileId" id="file" name="file"></td>
+      </tr>
+      <tr>
+        <td><label for="status">Status</label></td>
+        <td><input type="text" [(ngModel)]="createdBook.status" id="status" name="status"></td>
+      </tr>
+      <tr>
+        <td><label for="overview">Overview</label></td>
+        <td><textarea type="text" [(ngModel)]="createdBook.overview"  id="overview" name="overview" rows="5"></textarea></td>
+      </tr>
+    </table>
+    <button (click)="createBook();">Add book</button>
+  </form>
+</div>
+<div>
+  <ul>
+    <li *ngFor="let book of books">
+      <!--   <div (click)="onSelect(book)">Header: {{book.header}}</div>-->
+      <a [routerLink]="['/books', book.id]"> {{book.header}}</a>
+     <div>Overview: {{book.overview}}</div>
+     <div>Photo: {{book.photoId}}</div>
+   </li>
+ </ul>
+</div>
+
+

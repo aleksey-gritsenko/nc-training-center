@@ -18,26 +18,26 @@
                                         <div class="col-md">
                                             <div class="form-group">
                                                 <label class="bmd-label-floating">Username</label>
-                                                <input type="text" class="form-control" name="username" [(ngModel)]="user.userName">
+                                                <input type="text" autocomplete="off" [disabled]="!isLoggedUserProfile && !isAdmin" class="form-control" name="username" [(ngModel)]="user.userName">
                                             </div>
                                         </div>
                                         <div class="col-md">
                                             <div class="form-group">
                                                 <label class="bmd-label-floating">Email</label>
-                                                <input type="email" class="form-control" name="email" [(ngModel)]="user.email">
+                                                <input type="email" autocomplete="off" [disabled]="!isLoggedUserProfile && !isAdmin" class="form-control" name="email" [(ngModel)]="user.email">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row justify-content-center">
                                         <div class="col-md-6">
-                                            <div class="form-group">
+                                            <div class="form-group" [hidden]="!isLoggedUserProfile && !isAdmin">
                                                 <label class="bmd-label-floating">Password</label>
-                                                <input type="text" class="form-control" name="password" [(ngModel)]="user.userPassword">
+                                                <input type="password" class="form-control" name="password" [(ngModel)]="user.userPassword">
                                             </div>
                                         </div>
                                     </div>
-                                    <button type="submit" class="btn btn-primary pull-right">Update Profile</button>
-                                    <div class="clearfix"></div>
+                                    <button type="submit" *ngIf="isLoggedUserProfile || isAdmin" class="btn btn-primary pull-right">Update Profile</button>
+                                    <button type="button" (click)="addFriend()" *ngIf="!isLoggedUserProfile && !isAdmin" class="btn btn-primary pull-right">Add friend</button>
                                 </form>
                             </div>
                         </div>
