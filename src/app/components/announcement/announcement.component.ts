@@ -15,8 +15,9 @@ export class AnnouncementComponent implements OnInit {
     description:'',
     date:''
   };
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,private route: ActivatedRoute) {
   }
+  id:any;
 
 /*<<<<<<< HEAD
   constructor(private route: ActivatedRoute) { }
@@ -29,6 +30,8 @@ export class AnnouncementComponent implements OnInit {
 
   ngOnInit() {
   this.model
+  this.id = parseInt(this.route.snapshot.paramMap.get('id'));
+
   }
 
   createAnnouncement(): void {
