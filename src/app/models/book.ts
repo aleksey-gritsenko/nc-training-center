@@ -4,8 +4,8 @@ export class Book extends Id{
   header: string;
   authors:string[];
   overview: string;
-  photo:string;
-  file:number;
+  photoId:string;
+  fileId:number;
   status: string;
   genres:string[];
 }

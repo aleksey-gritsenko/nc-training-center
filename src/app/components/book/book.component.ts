@@ -18,7 +18,10 @@ export class BookComponent implements OnInit {
   }
   updateBook():void {
     const newCreatedBook:Book = Object.assign({},this.book);
-    this.apiService.updateBook(newCreatedBook);
+    this.apiService.updateBook(newCreatedBook).subscribe(
+      res => {this.book = res;
+      console.log(res);}
+    );
 
 }
   getBook():void{
@@ -26,7 +29,7 @@ export class BookComponent implements OnInit {
     this.apiService.getBookById(this.id).subscribe(
         res=> {
           this.book = res;
-          console.log(this.book.header + " " + this.book.overview + " " + this.book.status + " " + this.book.file);
+          console.log(this.book);
         },
         err=>{alert("Error in get book by id")}
       );
