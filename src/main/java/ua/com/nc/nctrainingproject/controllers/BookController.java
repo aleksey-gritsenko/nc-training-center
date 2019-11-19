@@ -184,9 +184,7 @@ public class BookController {
 		return  bookService.getAllBooks();
 	}
 
-	/*
   @RequestMapping(value = "/book/filter", method = RequestMethod.GET)
-
   public List<Book> filterBook
       ( @RequestParam(name = "header") String header
        // @RequestParam(name = "date") ArrayList<Date> dates,
@@ -201,8 +199,4 @@ public class BookController {
 	  authors.add("none");
 	  return bookService.filterBooks(header+"%",genres,authors);
   }
-*/
-
-//=======
-//>>>>>>> 5e8f7985b1827f2253e072a1798cc1dc3eff8321
 }

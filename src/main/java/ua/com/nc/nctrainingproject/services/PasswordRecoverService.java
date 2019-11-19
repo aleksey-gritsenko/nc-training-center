@@ -59,10 +59,7 @@ public class PasswordRecoverService {
   }
 
   public boolean verifyEmail(String email) {
-    if (userPostgreDAO.getUserEmail(email) == null) {
-      return false;
-    }
-    return true;
+    return userPostgreDAO.getUserEmail(email) != null;
   }
 
   public boolean isEmail(String email) {

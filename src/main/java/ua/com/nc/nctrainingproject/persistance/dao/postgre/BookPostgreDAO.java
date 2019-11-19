@@ -59,7 +59,7 @@ public class BookPostgreDAO extends AbstractDAO<Book> {
     Object[] params = new Object[]{book.getHeader(), book.getOverview(), book.getFileId(), book.getStatus(), genrePostgreDAO.getIdByGenre(book.getGenre()), book.getPhotoId(), id};
     super.updateEntityById(id, params, BookQuery.UPDATE_BOOK);
   }
-/*
+
   public List<Book> filterBooks
     (FilterCriterionQuery filterCriterionQuery) {
     String q = filterCriterionQuery.makeQuery();
@@ -71,6 +71,6 @@ public class BookPostgreDAO extends AbstractDAO<Book> {
       book.setAuthors(authorBookPostgreDAO.getAuthorsByBookId(book.getId()));
     }
     return books;
-  }*/
+  }
 }
 
