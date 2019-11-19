@@ -19,6 +19,14 @@ public class Review {
 		this.adminId = adminId;
 	}
 
+	public Review(int userId, int bookId, String text, int grade, int adminId) {
+		this.userId = userId;
+		this.bookId = bookId;
+		this.text = text;
+		this.grade = grade;
+		this.adminId = adminId;
+	}
+
 	public Review() {
 	}
 
