@@ -10,34 +10,34 @@ import ua.com.nc.nctrainingproject.persistance.dao.postgre.queries.ReviewQuery;
 import ua.com.nc.nctrainingproject.persistance.mappers.ReviewRowMapper;
 
 import java.util.List;
+
 @Repository
 public class ReviewPostgreDAO implements ReviewDAO {
-  private final JdbcTemplate jdbcTemplate;
+	private final JdbcTemplate jdbcTemplate;
 
-  @Autowired
-  public ReviewPostgreDAO(JdbcTemplate jdbcTemplate) {
-    this.jdbcTemplate = jdbcTemplate;
-  }
+	@Autowired
+	public ReviewPostgreDAO(JdbcTemplate jdbcTemplate) {
+		this.jdbcTemplate = jdbcTemplate;
+	}
 
-  @Override
-  public List<Review> getReviewsOfBook(int book_id) {
-    try {
-      return jdbcTemplate.query(ReviewQuery.GET_REVIEWS_OF_BOOK, new Object[]{book_id}, new ReviewRowMapper());
-    }
-    catch(EmptyResultDataAccessException e){
-      return null;
-    }
-  }
+	@Override
+	public List<Review> getReviewsOfBook(int book_id) {
+		try {
+			return jdbcTemplate.query(ReviewQuery.GET_REVIEWS_OF_BOOK, new Object[]{book_id}, new ReviewRowMapper());
+		} catch (EmptyResultDataAccessException e) {
+			return null;
+		}
+	}
 
-  @Override
-  public void createReview(Review review) {
-    jdbcTemplate.update(ReviewQuery.CREATE_REVIEW,
-      review.getUserId(),
-      review.getBookId(),
-      review.getText(),
-      review.getGrade(),
-      review.getAdminId());
-  }
+	@Override
+	public void createReview(Review review) {
+		jdbcTemplate.update(ReviewQuery.CREATE_REVIEW,
+				review.getUserId(),
+				review.getBookId(),
+				review.getText(),
+				review.getGrade(),
+				review.getAdminId());
+	}
 }
 
 

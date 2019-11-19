@@ -13,32 +13,27 @@ import java.util.Date;
 
 @Repository
 public class CodePostgreDAO implements CodeRecoverDAO {
+	private final JdbcTemplate jdbcTemplate;
 
-  private final JdbcTemplate jdbcTemplate;
+	@Autowired
+	public CodePostgreDAO(JdbcTemplate jdbcTemplate) {
+		this.jdbcTemplate = jdbcTemplate;
+	}
 
-  @Autowired
-  public CodePostgreDAO(JdbcTemplate jdbcTemplate) {
-    this.jdbcTemplate = jdbcTemplate;
-  }
+	@Override
+	public void createCode(String code, String email) {
+		jdbcTemplate.update(CodeRecoverQuery.CREATE_CODE, code, new Date(), email);
+	}
 
-  @Override
-  public void createCode(String code, String email) {
-    jdbcTemplate.update(CodeRecoverQuery.CREATE_CODE, code, new Date()
-      , email);
-  }
+	public RecoverCode getCodeByUserName(String code) {
+		try {
+			return jdbcTemplate.queryForObject(CodeRecoverQuery.GET_CODE, new Object[]{code}, new CodeRowMapper());
+		} catch (EmptyResultDataAccessException e) {
+			return null;
+		}
+	}
 
-  public RecoverCode getCodeByUserName(String code) {
-    try {
-      return jdbcTemplate.queryForObject
-        (CodeRecoverQuery.GET_CODE, new Object[]{code},
-          new CodeRowMapper());
-    } catch (EmptyResultDataAccessException e) {
-      return null;
-    }
-  }
-
-  public void deleteByCode(String code) {
-    jdbcTemplate.update(CodeRecoverQuery.DELETE_CODE, code);
-  }
-
+	public void deleteByCode(String code) {
+		jdbcTemplate.update(CodeRecoverQuery.DELETE_CODE, code);
+	}
 }

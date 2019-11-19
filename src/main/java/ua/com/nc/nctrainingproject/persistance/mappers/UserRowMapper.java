@@ -7,17 +7,16 @@ import ua.com.nc.nctrainingproject.persistance.dao.postgre.queries.UserQuery;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-
 public class UserRowMapper implements RowMapper<User> {
 
-  @Override
-  public User mapRow(ResultSet resultSet, int i) throws SQLException {
-    User user = new User();
-    user.setId(resultSet.getInt(UserQuery.ID));
-    user.setUserName(resultSet.getString(UserQuery.USERNAME));
-    user.setUserPassword(resultSet.getString(UserQuery.USER_PASSWORD));
-    user.setEmail(resultSet.getString(UserQuery.EMAIL));
+	@Override
+	public User mapRow(ResultSet resultSet, int i) throws SQLException {
+		User user = new User();
+		user.setId(resultSet.getInt(UserQuery.ID));
+		user.setUserName(resultSet.getString(UserQuery.USERNAME));
+		user.setUserPassword(resultSet.getString(UserQuery.USER_PASSWORD));
+		user.setEmail(resultSet.getString(UserQuery.EMAIL));
 
-    return user;
-  }
+		return user;
+	}
 }

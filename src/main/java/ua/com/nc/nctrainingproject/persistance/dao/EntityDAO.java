@@ -5,16 +5,13 @@ import ua.com.nc.nctrainingproject.models.Entity;
 import java.util.List;
 
 public interface EntityDAO<T extends Entity> {
+	void create(T entity);
 
-  void create(T entity);
+	T getById(int id);
 
-  T getById(int id);
+	List<T> getAllById(int id);
 
-  List<T> getAllById(int id);
+	void update(int id);
 
-  void update(int id);
-
-  void delete(int id);
-
-
+	void delete(int id);
 }

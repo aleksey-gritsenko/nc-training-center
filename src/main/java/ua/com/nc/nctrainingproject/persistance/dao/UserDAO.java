@@ -5,13 +5,13 @@ import ua.com.nc.nctrainingproject.models.User;
 import java.util.List;
 
 public interface UserDAO {
-    User getUserByUserName(String userName);
+	User getUserByUserName(String userName);
 
-    void createUser(User user);
+	void createUser(User user);
 
-    List<User> getAllUsers();
+	List<User> getAllUsers();
 
-    void updateUserByName(String userName, User user);
+	void updateUserByName(String userName, User user);
 
-    List<User> getUsersByNameAndEmail(String userName, String email);
+	List<User> getUsersByNameAndEmail(String userName, String email);
 }

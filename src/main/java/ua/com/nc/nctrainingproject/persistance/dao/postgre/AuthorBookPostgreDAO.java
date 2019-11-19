@@ -13,32 +13,30 @@ import java.util.List;
 
 @Repository
 public class AuthorBookPostgreDAO {
+	private final JdbcTemplate jdbcTemplate;
 
-  private final JdbcTemplate jdbcTemplate;
+	@Autowired
+	public AuthorBookPostgreDAO(JdbcTemplate jdbcTemplate) {
+		this.jdbcTemplate = jdbcTemplate;
+	}
 
-  @Autowired
-  public AuthorBookPostgreDAO(JdbcTemplate jdbcTemplate) {
-    this.jdbcTemplate = jdbcTemplate;
-  }
-/*
-  public List<Book> getBooksByAuthorId(int id) {
-    return jdbcTemplate.query(AuthorBookQuery.GET_ALL_BOOKS_BY_AUTHOR_ID, new BookRowMapper(), id);
-  }
-*/
-  public List<Author> getAuthorsByBookId(int id) {
-    return jdbcTemplate.query(AuthorBookQuery.GET_ALL_AUTHORS_BY_BOOK_ID, new AuthorMapper(), id);
-  }
+	public List<Book> getBooksByAuthorId(int id) {
+		return jdbcTemplate.query(AuthorBookQuery.GET_ALL_BOOKS_BY_AUTHOR_ID, new BookRowMapper(), id);
+	}
 
-  public void createAuthorBookConnection(int bookId, int authorId) {
-    jdbcTemplate.update(AuthorBookQuery.CREATE, bookId, authorId);
-  }
+	public List<Author> getAuthorsByBookId(int id) {
+		return jdbcTemplate.query(AuthorBookQuery.GET_ALL_AUTHORS_BY_BOOK_ID, new AuthorMapper(), id);
+	}
 
-  public void deleteBooksById(int bookId) {
-    jdbcTemplate.update(AuthorBookQuery.DELETE_BOOKS_BY_ID, bookId);
-  }
+	public void createAuthorBookConnection(int bookId, int authorId) {
+		jdbcTemplate.update(AuthorBookQuery.CREATE, bookId, authorId);
+	}
 
-  public void deleteAuthorsById(int authorId) {
-    jdbcTemplate.update(AuthorBookQuery.DELETE_AUTHORS_BY_ID, authorId);
-  }
+	public void deleteBooksById(int bookId) {
+		jdbcTemplate.update(AuthorBookQuery.DELETE_BOOKS_BY_ID, bookId);
+	}
 
+	public void deleteAuthorsById(int authorId) {
+		jdbcTemplate.update(AuthorBookQuery.DELETE_AUTHORS_BY_ID, authorId);
+	}
 }
