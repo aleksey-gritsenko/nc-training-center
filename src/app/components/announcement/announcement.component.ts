@@ -44,7 +44,6 @@ export class AnnouncementComponent implements OnInit {
                err => {alert(JSON.parse(JSON.stringify(err)).message);}      }
     );
 
-//>>>>>>> announcementFE_122
   }
 
 }
