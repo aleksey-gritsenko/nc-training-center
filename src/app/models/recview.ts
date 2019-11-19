@@ -1,5 +1,6 @@
+import {Entity} from "./entity";
 
-export class RecView {
-  login: string;
-  email: string;
+export class RecView extends Entity {
+    login: string;
+    email: string;
 }

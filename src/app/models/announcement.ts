@@ -1,5 +1,7 @@
-export class Announcement{
+import {Entity} from "./entity";
+
+export class Announcement extends Entity {
     title: string;
-  description: string;
-  date: string;
+    description: string;
+    date: string;
 }

@@ -1,5 +1,7 @@
-export class Changeview {
-  code: string;
-  password: string;
-  confirmPassword: string;
+import {Entity} from "./entity";
+
+export class Changeview extends Entity {
+    code: string;
+    password: string;
+    confirmPassword: string;
 }

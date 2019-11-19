@@ -1,4 +1,6 @@
-export class SelectedItem{
-  selected:boolean;
-  name:string;
+import {Entity} from "./entity";
+
+export class SelectedItem extends Entity {
+    selected: boolean;
+    name: string;
 }

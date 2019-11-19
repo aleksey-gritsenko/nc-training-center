@@ -1,3 +1,5 @@
-export class Notification{
-    title : string;
+import {Entity} from "./entity";
+
+export class Notification extends Entity {
+    title: string;
 }

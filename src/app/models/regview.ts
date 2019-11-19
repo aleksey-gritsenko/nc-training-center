@@ -1,5 +1,7 @@
-export class RegView {
-  login: string;
-  password: string;
-  email: string;
+import {Entity} from "./entity";
+
+export class RegView extends Entity {
+    login: string;
+    password: string;
+    email: string;
 }

@@ -1,6 +1,7 @@
-import { Message } from './message';
+import {Message} from './message';
+import {Entity} from "./entity";
 
-export class Chat{
-    title : string;
+export class Chat extends Entity {
+    title: string;
     messages: Message[];
 }
