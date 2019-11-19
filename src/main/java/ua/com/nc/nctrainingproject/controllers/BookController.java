@@ -10,6 +10,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin
+@RequestMapping("/book")
 public class BookController {
 	private final BookService bookService;
 
@@ -18,7 +19,7 @@ public class BookController {
 		this.bookService = bookService;
 	}
 
-	@RequestMapping(value = "/book", method = RequestMethod.POST)
+	@RequestMapping(method = RequestMethod.POST)
 	public Book addBook(@RequestParam(name = "header") String header,
 						@RequestParam(name = "overview") String overview,
 						@RequestParam(name = "photo") String photo,
@@ -29,7 +30,7 @@ public class BookController {
 		return bookService.createBook(header, overview, status, photo, fileId);
 	}
 
-	@RequestMapping(value = "/book/update", method = RequestMethod.POST)
+	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public Book updateBook(@RequestParam(name = "bookId") int bookId,
 						   @RequestParam(name = "header") String header,
 						   @RequestParam(name = "overview") String overview,
@@ -40,18 +41,18 @@ public class BookController {
 		return bookService.updateBook(bookId, header, overview, status, photo, fileId);
 	}
 
-	@RequestMapping(value = "/book/id", method = RequestMethod.GET)
+	@RequestMapping(value = "/id", method = RequestMethod.GET)
 	@ResponseBody
 	public Book getBookById(@RequestParam(name = "id") int bookId) {
 		return bookService.getBookById(bookId);
 	}
 
-	@RequestMapping(value = "/book/all", method = RequestMethod.GET)
+	@RequestMapping(value = "/all", method = RequestMethod.GET)
 	public List<Book> getAllBooks() {
 		return bookService.getAllBooks();
 	}
 
-	@RequestMapping(value = "/book/filter", method = RequestMethod.GET)
+	@RequestMapping(value = "/filter", method = RequestMethod.GET)
 	public List<Book> filterBook(@RequestParam(name = "header") String header,
 			 					 @RequestParam(name = "genre") ArrayList<String> genres,
 								 @RequestParam(name = "author") ArrayList<String> authors) {

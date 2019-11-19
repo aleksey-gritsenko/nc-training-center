@@ -13,6 +13,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin
+@RequestMapping("/announcements")
 public class AnnouncementController {
 
 	private final AnnouncementService announcementService;
@@ -22,27 +23,27 @@ public class AnnouncementController {
 		this.announcementService = announcementService;
 	}
 
-	@RequestMapping(value = "/announcements", method = RequestMethod.GET)
+	@RequestMapping(method = RequestMethod.GET)
 	public List<Announcement> getPublishedAnnouncements() {
 		return announcementService.getPublishedAnnouncements();
 	}
 
-	@RequestMapping(value = "/announcements/new", method = RequestMethod.GET)
+	@RequestMapping(value = "/new", method = RequestMethod.GET)
 	public List<Announcement> getUnpublishedAnnouncements() {
 		return announcementService.getUnpublishedAnnouncements();
 	}
 
-	@RequestMapping(value = "/announcements/all", method = RequestMethod.GET)
+	@RequestMapping(value = "/all", method = RequestMethod.GET)
 	public List<Announcement> getAllAnnouncements() {
 		return announcementService.getAnnouncements();
 	}
 
-	@RequestMapping(value = "/announcements/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public Announcement getAnnouncement(@PathVariable("id") int id) {
 		return announcementService.getAnnouncement(id);
 	}
 
-	@RequestMapping(value = "/announcements/newAnnouncement", method = RequestMethod.POST)
+	@RequestMapping(value = "/newAnnouncement", method = RequestMethod.POST)
 	public Announcement createAnnouncement(
 			@RequestParam(name = "description") String description,
 			@RequestParam(name = "announcementDate") String announcementDate,
@@ -58,7 +59,7 @@ public class AnnouncementController {
 		return announcement;
 	}
 
-	@RequestMapping(value = "/announcements/proposeAnnouncement", method = RequestMethod.POST)
+	@RequestMapping(value = "/proposeAnnouncement", method = RequestMethod.POST)
 	public Announcement proposeAnnouncement(
 			@RequestParam(name = "description") String description,
 			@RequestParam(name = "announcementDate") String announcementDate,
@@ -73,17 +74,17 @@ public class AnnouncementController {
 		return announcement;
 	}
 
-	@RequestMapping(value = "/announcements/new/{id}", method = RequestMethod.POST)
+	@RequestMapping(value = "/new/{id}", method = RequestMethod.POST)
 	public void publishAnnouncement(@PathVariable("id") int id) {
 		announcementService.publishAnnouncement(id);
 	}
 
-	@RequestMapping(value = "/announcements/delete/{id}", method = RequestMethod.POST)
+	@RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
 	public void deleteAnnouncement(@PathVariable("id") int id) {
 		announcementService.deleteAnnouncement(id);
 	}
 
-	@RequestMapping(value = "/announcements/update", method = RequestMethod.POST)
+	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public Announcement updateAnnouncement(
 			@RequestParam(name = "announcementId") int announcementID,
 			@RequestParam(name = "description") String description,
