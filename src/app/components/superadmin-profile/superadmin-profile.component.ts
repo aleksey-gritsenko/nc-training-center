@@ -1,15 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
-  selector: 'app-superadmin-profile',
-  templateUrl: './superadmin-profile.component.html',
-  styleUrls: ['./superadmin-profile.component.css']
+    selector: 'app-superadmin-profile',
+    templateUrl: './superadmin-profile.component.html',
+    styleUrls: ['./superadmin-profile.component.css']
 })
 export class SuperadminProfileComponent implements OnInit {
 
-  constructor() { }
+    constructor() {
+    }
 
-  ngOnInit() {
-  }
+    ngOnInit() {
+    }
 
 }

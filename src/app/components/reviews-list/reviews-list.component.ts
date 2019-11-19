@@ -43,6 +43,7 @@ export class ReviewsListComponent implements OnInit {
                 },
                 err => {
                     alert("Error in creating new review");
-                });
+                }
+            );
     }
 }

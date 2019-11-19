@@ -1,8 +1,7 @@
-<!--<p>user-profile works!</p>-->
 <div class="wrapper ">
     <app-sidebar></app-sidebar>
-    <div >
-        <app-navigation ></app-navigation>
+    <div>
+        <app-navigation></app-navigation>
         <div class="content" style="margin-left: 260px; padding-top: 61px">
             <div class="container-fluid">
                 <div class="row">
@@ -18,13 +17,17 @@
                                         <div class="col-md">
                                             <div class="form-group">
                                                 <label class="bmd-label-floating">Username</label>
-                                                <input type="text" autocomplete="off" [disabled]="!isLoggedUserProfile && !isAdmin" class="form-control" name="username" [(ngModel)]="user.userName">
+                                                <input type="text" autocomplete="off"
+                                                       [disabled]="!isLoggedUserProfile && !isAdmin"
+                                                       class="form-control" name="username" [(ngModel)]="user.userName">
                                             </div>
                                         </div>
                                         <div class="col-md">
                                             <div class="form-group">
                                                 <label class="bmd-label-floating">Email</label>
-                                                <input type="email" autocomplete="off" [disabled]="!isLoggedUserProfile && !isAdmin" class="form-control" name="email" [(ngModel)]="user.email">
+                                                <input type="email" autocomplete="off"
+                                                       [disabled]="!isLoggedUserProfile && !isAdmin"
+                                                       class="form-control" name="email" [(ngModel)]="user.email">
                                             </div>
                                         </div>
                                     </div>
@@ -32,32 +35,37 @@
                                         <div class="col-md-6">
                                             <div class="form-group" [hidden]="!isLoggedUserProfile && !isAdmin">
                                                 <label class="bmd-label-floating">Password</label>
-                                                <input type="password" class="form-control" name="password" [(ngModel)]="user.userPassword">
+                                                <input type="password" class="form-control" name="password"
+                                                       [(ngModel)]="user.userPassword">
                                             </div>
                                         </div>
                                     </div>
-                                    <button type="submit" *ngIf="isLoggedUserProfile || isAdmin" class="btn btn-primary pull-right">Update Profile</button>
-                                    <button type="button" (click)="addFriend()" *ngIf="!isLoggedUserProfile && !isAdmin" class="btn btn-primary pull-right">Add friend</button>
+                                    <button type="submit" *ngIf="isLoggedUserProfile || isAdmin"
+                                            class="btn btn-primary pull-right">Update Profile
+                                    </button>
+                                    <button type="button" (click)="addFriend()" *ngIf="!isLoggedUserProfile && !isAdmin"
+                                            class="btn btn-primary pull-right">Add friend
+                                    </button>
                                 </form>
                             </div>
                         </div>
                     </div>
                     <!--<div class="col-md-4">-->
-                        <!--<div class="card card-profile">-->
-                            <!--<div class="card-avatar">-->
-                                <!--<a href="#pablo">-->
-                                    <!--<img class="img" src=""/>-->
-                                <!--</a>-->
-                            <!--</div>-->
-                            <!--<div class="card-body">-->
-                                <!--<h6 class="card-category">CEO / Co-Founder</h6>-->
-                                <!--<h4 class="card-title">Alec Thompson</h4>-->
-                                <!--<p class="card-description">-->
-                                    <!--Don't be scared of the truth because we need to restart the human foundation in truth And I love you like Kanye loves Kanye I love Rick Owens’ bed design but the back is...-->
-                                <!--</p>-->
-                                <!--<a href="#pablo" class="btn btn-primary btn-round">Follow</a>-->
-                            <!--</div>-->
-                        <!--</div>-->
+                    <!--<div class="card card-profile">-->
+                    <!--<div class="card-avatar">-->
+                    <!--<a href="#pablo">-->
+                    <!--<img class="img" src=""/>-->
+                    <!--</a>-->
+                    <!--</div>-->
+                    <!--<div class="card-body">-->
+                    <!--<h6 class="card-category">CEO / Co-Founder</h6>-->
+                    <!--<h4 class="card-title">Alec Thompson</h4>-->
+                    <!--<p class="card-description">-->
+                    <!--Don't be scared of the truth because we need to restart the human foundation in truth And I love you like Kanye loves Kanye I love Rick Owens’ bed design but the back is...-->
+                    <!--</p>-->
+                    <!--<a href="#pablo" class="btn btn-primary btn-round">Follow</a>-->
+                    <!--</div>-->
+                    <!--</div>-->
                     <!--</div>-->
                 </div>
             </div>

@@ -10,7 +10,7 @@ import {AuthenticationService} from "../../services/authentification/authenticat
 export class NavigationComponent implements OnInit {
     user: User;
 
-    constructor(public serv:AuthenticationService) {
+    constructor(public serv: AuthenticationService) {
         this.serv.currentUser.subscribe(x => this.user = x);
     }
 
