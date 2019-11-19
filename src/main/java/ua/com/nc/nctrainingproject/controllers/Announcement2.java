@@ -1,24 +1,24 @@
 package ua.com.nc.nctrainingproject.controllers;
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 @Service
-public class Announcement {
-  public Announcement(String title, String description, String date) {
+public class Announcement2 {
+  public Announcement2(String title, String description, String date) {
     this.title = title;
     this.description = description;
     this.date = date;
   }
-  public Announcement() {
+  public Announcement2() {
 
   }
 
   private String title;
   private String description;
   private String date;
+
 
   @Override
   public String toString() {
@@ -29,12 +29,12 @@ public class Announcement {
       '}';
   }
 
-  public  List<Announcement> method() {
-    List<Announcement> list = new ArrayList<>();
-    Announcement announcement = new Announcement("title1", "desc1",
+  public  List<Announcement2> method() {
+    List<Announcement2> list = new ArrayList<>();
+    Announcement2 announcement = new Announcement2("title1", "desc1",
       "dddd");
     list.add(announcement);
-    Announcement announcement1 = new Announcement("title2", "desc2",
+    Announcement2 announcement1 = new Announcement2("title2", "desc2",
       "2222");
     list.add(announcement1);
     return list;

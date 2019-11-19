@@ -37,14 +37,14 @@ export class AnnouncementComponent implements OnInit {
   createAnnouncement(): void {
     let url = 'http://localhost:8080/announcement';
     let form = new FormData();
-    /*form.append('title', this.model.title);
+    form.append('title', this.model.title);
     form.append('description', this.model.description);
     form.append('date',this.model.date);
     
-     */
+
 
    // form.append('bookId',this.model.bookId)
-    this.http.post(url, this.model).subscribe(
+    this.http.post(url, form).subscribe(
       res=>{
         location.reload();
       },
