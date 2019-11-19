@@ -2,13 +2,23 @@ package ua.com.nc.nctrainingproject.models;
 
 import java.util.Date;
 
-public class Review {
+public class Review extends Entity {
 	private int userId;
 	private int bookId;
 	private String text;
 	private Date reviewDate;
 	private int grade;
 	private int adminId;
+
+	public Review(int reviewId, int userId, int bookId, String text, Date reviewDate, int grade, int adminId) {
+		super(reviewId);
+		this.userId = userId;
+		this.bookId = bookId;
+		this.text = text;
+		this.reviewDate = reviewDate;
+		this.grade = grade;
+		this.adminId = adminId;
+	}
 
 	public Review(int userId, int bookId, String text, Date reviewDate, int grade, int adminId) {
 		this.userId = userId;

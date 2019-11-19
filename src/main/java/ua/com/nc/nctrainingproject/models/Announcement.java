@@ -3,7 +3,6 @@ package ua.com.nc.nctrainingproject.models;
 import java.util.Date;
 
 public class Announcement extends Entity {
-	private int announcementID;
 	private String description;
 	private Date announcementDate;
 	private int bookID;
@@ -43,7 +42,7 @@ public class Announcement extends Entity {
 
 	public Announcement(int announcementID, String description, Date announcementDate,
 						int bookID, String priority, int adminID, String status) {
-		this.announcementID = announcementID;
+		super(announcementID);
 		this.description = description;
 		this.announcementDate = announcementDate;
 		this.bookID = bookID;
@@ -53,11 +52,11 @@ public class Announcement extends Entity {
 	}
 
 	public int getAnnouncementID() {
-		return announcementID;
+		return super.getId();
 	}
 
-	public void setAnnouncementID(int announcementID) {
-		this.announcementID = announcementID;
+	public void setAnnouncementID(int id) {
+		super.setId(id);
 	}
 
 	public String getDescription() {
@@ -111,7 +110,6 @@ public class Announcement extends Entity {
 	@Override
 	public String toString() {
 		return "Announcement{" +
-				"announcementID=" + announcementID +
 				", description='" + description + '\'' +
 				", announcementDate=" + announcementDate +
 				", bookID=" + bookID +
