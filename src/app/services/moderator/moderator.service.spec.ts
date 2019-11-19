@@ -1,12 +1,12 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { ModeratorService } from './moderator.service';
+import {ModeratorService} from './moderator.service';
 
 describe('ModeratorService', () => {
-  beforeEach(() => TestBed.configureTestingModule({}));
+    beforeEach(() => TestBed.configureTestingModule({}));
 
-  it('should be created', () => {
-    const service: ModeratorService = TestBed.get(ModeratorService);
-    expect(service).toBeTruthy();
-  });
+    it('should be created', () => {
+        const service: ModeratorService = TestBed.get(ModeratorService);
+        expect(service).toBeTruthy();
+    });
 });

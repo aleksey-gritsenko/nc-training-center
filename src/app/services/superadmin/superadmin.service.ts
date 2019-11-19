@@ -1,97 +1,98 @@
-import { Injectable } from '@angular/core';
-import { CommonService } from '../common/common.service';
-import { ManagingService } from '../managing/managing.service';
-import { SearchService } from '../search/search.service';
-import { Book } from 'src/app/models/book';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {CommonService} from '../common/common.service';
+import {ManagingService} from '../managing/managing.service';
+import {SearchService} from '../search/search.service';
+import {Book} from 'src/app/models/book';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {BookFilter} from "../../models/bookfilter";
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class SuperadminService {
-  // extends CommonService, ManagingService, SearchService {
+    // extends CommonService, ManagingService, SearchService {
 
-  constructor(
-      private commonService : CommonService,
-      private managingService : ManagingService,
-      private searchService : SearchService,
-      private http : HttpClient,
-  ) { }
+    constructor(
+        private commonService: CommonService,
+        private managingService: ManagingService,
+        private searchService: SearchService,
+        private http: HttpClient,
+    ) {
+    }
 
-  // Personal methods
-  createAdmin(){
+    // Personal methods
+    createAdmin() {
 
-  }
+    }
 
-  manageAdmin(){
+    manageAdmin() {
 
-  }
+    }
 
-  deactivateAdmin(){
+    deactivateAdmin() {
 
-  }
+    }
 
-  //#region Services Methods
+    //#region Services Methods
 
-  // Managing service
-  createModerator(){
-    this.managingService.createModerator();
-  }
+    // Managing service
+    createModerator() {
+        this.managingService.createModerator();
+    }
 
-  manageModerator(){
-    this.managingService.manageModerator();
-  }
+    manageModerator() {
+        this.managingService.manageModerator();
+    }
 
-  deactivateModerator(){
-    this.managingService.deactivateModerator();
-  }
+    deactivateModerator() {
+        this.managingService.deactivateModerator();
+    }
 
-  createAchievement(){
-    this.managingService.createAchievement();
-  }
+    createAchievement() {
+        this.managingService.createAchievement();
+    }
 
-  // Common service
-  getBooks(){
-    this.commonService.getBooks();
-  }
+    // Common service
+    getBooks() {
+        this.commonService.getBooks();
+    }
 
-  getBooksByFilter(filter: BookFilter){
-    this.commonService.getBooksByFilter(filter);
-  }
+    getBooksByFilter(filter: BookFilter) {
+        this.commonService.getBooksByFilter(filter);
+    }
 
-  // getBookByName(name : string){
-  //   this.commonService.getBookByName(name);
-  // }
+    // getBookByName(name : string){
+    //   this.commonService.getBookByName(name);
+    // }
 
-  getAnnouncements(){
-    this.commonService.getAnnouncements();
-  }
+    getAnnouncements() {
+        this.commonService.getAnnouncements();
+    }
 
-  getAnnouncementsByFilter(){
-    this.commonService.getAnnouncementsByFilter();
-  }
+    getAnnouncementsByFilter() {
+        this.commonService.getAnnouncementsByFilter();
+    }
 
-  getReviews(book : Book){
-    this.commonService.getReviews(book.id);
-  }
+    getReviews(book: Book) {
+        this.commonService.getReviews(book.id);
+    }
 
-  recoverPassword(){
-    this.commonService.recoverPassword();
-  }
+    recoverPassword() {
+        this.commonService.recoverPassword();
+    }
 
-  manageNotifications(){
-    this.commonService.manageNotifications();
-  }
+    manageNotifications() {
+        this.commonService.manageNotifications();
+    }
 
-  login(){
-    this.commonService.login();
-  }
+    login() {
+        this.commonService.login();
+    }
 
-  // Search service
-  searchProfile(profile : string){
-    this.searchService.searchProfile(profile);
-  }
+    // Search service
+    searchProfile(profile: string) {
+        this.searchService.searchProfile(profile);
+    }
 
-  //#endregion
+    //#endregion
 }

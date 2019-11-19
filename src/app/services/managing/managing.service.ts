@@ -1,26 +1,27 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class ManagingService {
- 
-  constructor(private http : HttpClient) { }
 
-  createModerator(){
+    constructor(private http: HttpClient) {
+    }
 
-  }
+    createModerator() {
 
-  manageModerator(){
+    }
 
-  }
+    manageModerator() {
 
-  deactivateModerator(){
+    }
 
-  }
+    deactivateModerator() {
 
-  createAchievement(){
+    }
 
-  }
+    createAchievement() {
+
+    }
 }

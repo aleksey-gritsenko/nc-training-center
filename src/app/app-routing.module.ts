@@ -17,15 +17,14 @@ const routes: Routes = [
         path: 'recover',
         component: RecoverComponent
     },
-  {
-    path:'announcement',
-    component:AnnouncementComponent
-  },
-
-  {
-    path:'announcementlist',
-    component:AnnouncementListComponent
-  },
+    {
+        path: 'announcement',
+        component: AnnouncementComponent
+    },
+    {
+        path: 'announcementlist',
+        component: AnnouncementListComponent
+    },
     {
         path: 'change',
         component: ChangePasswordComponent
@@ -44,15 +43,15 @@ const routes: Routes = [
     },
     {
         path: 'books',
-        component:BooksListComponent
+        component: BooksListComponent
     },
     {
-      path: 'books/:id/announcement',
-      component: AnnouncementComponent
+        path: 'books/:id/announcement',
+        component: AnnouncementComponent
     },
     {
-      path: 'books/:id',
-      component: BookComponent
+        path: 'books/:id',
+        component: BookComponent
     },
     {
         path: 'user',
@@ -80,8 +79,6 @@ const routes: Routes = [
         path: '**',
         component: ErrorpageComponent
     }
-
-
 ];
 
 @NgModule({

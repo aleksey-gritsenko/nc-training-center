@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {CommonService} from '../common/common.service';
 import {User} from 'src/app/models/user';
 import {Book} from 'src/app/models/book';
@@ -10,150 +10,147 @@ import {Message} from 'src/app/models/message';
 import {BookFilter} from 'src/app/models/bookfilter';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class UserService {
 
-  // private userUlr = '/user';
-  // private usersUlr = '/users/:login';
-  user: User;
-  friend: User;
-  book: Book;
+    // private userUlr = '/user';
+    // private usersUlr = '/users/:login';
+    user: User;
+    friend: User;
+    book: Book;
 
-  constructor(
-    private http: HttpClient,
-    private commonService: CommonService,
-  ) {
-  }
+    constructor(private http: HttpClient, private commonService: CommonService) {
+    }
 
-  // Personal methods
-  updateProfile(login: string , user: User) {
-    let url = 'http://localhost:8080/user/update';
-    let form = new FormData();
+    // Personal methods
+    updateProfile(login: string, user: User) {
+        let url = 'http://localhost:8080/user/update';
+        let form = new FormData();
 
-    form.append('login', login);
-    form.append('newLogin', user.userName);
-    form.append('newPassword', user.userPassword);
-    form.append('newEmail', user.email);
+        form.append('login', login);
+        form.append('newLogin', user.userName);
+        form.append('newPassword', user.userPassword);
+        form.append('newEmail', user.email);
 
-    return this.http.post<User>(url, form);
-  }
+        return this.http.post<User>(url, form);
+    }
 
-  searchUser(userName: string){
-    const url = "http://localhost:8080/user/" + userName;
-    return this.http.get<User>(url);
-  }
+    searchUser(userName: string) {
+        const url = "http://localhost:8080/user/" + userName;
+        return this.http.get<User>(url);
+    }
 
-  getFriends() {
+    getFriends() {
 
-  }
+    }
 
-  addFriend(friend: User) {
+    addFriend(friend: User) {
 
-  }
+    }
 
-  removeFriend(friend: User) {
+    removeFriend(friend: User) {
 
-  }
+    }
 
-  manageFriendActivities() {
+    manageFriendActivities() {
 
-  }
+    }
 
-  proposeAnnouncement(announcement: Announcement) {
+    proposeAnnouncement(announcement: Announcement) {
 
-  }
+    }
 
-  proposeBookOverview(book: Book) {
+    proposeBookOverview(book: Book) {
 
-  }
+    }
 
-  proposeBookReview(book: Book, review: Review) {
+    proposeBookReview(book: Book, review: Review) {
 
-  }
+    }
 
-  addBookToRead(book: Book) {
+    addBookToRead(book: Book) {
 
-  }
+    }
 
-  addBookToFavourite(book: Book) {
+    addBookToFavourite(book: Book) {
 
-  }
+    }
 
-  removeBookFromRead(book: Book) {
+    removeBookFromRead(book: Book) {
 
-  }
+    }
 
-  removeBookFromFavourite(book: Book) {
+    removeBookFromFavourite(book: Book) {
 
-  }
+    }
 
-  manageCalendar() {
+    manageCalendar() {
 
-  }
+    }
 
-  createChat() {
+    createChat() {
 
-  }
+    }
 
-  changeChatName(chat: Chat) {
+    changeChatName(chat: Chat) {
 
-  }
+    }
 
-  addFriendToChat(friend: User, chat: Chat) {
+    addFriendToChat(friend: User, chat: Chat) {
 
-  }
+    }
 
-  sendMessage(message: Message) {
+    sendMessage(message: Message) {
 
-  }
+    }
 
-  saveHistory() {
+    saveHistory() {
 
-  }
+    }
 
-  leaveChat() {
+    leaveChat() {
 
-  }
+    }
 
-  //#region Common service
+    //#region Common service
 
-  getBooks() {
-    this.commonService.getBooks();
-  }
+    getBooks() {
+        this.commonService.getBooks();
+    }
 
-  getBooksByFilter(filter: BookFilter) {
-    this.commonService.getBooksByFilter(filter);
-  }
+    getBooksByFilter(filter: BookFilter) {
+        this.commonService.getBooksByFilter(filter);
+    }
 
-  getBookByName(name: string) {
-    this.commonService.getBookByName(name);
-  }
+    getBookByName(name: string) {
+        this.commonService.getBookByName(name);
+    }
 
-  getAnnouncements() {
-    this.commonService.getAnnouncements();
-  }
+    getAnnouncements() {
+        this.commonService.getAnnouncements();
+    }
 
-  getAnnouncementsByFilter() {
-    // this.commonService.getAnnouncementsByFilter();
+    getAnnouncementsByFilter() {
+        // this.commonService.getAnnouncementsByFilter();
 
-  }
+    }
 
-  getReviews(book: Book) {
-    // this.commonService.getReviews(book);
-  }
+    getReviews(book: Book) {
+        // this.commonService.getReviews(book);
+    }
 
-  recoverPassword() {
-    this.commonService.recoverPassword();
-  }
+    recoverPassword() {
+        this.commonService.recoverPassword();
+    }
 
-  manageNotifications() {
-    this.commonService.manageNotifications();
-  }
+    manageNotifications() {
+        this.commonService.manageNotifications();
+    }
 
-  login() {
-    this.commonService.login();
-  }
+    login() {
+        this.commonService.login();
+    }
 
-  //#endregion
+    //#endregion
 }

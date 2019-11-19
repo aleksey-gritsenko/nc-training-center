@@ -1,4 +1,3 @@
-
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
@@ -37,7 +36,6 @@ import {AuthenticationService} from './services/authentification/authentication.
 import {RecoverComponent} from './components/recover/recover.component';
 import {ChangePasswordComponent} from './components/change-password/change-password.component';
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -71,14 +69,17 @@ import {ChangePasswordComponent} from './components/change-password/change-passw
     RecoverComponent,
     ChangePasswordComponent
   ],
+
   imports: [
     BrowserModule,
     HttpClientModule,
     FormsModule,
     AppRoutingModule
   ],
+
   providers: [AuthenticationService],
   bootstrap: [AppComponent]
 })
+
 export class AppModule {
 }

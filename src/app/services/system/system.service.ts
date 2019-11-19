@@ -1,28 +1,27 @@
-import { Injectable } from '@angular/core';
-import { User } from 'src/app/models/user';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Achievement } from 'src/app/models/achievement';
+import {Injectable} from '@angular/core';
+import {User} from 'src/app/models/user';
+import {HttpClient} from '@angular/common/http';
+import {Achievement} from 'src/app/models/achievement';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class SystemService {
 
-  user : User;
+    user: User;
 
-  constructor(
-    private http : HttpClient,
-  ) { }
+    constructor(private http: HttpClient) {
+    }
 
-  register(){
+    register() {
 
-  }
+    }
 
-  notify(user : User, notification : Notification){
+    notify(user: User, notification: Notification) {
 
-  }
+    }
 
-  giveAchievement(achievement : Achievement){
+    giveAchievement(achievement: Achievement) {
 
-  }
+    }
 }
