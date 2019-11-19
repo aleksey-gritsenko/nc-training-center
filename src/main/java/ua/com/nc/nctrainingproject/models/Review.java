@@ -40,6 +40,14 @@ public class Review extends Entity {
 	public Review() {
 	}
 
+	public int getReviewId() {
+		return super.getId();
+	}
+
+	public void setReviewId(int reviewId) {
+		super.setId(reviewId);
+	}
+
 	public int getUserId() {
 		return userId;
 	}
