@@ -30,6 +30,6 @@ public class MainController {
     public String addReview() {return "review";}
 
     @GetMapping("/userBook")
-    public String addUserBook() {return "userbook";}
+    public String addUserBook() {return "userBook";}
 
 }

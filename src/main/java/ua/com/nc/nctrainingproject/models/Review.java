@@ -1,85 +1,84 @@
 package ua.com.nc.nctrainingproject.models;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 import java.util.Date;
 
 public class Review {
-  private int userId;
-  private int bookId;
-  private String text;
-  private Date reviewDate;
-  private int grade;
-  private int adminId;
+	private int userId;
+	private int bookId;
+	private String text;
+	private Date reviewDate;
+	private int grade;
+	private int adminId;
 
+	public Review(int userId, int bookId, String text, Date reviewDate, int grade, int adminId) {
+		this.userId = userId;
+		this.bookId = bookId;
+		this.text = text;
+		this.reviewDate = reviewDate;
+		this.grade = grade;
+		this.adminId = adminId;
+	}
 
+	public Review() {
+	}
 
-  @Override
-  public String toString() {
-    return "Review{" +
-      "userId=" + userId +
-      ", bookId=" + bookId +
-      ", text='" + text + '\'' +
-      ", reviewDate=" + reviewDate +
-      ", grade=" + grade +
-      ", adminId=" + adminId +
-      '}';
-  }
+	public int getUserId() {
+		return userId;
+	}
 
-  public void setUserId(int userId) { this.userId = userId; }
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
 
-  public void setBookId(int bookId) {
-    this.bookId = bookId;
-  }
+	public int getBookId() {
+		return bookId;
+	}
 
-  public void setText(String text) {
-    this.text = text;
-  }
+	public void setBookId(int bookId) {
+		this.bookId = bookId;
+	}
 
-  public void setReviewDate(Date reviewDate) {
-    this.reviewDate = reviewDate;
-  }
+	public String getText() {
+		return text;
+	}
 
-  public void setGrade(int grade) {
-    this.grade = grade;
-  }
+	public void setText(String text) {
+		this.text = text;
+	}
 
-  public void setAdminId(int adminId) {
-    this.adminId = adminId;
-  }
+	public Date getReviewDate() {
+		return reviewDate;
+	}
 
-  public Review(){
-  }
+	public void setReviewDate(Date reviewDate) {
+		this.reviewDate = reviewDate;
+	}
 
-  public Review(int userId, int bookId, String text, int grade, int adminId){
-    this.userId = userId;
-    this.bookId = bookId;
-    this.text = text;
-    this.grade = grade;
-    this.adminId=adminId;
-    this.reviewDate = new Date();
-  }
+	public int getGrade() {
+		return grade;
+	}
 
-  public int getBookId() {
-    return bookId;
-  }
+	public void setGrade(int grade) {
+		this.grade = grade;
+	}
 
-  public String getText() {
-    return text;
-  }
+	public int getAdminId() {
+		return adminId;
+	}
 
-  public Date getReviewDate() {
-    return reviewDate;
-  }
+	public void setAdminId(int adminId) {
+		this.adminId = adminId;
+	}
 
-  public int getGrade() {
-    return grade;
-  }
-
-  public int getAdminId() { return adminId; }
-
-  public int getUserId() {
-    return userId;
-  }
-
+	@Override
+	public String toString() {
+		return "Review{" +
+				"userId=" + userId +
+				", bookId=" + bookId +
+				", text='" + text + '\'' +
+				", reviewDate=" + reviewDate +
+				", grade=" + grade +
+				", adminId=" + adminId +
+				'}';
+	}
 }
