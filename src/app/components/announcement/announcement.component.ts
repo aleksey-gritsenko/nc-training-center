@@ -13,18 +13,18 @@ export class AnnouncementComponent implements OnInit {
   model:Announcement = {
     title:'',
     description:'',
-    date:''
+    date:'',
+    bookId:0
   };
   constructor(private http: HttpClient,private route: ActivatedRoute) {
   }
   id:any;
 
-/*<<<<<<< HEAD
+/*
   constructor(private route: ActivatedRoute) { }
   id:any;
   ngOnInit() {
     this.id = parseInt(this.route.snapshot.paramMap.get('id'));
-=======
 
  */
 
@@ -37,10 +37,14 @@ export class AnnouncementComponent implements OnInit {
   createAnnouncement(): void {
     let url = 'http://localhost:8080/announcement';
     let form = new FormData();
-    form.append('title', this.model.title);
+    /*form.append('title', this.model.title);
     form.append('description', this.model.description);
     form.append('date',this.model.date);
-    this.http.post(url, form).subscribe(
+    
+     */
+
+   // form.append('bookId',this.model.bookId)
+    this.http.post(url, this.model).subscribe(
       res=>{
         location.reload();
       },
@@ -48,7 +52,6 @@ export class AnnouncementComponent implements OnInit {
                err => {alert(JSON.parse(JSON.stringify(err)).message);}      }
     );
 
-//>>>>>>> announcementFE_122
   }
 
 }
