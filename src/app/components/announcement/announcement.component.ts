@@ -18,12 +18,11 @@ export class AnnouncementComponent implements OnInit {
   constructor(private http: HttpClient) {
   }
 
-/*<<<<<<< HEAD
+/*
   constructor(private route: ActivatedRoute) { }
   id:any;
   ngOnInit() {
     this.id = parseInt(this.route.snapshot.paramMap.get('id'));
-=======
 
  */
 
