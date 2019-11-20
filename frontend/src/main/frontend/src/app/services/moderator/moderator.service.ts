@@ -1,11 +1,11 @@
 import {Injectable} from '@angular/core';
 import {CommonService} from '../common/common.service';
 import {SearchService} from '../search/search.service';
-import {Announcement} from 'src/app/models/announcement';
-import {Book} from 'src/app/models/book';
-import {Review} from 'src/app/models/review';
-import {User} from 'src/app/models/user';
 import {HttpClient} from '@angular/common/http';
+import {Announcement} from "../../models/announcement";
+import {Book} from "../../models/book";
+import {Review} from "../../models/review";
+import {User} from "../../models/user";
 
 @Injectable({
     providedIn: 'root'

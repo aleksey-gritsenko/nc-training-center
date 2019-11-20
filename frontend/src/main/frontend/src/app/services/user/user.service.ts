@@ -1,13 +1,13 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {CommonService} from '../common/common.service';
-import {User} from 'src/app/models/user';
-import {Book} from 'src/app/models/book';
-import {Announcement} from 'src/app/models/announcement';
-import {Review} from 'src/app/models/review';
-import {Chat} from 'src/app/models/chat';
-import {Message} from 'src/app/models/message';
-import {BookFilter} from 'src/app/models/bookfilter';
+import {User} from "../../models/user";
+import {Book} from "../../models/book";
+import {Announcement} from "../../models/announcement";
+import {Review} from "../../models/review";
+import {Chat} from "../../models/chat";
+import {Message} from "../../models/message";
+import {BookFilter} from "../../models/bookfilter";
 
 @Injectable({
     providedIn: 'root'

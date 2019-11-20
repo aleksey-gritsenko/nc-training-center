@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {Book} from 'src/app/models/book';
-import {Announcement} from 'src/app/models/announcement';
-import {Review} from 'src/app/models/review';
-import {BookFilter} from 'src/app/models/bookfilter';
+import {Book} from "../../models/book";
+import {BookFilter} from "../../models/bookfilter";
+import {Announcement} from "../../models/announcement";
+import {Review} from "../../models/review";
 
 @Injectable({
     providedIn: 'root'

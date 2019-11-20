@@ -2,15 +2,14 @@ import {Injectable} from '@angular/core';
 import {CommonService} from '../common/common.service';
 import {ManagingService} from '../managing/managing.service';
 import {SearchService} from '../search/search.service';
-import {Book} from 'src/app/models/book';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Book} from "../../models/book";
+import {HttpClient} from '@angular/common/http';
 import {BookFilter} from "../../models/bookfilter";
 
 @Injectable({
     providedIn: 'root'
 })
-export class SuperadminService {
-    // extends CommonService, ManagingService, SearchService {
+export class AdminService {
 
     constructor(
         private commonService: CommonService,
@@ -18,19 +17,6 @@ export class SuperadminService {
         private searchService: SearchService,
         private http: HttpClient,
     ) {
-    }
-
-    // Personal methods
-    createAdmin() {
-
-    }
-
-    manageAdmin() {
-
-    }
-
-    deactivateAdmin() {
-
     }
 
     //#region Services Methods
@@ -61,9 +47,9 @@ export class SuperadminService {
         this.commonService.getBooksByFilter(filter);
     }
 
-    // getBookByName(name : string){
-    //   this.commonService.getBookByName(name);
-    // }
+    getBookByName(name: string) {
+        this.commonService.getBookByName(name);
+    }
 
     getAnnouncements() {
         this.commonService.getAnnouncements();
