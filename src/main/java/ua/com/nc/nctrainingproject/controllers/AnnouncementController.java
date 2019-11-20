@@ -22,14 +22,14 @@ public class AnnouncementController {
   public AnnouncementController(AnnouncementService announcementService){
     this.announcementService = announcementService;
   }
-/*
+
   @RequestMapping(value = "/announcements", method = RequestMethod.GET)
   public List<Announcement> getPublishedAnnouncements(){
     return announcementService.getPublishedAnnouncements();
   }
 
 
- */
+
   @RequestMapping(value = "/announcements/new", method = RequestMethod.GET)
   public List<Announcement> getUnpublishedAnnouncements(){
     return announcementService.getUnpublishedAnnouncements();
@@ -103,11 +103,5 @@ public class AnnouncementController {
 
 
   }
-  @RequestMapping(value = "/announcement", method = RequestMethod.GET)
 
-  public void announcement(Announcement a){
-    Announcement an = a;
-
-
-  }
 }
