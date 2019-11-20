@@ -33,8 +33,6 @@ export class AnnouncementComponent implements OnInit {
     this.model
     this.id
       = parseInt(this.route.snapshot.paramMap.get('id'));
-    this.ann
-
   }
 
   createAnnouncement(): void {
@@ -50,8 +48,8 @@ export class AnnouncementComponent implements OnInit {
 
    */
 
-
    // form.append('bookId',this.model.bookId)
+    this.model.bookId = this.id;
     this.http.post(url, this.model).subscribe(
       res=>{
         location.reload();

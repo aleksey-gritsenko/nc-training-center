@@ -18,14 +18,14 @@ public class Announcement2 {
   private String title;
   private String description;
   private String date;
-private int id;
+  private int bookId;
 
-  public int getId() {
-    return id;
+  public int getBookId() {
+    return bookId;
   }
 
-  public void setId(int id) {
-    this.id = id;
+  public void setBookId(int bookId) {
+    this.bookId = bookId;
   }
 
   @Override
@@ -34,7 +34,7 @@ private int id;
       "title='" + title + '\'' +
       ", description='" + description + '\'' +
       ", date='" + date + '\'' +
-      ", id=" + id +
+      ", id=" + bookId +
       '}';
   }
 
