@@ -14,7 +14,7 @@ announcements : Announcement[] =[];
     this.getAllAnnouncement();
   }
   public  getAllAnnouncement(){
-    let url ='http://localhost:8080/allannouncement';
+    let url ='http://localhost:8080/myallannouncement';
     this.http.get<Announcement[]>(url).subscribe(
       res=>{
         this.announcements = res;
