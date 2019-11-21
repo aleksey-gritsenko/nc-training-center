@@ -82,7 +82,7 @@
             <version>2.2.0.RELEASE</version>
         </dependency>
         <dependency>
-            <groupId>com.jdriven.ng2boot</groupId>
+            <groupId>ua.com.nc</groupId>
             <artifactId>frontend</artifactId>
             <version>${project.version}</version>
             <scope>runtime</scope>
