@@ -13,14 +13,6 @@ public class Notification extends Entity {
 	public Notification() {
 	}
 
-	public int getNotificationId() {
-		return super.getId();
-	}
-
-	public void setNotificationId(int notificationId) {
-		super.setId(notificationId);
-	}
-
 	public int getUserId() {
 		return userId;
 	}
