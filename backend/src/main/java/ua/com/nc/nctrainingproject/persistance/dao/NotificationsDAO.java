@@ -10,6 +10,8 @@ public interface NotificationsDAO {
 
 	Notification getNotificationByActionID(int actionId);
 
+	Notification getNotificationByUserActionID(int userId, int actionId);
+
 	List<Notification> getAllNotifications();
 
 	void deleteNotification(int userId, int actionId);
