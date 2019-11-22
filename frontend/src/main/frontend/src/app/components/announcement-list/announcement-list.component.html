@@ -1,9 +1,12 @@
 <div>
     <ul>
         <li *ngFor="let announcement of announcements">
-            <div><a routerLink="announcementlist/{{announcement.title}}">Title: {{announcement.title}}</a></div>
-            <div>Description: {{announcement.description}}</div>
-            <div>Date: {{announcement.date}}</div>
+            <div class="alert alert-warning">
+                <div><a routerLink="announcementlist/{{announcement.title}}">Title: {{announcement.title}}</a></div>
+                <div>Description: {{announcement.description}}</div>
+                <div>Date: {{announcement.date}}</div>
+            </div>
         </li>
     </ul>
+
 </div>

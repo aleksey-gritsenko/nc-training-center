@@ -4,4 +4,5 @@ export class Announcement extends Entity {
     title: string;
     description: string;
     date: string;
+
 }

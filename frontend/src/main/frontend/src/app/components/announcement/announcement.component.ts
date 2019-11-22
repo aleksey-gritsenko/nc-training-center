@@ -9,13 +9,12 @@ import {HttpClient} from "@angular/common/http";
     styleUrls: ['./announcement.component.css']
 })
 export class AnnouncementComponent implements OnInit {
-    model:Announcement = {
+    model : Announcement = {
         title:'',
         description:'',
         date:'',
-        bookId:0
+        id:0
     };
-    ann :Announcement;
     constructor(private http: HttpClient,private route: ActivatedRoute) {
     }
     id:any;
@@ -35,18 +34,7 @@ export class AnnouncementComponent implements OnInit {
 
     createAnnouncement(): void {
         let url = 'http://localhost:8080/myannouncement';
-        let form = new FormData();
-        form.append('title', this.model.title);
-        form.append('description', this.model.description);
-        form.append('date',this.model.date);
-        /* this.ann .title = this.model.title;
-          this.ann.date = this.model.date;
-          this.ann.description = this.model.description;
-          this.ann.bookId = this.id;
-         */
-
-        // form.append('bookId',this.model.bookId)
-        this.model.bookId = this.id;
+        this.model.id = this.id;
         this.http.post(url, this.model).subscribe(
             res=>{
                 location.reload();
