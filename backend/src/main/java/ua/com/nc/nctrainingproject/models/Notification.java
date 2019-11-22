@@ -13,6 +13,11 @@ public class Notification extends Entity {
 	public Notification() {
 	}
 
+	public Notification(int actionId, int userId) {
+		this.actionId = actionId;
+		this.userId = userId;
+	}
+
 	public int getUserId() {
 		return userId;
 	}
