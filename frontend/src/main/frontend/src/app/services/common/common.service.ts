@@ -73,8 +73,6 @@ export class CommonService {
             .set('photo', book.photoId)
             .set('file', book.fileId.toString())
             .set('status', book.status);
-
-
         console.log(body);
         const url = `${this.booksUrl}\\update`;
         return this.http.post<Book>(this.booksUrl, body, this.httpOptions);
