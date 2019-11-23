@@ -33,4 +33,7 @@ public class GenrePostgreDAO {
 	public void createGenre(String genreName) {
 		jdbcTemplate.update(GenreQuery.CREATE_GENRE, genreName);
 	}
+
+
+	//public Integer getGenreByBook
 }

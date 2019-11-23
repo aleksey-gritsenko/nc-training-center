@@ -3,102 +3,114 @@ package ua.com.nc.nctrainingproject.models;
 import java.util.List;
 
 public class Book extends Entity {
-	private String header;
-	private List<Author> authors;
-	private String overview;
-	private String status;
-	private String photo;
-	private int fileId;
-	private String genre;
 
-	public Book(String header, String overview, String status, String photo, int fileId) {
-		this.header = header;
-		this.overview = overview;
-		this.status = status;
-		this.photo = photo;
-		this.fileId = fileId;
-	}
+    private String header;
+    private List<Author> authors;
+    private String overview;
+    private String status;
+    private int photo;
+    private int fileId;
+    private String genre;
 
-	public Book(int id, String header, String overview, String status, String photo, int fileId, String genre) {
-		super(id);
-		this.header = header;
-		this.overview = overview;
-		this.status = status;
-		this.photo = photo;
-		this.fileId = fileId;
-		this.genre = genre;
-	}
+    public Book(String header, String overview, String status, int photo, int fileId) {
+        this.header = header;
+        this.overview = overview;
+        this.status = status;
+        this.photo = photo;
+        this.fileId = fileId;
+    }
 
-	public Book() {
+    public Book(int id, String header, String overview, String status, int photo, int fileId, String genre) {
+        super(id);
+        this.header = header;
+        this.overview = overview;
+        this.status = status;
+        this.photo = photo;
+        this.fileId = fileId;
+        this.genre = genre;
+    }
 
-	}
+    public Book(String header, String overview, String status, int photo, int fileId, String genre, List<Author> authors) {
+        this.header = header;
+        this.overview = overview;
+        this.status = status;
+        this.photo = photo;
+        this.fileId = fileId;
+        this.genre = genre;
+        this.authors = authors;
+    }
 
-	public String getHeader() {
-		return header;
-	}
 
-	public void setHeader(String header) {
-		this.header = header;
-	}
+    public Book() {
 
-	public List<Author> getAuthors() {
-		return authors;
-	}
+    }
 
-	public void setAuthors(List<Author> authors) {
-		this.authors = authors;
-	}
+    public String getHeader() {
+        return header;
+    }
 
-	public String getOverview() {
-		return overview;
-	}
+    public void setHeader(String header) {
+        this.header = header;
+    }
 
-	public void setOverview(String overview) {
-		this.overview = overview;
-	}
+    public List<Author> getAuthors() {
+        return authors;
+    }
 
-	public String getStatus() {
-		return status;
-	}
+    public void setAuthors(List<Author> authors) {
+        this.authors = authors;
+    }
 
-	public void setStatus(String status) {
-		this.status = status;
-	}
+    public String getOverview() {
+        return overview;
+    }
 
-	public String getPhoto() {
-		return photo;
-	}
+    public void setOverview(String overview) {
+        this.overview = overview;
+    }
 
-	public void setPhoto(String photo) {
-		this.photo = photo;
-	}
+    public String getStatus() {
+        return status;
+    }
 
-	public int getFileId() {
-		return fileId;
-	}
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
-	public void setFileId(int fileId) {
-		this.fileId = fileId;
-	}
+    public Integer getPhotoId() {
+        return photo;
+    }
 
-	public void setGenre(String genre) {
-		this.genre = genre;
-	}
+    public void setPhotoId(int photo) {
+        this.photo = photo;
+    }
 
-	public String getGenre() {
-		return genre;
-	}
+    public int getFileId() {
+        return fileId;
+    }
 
-	@Override
-	public String toString() {
-		return "Book{" +
-				"header='" + header + '\'' +
-				", authors=" + authors +
-				", overview='" + overview + '\'' +
-				", status='" + status + '\'' +
-				", photo='" + photo + '\'' +
-				", fileId=" + fileId +
-				", genre='" + genre + '\'' +
-				'}';
-	}
+    public void setFileId(int fileId) {
+        this.fileId = fileId;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
+
+    public String getGenre() {
+        return genre;
+    }
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "header='" + header + '\'' +
+                ", authors=" + authors +
+                ", overview='" + overview + '\'' +
+                ", status='" + status + '\'' +
+                ", photo='" + photo + '\'' +
+                ", fileId=" + fileId +
+                ", genre='" + genre + '\'' +
+                '}';
+    }
 }
