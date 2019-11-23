@@ -2,10 +2,7 @@ package ua.com.nc.nctrainingproject.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import ua.com.nc.nctrainingproject.models.ActionType;
 import ua.com.nc.nctrainingproject.services.ActionTypeService;
 
@@ -36,12 +33,12 @@ public class ActionTypeController {
 		return actionType;
 	}
 
-	@RequestMapping(name = "/delete", method = RequestMethod.POST)
+	@RequestMapping(value = "/delete", method = RequestMethod.POST)
 	public void deleteActionType(@RequestParam(name = "actionTypeId") int actionTypeId) {
 		actionTypeService.deleteByActionTypeId(actionTypeId);
 	}
 
-	@RequestMapping(name = "/update", method = RequestMethod.POST)
+	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public ActionType updateActionType(@RequestParam(name = "actionTypeId") int actionTypeId,
 									   @RequestParam(name = "name") String name) {
 
@@ -50,13 +47,13 @@ public class ActionTypeController {
 		return actionType;
 	}
 
-	@RequestMapping(name = "/get/{actionTypeId}", method = RequestMethod.GET)
-	public ActionType getByActionTypeId(@RequestParam(name = "actionTypeId") int actionTypeId) {
+	@RequestMapping(value = "/get/{actionTypeId}", method = RequestMethod.GET)
+	public ActionType getByActionTypeId(@PathVariable(name = "actionTypeId") int actionTypeId) {
 		return actionTypeService.getActionTypeByActionTypeId(actionTypeId);
 	}
 
-	@RequestMapping(name = "/get/{name}", method = RequestMethod.GET)
-	public ActionType getByActionTypeId(@RequestParam(name = "name") String name) {
+	@RequestMapping(value = "/get/{name}", method = RequestMethod.GET)
+	public ActionType getByActionTypeId(@PathVariable(name = "name") String name) {
 		return actionTypeService.getActionTypeByName(name);
 	}
 }

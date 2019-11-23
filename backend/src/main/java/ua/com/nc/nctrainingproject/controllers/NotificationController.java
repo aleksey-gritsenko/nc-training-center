@@ -2,15 +2,13 @@ package ua.com.nc.nctrainingproject.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import ua.com.nc.nctrainingproject.models.Notification;
 import ua.com.nc.nctrainingproject.services.NotificationService;
 
 import java.util.List;
 
+@CrossOrigin
 @Controller
 @RequestMapping("/notification")
 public class NotificationController {
@@ -58,6 +56,4 @@ public class NotificationController {
 			@PathVariable("actionId") int actionId) {
 		return notificationService.getNotificationByUserActionID(userId, actionId);
 	}
-
-
 }
