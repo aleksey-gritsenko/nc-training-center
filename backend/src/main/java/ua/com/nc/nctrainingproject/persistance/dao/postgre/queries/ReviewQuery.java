@@ -15,5 +15,11 @@ public class ReviewQuery {
 	public static final String CREATE_REVIEW = "INSERT INTO " + TABLE_NAME +
 			" (" + USER_ID + "," + BOOK_ID + "," + TEXT + "," + REVIEW_DATE + "," + GRADE + "," + ADMIN_ID +"," + STATUS + " )"
 			+ " VALUES(?,?,?,?,?,?,?)";
+	public static final String ACCEPT_REVIEW = "UPDATE " + TABLE_NAME +
+			" SET " + STATUS + " =(?) WHERE " + REVIEW_ID + " =(?)";
+
+	public static final String GET_ACCEPTED_REVIEWS_OF_BOOK = "SELECT * FROM " + TABLE_NAME +
+			" WHERE " +  STATUS + "=(?) AND " + BOOK_ID + " =(?)";
+
 }
 

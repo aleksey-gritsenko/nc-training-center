@@ -25,4 +25,14 @@ public class ReviewService {
 	public List<Review> getReviewOfBook(int bookId) {
 		return reviewPostgreDAO.getReviewsOfBook(bookId);
 	}
+
+	public void acceptReview(int reviewId, boolean status){
+		Review review = new Review(reviewId, status);
+		  reviewPostgreDAO.acceptReview(review);
+	}
+
+	public List<Review> getAcceptedReview(boolean status, int bookId){
+		return reviewPostgreDAO.getAcceptedReviewsOfBook(status, bookId);
+	}
+
 }
