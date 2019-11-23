@@ -38,7 +38,7 @@ public class BookService {
 			book.setHeader(header);
 			book.setOverview(overview);
 			book.setStatus(status);
-			book.setPhotoId(photo);
+			book.setPhoto(photo);
 			book.setFileId(fileId);
 			bookPostgreDAO.updateBookById(bookId, book);
 			return book;
