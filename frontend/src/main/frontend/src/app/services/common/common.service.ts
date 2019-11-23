@@ -59,7 +59,6 @@ export class CommonService {
             .set('photo', book.photoId)
             .set('file', book.fileId.toString());
 
-
         return this.http.post<Book>(this.booksUrl, body, this.httpOptions);
     }
 
@@ -73,7 +72,6 @@ export class CommonService {
             .set('photo', book.photoId)
             .set('file', book.fileId.toString())
             .set('status', book.status);
-
 
         console.log(body);
         const url = `${this.booksUrl}\\update`;
@@ -89,20 +87,17 @@ export class CommonService {
 
     getAllAuthor(): Observable<string[]> {
         const url = `${this.booksUrl}/authors`;
-        //return this.http.get<string[]>(url);
-        return null;
+        return this.http.get<string[]>(url);
     }
 
     getAllGenre(): Observable<string[]> {
         const url = `${this.booksUrl}/genres`;
-        //return this.http.get<string[]>(url);
-        return null;
+        return this.http.get<string[]>(url);
     }
 
     getReviews(id: number): Observable<Review[]> {
         const url = `${this.booksUrl}/${id}/review`;
-        // return this.http.get<Review[]>(url);
-        return null;
+        return this.http.get<Review[]>(url);
     }
 
     createReview(review: Review): Observable<Review> {
@@ -112,6 +107,7 @@ export class CommonService {
             .set('text', review.text)
             .set('reviewDate', review.reviewDate.toDateString())
             .set('grade', review.grade.toString())
+            .set('status', review.status.toString())
             .set('adminId', review.adminId.toString());
         console.log(body);
 
