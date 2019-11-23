@@ -54,6 +54,10 @@ public class Review extends Entity {
 		this.adminId = adminId;
 		this.status = status;
 	}
+	public Review(int reviewId, boolean status){
+		super(reviewId);
+		this.status = status;
+	}
 
 
 	public Review() {
