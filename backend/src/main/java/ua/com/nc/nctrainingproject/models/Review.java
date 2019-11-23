@@ -9,6 +9,15 @@ public class Review extends Entity {
 	private Date reviewDate;
 	private int grade;
 	private int adminId;
+	private boolean status;
+
+	public void setStatus(boolean status) {
+		this.status = status;
+	}
+
+	public boolean getStatus() {
+		return status;
+	}
 
 	public Review(int reviewId, int userId, int bookId, String text, Date reviewDate, int grade, int adminId) {
 		super(reviewId);
@@ -36,6 +45,20 @@ public class Review extends Entity {
 		this.grade = grade;
 		this.adminId = adminId;
 	}
+
+	public Review(int userId, int bookId, String text,  int grade, int adminId, boolean status) {
+		this.userId = userId;
+		this.bookId = bookId;
+		this.text = text;
+		this.grade = grade;
+		this.adminId = adminId;
+		this.status = status;
+	}
+	public Review(int reviewId, boolean status){
+		super(reviewId);
+		this.status = status;
+	}
+
 
 	public Review() {
 	}

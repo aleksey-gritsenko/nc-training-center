@@ -9,11 +9,17 @@ public class ReviewQuery {
 	public static final String REVIEW_DATE = "review_date";
 	public static final String GRADE = "grade";
 	public static final String ADMIN_ID = "admin_id";
+	public static final String STATUS = "status";
 
-	public static final String GET_REVIEW_BY_ID = "SELECT * FROM " + TABLE_NAME + " WHERE " + REVIEW_ID + " =(?)";
 	public static final String GET_REVIEWS_OF_BOOK = "SELECT * FROM " + TABLE_NAME + " WHERE " + BOOK_ID + " =(?)";
 	public static final String CREATE_REVIEW = "INSERT INTO " + TABLE_NAME +
-			" (" + USER_ID + "," + BOOK_ID + "," + TEXT + "," + REVIEW_DATE + "," + GRADE + "," + ADMIN_ID + " )"
-			+ " VALUES(?,?,?,NOW(),?,?)";
+			" (" + USER_ID + "," + BOOK_ID + "," + TEXT + "," + REVIEW_DATE + "," + GRADE + "," + ADMIN_ID +"," + STATUS + " )"
+			+ " VALUES(?,?,?,?,?,?,?)";
+	public static final String ACCEPT_REVIEW = "UPDATE " + TABLE_NAME +
+			" SET " + STATUS + " =(?) WHERE " + REVIEW_ID + " =(?)";
+
+	public static final String GET_ACCEPTED_REVIEWS_OF_BOOK = "SELECT * FROM " + TABLE_NAME +
+			" WHERE " +  STATUS + "=(?) AND " + BOOK_ID + " =(?)";
+
 }
 
