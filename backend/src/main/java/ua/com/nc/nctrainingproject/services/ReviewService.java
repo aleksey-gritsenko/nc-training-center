@@ -16,8 +16,8 @@ public class ReviewService {
 		this.reviewPostgreDAO = reviewPostgreDAO;
 	}
 
-	public Review createReview(int userId, int bookId, String text, int grade, int adminId) {
-		Review review = new Review(userId, bookId, text, grade, adminId);
+	public Review createReview(int userId, int bookId, String text, int grade, int adminId, boolean status) {
+		Review review = new Review(userId, bookId, text, grade, adminId, status);
 		reviewPostgreDAO.createReview(review);
 		return review;
 	}

@@ -35,8 +35,10 @@ public class ReviewPostgreDAO implements ReviewDAO {
 				review.getUserId(),
 				review.getBookId(),
 				review.getText(),
+				review.getReviewDate(),
 				review.getGrade(),
-				review.getAdminId());
+				review.getAdminId(),
+				review.getStatus());
 	}
 }
 

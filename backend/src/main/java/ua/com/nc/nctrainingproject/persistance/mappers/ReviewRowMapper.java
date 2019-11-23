@@ -18,6 +18,7 @@ public class ReviewRowMapper implements RowMapper<Review> {
 		review.setText(resultSet.getString(ReviewQuery.TEXT));
 		review.setGrade(resultSet.getInt(ReviewQuery.GRADE));
 		review.setReviewDate(resultSet.getDate(ReviewQuery.REVIEW_DATE));
+		review.setStatus(resultSet.getBoolean(ReviewQuery.STATUS));
 		return review;
 	}
 }
