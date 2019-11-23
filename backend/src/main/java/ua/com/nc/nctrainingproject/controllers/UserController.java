@@ -26,8 +26,8 @@ public class UserController {
 		return ResponseEntity.ok(userService.updateByName(login, newData));
 	}
 
-	@RequestMapping(method = RequestMethod.GET, value = "/{userName}")
-	ResponseEntity<?> get(@PathVariable(value = "userName") String userName) {
-		return ResponseEntity.ok(userService.getByName(userName));
+    @RequestMapping(method = RequestMethod.GET, value = "/{id}")
+    ResponseEntity<?> get(@PathVariable(value = "id") int id) {
+        return ResponseEntity.ok(userService.getById(id));
 	}
 }

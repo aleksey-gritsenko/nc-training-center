@@ -1,0 +1,39 @@
+<div class="card">
+    <div class="card-header card-header-primary">
+        <h4 class="card-title">Edit Profile</h4>
+        <p class="card-category">Complete your profile</p>
+    </div>
+    <div class="card-body">
+        <form (submit)="update()">
+            <div class="row">
+                <div class="col-md align-self-center">
+                    <label for="userName">Username: </label>
+                    <h4 id="userName">{{currentUser.userName}}</h4>
+                </div>
+                <div class="col-md">
+                    <div class="form-group">
+                        <label class="bmd-label-floating">Email</label>
+                        <input [(ngModel)]="updatedUser.email" autocomplete="off" class="form-control" name="emailField"
+                               type="email">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md">
+                    <div class="form-group">
+                        <label class="bmd-label-floating">Password</label>
+                        <input [(ngModel)]="updatedUser.userPassword" class="form-control" name="password"
+                               type="password">
+                    </div>
+                </div>
+                <div class="col-md">
+                    <div class="form-group">
+                        <label class="bmd-label-floating">Repeat Password</label>
+                        <input class="form-control" name="repeat password" type="password">
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-primary pull-right" type="submit">Update Profile</button>
+        </form>
+    </div>
+</div>

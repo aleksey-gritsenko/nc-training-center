@@ -5,9 +5,9 @@ public class User extends Entity {
 	private String userPassword;
 	private String email;
 	private String recoverCode;
-	private int userRole;
+    private String userRole;
 
-	public User(int id, String userName, String userPassword, String email, String recoverCode, int userRole) {
+    public User(int id, String userName, String userPassword, String email, String recoverCode, String userRole) {
 		super(id);
 		this.userName = userName;
 		this.userPassword = userPassword;
@@ -58,11 +58,11 @@ public class User extends Entity {
 		this.recoverCode = recoverCode;
 	}
 
-	public int getUserRole() {
+    public String getUserRole() {
 		return userRole;
 	}
 
-	public void setUserRole(int userRole) {
+    public void setUserRole(String userRole) {
 		this.userRole = userRole;
 	}
 

@@ -1,0 +1,21 @@
+.content {
+    margin-left: 260px;
+    padding-top: 61px;
+}
+
+.list-group-item {
+    cursor: pointer;
+}
+
+.list-group-item:hover {
+    background-color: rgba(255, 252, 246, 0.09);
+}
+
+.menu {
+    width: 18rem;
+}
+
+.selected, .selected:hover {
+    background-color: rgba(255, 252, 245, 0.32);
+    color: white;
+}

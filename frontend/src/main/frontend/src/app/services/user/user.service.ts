@@ -24,11 +24,11 @@ export class UserService {
     }
 
     // Personal methods
-    updateProfile(login: string, user: User) {
+    updateProfile(id: number, user: User) {
         let url = 'http://localhost:8080/user/update';
         let form = new FormData();
 
-        form.append('login', login);
+        form.append('id', id.toString());
         form.append('newLogin', user.userName);
         form.append('newPassword', user.userPassword);
         form.append('newEmail', user.email);
@@ -36,8 +36,8 @@ export class UserService {
         return this.http.post<User>(url, form);
     }
 
-    searchUser(userName: string) {
-        const url = "http://localhost:8080/user/" + userName;
+    searchUser(id: string) {
+        const url = "http://localhost:8080/user/" + id;
         return this.http.get<User>(url);
     }
 

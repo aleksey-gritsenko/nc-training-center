@@ -38,4 +38,8 @@ public class UserService {
 	public User getByName(String userName) {
 		return userPostgreDAO.getUserByUserName(userName);
 	}
+
+    public User getById(int id) {
+        return userPostgreDAO.getUserById(id);
+    }
 }
