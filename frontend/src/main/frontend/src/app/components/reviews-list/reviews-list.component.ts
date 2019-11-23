@@ -13,6 +13,7 @@ export class ReviewsListComponent implements OnInit, DoCheck {
 
     reviews: Review[] = [];
     @Input() book: Book;
+    addReviewVisible: boolean;
 
     createdReview: Review = new Review();
 
@@ -20,6 +21,7 @@ export class ReviewsListComponent implements OnInit, DoCheck {
     }
 
     ngOnInit() {
+        this.addReviewVisible = false;
         // this.getAllReviews();
     }
 
