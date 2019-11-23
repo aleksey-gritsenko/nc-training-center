@@ -1,6 +1,6 @@
 import {Entity} from "./entity";
 
-export class SelectedItem extends Entity {
+export class SelectedItem {
     selected: boolean;
     name: string;
 }

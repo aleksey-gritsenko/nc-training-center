@@ -13,4 +13,5 @@ public class GenreQuery {
 
 	public static final String GET_ID_BY_GENRE = "SELECT " + ID + " FROM "
             + TABLE_NAME + " WHERE " + GENRE_NAME + " =(?)";
+	public static final String GET_ALL_GENRES = "SELECT * FROM " + TABLE_NAME;
 }

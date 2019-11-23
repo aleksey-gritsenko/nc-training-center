@@ -5,6 +5,8 @@ import {Book} from "../../models/book";
 import {BookFilter} from "../../models/bookfilter";
 import {Announcement} from "../../models/announcement";
 import {Review} from "../../models/review";
+import {Genre} from "../../models/genre";
+import {Author} from "../../models/author";
 
 @Injectable({
     providedIn: 'root'
@@ -56,7 +58,7 @@ export class CommonService {
             .set('header', book.header)
             .set('status', book.status)
             .set('overview', book.overview)
-            .set('photo', book.photoId)
+            .set('photo', book.photoId.toString())
             .set('file', book.fileId.toString());
 
         return this.http.post<Book>(this.booksUrl, body, this.httpOptions);
@@ -69,7 +71,7 @@ export class CommonService {
             .set('bookId', book.id.toString())
             .set('header', book.header)
             .set('overview', book.overview)
-            .set('photo', book.photoId)
+            .set('photo', book.photoId.toString())
             .set('file', book.fileId.toString())
             .set('status', book.status);
 
@@ -85,15 +87,28 @@ export class CommonService {
     // getAnnouncementsByFilter() : Observable<Announcement[]>{
     // }
 
-
-    getAllAuthor(): Observable<string[]> {
-        const url = `${this.booksUrl}/authors`;
-        return this.http.get<string[]>(url);
+    getAuthorsByBookId(bookId: number): Observable<Author[]>{
+        const url = `${this.booksUrl}\\authors\\book`;
+        const params = new HttpParams()
+            .set("book", bookId.toString());
+        return this.http.get<Author[]>(url,{params:params});
     }
 
-    getAllGenre(): Observable<string[]> {
+    getGenreByBookId(bookId: number): Observable<Genre>{
+        const url = `${this.booksUrl}\\genre\\book`;
+        const params = new HttpParams()
+            .set("book", bookId.toString());
+        return this.http.get<Genre>(url,{params:params});
+    }
+
+    getAllAuthor(): Observable<Author[]> {
+        const url = `${this.booksUrl}/authors`;
+        return this.http.get<Author[]>(url);
+    }
+
+    getAllGenre(): Observable<Genre[]> {
         const url = `${this.booksUrl}/genres`;
-        return this.http.get<string[]>(url);
+        return this.http.get<Genre[]>(url);
     }
 
     getReviews(id: number): Observable<Review[]> {

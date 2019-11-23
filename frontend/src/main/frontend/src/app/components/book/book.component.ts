@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {Book} from '../../models/book';
 import {CommonService} from "../../services/common/common.service";
 import {ActivatedRoute} from "@angular/router";
+import {Genre} from "../../models/genre";
+import {Author} from "../../models/author";
 
 @Component({
     selector: 'app-book',
@@ -10,7 +12,8 @@ import {ActivatedRoute} from "@angular/router";
 })
 export class BookComponent implements OnInit {
     book: Book = new Book();
-
+    genre: Genre = new Genre();
+    authors: Author[] = [];
     constructor(private apiService: CommonService, private route: ActivatedRoute) {
     }
 
@@ -18,7 +21,9 @@ export class BookComponent implements OnInit {
 
     ngOnInit() {
         this.id = parseInt(this.route.snapshot.paramMap.get('id'));
+        this.getGenreByBookId();
         this.getBook();
+        this.getAuthorByBookId();
     }
 
     updateBook(): void {
@@ -43,16 +48,29 @@ export class BookComponent implements OnInit {
             }
         );
     }
+
+    getGenreByBookId(){
+        this.apiService.getGenreByBookId(this.id).subscribe(
+            res=>{this.genre  = res;
+            console.log(this.genre)},
+            err=>{
+                alert("Error in get genres by book id")
+            }
+        );
+    }
+
+    getAuthorByBookId(){
+        this.apiService.getAuthorsByBookId(this.id).subscribe(
+            res=>{this.authors = res;
+            console.log(this.authors)},
+            err=>{
+                alert("Error in get author by book id")
+            }
+        )
+    }
+
+    getAuthors(){
+
+    }
 }
 
-/*
-  getBooks():void{
-    this.apiService.getBooks().subscribe(
-      res=>{
-        this.books = res;
-        console.log(this.books);
-      },
-      err=>{alert("Error in get all reviews")}
-    );
-  }
-*/

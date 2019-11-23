@@ -2,13 +2,17 @@ package ua.com.nc.nctrainingproject.persistance.dao.postgre;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 import ua.com.nc.nctrainingproject.models.Author;
 import ua.com.nc.nctrainingproject.models.Book;
+import ua.com.nc.nctrainingproject.models.Genre;
 import ua.com.nc.nctrainingproject.persistance.dao.AbstractDAO;
 import ua.com.nc.nctrainingproject.persistance.dao.postgre.queries.BookQuery;
 import ua.com.nc.nctrainingproject.persistance.dao.postgre.queries.FilterCriterionQuery;
+import ua.com.nc.nctrainingproject.persistance.dao.postgre.queries.GenreQuery;
 import ua.com.nc.nctrainingproject.persistance.mappers.BookRowMapper;
+import ua.com.nc.nctrainingproject.persistance.mappers.GenreMapper;
 
 import java.util.List;
 
@@ -63,6 +67,14 @@ public class BookPostgreDAO extends AbstractDAO<Book> {
             book.setAuthors(authorBookPostgreDAO.getAuthorsByBookId(book.getId()));
         }
         return books;
+    }
+
+    public Genre getGenreByBookId(int bookId){
+        List<Genre> genres =  jdbcTemplate.query(BookQuery.GET_GENRE_BY_BOOK_ID, new GenreMapper(), bookId);
+        if (genres.size()==0){
+            return null;
+        }
+        return genres.get(0);
     }
 }
 

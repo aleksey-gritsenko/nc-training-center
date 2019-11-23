@@ -47,6 +47,10 @@ public class BookQuery {
     public static final String GET_BOOKS_BY_STATUS = "SELECT * FROM " + TABLE_NAME
             + " WHERE " + STATUS + " =(?)";
 
+    public static final String GET_GENRE_BY_BOOK_ID = "SELECT " + GENRES_TABLE + "." + GENRE+"," + GENRES_TABLE +"." + GENRE_ID + " FROM " + GENRES_TABLE + " JOIN " + TABLE_NAME
+            + " ON " + TABLE_NAME + "." + GENRE_ID + " = " + GENRES_TABLE + "." + GENRE_ID +
+            " WHERE " +TABLE_NAME + "."+ BOOK_ID  + "=(?)";
+
     public static final String GET_BOOKS_FILTRATION =
             "select " + TABLE_NAME + "." + BOOK_ID + " , " + HEADER + ", " + AUTHOR + ", " + OVERVIEW + " ," + STATUS + " ," + PHOTO + ", " + FILE + ", " + GENRE + " " +
                     " from " + TABLE_NAME + " join " + GENRES_TABLE + " ON " + TABLE_NAME + "." + GENRE_ID + " = " + GENRES_TABLE + "." + GENRE_ID +
