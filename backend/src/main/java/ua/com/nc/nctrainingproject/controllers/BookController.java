@@ -22,7 +22,7 @@ public class BookController {
 	@RequestMapping(method = RequestMethod.POST)
 	public Book addBook(@RequestParam(name = "header") String header,
 						@RequestParam(name = "overview") String overview,
-						@RequestParam(name = "photo") String photo,
+						@RequestParam(name = "photo") int photo,
 						@RequestParam(name = "file") int fileId,
 						@RequestParam(name = "status") String status) {
 
@@ -34,7 +34,7 @@ public class BookController {
 	public Book updateBook(@RequestParam(name = "bookId") int bookId,
 						   @RequestParam(name = "header") String header,
 						   @RequestParam(name = "overview") String overview,
-						   @RequestParam(name = "photo") String photo,
+						   @RequestParam(name = "photo") int photo,
 						   @RequestParam(name = "file") int fileId,
 						   @RequestParam(name = "status") String status) {
 

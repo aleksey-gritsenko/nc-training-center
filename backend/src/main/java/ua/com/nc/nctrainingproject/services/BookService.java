@@ -20,7 +20,7 @@ public class BookService {
 		this.filterCriterionQuery = filterCriterionQuery;
 	}
 
-	public Book createBook(String header, String overview, String status, String photo, int fileId) {
+	public Book createBook(String header, String overview, String status, int photo, int fileId) {
 		Book book = new Book(header, overview, status, photo, fileId);
 		bookPostgreDAO.createBook(book);
 
@@ -31,7 +31,7 @@ public class BookService {
 		return bookPostgreDAO.getBookById(bookId);
 	}
 
-	public Book updateBook(int bookId, String header, String overview, String status, String photo, int fileId) {
+	public Book updateBook(int bookId, String header, String overview, String status, int photo, int fileId) {
 		Book book = bookPostgreDAO.getBookById(bookId);
 
 		if (book != null) {
