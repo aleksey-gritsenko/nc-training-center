@@ -29,19 +29,19 @@ public class ActionTypeService {
 		return actionTypePostgreDAO.getActionTypeByName(name);
 	}
 
-	void deleteByActionTypeId(int actionTypeId) {
+	public void deleteByActionTypeId(int actionTypeId) {
 		if (actionTypePostgreDAO.getActionTypeByActionTypeId(actionTypeId) != null) {
 			actionTypePostgreDAO.deleteByActionTypeId(actionTypeId);
 		}
 	}
 
-	void createActionType(ActionType actionType) {
+	public void createActionType(ActionType actionType) {
 		if (actionTypePostgreDAO.getActionTypeByActionTypeId(actionType.getActionTypeId()) != null) {
 			actionTypePostgreDAO.createActionType(actionType);
 		}
 	}
 
-	void updateActionTypeById(int actionTypeId, ActionType actionType) {
+	public void updateActionTypeById(int actionTypeId, ActionType actionType) {
 		if (actionTypePostgreDAO.getActionTypeByActionTypeId(actionTypeId) != null) {
 			actionTypePostgreDAO.updateActionTypeById(actionTypeId, actionType);
 		}
