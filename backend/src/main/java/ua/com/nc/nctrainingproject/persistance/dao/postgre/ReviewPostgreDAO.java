@@ -39,19 +39,18 @@ public class ReviewPostgreDAO extends AbstractDAO<Review> {
 
 	public void createReview(Review review) {
 		jdbcTemplate.update(ReviewQuery.CREATE_REVIEW,
-				review.getReviewId(),
 				review.getUserId(),
 				review.getBookId(),
 				review.getText(),
 				review.getReviewDate(),
 				review.getGrade(),
-				review.getAdminId(),
 				review.getStatus());
 	}
 
 	public void acceptReview(Review review){
 		 jdbcTemplate.update(ReviewQuery.ACCEPT_REVIEW,
-				review.getStatus(),
+				 review.getStatus(),
+				 review.getAdminId(),
 				 review.getReviewId());
 	}
 }

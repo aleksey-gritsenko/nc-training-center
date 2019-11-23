@@ -38,12 +38,13 @@ public class Review extends Entity {
 		this.adminId = adminId;
 	}
 
-	public Review(int userId, int bookId, String text, int grade, int adminId) {
+	public Review(int userId, int bookId, String text, int grade) {
 		this.userId = userId;
 		this.bookId = bookId;
 		this.text = text;
 		this.grade = grade;
-		this.adminId = adminId;
+		this.reviewDate = new Date();
+		this.status = false;
 	}
 
 	public Review(int userId, int bookId, String text,  int grade, int adminId, boolean status) {
@@ -54,9 +55,10 @@ public class Review extends Entity {
 		this.adminId = adminId;
 		this.status = status;
 	}
-	public Review(int reviewId, boolean status){
+	public Review(int reviewId,int adminId, boolean status){
 		super(reviewId);
 		this.status = status;
+		this.adminId = adminId;
 	}
 
 
