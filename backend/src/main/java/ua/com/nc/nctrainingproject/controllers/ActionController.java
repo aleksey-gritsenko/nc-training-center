@@ -21,11 +21,13 @@ public class ActionController {
 	}
 
 	@RequestMapping(value = "/all", method = RequestMethod.POST)
+	@ResponseBody
 	public List<Action> getAllActions() {
 		return actionService.getAllActions();
 	}
 
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
+	@ResponseBody
 	public Action createAction(@RequestParam(name = "actionId") int actionId,
 							   @RequestParam(name = "userId") int userId,
 							   @RequestParam(name = "actionTypeId") int actionTypeId) {
@@ -35,11 +37,13 @@ public class ActionController {
 	}
 
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
+	@ResponseBody
 	public void deleteActionType(@RequestParam(name = "actionId") int actionId) {
 		actionService.deleteActionByActionId(actionId);
 	}
 
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
+	@ResponseBody
 	public Action updateAction(@RequestParam(name = "actionId") int actionId,
 							   @RequestParam(name = "userId") int userId,
 							   @RequestParam(name = "actionTypeId") int actionTypeId) {
@@ -50,6 +54,7 @@ public class ActionController {
 	}
 
 	@RequestMapping(value = "/get/{actionId}", method = RequestMethod.POST)
+	@ResponseBody
 	public Action getActionById(@PathVariable(name = "actionId") int actionId) {
 		return actionService.getActionById(actionId);
 	}
@@ -60,6 +65,7 @@ public class ActionController {
 	}
 
 	@RequestMapping(value = "/get/{userId}", method = RequestMethod.POST)
+	@ResponseBody
 	public Action getActionByUserId(@PathVariable(name = "userId") int userId) {
 		return actionService.getActionByUserId(userId);
 	}

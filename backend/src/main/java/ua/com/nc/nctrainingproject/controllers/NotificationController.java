@@ -20,11 +20,13 @@ public class NotificationController {
 	}
 
 	@RequestMapping(value = "/all", method = RequestMethod.GET)
+	@ResponseBody
 	public List<Notification> getAllNotification() {
 		return notificationService.getAllNotifications();
 	}
 
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
+	@ResponseBody
 	public Notification createNotification(
 			@RequestParam(name = "userId") int userId,
 			@RequestParam(name = "actionId") int actionId) {
@@ -34,6 +36,7 @@ public class NotificationController {
 	}
 
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
+	@ResponseBody
 	public void deleteNotification(
 			@RequestParam("userId") int userId,
 			@RequestParam("actionId") int actionId) {
@@ -41,16 +44,19 @@ public class NotificationController {
 	}
 
 	@RequestMapping(value = "/get/{userId}", method = RequestMethod.POST)
+	@ResponseBody
 	public Notification getNotificationByUserId(@PathVariable("userId") int userId) {
 		return notificationService.getNotificationByUserID(userId);
 	}
 
 	@RequestMapping(value = "/get/{actionId}", method = RequestMethod.POST)
+	@ResponseBody
 	public Notification getNotificationByActionId(@PathVariable("actionId") int actionId) {
 		return notificationService.getNotificationByActionID(actionId);
 	}
 
 	@RequestMapping(value = "/get/{userId}_{actionId}", method = RequestMethod.POST)
+	@ResponseBody
 	public Notification getNotificationByUserId(
 			@PathVariable("userId") int userId,
 			@PathVariable("actionId") int actionId) {
