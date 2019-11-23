@@ -16,5 +16,5 @@ public interface ActionTypeDAO {
 
 	void createActionType(ActionType actionType);
 
-	void updateActionTypeById(int actionTypeId);
+	void updateActionTypeById(int actionTypeId, ActionType actionType);
 }

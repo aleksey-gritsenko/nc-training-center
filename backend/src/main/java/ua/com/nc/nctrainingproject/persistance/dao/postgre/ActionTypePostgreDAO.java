@@ -52,12 +52,13 @@ public class ActionTypePostgreDAO implements ActionTypeDAO {
 
 	@Override
 	public void createActionType(ActionType actionType) {
-		jdbcTemplate.update(ActionTypeQuery.CREATE_ACTION_TYPE, new ActionTypeRowMapper(),
+		jdbcTemplate.update(ActionTypeQuery.CREATE_ACTION_TYPE,
 				actionType.getActionTypeId(), actionType.getActionName());
 	}
 
 	@Override
-	public void updateActionTypeById(int actionTypeId) {
-		jdbcTemplate.update(ActionTypeQuery.UPDATE_ACTION_TYPE_BY_ID, new ActionTypeRowMapper(), actionTypeId);
+	public void updateActionTypeById(int actionTypeId, ActionType actionType) {
+		jdbcTemplate.update(ActionTypeQuery.UPDATE_ACTION_TYPE_BY_ID,
+				actionType.getActionName(), actionTypeId);
 	}
 }
