@@ -16,8 +16,8 @@ public class ReviewService {
 		this.reviewPostgreDAO = reviewPostgreDAO;
 	}
 
-	public Review createReview(int userId, int bookId, String text, int grade, int adminId, boolean status) {
-		Review review = new Review(userId, bookId, text, grade, adminId, status);
+	public Review createReview(int userId, int bookId, String text, int grade) {
+		Review review = new Review(userId, bookId, text, grade);
 		reviewPostgreDAO.createReview(review);
 		return review;
 	}
@@ -26,9 +26,9 @@ public class ReviewService {
 		return reviewPostgreDAO.getReviewsOfBook(bookId);
 	}
 
-	public void acceptReview(int reviewId, boolean status){
-		Review review = new Review(reviewId, status);
-		  reviewPostgreDAO.acceptReview(review);
+	public void acceptReview(int reviewId,int adminId, boolean status){
+		Review review = new Review(reviewId, adminId, status);
+		reviewPostgreDAO.acceptReview(review);
 	}
 
 	public List<Review> getAcceptedReview(boolean status, int bookId){
