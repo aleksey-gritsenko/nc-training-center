@@ -35,26 +35,14 @@ export class CommonService {
 
     getBooksByFilter(filter: BookFilter): Observable<Book[]> {
 
-        let body = {
-            'header': filter.header,
-            'author': filter.author,
-            'genre': filter.genre
-        };
+        let params = new HttpParams()
+            .set('header', filter.header)
+            .set('author', JSON.stringify(filter.author))
+            .set('genre',  JSON.stringify(filter.genre));
 
         const url = `${this.booksUrl}\\filter`;
-        return this.http.get<Book[]>(url, {params: body});
-    }
-
-    getBooksByTitle(title: string): Observable<Book[]> {
-        const url = `${this.booksUrl}\\title`;
-        let params = new HttpParams()
-            .set('title', title);
-
+        console.log(params);
         return this.http.get<Book[]>(url, {params: params});
-    }
-
-    getBookByName(name: string): Observable<Book> {
-        return null;
     }
 
 
@@ -75,10 +63,6 @@ export class CommonService {
         return this.http.post<Book>(this.booksUrl, body, this.httpOptions);
     }
 
-    deleteBook(id: number): Observable<Book> {
-        const url = `${this.booksUrl}/?id=${id}`;
-        return this.http.delete<Book>(url);
-    }
 
     updateBook(book: Book): Observable<Book> {
         console.log(book.id);
@@ -89,8 +73,6 @@ export class CommonService {
             .set('photo', book.photoId)
             .set('file', book.fileId.toString())
             .set('status', book.status);
-
-
         console.log(body);
         const url = `${this.booksUrl}\\update`;
         return this.http.post<Book>(this.booksUrl, body, this.httpOptions);
@@ -102,6 +84,7 @@ export class CommonService {
 
     // getAnnouncementsByFilter() : Observable<Announcement[]>{
     // }
+
 
     getAllAuthor(): Observable<string[]> {
         const url = `${this.booksUrl}/authors`;
