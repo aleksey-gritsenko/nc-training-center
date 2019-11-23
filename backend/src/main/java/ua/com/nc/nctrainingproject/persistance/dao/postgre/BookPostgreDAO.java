@@ -7,7 +7,6 @@ import ua.com.nc.nctrainingproject.models.Author;
 import ua.com.nc.nctrainingproject.models.Book;
 import ua.com.nc.nctrainingproject.persistance.dao.AbstractDAO;
 import ua.com.nc.nctrainingproject.persistance.dao.postgre.queries.BookQuery;
-
 import ua.com.nc.nctrainingproject.persistance.dao.postgre.queries.FilterCriterionQuery;
 import ua.com.nc.nctrainingproject.persistance.mappers.BookRowMapper;
 
@@ -41,7 +40,7 @@ public class BookPostgreDAO extends AbstractDAO<Book> {
 
 	public void createBook(Book book) {
 		jdbcTemplate.update(BookQuery.CREATE_BOOK, book.getHeader(), book.getOverview(), book.getFileId(),
-				book.getStatus(), genrePostgreDAO.getIdByGenre(book.getGenre()), book.getPhotoId());
+				book.getStatus(), genrePostgreDAO.getIdByGenre(book.getGenre()), book.getPhoto());
 
 		for (Author author : book.getAuthors()) {
 			authorBookPostgreDAO.createAuthorBookConnection(book.getId(), author.getId());
@@ -50,7 +49,7 @@ public class BookPostgreDAO extends AbstractDAO<Book> {
 
 	public void updateBookById(int id, Book book) {
 		Object[] params = new Object[]{book.getHeader(), book.getOverview(), book.getFileId(), book.getStatus(),
-				genrePostgreDAO.getIdByGenre(book.getGenre()), book.getPhotoId(), id};
+				genrePostgreDAO.getIdByGenre(book.getGenre()), book.getPhoto(), id};
 		super.updateEntityById(id, params, BookQuery.UPDATE_BOOK);
 	}
 

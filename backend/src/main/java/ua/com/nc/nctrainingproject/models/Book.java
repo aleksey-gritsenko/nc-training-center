@@ -65,11 +65,11 @@ public class Book extends Entity {
 		this.status = status;
 	}
 
-	public String getPhotoId() {
+	public String getPhoto() {
 		return photo;
 	}
 
-	public void setPhotoId(String photo) {
+	public void setPhoto(String photo) {
 		this.photo = photo;
 	}
 
