@@ -84,7 +84,8 @@ export class BooksListComponent implements OnInit {
 
         this.apiService.getBooksByFilter(this.bookFilter).subscribe(
             res => {
-                this.books = res
+                this.books = res;
+                console.log(this.books);
             },
             error => alert("error in filter")
         );
@@ -104,7 +105,6 @@ export class BooksListComponent implements OnInit {
         this.apiService.getBooks().subscribe(
             res => {
                 this.books = res;
-                console.log(this.books);
             },
             err => {
                 alert("Error in get all reviews")
