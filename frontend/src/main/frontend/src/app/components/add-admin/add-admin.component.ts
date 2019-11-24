@@ -18,11 +18,10 @@ export class AddAdminComponent implements OnInit {
     }
 
     createAgent() {
-        if (this.admin.userRole == 'Admin') this.createAdmin();
+        if (this.admin.userRole == 'admin') this.createAdmin();
     }
 
     createAdmin() {
-        this.admin.userRole = this.admin.userRole.toLocaleLowerCase();
-        this.userService.createAdmin(this.admin);
+        this.userService.createAdmin(this.admin).toPromise().then();
     }
 }

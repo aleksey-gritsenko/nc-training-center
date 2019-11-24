@@ -159,6 +159,7 @@ export class UserService {
 
     createAdmin(admin: User): Observable<User> {
         let url = this.url + "/user/create/admin";
+        console.log(url);
         return this.http.post<User>(url, admin);
     }
 
