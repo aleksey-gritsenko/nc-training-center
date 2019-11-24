@@ -15,7 +15,7 @@ export class CommonService {
 
     private booksUrl = 'http://localhost:8080/book'; // change with necessity
     private announcementsUrl = '/announcements'; // change with necessity
-
+    private reviewsUrl = 'http://localhost:8080/review';
     // private reviewsUrl = 'api/books'; // -?
 
     // announcements : Announcement[] = [];
@@ -116,25 +116,50 @@ export class CommonService {
     }
 
     getReviews(id: number): Observable<Review[]> {
-        const url = `${this.booksUrl}/${id}/review`;
-        return this.http.get<Review[]>(url);
+        let body = new HttpParams()
+            .set('book', id.toString());
+        const url =`${this.reviewsUrl}/all`;
+        return this.http.get<Review[]>(url, {params:body});
     }
 
     createReview(review: Review): Observable<Review> {
+        console.log(review);
         const body = new HttpParams()
-            .set('book', review.book.toString())
-            .set('user', review.user.toString())
+            .set('book', review.bookId.toString())
+            .set('user', review.userId.toString())
             .set('text', review.text)
-            .set('reviewDate', review.reviewDate.toDateString())
-            .set('grade', review.grade.toString())
-            .set('status', review.status.toString())
-            .set('adminId', review.adminId.toString());
+            .set('grade', review.grade.toString());
         console.log(body);
 
-        return this.http.post<Review>(this.booksUrl, body, this.httpOptions);
+        return this.http.post<Review>(this.reviewsUrl, body, this.httpOptions);
     }
 
+    getAcceptedReviews(bookId: number, status: boolean):Observable<Review[]>{
+        const body = new HttpParams()
+            .set('book', bookId.toString())
+            .set('status', JSON.stringify(status));
+        const url =`${this.reviewsUrl}/accepted`;
+        console.log(body);
+        return this.http.get<Review[]>(url, {params:body});
+    }
 
+    acceptReview(review:Review, status:boolean){
+        const body = new HttpParams()
+            .set('review', review.id.toString())
+            .set('status', JSON.stringify(status))
+            .set('admin', review.adminId.toString());
+        const url =`${this.reviewsUrl}/accept`;
+        console.log(body);
+        return this.http.post(url,body);
+    }
+
+    deleteReviewById(review:Review):Observable<Review>{
+        const body = new HttpParams()
+            .set('review',review.id.toString());
+        const url = `${this.reviewsUrl}/delete`;
+        console.log(body);
+        return this.http.post<Review>(url,body);
+    }
     getAnnouncementsByFilter(): Observable<Announcement[]> {
         return null;
     }
