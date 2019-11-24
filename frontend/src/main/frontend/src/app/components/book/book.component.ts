@@ -28,6 +28,7 @@ export class BookComponent implements OnInit {
 
     updateBook(): void {
         const newCreatedBook: Book = Object.assign({}, this.book);
+        console.log(newCreatedBook);
         this.apiService.updateBook(newCreatedBook).subscribe(
             res => {
                 this.book = res;
