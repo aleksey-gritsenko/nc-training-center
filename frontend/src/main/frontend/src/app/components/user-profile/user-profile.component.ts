@@ -13,12 +13,12 @@ import {ActivatedRoute, Router} from "@angular/router";
 export class UserProfileComponent implements OnInit, OnDestroy {
     isOpen: string; // Which tab is open
 
-    subscription: Subscription;
+    userSubscription: Subscription;
 
     currentUser: User; //The user in the system
     isCurrUserAnAdmin: boolean;
     isThisCurrUserProfile: boolean;
-    user: User; //The user page we look at
+    user: User = new User(); //The user page we look at
 
     constructor(private storageService: StorageService,
                 private userService: UserService,
@@ -26,16 +26,14 @@ export class UserProfileComponent implements OnInit, OnDestroy {
                 private router: Router) {
         this.isOpen = "View";
 
-        this.currentUser = this.storageService.getUser();
-        this.subscription = this.storageService.currentUser.subscribe(user => {
+        this.userSubscription = this.storageService.currentUser.subscribe(user => {
             if (!user) this.router.navigateByUrl('/login');
             else this.currentUser = user;
+            this.user = user;
         });
     }
 
     ngOnInit() {
-        if (!this.currentUser) this.router.navigateByUrl('/login');
-
         this.isCurrUserAnAdmin = this.currentUser.userRole != 'user';
 
         this.route.params.subscribe(param => {
@@ -64,6 +62,6 @@ export class UserProfileComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy(): void {
-        this.subscription.unsubscribe();
+        this.userSubscription.unsubscribe();
     }
 }

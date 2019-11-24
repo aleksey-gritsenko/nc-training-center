@@ -24,12 +24,11 @@ export class UserService {
     }
 
     // Personal methods
-    updateProfile(id: number, user: User) {
+    updateProfile(user: User) {
         let url = 'http://localhost:8080/user/update';
         let form = new FormData();
 
-        form.append('id', id.toString());
-        form.append('newLogin', user.userName);
+        form.append('login', user.userName);
         form.append('newPassword', user.userPassword);
         form.append('newEmail', user.email);
 
@@ -124,7 +123,6 @@ export class UserService {
     }
 
     getBookByName(name: string) {
-        this.commonService.getBookByName(name);
     }
 
     getAnnouncements() {
@@ -150,6 +148,10 @@ export class UserService {
 
     login() {
         this.commonService.login();
+    }
+
+    equals(user1: User, user2: User): boolean {
+        return user1.email == user2.email && user1.userPassword == user2.userPassword;
     }
 
     //#endregion

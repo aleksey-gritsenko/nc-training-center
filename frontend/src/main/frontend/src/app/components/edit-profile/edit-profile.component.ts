@@ -11,8 +11,11 @@ import {Subscription} from "rxjs";
     styleUrls: ['./edit-profile.component.css']
 })
 export class EditProfileComponent implements OnInit, OnDestroy {
+    repeatPassword: string = '';
+
     private currentUser: User;
-    private updatedUser: User;
+    private updatedUser: User = new User();
+
     private subscription: Subscription;
 
     constructor(private userService: UserService,
@@ -24,17 +27,22 @@ export class EditProfileComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.subscription = this.storageService.currentUser.subscribe(user => {
             this.currentUser = user;
-            this.updatedUser = this.currentUser;
+            Object.assign(this.updatedUser, this.currentUser);
         });
+
     }
 
     update(): void {
-        if (this.currentUser == this.updatedUser) return;
-        this.userService.updateProfile(this.currentUser.id, this.updatedUser)
+        if (this.userService.equals(this.updatedUser, this.currentUser)) {
+            console.log('Users are equal');
+            return;
+        }
+        this.userService.updateProfile(this.updatedUser)
             .subscribe(
                 user => {
                     this.storageService.setUser(user);
-                }
+                },
+                error => console.log(error)
             );
     }
 

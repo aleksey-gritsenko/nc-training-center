@@ -19,11 +19,11 @@ public class UserController {
 
 	@RequestMapping(method = RequestMethod.POST, value = "/update")
 	ResponseEntity<?> update(@RequestParam(name = "login") String login,
-							 @RequestParam(name = "newLogin") String newLogin,
 							 @RequestParam(name = "newPassword") String newPassword,
 							 @RequestParam(name = "newEmail") String newEmail) {
-		User newData = new User(newLogin, newPassword, newEmail);
-		return ResponseEntity.ok(userService.updateByName(login, newData));
+		User newData = new User(login, newPassword, newEmail);
+		User response = userService.updateByName(newData);
+		return response != null ? ResponseEntity.ok(response) : (ResponseEntity<?>) ResponseEntity.badRequest();
 	}
 
     @RequestMapping(method = RequestMethod.GET, value = "/{id}")
