@@ -50,14 +50,17 @@ export class ReviewsListComponent implements OnInit{
     acceptReview(review:Review):void{
         review.adminId=1;
         this.commonService.acceptReview(review, true).subscribe(
+            res=>{this.acceptedReviews.push(review);
+            this.notAcceptedReviews.splice(this.notAcceptedReviews.indexOf(review));
+            }
         );
     }
     createReview(): void {
         const newCreatedReview: Review = Object.assign({}, this.createdReview);
-       newCreatedReview.bookId = this.book.id;
+        newCreatedReview.bookId = this.book.id;
         this.commonService.createReview(newCreatedReview)
             .subscribe(res => {
-                    this.notAcceptedReviews.push(this.createdReview)
+                    this.notAcceptedReviews.push(res)
                 },
                 err => {
                     alert("Error in creating new review");
@@ -67,7 +70,7 @@ export class ReviewsListComponent implements OnInit{
 
     deleteReviewById(review:Review){
         this.commonService.deleteReviewById(review).subscribe(
-            res=>{console.log(review)}
+            res=>{this.notAcceptedReviews.splice(this.notAcceptedReviews.indexOf(review),1)}
         );
     }
 }

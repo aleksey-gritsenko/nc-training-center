@@ -143,14 +143,14 @@ export class CommonService {
         return this.http.get<Review[]>(url, {params:body});
     }
 
-    acceptReview(review:Review, status:boolean){
+    acceptReview(review:Review, status:boolean):Observable<Review>{
         const body = new HttpParams()
             .set('review', review.id.toString())
             .set('status', JSON.stringify(status))
             .set('admin', review.adminId.toString());
         const url =`${this.reviewsUrl}/accept`;
         console.log(body);
-        return this.http.post(url,body);
+        return this.http.post<Review>(url,body);
     }
 
     deleteReviewById(review:Review):Observable<Review>{
