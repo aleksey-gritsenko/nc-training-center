@@ -14,7 +14,7 @@
     <router-outlet></router-outlet>
 </div>
 <div>
-<form class="form">
+<!--<form class="form">
 
     <div class="form-group col-md-6">
         <label for="inputDescription">Description</label>
@@ -28,6 +28,32 @@
     <button class="btn btn-primary" type="submit" (click)="createAnnouncement()">Save</button>
 </form>
 </div>
+-->
+<!--
+<form class="form">
+    <div class="form-row">
 
+        <div class="form-group col-md-6">
+            <label for="inputDescription">Description</label>
+            <input type="text" name="description" class="form-control" id="inputDescription" placeholder="Description" [(ngModel)]="model.description">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="i">Date of ivent</label>
+        <input type="text" class="form-control" id="i" placeholder="01/01/2000" name="date" [(ngModel)]="model.announcementDate">
+    </div>
 
+    <button class="btn btn-primary" type="submit" (click)="createAnnouncement()">Save</button>
+</form>-->
+    <div>
+
+        <div>
+            <label>Text:<input type="text"  name="description"  [(ngModel)]="model.description"></label>
+        </div>
+        <div>
+            <label>Date:<input type="text" name="date" [(ngModel)]="model.announcementDate"></label>
+        </div>
+
+        <button (click)="createAnnouncement()">Save</button>
+</div>
 

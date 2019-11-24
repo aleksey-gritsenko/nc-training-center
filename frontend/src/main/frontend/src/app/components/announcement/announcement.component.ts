@@ -36,7 +36,7 @@ export class AnnouncementComponent implements OnInit {
     createAnnouncement(): void {
         let url = 'http://localhost:8080/proposeAnnouncement';
         this.model.bookID = this.id;
-        this.model.ownerId = this.storage.getUser().id;
+       // this.model.ownerId = this.storage.getUser().id;
         this.http.post(url, this.model).subscribe(
             res=>{
                 location.reload();
