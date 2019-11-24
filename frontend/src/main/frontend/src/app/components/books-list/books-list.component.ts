@@ -16,7 +16,7 @@ export class BooksListComponent implements OnInit {
     books: Book[] = [];
     createdBook: Book = new Book();
     bookFilter: BookFilter = new BookFilter();
-
+    addBookVisible: boolean;
     listOfAllAuthors: string[] = [];
     listOfAllGenres: string[] = [];
     selectedAuthors: SelectedItem[] = [{id: 0, name: 'author1', selected: false}, {
@@ -36,6 +36,7 @@ export class BooksListComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.addBookVisible = false;
         this.getBooks();
         //this.getAllAuthor();
         //this.getAllGenre();
@@ -83,7 +84,8 @@ export class BooksListComponent implements OnInit {
 
         this.apiService.getBooksByFilter(this.bookFilter).subscribe(
             res => {
-                this.books = res
+                this.books = res;
+                console.log(this.books);
             },
             error => alert("error in filter")
         );
@@ -103,7 +105,6 @@ export class BooksListComponent implements OnInit {
         this.apiService.getBooks().subscribe(
             res => {
                 this.books = res;
-                console.log(this.books);
             },
             err => {
                 alert("Error in get all reviews")
@@ -121,43 +122,10 @@ export class BooksListComponent implements OnInit {
                     alert("Error in create book");
                 });
     }
+    createBookFromChange(){
 
-    searchByTitle() {
-        if (this.bookFilter.header != "") {
-            this.apiService.getBooksByTitle(this.bookFilter.header).subscribe(
-                res => {
-                    this.books = res
-                },
-                err => {
-                    alert("error in get books by title");
-                }
-            );
-        }
     }
 
-    /*
-    deleteBook(book:Book) {
-     //delete this part start
-      let indexOfBook = this.books.indexOf(book);
-      this.books.splice(indexOfBook, 1);
-      //delete  this part end
-
-      if (confirm("Are you sure you want to delete book?")) {
-        this.apiService.deleteBook(book.id).subscribe(
-          res => {
-            let indexOfBook = this.books.indexOf(book);
-            this.books.splice(indexOfBook, 1);
-          },
-          err => {
-            alert("Could not delete book");
-          }
-        );
-      }
-    }
-   */
-    onSelect(book) {
-        this.router.navigate(['books/', book.id]);
-    }
 }
 
 

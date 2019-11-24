@@ -35,26 +35,14 @@ export class CommonService {
 
     getBooksByFilter(filter: BookFilter): Observable<Book[]> {
 
-        let body = {
-            'header': filter.header,
-            'author': filter.author,
-            'genre': filter.genre
-        };
+        let params = new HttpParams()
+            .set('header', filter.header)
+            .set('author', JSON.stringify(filter.author))
+            .set('genre',  JSON.stringify(filter.genre));
 
         const url = `${this.booksUrl}\\filter`;
-        return this.http.get<Book[]>(url, {params: body});
-    }
-
-    getBooksByTitle(title: string): Observable<Book[]> {
-        const url = `${this.booksUrl}\\title`;
-        let params = new HttpParams()
-            .set('title', title);
-
+        console.log(params);
         return this.http.get<Book[]>(url, {params: params});
-    }
-
-    getBookByName(name: string): Observable<Book> {
-        return null;
     }
 
 
@@ -71,14 +59,9 @@ export class CommonService {
             .set('photo', book.photoId)
             .set('file', book.fileId.toString());
 
-
         return this.http.post<Book>(this.booksUrl, body, this.httpOptions);
     }
 
-    deleteBook(id: number): Observable<Book> {
-        const url = `${this.booksUrl}/?id=${id}`;
-        return this.http.delete<Book>(url);
-    }
 
     updateBook(book: Book): Observable<Book> {
         console.log(book.id);
@@ -89,7 +72,6 @@ export class CommonService {
             .set('photo', book.photoId)
             .set('file', book.fileId.toString())
             .set('status', book.status);
-
 
         console.log(body);
         const url = `${this.booksUrl}\\update`;
@@ -103,22 +85,20 @@ export class CommonService {
     // getAnnouncementsByFilter() : Observable<Announcement[]>{
     // }
 
+
     getAllAuthor(): Observable<string[]> {
         const url = `${this.booksUrl}/authors`;
-        //return this.http.get<string[]>(url);
-        return null;
+        return this.http.get<string[]>(url);
     }
 
     getAllGenre(): Observable<string[]> {
         const url = `${this.booksUrl}/genres`;
-        //return this.http.get<string[]>(url);
-        return null;
+        return this.http.get<string[]>(url);
     }
 
     getReviews(id: number): Observable<Review[]> {
         const url = `${this.booksUrl}/${id}/review`;
-        // return this.http.get<Review[]>(url);
-        return null;
+        return this.http.get<Review[]>(url);
     }
 
     createReview(review: Review): Observable<Review> {
@@ -128,6 +108,7 @@ export class CommonService {
             .set('text', review.text)
             .set('reviewDate', review.reviewDate.toDateString())
             .set('grade', review.grade.toString())
+            .set('status', review.status.toString())
             .set('adminId', review.adminId.toString());
         console.log(body);
 
