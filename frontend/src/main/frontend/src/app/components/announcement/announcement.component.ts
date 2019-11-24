@@ -34,7 +34,7 @@ export class AnnouncementComponent implements OnInit {
     }
 
     createAnnouncement(): void {
-        let url = 'http://localhost:8080/proposeAnnouncement';
+        let url = 'http://localhost:8080//announcements/proposeAnnouncement';
         this.model.bookID = this.id;
        // this.model.ownerId = this.storage.getUser().id;
         this.http.post(url, this.model).subscribe(
