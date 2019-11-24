@@ -1,14 +1,54 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" />
+
+
+<style>
+
+    .form{
+
+        padding: 30px 30px;
+        position: relative;
+    }
+
+</style>
+<div class = "navigation">
+    <app-navigation></app-navigation>
+    <router-outlet></router-outlet>
+</div>
 <div>
-    <div>
-        <label>Title:<input type="text" name="title" [(ngModel)]="model.title"/></label>
+<form class="form">
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="inputTitle">Title:</label>
+            <input type="text" name="title" class="form-control" id="inputTitle" placeholder="Title" [(ngModel)]="model.title">
+        </div>
+        <div class="form-group col-md-6">
+            <label for="inputDescription">Description</label>
+            <input type="text" name="description" class="form-control" id="inputDescription" placeholder="Description" [(ngModel)]="model.description">
+        </div>
     </div>
-    <div>
-        <label>Text:<input type="text" name="description" [(ngModel)]="model.description"></label>
-    </div>
-    <div>
-        <label>Date:<input type="text" name="date" [(ngModel)]="model.date"></label>
+    <div class="form-group">
+        <label for="inputDate">Date of ivent</label>
+        <input type="text" class="form-control" id="inputDate" placeholder="01/01/2000" name="date" [(ngModel)]="model.date">
     </div>
 
-    <button (click)="createAnnouncement()">Save</button>
+    <button class="btn btn-primary" type="submit" (click)="createAnnouncement()">Save</button>
+</form>
 </div>
+<!--<<h1>{{id}}</h1>
+<div>
+  <div>
+    <label>Title:<input type="text" name="title" [(ngModel)]="model.title"/></label>
+  </div>
+  <div>
+    <label>Text:<input type="text"  name="description"  [(ngModel)]="model.description"></label>
+  </div>
+  <div>
+    <label>Date:<input type="text" name="date" [(ngModel)]="model.date"></label>
+  </div>
+
+  <button (click)="createAnnouncement()">Save</button>
+
+</div>-->
+
+
 
