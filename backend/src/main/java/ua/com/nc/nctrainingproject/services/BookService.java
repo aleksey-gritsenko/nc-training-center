@@ -31,10 +31,10 @@ public class BookService {
 		this.authorBookPostgreDAO = authorBookPostgreDAO;
 	}
 
-	public Book createBook(String header, String overview, String status, int photo, int fileId) {
-		Book book = new Book(header, overview, status, photo, fileId);
-		bookPostgreDAO.createBook(book);
-
+	public Book createBook(Book book) {
+		if (bookPostgreDAO.getBookById(book.getId()) != null) {
+			bookPostgreDAO.createBook(book);
+		}
 		return book;
 	}
 
@@ -42,16 +42,9 @@ public class BookService {
 		return bookPostgreDAO.getBookById(bookId);
 	}
 
-	public Book updateBook(int bookId, String header, String overview, String status, int photo, int fileId) {
-		Book book = bookPostgreDAO.getBookById(bookId);
-
-		if (book != null) {
-			book.setHeader(header);
-			book.setOverview(overview);
-			book.setStatus(status);
-			book.setPhotoId(photo);
-			book.setFileId(fileId);
-			bookPostgreDAO.updateBookById(bookId, book);
+	public Book updateBook(Book book) {
+		if (bookPostgreDAO.getBookById(book.getId()) != null) {
+			bookPostgreDAO.updateBookById(book.getId(), book);
 			return book;
 		} else {
 			return null;
