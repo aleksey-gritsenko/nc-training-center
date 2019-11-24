@@ -32,4 +32,7 @@ public class UserQuery {
 
 	public static final String GET_BY_ID = GET_ALL_USERS + " WHERE " + ID + " =(?)";
 	public static final String GET_BY_EMAIL = GET_ALL_USERS + " WHERE " + EMAIL + " =(?)";
+
+	public static final String CREATE_ADMIN = "INSERT INTO " + TABLE_NAME
+			+ " (" + USERNAME + "," + USER_PASSWORD + "," + EMAIL + "," + ROLE + ")" + " VALUES(?,?,?,?)";
 }

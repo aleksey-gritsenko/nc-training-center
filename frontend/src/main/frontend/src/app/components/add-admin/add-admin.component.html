@@ -4,16 +4,16 @@
         <p class="card-category">Complete agent profile</p>
     </div>
     <div class="card-body">
-        <form (submit)="createAgent()">
+        <form>
             <div class="row">
                 <div class="col-md-6">
                     <label for="Role">Role</label>
-                    <select [(ngModel)]="selectedRole" class=" custom-select" id="Role" name="Role">
-                        <option selected value="Admin">Admin</option>
-                        <option value="Moderator">Moderator</option>
+                    <select [(ngModel)]="admin.userRole" class=" custom-select" id="Role" name="Role">
+                        <option>Admin</option>
+                        <option>Moderator</option>
                     </select>
                 </div>
-                <div *ngIf="selectedRole == 'Moderator'" class="col-md-6">
+                <div *ngIf="admin.userRole == 'Moderator'" class="col-md-6">
                     <label for="RoleGranted">Grants</label>
                     <select class="custom-select" id="RoleGranted">
 
@@ -24,13 +24,13 @@
                 <div class="col-md">
                     <div class="form-group">
                         <label class="bmd-label-floating">Username</label>
-                        <input autocomplete="off" class="form-control" name="username" type="text">
+                        <input autocomplete="off" class="form-control" name="username" type="text" [(ngModel)]="admin.userName">
                     </div>
                 </div>
                 <div class="col-md">
                     <div class="form-group">
                         <label class="bmd-label-floating">Email</label>
-                        <input autocomplete="off" class="form-control" name="email" type="email">
+                        <input autocomplete="off" class="form-control" name="email" type="email" [(ngModel)]="admin.email">
                     </div>
                 </div>
             </div>
@@ -38,17 +38,17 @@
                 <div class="col-md">
                     <div class="form-group">
                         <label class="bmd-label-floating">Password</label>
-                        <input class="form-control" name="password" type="password">
+                        <input class="form-control" name="password" type="password" [(ngModel)]="admin.userPassword">
                     </div>
                 </div>
                 <div class="col-md">
                     <div class="form-group">
                         <label class="bmd-label-floating">Repeat Password</label>
-                        <input class="form-control" name="repeat password" type="password">
+                        <input class="form-control" name="repeat password" type="password" [(ngModel)]="repeatPassword">
                     </div>
                 </div>
             </div>
-            <button class="btn btn-primary pull-right" type="submit">Create agent</button>
+            <button class="btn btn-primary pull-right" type="button" [disabled]="admin.userPassword != repeatPassword" (click)="createAgent()">Create agent</button>
         </form>
     </div>
 </div>

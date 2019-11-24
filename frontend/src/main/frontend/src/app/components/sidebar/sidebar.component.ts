@@ -4,7 +4,7 @@ import {AuthenticationService} from "../../services/authentification/authenticat
 @Component({
     selector: 'app-sidebar',
     templateUrl: './sidebar.component.html',
-    styleUrls: ['../landing/landing.component.css']
+    styleUrls: ['./sidebar.component.css']
 })
 export class SidebarComponent implements OnInit {
 

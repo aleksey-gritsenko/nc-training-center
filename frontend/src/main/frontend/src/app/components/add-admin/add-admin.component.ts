@@ -1,4 +1,6 @@
 import {Component, OnInit} from '@angular/core';
+import {User} from "../../models/user";
+import {UserService} from "../../services/user/user.service";
 
 @Component({
     selector: 'app-add-admin',
@@ -6,14 +8,21 @@ import {Component, OnInit} from '@angular/core';
     styleUrls: ['./add-admin.component.css']
 })
 export class AddAdminComponent implements OnInit {
-    selectedRole: string;
+    admin: User = new User();
+    repeatPassword: string;
 
-    constructor() {
+    constructor(private userService: UserService) {
     }
 
     ngOnInit() {
     }
 
     createAgent() {
+        if (this.admin.userRole == 'Admin') this.createAdmin();
+    }
+
+    createAdmin() {
+        this.admin.userRole = this.admin.userRole.toLocaleLowerCase();
+        this.userService.createAdmin(this.admin);
     }
 }

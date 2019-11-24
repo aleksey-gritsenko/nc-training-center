@@ -21,7 +21,6 @@ export class EditProfileComponent implements OnInit, OnDestroy {
     constructor(private userService: UserService,
                 private route: ActivatedRoute,
                 private storageService: StorageService) {
-
     }
 
     ngOnInit() {
@@ -33,10 +32,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
     }
 
     update(): void {
-        if (this.userService.equals(this.updatedUser, this.currentUser)) {
-            console.log('Users are equal');
-            return;
-        }
+        if (this.userService.equals(this.updatedUser, this.currentUser)) return;
         this.userService.updateProfile(this.updatedUser)
             .subscribe(
                 user => {
