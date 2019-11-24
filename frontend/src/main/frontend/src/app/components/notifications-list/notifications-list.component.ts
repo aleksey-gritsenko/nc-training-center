@@ -1,5 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 
+export interface IMessage {
+    id: number;
+    text: string;
+}
+
 @Component({
     selector: 'app-notifications-list',
     templateUrl: './notifications-list.component.html',

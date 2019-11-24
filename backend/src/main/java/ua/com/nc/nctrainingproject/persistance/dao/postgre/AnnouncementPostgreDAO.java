@@ -20,7 +20,7 @@ public class AnnouncementPostgreDAO extends AbstractDAO<Announcement> {
 
 	public Announcement getAnnouncementByID(int id) {
 		return super.getEntityById(AnnouncementQuery.GET_ANNOUNCEMENT_BY_ID,
-                new AnnouncementRowMapper(), id);
+				new AnnouncementRowMapper(), id);
 	}
 
 	public List<Announcement> getAnnouncements() {
@@ -45,14 +45,14 @@ public class AnnouncementPostgreDAO extends AbstractDAO<Announcement> {
 	public void createAnnouncement(Announcement announcement) {
 		jdbcTemplate.update(AnnouncementQuery.CREATE_ANNOUNCEMENT, announcement.getDescription(),
 				announcement.getAnnouncementDate(), announcement.getBookID(),
-				announcement.getPriority(), announcement.getAdminID(), announcement.getStatus());
+				announcement.getPriority(), announcement.getOwnerId(), announcement.getStatus());
 	}
 
 	public void proposeAnnouncement(Announcement announcement) {
 		announcement.setStatus(AnnouncementQuery.UNPUBLISHED);
 		jdbcTemplate.update(AnnouncementQuery.CREATE_ANNOUNCEMENT, announcement.getDescription(),
 				announcement.getAnnouncementDate(), announcement.getBookID(),
-				announcement.getPriority(), announcement.getAdminID(), announcement.getStatus());
+				announcement.getPriority(), announcement.getOwnerId(), announcement.getStatus());
 	}
 
 	public void publishAnnouncement(int id) {
@@ -61,7 +61,7 @@ public class AnnouncementPostgreDAO extends AbstractDAO<Announcement> {
 
 	public void updateAnnouncement(Announcement announcement) {
 		Object[] params = new Object[]{announcement.getDescription(), announcement.getAnnouncementDate(),
-				announcement.getBookID(), announcement.getPriority(), announcement.getAdminID(), announcement.getStatus(),
+				announcement.getBookID(), announcement.getPriority(), announcement.getOwnerId(), announcement.getStatus(),
 				announcement.getAnnouncementID()};
 		super.updateEntityById(announcement.getAnnouncementID(), params, AnnouncementQuery.UPDATE_ANNOUNCEMENT);
 	}

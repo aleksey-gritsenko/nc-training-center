@@ -7,7 +7,7 @@ public class AnnouncementQuery {
 	public static final String ANNOUNCEMENT_DATE = "announcement_date";
 	public static final String BOOK_ID = "book_id";
 	public static final String PRIORITY = "priority";
-	public static final String ADMIN_ID = "admin_id";
+	public static final String OWNER_ID = "owner_id";
 	public static final String STATUS = "status";
 
 	public static final String UNPUBLISHED = "UNPUBLISHED";
@@ -34,7 +34,7 @@ public class AnnouncementQuery {
 
 	public static final String CREATE_ANNOUNCEMENT = "INSERT INTO " + TABLE_NAME
 			+ " (" + DESCRIPTION + "," + ANNOUNCEMENT_DATE + "," + BOOK_ID + "," + PRIORITY + ","
-			+ ADMIN_ID + "," + STATUS + ")" + " VALUES(?,?,?,?,?,?)";
+			+ OWNER_ID + "," + STATUS + ")" + " VALUES(?,?,?,?,?,?)";
 
 	public static final String PUBLISH_ANNOUNCEMENT = "UPDATE " + TABLE_NAME + " SET " +
 			STATUS + "='" + PUBLISHED + "' WHERE " + ANNOUNCEMENT_ID + "=(?)";
@@ -44,6 +44,6 @@ public class AnnouncementQuery {
 
 	public static final String UPDATE_ANNOUNCEMENT = "UPDATE " + TABLE_NAME + " SET " +
 			DESCRIPTION + "=(?), " + ANNOUNCEMENT_DATE + "=(?), " + BOOK_ID + "=(?), "
-			+ PRIORITY + "=(?)," + ADMIN_ID + "=(?), " + STATUS + "=(?)"
+			+ PRIORITY + "=(?)," + OWNER_ID + "=(?), " + STATUS + "=(?)"
 			+ " WHERE " + ANNOUNCEMENT_ID + "=(?)";
 }
