@@ -24,20 +24,19 @@ export class UserService {
     }
 
     // Personal methods
-    updateProfile(login: string, user: User) {
+    updateProfile(user: User) {
         let url = 'http://localhost:8080/user/update';
         let form = new FormData();
 
-        form.append('login', login);
-        form.append('newLogin', user.userName);
+        form.append('login', user.userName);
         form.append('newPassword', user.userPassword);
         form.append('newEmail', user.email);
 
         return this.http.post<User>(url, form);
     }
 
-    searchUser(userName: string) {
-        const url = "http://localhost:8080/user/" + userName;
+    searchUser(id: string) {
+        const url = "http://localhost:8080/user/" + id;
         return this.http.get<User>(url);
     }
 
@@ -150,6 +149,10 @@ export class UserService {
 
     login() {
         this.commonService.login();
+    }
+
+    equals(user1: User, user2: User): boolean {
+        return user1.email == user2.email && user1.userPassword == user2.userPassword;
     }
 
     //#endregion
