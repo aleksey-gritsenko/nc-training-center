@@ -14,7 +14,7 @@ import {Author} from "../../models/author";
 })
 
 export class BooksListComponent implements OnInit {
-
+    createdAuthors: string;
     genres: Genre[] = [];
     authors: Author[] = [];
     books: Book[] = [];
@@ -109,6 +109,8 @@ export class BooksListComponent implements OnInit {
     }
 
     createBook(): void {
+        this.createdBook.authors = this.createdAuthors.split(',');
+        console.log(this.createdBook);
         const newCreatedBook: Book = Object.assign({}, this.createdBook);
         this.apiService.createBook(newCreatedBook)
             .subscribe(res => {

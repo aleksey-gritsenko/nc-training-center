@@ -6,13 +6,15 @@
                 <label><input class="form-control" [(ngModel)]="book.header" placeholder="name"/></label>
             </div>
             <div class="card-body">
-                <div>
-                    <div *ngIf="authors">Authors:</div>
-                    <div *ngFor="let author of authors">
-                        <div>{{author.name}}</div>
-                    </div>
-                </div>
                 <table class="table">
+                    <tr>
+                        <td *ngIf="authors">
+                            <label for="authors" class="bmd-label-floating">Authors:</label>
+                        </td>
+                        <td *ngFor="let author of authors">
+                            <input id="authors" class="form-control" type="text" [(ngModel)]="author.name">
+                        </td>
+                    </tr>
                     <tr>
                         <td>
                             <label for="status" class="bmd-label-floating">Status:</label>
@@ -26,7 +28,7 @@
                             <label for="genre" class="bmd-label-floating">Genre</label>
                         </td>
                         <td>
-                            <input class="form-control" type="text" [(ngModel)]="genre.name" id="genre">
+                            <input class="form-control" type="text" [(ngModel)]="book.genre" id="genre">
                         </td>
                     </tr>
                     <tr>
@@ -54,8 +56,10 @@
             </div>
         </div>
     </div>
+    <!--
     <div>
         <app-reviews-list [book]="book"></app-reviews-list>
     </div>
+    -->
 </div>
 

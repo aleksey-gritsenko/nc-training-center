@@ -58,6 +58,8 @@ export class CommonService {
             .set('header', book.header)
             .set('status', book.status)
             .set('overview', book.overview)
+            .set('genre', book.genre)
+            .set('authors', JSON.stringify(book.authors))
             .set('photo', book.photoId.toString())
             .set('file', book.fileId.toString());
 
@@ -73,6 +75,8 @@ export class CommonService {
             .set('overview', book.overview)
             .set('photo', book.photoId.toString())
             .set('file', book.fileId.toString())
+            .set('genre', book.genre)
+            .set('authors', JSON.stringify(book.authors))
             .set('status', book.status);
 
         console.log(body);

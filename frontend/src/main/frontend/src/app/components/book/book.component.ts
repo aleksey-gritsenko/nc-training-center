@@ -12,7 +12,6 @@ import {Author} from "../../models/author";
 })
 export class BookComponent implements OnInit {
     book: Book = new Book();
-    genre: Genre = new Genre();
     authors: Author[] = [];
     constructor(private apiService: CommonService, private route: ActivatedRoute) {
     }
@@ -21,13 +20,14 @@ export class BookComponent implements OnInit {
 
     ngOnInit() {
         this.id = parseInt(this.route.snapshot.paramMap.get('id'));
-        this.getGenreByBookId();
         this.getBook();
-        this.getAuthorByBookId();
     }
 
     updateBook(): void {
         const newCreatedBook: Book = Object.assign({}, this.book);
+        this.book.authors = [];
+        this.authors.forEach(author=>{this.book.authors.push(author.name)});
+        console.log(newCreatedBook);
         this.apiService.updateBook(newCreatedBook).subscribe(
             res => {
                 this.book = res;
@@ -41,7 +41,17 @@ export class BookComponent implements OnInit {
         this.apiService.getBookById(this.id).subscribe(
             res => {
                 this.book = res;
-                console.log(this.book);
+                this.apiService.getGenreByBookId(this.id).subscribe(
+                    genre=>{
+                        this.book.genre = genre.name;
+                    });
+                this.apiService.getAuthorsByBookId(this.id).subscribe(
+                    authors=>{
+                        this.book.authors = [];
+                        this.authors = authors;
+                        authors.forEach(author=>this.book.authors.push(author.name));
+                    }
+                );
             },
             err => {
                 alert("Error in get book by id")
@@ -49,28 +59,5 @@ export class BookComponent implements OnInit {
         );
     }
 
-    getGenreByBookId(){
-        this.apiService.getGenreByBookId(this.id).subscribe(
-            res=>{this.genre  = res;
-            console.log(this.genre)},
-            err=>{
-                alert("Error in get genres by book id")
-            }
-        );
-    }
-
-    getAuthorByBookId(){
-        this.apiService.getAuthorsByBookId(this.id).subscribe(
-            res=>{this.authors = res;
-            console.log(this.authors)},
-            err=>{
-                alert("Error in get author by book id")
-            }
-        )
-    }
-
-    getAuthors(){
-
-    }
 }
 
