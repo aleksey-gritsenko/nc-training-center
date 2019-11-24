@@ -7,7 +7,7 @@ public class Announcement extends Entity {
 	private Date announcementDate;
 	private int bookID;
 	private String priority;
-	private int adminID;
+	private int ownerId;
 	private String status;
 
 	public Announcement() {
@@ -22,32 +22,32 @@ public class Announcement extends Entity {
 	}
 
 	public Announcement(String description, Date announcementDate,
-						int bookID, String priority, int adminID) {
+						int bookID, String priority, int ownerId) {
 		this.description = description;
 		this.announcementDate = announcementDate;
 		this.bookID = bookID;
 		this.priority = priority;
-		this.adminID = adminID;
+		this.ownerId = ownerId;
 	}
 
 	public Announcement(String description, Date announcementDate,
-						int bookID, String priority, int adminID, String status) {
+						int bookID, String priority, int ownerId, String status) {
 		this.description = description;
 		this.announcementDate = announcementDate;
 		this.bookID = bookID;
 		this.priority = priority;
-		this.adminID = adminID;
+		this.ownerId = ownerId;
 		this.status = status;
 	}
 
 	public Announcement(int announcementID, String description, Date announcementDate,
-						int bookID, String priority, int adminID, String status) {
+						int bookID, String priority, int ownerId, String status) {
 		super(announcementID);
 		this.description = description;
 		this.announcementDate = announcementDate;
 		this.bookID = bookID;
 		this.priority = priority;
-		this.adminID = adminID;
+		this.ownerId = ownerId;
 		this.status = status;
 	}
 
@@ -91,12 +91,12 @@ public class Announcement extends Entity {
 		this.priority = priority;
 	}
 
-	public int getAdminID() {
-		return adminID;
+	public int getOwnerId() {
+		return ownerId;
 	}
 
-	public void setAdminID(int adminID) {
-		this.adminID = adminID;
+	public void setOwnerId(int ownerId) {
+		this.ownerId = ownerId;
 	}
 
 	public String getStatus() {
@@ -114,7 +114,7 @@ public class Announcement extends Entity {
 				", announcementDate=" + announcementDate +
 				", bookID=" + bookID +
 				", priority='" + priority + '\'' +
-				", adminID=" + adminID +
+				", ownerId=" + ownerId +
 				", status='" + status + '\'' +
 				'}';
 	}
