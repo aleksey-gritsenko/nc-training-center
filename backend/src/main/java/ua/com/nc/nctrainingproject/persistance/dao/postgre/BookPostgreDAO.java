@@ -48,7 +48,9 @@ public class BookPostgreDAO extends AbstractDAO<Book> {
                 book.getStatus(), genrePostgreDAO.getIdByGenre(book.getGenre()), book.getPhotoId());
 
         for (Author author : book.getAuthors()) {
-            authorBookPostgreDAO.createAuthorBookConnection(book.getId(), author.getId());
+            if (authorBookPostgreDAO.getAuthorsByBookId(author.getId()) != null) {
+                authorBookPostgreDAO.createAuthorBookConnection(book.getId(), author.getId());
+            }
         }
     }
 
