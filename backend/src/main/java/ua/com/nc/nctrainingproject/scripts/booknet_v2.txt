@@ -20,17 +20,19 @@ alter table users
 
 create table books
 (
-	book_id serial not null,
-	header varchar,
-	author varchar,
-	overview varchar,
-	photo varchar,
-	file int,
-	status varchar
+    book_id  serial not null,
+    header   varchar,
+    overview varchar,
+    photo_id integer,
+    file     integer,
+    status   varchar,
+    genre_id integer
+        constraint books_genres_genre_id_fk
+            references genres
 );
 
 create unique index books_book_id_uindex
-	on books (book_id);
+    on books (book_id);
 create table genres
 (
 	genre_id serial not null,
@@ -295,19 +297,86 @@ create unique index recovercode_id_uindex
 alter table recovercode
 	add constraint recovercode_pk
 		primary key (id);
+alter  table users
+   add activated boolean;
+
+create table " action_type"
+(
+   action_type_id serial not null,
+   " name" varchar(50)
+);
+
+create unique index " action_type_action_type_id_uindex"
+   on " action_type" (action_type_id);
+
+alter table " action_type"
+   add constraint " action_type_pk"
+      primary key (action_type_id);
+alter table " action_type" rename to action_type;
 
 
 
+create table notifications
+(
+   user_id int
+      constraint notifications_users_user_id_fk
+         references users
+            on update cascade on delete cascade,
+   action_id int
+      constraint notifications_action_type_id_fk
+         references action_type (action_type_id)
+);
 
+alter table friends rename column first_user_id to sender_id;
 
+alter table friends rename column second_user_id to reciever_user_id;
 
+alter table friends
+   add request_status boolean;
 
+create table user_settings
+(
+   user_id int
+      constraint user_settings_users_user_id_fk
+         references users,
+   settings_list boolean[]
+);
+alter table review
+	add status bool;
+create table actions
+(
+  id serial not null,
+  user_id int
+    constraint actions_users_user_id_fk
+      references users,
+  action_type_id int
+    constraint actions_action_type_action_type_id_fk
+      references action_type
+);
 
+create unique index actions_id_uindex
+  on actions (id);
 
+alter table actions
+  add constraint actions_pk
+    primary key (id);
+create table notifications
+(
+  notification_id serial not null,
+  user_id int
+    constraint notifications_users_user_id_fk
+      references users,
+  action_id int
+    constraint notifications_actions_id_fk
+      references actions
+);
 
+create unique index notifications_notification_id_uindex
+  on notifications (notification_id);
 
-
-
+alter table notifications
+  add constraint notifications_pk
+    primary key (notification_id);
 
 
 
