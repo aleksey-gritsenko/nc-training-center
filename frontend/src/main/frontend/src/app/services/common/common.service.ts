@@ -5,6 +5,8 @@ import {Book} from "../../models/book";
 import {BookFilter} from "../../models/bookfilter";
 import {Announcement} from "../../models/announcement";
 import {Review} from "../../models/review";
+import {Genre} from "../../models/genre";
+import {Author} from "../../models/author";
 
 @Injectable({
     providedIn: 'root'
@@ -35,26 +37,14 @@ export class CommonService {
 
     getBooksByFilter(filter: BookFilter): Observable<Book[]> {
 
-        let body = {
-            'header': filter.header,
-            'author': filter.author,
-            'genre': filter.genre
-        };
+        let params = new HttpParams()
+            .set('header', filter.header)
+            .set('author', JSON.stringify(filter.author))
+            .set('genre',  JSON.stringify(filter.genre));
 
         const url = `${this.booksUrl}\\filter`;
-        return this.http.get<Book[]>(url, {params: body});
-    }
-
-    getBooksByTitle(title: string): Observable<Book[]> {
-        const url = `${this.booksUrl}\\title`;
-        let params = new HttpParams()
-            .set('title', title);
-
+        console.log(params);
         return this.http.get<Book[]>(url, {params: params});
-    }
-
-    getBookByName(name: string): Observable<Book> {
-        return null;
     }
 
 
@@ -68,17 +58,14 @@ export class CommonService {
             .set('header', book.header)
             .set('status', book.status)
             .set('overview', book.overview)
-            .set('photo', book.photoId)
+            .set('genre', book.genre)
+            .set('authors', JSON.stringify(book.authors))
+            .set('photo', book.photoId.toString())
             .set('file', book.fileId.toString());
-
 
         return this.http.post<Book>(this.booksUrl, body, this.httpOptions);
     }
 
-    deleteBook(id: number): Observable<Book> {
-        const url = `${this.booksUrl}/?id=${id}`;
-        return this.http.delete<Book>(url);
-    }
 
     updateBook(book: Book): Observable<Book> {
         console.log(book.id);
@@ -86,10 +73,11 @@ export class CommonService {
             .set('bookId', book.id.toString())
             .set('header', book.header)
             .set('overview', book.overview)
-            .set('photo', book.photoId)
+            .set('photo', book.photoId.toString())
             .set('file', book.fileId.toString())
+            .set('genre', book.genre)
+            .set('authors', JSON.stringify(book.authors))
             .set('status', book.status);
-
 
         console.log(body);
         const url = `${this.booksUrl}\\update`;
@@ -103,22 +91,33 @@ export class CommonService {
     // getAnnouncementsByFilter() : Observable<Announcement[]>{
     // }
 
-    getAllAuthor(): Observable<string[]> {
-        const url = `${this.booksUrl}/authors`;
-        //return this.http.get<string[]>(url);
-        return null;
+    getAuthorsByBookId(bookId: number): Observable<Author[]>{
+        const url = `${this.booksUrl}\\authors\\book`;
+        const params = new HttpParams()
+            .set("book", bookId.toString());
+        return this.http.get<Author[]>(url,{params:params});
     }
 
-    getAllGenre(): Observable<string[]> {
+    getGenreByBookId(bookId: number): Observable<Genre>{
+        const url = `${this.booksUrl}\\genre\\book`;
+        const params = new HttpParams()
+            .set("book", bookId.toString());
+        return this.http.get<Genre>(url,{params:params});
+    }
+
+    getAllAuthor(): Observable<Author[]> {
+        const url = `${this.booksUrl}/authors`;
+        return this.http.get<Author[]>(url);
+    }
+
+    getAllGenre(): Observable<Genre[]> {
         const url = `${this.booksUrl}/genres`;
-        //return this.http.get<string[]>(url);
-        return null;
+        return this.http.get<Genre[]>(url);
     }
 
     getReviews(id: number): Observable<Review[]> {
         const url = `${this.booksUrl}/${id}/review`;
-        // return this.http.get<Review[]>(url);
-        return null;
+        return this.http.get<Review[]>(url);
     }
 
     createReview(review: Review): Observable<Review> {
@@ -128,6 +127,7 @@ export class CommonService {
             .set('text', review.text)
             .set('reviewDate', review.reviewDate.toDateString())
             .set('grade', review.grade.toString())
+            .set('status', review.status.toString())
             .set('adminId', review.adminId.toString());
         console.log(body);
 

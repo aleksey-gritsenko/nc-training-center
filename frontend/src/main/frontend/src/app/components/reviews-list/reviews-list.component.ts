@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, DoCheck, Input, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {Review} from '../../models/review'
 import {CommonService} from '../../services/common/common.service'
@@ -9,11 +9,11 @@ import {Book} from "../../models/book";
     templateUrl: './reviews-list.component.html',
     styleUrls: ['./reviews-list.component.css']
 })
-export class ReviewsListComponent implements OnInit {
+export class ReviewsListComponent implements OnInit, DoCheck {
 
     reviews: Review[] = [];
-
-    book: Book = new Book();
+    @Input() book: Book;
+    addReviewVisible: boolean;
 
     createdReview: Review = new Review();
 
@@ -21,6 +21,11 @@ export class ReviewsListComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.addReviewVisible = false;
+        // this.getAllReviews();
+    }
+
+    ngDoCheck(): void {
         this.getAllReviews();
     }
 
@@ -28,9 +33,6 @@ export class ReviewsListComponent implements OnInit {
         this.commonService.getReviews(this.book.id).subscribe(
             res => {
                 this.reviews = res;
-            },
-            err => {
-                alert("Error in getting all reviews")
             }
         )
     }

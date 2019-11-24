@@ -1,31 +1,41 @@
-<div><h1>Books</h1></div>
+<div><h1>Reviews</h1></div>
 <div>
-    <form action="">
-        <table>
+    <button (click)="addReviewVisible=!addReviewVisible" class="btn btn-default">Add review</button>
+
+    <form *ngIf="addReviewVisible" action="">
+        <table class="table">
             <tr>
                 <td><label for="book">Book</label></td>
-                <td><input type="text" [(ngModel)]="createdReview.book" id="book" name="book"></td>
+                <td><input [(ngModel)]="createdReview.book" class="form-control" id="book" name="book" type="text"></td>
             </tr>
             <tr>
                 <td><label for="user">User</label></td>
-                <td><input type="text" [(ngModel)]="createdReview.user" id="user" name="user"></td>
+                <td><input [(ngModel)]="createdReview.user" class="form-control" id="user" name="user" type="text"></td>
             </tr>
             <tr>
                 <td><label for="grade">Grade</label></td>
-                <td><input type="number" [(ngModel)]="createdReview.grade" id="grade" name="grade"></td>
+                <td><input [(ngModel)]="createdReview.grade" class="form-control" id="grade" name="grade" type="number">
+                </td>
             </tr>
             <tr>
-                <td><label for="reviewDate">Date</label></td>
-                <td><input type="number" [(ngModel)]="createdReview.reviewDate" id="reviewDate" name="reviewDate"></td>
+                <td><label for="text">Text</label></td>
+                <td><textarea [(ngModel)]="createdReview.text" class="form-control" id="text" name="text" rows="5"
+                              type="text"></textarea></td>
+            </tr>
+            <tr>
+                <td><label for="reviewDate">Review Date</label></td>
+                <td><input [(ngModel)]="createdReview.reviewDate" class="form-control" id="reviewDate" name="reviewDate"
+                           type="text"></td>
             </tr>
         </table>
-        <button (click)="createReview();">Add review</button>
+        <button (click)="createReview();" class="btn btn-default">Submit</button>
     </form>
 </div>
 <div>
     <ul>
         <li *ngFor="let review of reviews">
-            <div><a routerLink="book/{{book.id}}/review">User: {{review.user}}</a></div>
+            <div><a routerLink="book/{{book.id}}"></a></div>
+            <div>User: {{review.user}}</div>
             <div>Grade: {{review.grade}}</div>
             <div>Text: {{review.text}}</div>
         </li>

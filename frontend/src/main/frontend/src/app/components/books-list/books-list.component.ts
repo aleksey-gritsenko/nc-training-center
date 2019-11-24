@@ -4,6 +4,8 @@ import {Book} from '../../models/book'
 import {ActivatedRoute, Router} from '@angular/router';
 import {BookFilter} from '../../models/bookfilter';
 import {SelectedItem} from '../../models/selected-item-filter';
+import {Genre} from "../../models/genre";
+import {Author} from "../../models/author";
 
 @Component({
     selector: 'app-books-list',
@@ -12,23 +14,15 @@ import {SelectedItem} from '../../models/selected-item-filter';
 })
 
 export class BooksListComponent implements OnInit {
-
+    createdAuthors: string;
+    genres: Genre[] = [];
+    authors: Author[] = [];
     books: Book[] = [];
     createdBook: Book = new Book();
     bookFilter: BookFilter = new BookFilter();
-
-    listOfAllAuthors: string[] = [];
-    listOfAllGenres: string[] = [];
-    selectedAuthors: SelectedItem[] = [{id: 0, name: 'author1', selected: false}, {
-        id: 1,
-        name: 'author2',
-        selected: false
-    }];
-    selectedGenres: SelectedItem[] = [{id: 0, name: 'genre1', selected: false}, {
-        id: 1,
-        name: 'genre2',
-        selected: false
-    }];
+    addBookVisible: boolean;
+    selectedAuthors: SelectedItem[] =[];
+    selectedGenres: SelectedItem[] = [];
     listOfSelectedGenres: SelectedItem[] = [];
     listOfSelectedAuthor: SelectedItem[] = [];
 
@@ -36,37 +30,40 @@ export class BooksListComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.addBookVisible = false;
         this.getBooks();
-        //this.getAllAuthor();
-        //this.getAllGenre();
+        this.getAllAuthor();
+        this.getAllGenre();
+
     }
 
     getAllAuthor() {
         this.apiService.getAllAuthor().subscribe(
             res => {
-                this.listOfAllAuthors = res;
+                this.authors = res;
+                this.authors.forEach(author => {
+                    this.selectedAuthors.push({name: author.name, selected: false});
+                });
             },
             err => {
                 alert("error in get all author")
             }
         );
-        this.listOfAllAuthors.forEach(author => {
-            this.selectedAuthors.push({id: 0, name: author, selected: false})
-        });
     }
 
     getAllGenre() {
         this.apiService.getAllGenre().subscribe(
             res => {
-                this.listOfAllGenres = res;
+                this.genres = res;
+                this.genres.forEach(genre => {
+                    this.selectedGenres.push({name: genre.name, selected: false})
+                });
             },
             err => {
                 alert("error in get all genre")
             }
         );
-        this.listOfAllGenres.forEach(genre => {
-            this.selectedGenres.push({id: 0, name: genre, selected: false})
-        });
+
     }
 
     searchByFilter() {
@@ -74,16 +71,17 @@ export class BooksListComponent implements OnInit {
         this.bookFilter.genre = [];
 
         this.listOfSelectedGenres = this.selectedGenres
-            .filter(v => v.selected != false);
+            .filter(v => v.selected);
         this.listOfSelectedAuthor = this.selectedAuthors
-            .filter(v => v.selected != false);
+            .filter(v => v.selected);
 
         this.listOfSelectedGenres.forEach(genre => this.bookFilter.genre.push(genre.name));
         this.listOfSelectedAuthor.forEach(author => this.bookFilter.author.push(author.name));
 
         this.apiService.getBooksByFilter(this.bookFilter).subscribe(
             res => {
-                this.books = res
+                this.books = res;
+                console.log(this.books);
             },
             error => alert("error in filter")
         );
@@ -103,7 +101,6 @@ export class BooksListComponent implements OnInit {
         this.apiService.getBooks().subscribe(
             res => {
                 this.books = res;
-                console.log(this.books);
             },
             err => {
                 alert("Error in get all reviews")
@@ -112,6 +109,8 @@ export class BooksListComponent implements OnInit {
     }
 
     createBook(): void {
+        this.createdBook.authors = this.createdAuthors.split(',');
+        console.log(this.createdBook);
         const newCreatedBook: Book = Object.assign({}, this.createdBook);
         this.apiService.createBook(newCreatedBook)
             .subscribe(res => {
@@ -121,43 +120,10 @@ export class BooksListComponent implements OnInit {
                     alert("Error in create book");
                 });
     }
+    createBookFromChange(){
 
-    searchByTitle() {
-        if (this.bookFilter.header != "") {
-            this.apiService.getBooksByTitle(this.bookFilter.header).subscribe(
-                res => {
-                    this.books = res
-                },
-                err => {
-                    alert("error in get books by title");
-                }
-            );
-        }
     }
 
-    /*
-    deleteBook(book:Book) {
-     //delete this part start
-      let indexOfBook = this.books.indexOf(book);
-      this.books.splice(indexOfBook, 1);
-      //delete  this part end
-
-      if (confirm("Are you sure you want to delete book?")) {
-        this.apiService.deleteBook(book.id).subscribe(
-          res => {
-            let indexOfBook = this.books.indexOf(book);
-            this.books.splice(indexOfBook, 1);
-          },
-          err => {
-            alert("Could not delete book");
-          }
-        );
-      }
-    }
-   */
-    onSelect(book) {
-        this.router.navigate(['books/', book.id]);
-    }
 }
 
 

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -11,6 +12,7 @@ import ua.com.nc.nctrainingproject.services.PasswordRecoverService;
 
 import javax.mail.MessagingException;
 
+@CrossOrigin
 @Controller
 public class PasswordRecoverController {
 	private final PasswordRecoverService passwordRecoverService;
@@ -26,7 +28,7 @@ public class PasswordRecoverController {
 		if (email != null) {
 			try {
 				if (passwordRecoverService.isEmail(email) &&
-                        passwordRecoverService.verifyEmail(email)) {
+						passwordRecoverService.verifyEmail(email)) {
 					passwordRecoverService.makeEmail(email);
 					return new ResponseEntity<>(HttpStatus.OK);
 				}
@@ -40,7 +42,7 @@ public class PasswordRecoverController {
 	@RequestMapping("/change")
 	@ResponseBody
 	public ResponseEntity<?> passwordRecoverUser(@RequestParam String recoverCode,
-			                                     @RequestParam String newPassword) {
+												 @RequestParam String newPassword) {
 		if (recoverCode != null && newPassword != null) {
 			if (passwordRecoverService.passwordRecover(recoverCode, newPassword)) {
 				return new ResponseEntity<>(HttpStatus.OK);
