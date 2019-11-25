@@ -50,6 +50,8 @@ public class AnnouncementPostgreDAO extends AbstractDAO<Announcement> {
 
 	public void proposeAnnouncement(Announcement announcement) {
 		announcement.setStatus(AnnouncementQuery.UNPUBLISHED);
+		announcement.setPriority(AnnouncementQuery.LOW_PRIORITY);
+
 		jdbcTemplate.update(AnnouncementQuery.CREATE_ANNOUNCEMENT, announcement.getDescription(),
 				announcement.getAnnouncementDate(), announcement.getBookID(),
 				announcement.getPriority(), announcement.getOwnerId(), announcement.getStatus());
