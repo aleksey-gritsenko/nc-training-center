@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Changeview} from '../../models/changeview';
 import {ChangePasswordService} from '../../services/change/change-password.service';
+import {Router} from "@angular/router";
 
 @Component({
     selector: 'app-change-password',
@@ -16,7 +17,8 @@ export class ChangePasswordComponent implements OnInit {
     };
 
 
-    constructor(private service: ChangePasswordService) {
+    constructor(private service: ChangePasswordService,
+                private router: Router) {
     }
 
     ngOnInit() {
@@ -24,6 +26,7 @@ export class ChangePasswordComponent implements OnInit {
 
     change(): void {
         this.service.changePassword(this.model.code, this.model.password);
+        this.router.navigateByUrl('/login');
     }
 
 }

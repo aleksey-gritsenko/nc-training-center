@@ -28,5 +28,6 @@ export class RecoverComponent implements OnInit {
 
     recover(): void {
         this.recoverService.sendRecoverCode(this.model.email);
+        this.router.navigateByUrl('/change')
     }
 }
