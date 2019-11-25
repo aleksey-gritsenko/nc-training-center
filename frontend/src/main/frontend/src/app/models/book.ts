@@ -1,5 +1,5 @@
 import {Entity} from './entity'
-
+import {Author} from  './author'
 export class Book extends Entity {
     header: string;
     overview: string;
@@ -7,6 +7,6 @@ export class Book extends Entity {
     fileId: number;
     status: string;
     genre: string;
-    authors: Array<string> = [];
+    authors: Array<Author> = [];
 }
 

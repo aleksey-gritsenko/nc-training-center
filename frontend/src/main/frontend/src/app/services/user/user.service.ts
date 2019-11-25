@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {CommonService} from '../common/common.service';
 import {User} from "../../models/user";
 import {Book} from "../../models/book";
@@ -8,6 +8,7 @@ import {Review} from "../../models/review";
 import {Chat} from "../../models/chat";
 import {Message} from "../../models/message";
 import {BookFilter} from "../../models/bookfilter";
+import {Observable} from "rxjs";
 
 @Injectable({
     providedIn: 'root'
@@ -19,6 +20,7 @@ export class UserService {
     user: User;
     friend: User;
     book: Book;
+    url: string = "http://localhost:8080";
 
     constructor(private http: HttpClient, private commonService: CommonService) {
     }
@@ -155,5 +157,13 @@ export class UserService {
         return user1.email == user2.email && user1.userPassword == user2.userPassword;
     }
 
-    //#endregion
+    createAdmin(admin: User): Observable<User> {
+        let url = this.url + "/user/create/admin";
+        console.log(url);
+        return this.http.post<User>(url, admin);
+    }
+
+    // createModerator(): Observable<User> {
+    //
+    // }
 }

@@ -1,6 +1,6 @@
 package ua.com.nc.nctrainingproject.persistance.dao.postgre.queries;
 
-public class UserQuery {
+public class  UserQuery {
 
 	public static final String TABLE_NAME = "users";
 	public static final String ID = "user_id";
@@ -32,4 +32,7 @@ public class UserQuery {
 
 	public static final String GET_BY_ID = GET_ALL_USERS + " WHERE " + ID + " =(?)";
 	public static final String GET_BY_EMAIL = GET_ALL_USERS + " WHERE " + EMAIL + " =(?)";
+
+	public static final String CREATE_ADMIN = "INSERT INTO " + TABLE_NAME
+			+ " (" + USERNAME + "," + USER_PASSWORD + "," + EMAIL + "," + ROLE + ")" + " VALUES(?,?,?,?)";
 }

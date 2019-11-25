@@ -13,6 +13,10 @@ public class AnnouncementQuery {
 	public static final String UNPUBLISHED = "UNPUBLISHED";
 	public static final String PUBLISHED = "PUBLISHED";
 
+	public static final String LOW_PRIORITY = "LOW";
+	public static final String MEDIUM_PRIORITY = "MEDIUM";
+	public static final String HIGH_PRIORITY = "HIGH";
+
 	public static final String GET_ANNOUNCEMENTS = "SELECT * FROM " + TABLE_NAME;
 
 	public static final String GET_UNPUBLISHED_ANNOUNCEMENTS = "SELECT * FROM " + TABLE_NAME +

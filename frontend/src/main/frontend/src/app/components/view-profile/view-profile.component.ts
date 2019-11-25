@@ -1,8 +1,9 @@
-import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
 import {User} from "../../models/user";
 import {UserService} from "../../services/user/user.service";
 import {Router} from "@angular/router";
 import {StorageService} from "../../services/storage/storage.service";
+import {Subscription} from "rxjs";
 
 @Component({
     selector: 'app-view-profile',
@@ -14,18 +15,19 @@ export class ViewProfileComponent implements OnInit, OnChanges {
     currentUser: User;
     isTheSameUser: boolean;
 
+    subscription: Subscription;
+
     constructor(private userService: UserService,
                 private router: Router,
                 private storageService: StorageService) {
+        this.currentUser = storageService.getUser();
     }
 
     ngOnInit() {
-        this.currentUser = this.storageService.getUser();
-        this.isTheSameUser = this.user.id == this.currentUser.id;
     }
 
     ngOnChanges(changes: SimpleChanges): void {
         this.user = changes.user.currentValue;
-        // this.isTheSameUser = this.user.id == this.currentUser.id;
+        this.isTheSameUser = this.user.id == this.currentUser.id;
     }
 }

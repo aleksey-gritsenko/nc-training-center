@@ -9,9 +9,10 @@ import {Book} from "../../models/book";
     templateUrl: './reviews-list.component.html',
     styleUrls: ['./reviews-list.component.css']
 })
-export class ReviewsListComponent implements OnInit, DoCheck {
+export class ReviewsListComponent implements OnInit{
 
-    reviews: Review[] = [];
+    acceptedReviews: Review[] = [];
+    notAcceptedReviews: Review[] = [];
     @Input() book: Book;
     addReviewVisible: boolean;
 
@@ -22,30 +23,54 @@ export class ReviewsListComponent implements OnInit, DoCheck {
 
     ngOnInit() {
         this.addReviewVisible = false;
-        // this.getAllReviews();
+        this.ngOnChanges();
     }
 
-    ngDoCheck(): void {
-        this.getAllReviews();
-    }
 
-    getAllReviews(): void {
-        this.commonService.getReviews(this.book.id).subscribe(
+    ngOnChanges() {
+        this.getAcceptedReviews();
+        this.getNotAcceptedReviews();
+    }
+    getAcceptedReviews(): void {
+        this.commonService.getAcceptedReviews(this.book.id, true).subscribe(
             res => {
-                this.reviews = res;
+                this.acceptedReviews = res;
             }
         )
     }
 
+    getNotAcceptedReviews(): void{
+        this.commonService.getAcceptedReviews(this.book.id, false).subscribe(
+            res => {
+                this.notAcceptedReviews = res;
+            }
+        )
+    }
+
+    acceptReview(review:Review):void{
+        review.adminId=1;
+        this.commonService.acceptReview(review, true).subscribe(
+            res=>{this.acceptedReviews.push(review);
+            this.notAcceptedReviews.splice(this.notAcceptedReviews.indexOf(review));
+            }
+        );
+    }
     createReview(): void {
         const newCreatedReview: Review = Object.assign({}, this.createdReview);
+        newCreatedReview.bookId = this.book.id;
         this.commonService.createReview(newCreatedReview)
             .subscribe(res => {
-                    this.reviews.push(this.createdReview)
+                    this.notAcceptedReviews.push(res)
                 },
                 err => {
                     alert("Error in creating new review");
                 }
             );
+    }
+
+    deleteReviewById(review:Review){
+        this.commonService.deleteReviewById(review).subscribe(
+            res=>{this.notAcceptedReviews.splice(this.notAcceptedReviews.indexOf(review),1)}
+        );
     }
 }
