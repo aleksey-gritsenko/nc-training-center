@@ -41,7 +41,7 @@ export class AnnouncementComponent implements OnInit {
         if(this.role == 'admin'){
             this.model.status = 'PUBLISHED';
         }
-       this.model.ownerId = this.storage.getUser().id;
+      // this.model.ownerId = this.storage.getUser().id;
         this.http.post(url, this.model).subscribe(
             res=>{
                 //location.reload();
