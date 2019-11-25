@@ -69,6 +69,13 @@
                             <div class="card-description">
                                 <div>Overview: {{book.overview}}</div>
                                 <div>Status: {{book.status}}</div>
+                                <div>
+                                    <div>Authors:</div>
+                                    <div *ngFor="let author of book.authors ">
+                                        <div>{{author.name}}</div>
+                                    </div>
+
+                                </div>
                             </div>
                         </div>
                     </div>

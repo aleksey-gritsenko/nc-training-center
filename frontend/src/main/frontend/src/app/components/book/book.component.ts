@@ -27,7 +27,6 @@ export class BookComponent implements OnInit {
 
     updateBook(): void {
 
-        this.book.authors = [];
         const newCreatedBook: Book = Object.assign({}, this.book);
 
 
