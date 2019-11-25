@@ -25,7 +25,7 @@ public class ReviewController {
 									@RequestParam(name = "user") int userId,
 									@RequestParam(name = "text") String text,
 									@RequestParam(name = "grade") int grade) {
-		Review response =  reviewService.createReview(bookId, userId, text, grade);
+		Review response =  reviewService.createReview(userId,bookId, text, grade);
 		return response != null ? ResponseEntity.ok(response) : new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
 
