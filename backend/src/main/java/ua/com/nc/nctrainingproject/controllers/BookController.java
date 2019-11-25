@@ -35,8 +35,8 @@ public class BookController {
 
 	@RequestMapping(value = "/id", method = RequestMethod.GET)
 	@ResponseBody
-	public ResponseEntity<?> getBookById(@RequestParam(name = "id") int bookId) {
-		return ResponseEntity.ok(bookService.getBookById(bookId));
+	public ResponseEntity<?> getBookById(@RequestParam(name = "id") String bookId) {
+		return ResponseEntity.ok(bookService.getBookById(Integer.parseInt(bookId)));
 	}
 
 	@RequestMapping(value = "/all", method = RequestMethod.GET)
