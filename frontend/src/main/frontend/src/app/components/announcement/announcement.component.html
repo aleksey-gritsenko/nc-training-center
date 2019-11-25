@@ -44,7 +44,7 @@
         </div>
         <div class="form-group">
             <label for="inputPriority">Priority of ivent</label>
-            <input [disabled]="this.role !='admin'" type="text" class="form-control" id="inputPriority"
+            <input [disabled]="this.currentUser.userRole !='admin'" type="text" class="form-control" id="inputPriority"
                    placeholder="low" name="priority" [(ngModel)]="model.priority">
         </div>
 
