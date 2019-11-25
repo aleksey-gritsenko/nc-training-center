@@ -1,10 +1,8 @@
-import {Book} from './book';
-import {User} from './user';
 import {Entity} from "./entity";
 
 export class Review extends Entity {
-    user: User;
-    book: Book;
+    userId: number;
+    bookId: number;
     text: string;
     reviewDate: Date;
     grade: number;

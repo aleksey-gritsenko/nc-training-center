@@ -35,4 +35,10 @@ public class ReviewService {
 		return reviewPostgreDAO.getAcceptedReviewsOfBook(status, bookId);
 	}
 
+	public void deleteReviewById(int reviewId){
+		if (reviewPostgreDAO.getReviewById(reviewId)!=null) {
+			reviewPostgreDAO.deleteReviewById(reviewId);
+		}
+	}
+
 }

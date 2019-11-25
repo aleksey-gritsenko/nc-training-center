@@ -53,6 +53,14 @@ public class ReviewPostgreDAO extends AbstractDAO<Review> {
 				 review.getAdminId(),
 				 review.getReviewId());
 	}
+
+	public void deleteReviewById(int reviewId){
+		 jdbcTemplate.update(ReviewQuery.DELETE_REVIEW_BY_ID, reviewId);
+	}
+
+	public Review getReviewById(int reviewId){
+		return super.getEntityById(ReviewQuery.GET_REVIEW_BY_ID, new ReviewRowMapper(), reviewId);
+	}
 }
 
 
