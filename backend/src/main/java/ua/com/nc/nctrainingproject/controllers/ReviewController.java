@@ -23,7 +23,7 @@ public class ReviewController {
 							@RequestParam(name = "user") int userId,
 							@RequestParam(name = "text") String text,
 							@RequestParam(name = "grade") int grade) {
-		return reviewService.createReview(bookId, userId, text, grade);
+		return reviewService.createReview(userId, bookId, text, grade);
 	}
 
 	@RequestMapping(value = "/all", method = RequestMethod.GET)
