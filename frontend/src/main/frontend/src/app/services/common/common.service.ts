@@ -54,34 +54,12 @@ export class CommonService {
     }
 
     createBook(book: Book): Observable<Book> {
-  /*      const body = new HttpParams()
-            .set('header', book.header)
-            .set('status', book.status)
-            .set('overview', book.overview)
-            .set('genre', book.genre)
-            .set('authors', JSON.stringify(book.authors))
-            .set('photo', book.photoId.toString())
-            .set('file', book.fileId.toString());
-*/
         return this.http.post<Book>(this.booksUrl, book);
     }
 
 
     updateBook(book: Book): Observable<Book> {
-        console.log(book.id);
-        const body = new HttpParams()
-            .set('bookId', book.id.toString())
-            .set('header', book.header)
-            .set('overview', book.overview)
-            .set('photo', book.photoId.toString())
-            .set('file', book.fileId.toString())
-            .set('genre', book.genre)
-            .set('authors', JSON.stringify(book.authors))
-            .set('status', book.status);
-
-        console.log(body);
-        const url = `${this.booksUrl}\\update`;
-        return this.http.post<Book>(this.booksUrl, body, this.httpOptions);
+        return this.http.post<Book>(this.booksUrl, book);
     }
 
     getAnnouncements(): Observable<Announcement[]> {

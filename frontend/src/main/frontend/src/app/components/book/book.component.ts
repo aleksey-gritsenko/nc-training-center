@@ -27,7 +27,6 @@ export class BookComponent implements OnInit {
         const newCreatedBook: Book = Object.assign({}, this.book);
         this.book.authors = [];
         this.authors.forEach(author=>{this.book.authors.push(author)});
-        console.log(newCreatedBook);
         this.apiService.updateBook(newCreatedBook).subscribe(
             res => {
                 this.book = res;
