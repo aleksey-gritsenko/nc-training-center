@@ -1,6 +1,6 @@
 package ua.com.nc.nctrainingproject.persistance.dao.postgre.queries;
 
-public class UserQuery {
+public class  UserQuery {
 
 	public static final String TABLE_NAME = "users";
 	public static final String ID = "user_id";

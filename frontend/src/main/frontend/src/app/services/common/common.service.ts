@@ -54,7 +54,7 @@ export class CommonService {
     }
 
     createBook(book: Book): Observable<Book> {
-        const body = new HttpParams()
+  /*      const body = new HttpParams()
             .set('header', book.header)
             .set('status', book.status)
             .set('overview', book.overview)
@@ -62,8 +62,8 @@ export class CommonService {
             .set('authors', JSON.stringify(book.authors))
             .set('photo', book.photoId.toString())
             .set('file', book.fileId.toString());
-
-        return this.http.post<Book>(this.booksUrl, body, this.httpOptions);
+*/
+        return this.http.post<Book>(this.booksUrl, book);
     }
 
 

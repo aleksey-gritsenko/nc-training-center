@@ -23,6 +23,7 @@ public class BookController {
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<?> addBook(@RequestBody Book book) {
 		Book response = bookService.createBook(book);
+
 		return response != null ? ResponseEntity.ok(response) : new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
 

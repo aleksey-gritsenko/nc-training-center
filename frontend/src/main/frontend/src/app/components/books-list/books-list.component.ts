@@ -109,7 +109,11 @@ export class BooksListComponent implements OnInit {
     }
 
     createBook(): void {
-        this.createdBook.authors = this.createdAuthors.split(',');
+        this.createdAuthors.split(',').forEach(name=>{
+            let author = new Author();
+            author.name = name;
+            this.createdBook.authors.push(author)
+        })
         console.log(this.createdBook);
         const newCreatedBook: Book = Object.assign({}, this.createdBook);
         this.apiService.createBook(newCreatedBook)

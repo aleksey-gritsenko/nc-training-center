@@ -32,9 +32,10 @@ public class BookService {
 	}
 
 	public Book createBook(Book book) {
-		if (bookPostgreDAO.getBookById(book.getId()) != null) {
+		if (bookPostgreDAO.getBookById(book.getId()) == null) {
 			bookPostgreDAO.createBook(book);
 		}
+
 		return book;
 	}
 
