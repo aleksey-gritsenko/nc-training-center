@@ -7,5 +7,6 @@ public class AuthorQuery {
 	public static final String GET_ALL_AUTHORS = "Select * From " + TABLE_NAME;
 	public static final String GET_AUTHOR_BY_ID = GET_ALL_AUTHORS + " WHERE " + ID + " =(?)";
 	public static final String DELETE_BY_ID = "DELETE FROM " + TABLE_NAME + " WHERE " + ID + " =(?)";
-
+	public static final String GET_AUTHOR_BY_NAME = GET_ALL_AUTHORS + " WHERE " + AUTHOR_NAME + " =(?)";
+	public static final String CREATE_AUTHOR = "INSERT INTO " + TABLE_NAME + "(" + AUTHOR_NAME + ")" + " VALUES(?)";
 }

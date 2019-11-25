@@ -1,6 +1,8 @@
 package ua.com.nc.nctrainingproject.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import ua.com.nc.nctrainingproject.models.Notification;
@@ -21,45 +23,42 @@ public class NotificationController {
 
 	@RequestMapping(value = "/all", method = RequestMethod.GET)
 	@ResponseBody
-	public List<Notification> getAllNotification() {
-		return notificationService.getAllNotifications();
+	public ResponseEntity<?> getAllNotification() {
+		return ResponseEntity.ok(notificationService.getAllNotifications());
 	}
 
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	@ResponseBody
-	public Notification createNotification(
-			@RequestParam(name = "userId") int userId,
-			@RequestParam(name = "actionId") int actionId) {
-		Notification notification = new Notification(userId, actionId);
-		notificationService.createNotification(notification);
-		return notification;
+	public ResponseEntity<?> createNotification(@RequestBody Notification notification) {
+		Notification response = notificationService.createNotification(notification);
+		return response != null ? ResponseEntity.ok(response) : new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
 
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
 	@ResponseBody
-	public void deleteNotification(
-			@RequestParam("userId") int userId,
-			@RequestParam("actionId") int actionId) {
-		notificationService.deleteNotification(userId, actionId);
+	public ResponseEntity<?> deleteNotification(@RequestBody Notification notification) {
+		Notification response = notificationService.deleteNotification(notification);
+		return response != null ? ResponseEntity.ok(response) : new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
 
 	@RequestMapping(value = "/get/{userId}", method = RequestMethod.POST)
 	@ResponseBody
-	public Notification getNotificationByUserId(@PathVariable("userId") int userId) {
-		return notificationService.getNotificationByUserID(userId);
+	public ResponseEntity<?> getNotificationByUserId(@PathVariable("userId") int userId) {
+		return ResponseEntity.ok(notificationService.getNotificationByUserID(userId));
 	}
 
 	@RequestMapping(value = "/get/{actionId}", method = RequestMethod.POST)
 	@ResponseBody
-	public Notification getNotificationByActionId(@PathVariable("actionId") int actionId) {
-		return notificationService.getNotificationByActionID(actionId);
+	public ResponseEntity<?> getNotificationByActionId(@PathVariable("actionId") int actionId) {
+		return ResponseEntity.ok(notificationService.getNotificationByActionID(actionId));
 	}
 
 	@RequestMapping(value = "/get/{userId}_{actionId}", method = RequestMethod.POST)
 	@ResponseBody
-	public Notification getNotificationByUserId(
-			@PathVariable("userId") int userId,
-			@PathVariable("actionId") int actionId) {
-		return notificationService.getNotificationByUserActionID(userId, actionId);
+	public ResponseEntity<?> getNotificationByUserId(@RequestBody Notification notification) {
+		return ResponseEntity.ok(notificationService.
+				getNotificationByUserActionID(
+				notification.getUserId(),
+				notification.getActionId()));
 	}
 }

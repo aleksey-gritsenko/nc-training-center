@@ -21,13 +21,14 @@ public class BookPostgreDAO extends AbstractDAO<Book> {
 
     private final AuthorBookPostgreDAO authorBookPostgreDAO;
     private final GenrePostgreDAO genrePostgreDAO;
-
+    private final AuthorPostgreDAO authorPostgreDAO;
     @Autowired
     public BookPostgreDAO(JdbcTemplate jdbcTemplate, AuthorBookPostgreDAO authorBookPostgreDAO,
-                          GenrePostgreDAO genrePostgreDAO) {
+                          GenrePostgreDAO genrePostgreDAO, AuthorPostgreDAO authorPostgreDAO) {
         super(jdbcTemplate);
         this.authorBookPostgreDAO = authorBookPostgreDAO;
         this.genrePostgreDAO = genrePostgreDAO;
+        this.authorPostgreDAO = authorPostgreDAO;
     }
 
     public Book getBookById(int bookId) {
@@ -46,9 +47,14 @@ public class BookPostgreDAO extends AbstractDAO<Book> {
     public void createBook(Book book) {
         jdbcTemplate.update(BookQuery.CREATE_BOOK, book.getHeader(), book.getOverview(), book.getFileId(),
                 book.getStatus(), genrePostgreDAO.getIdByGenre(book.getGenre()), book.getPhotoId());
-
+        //TODO rework this to get real primary key
+        book.setId(getAllBooks().get(getAllBooks().size()-1).getId());
         for (Author author : book.getAuthors()) {
-            authorBookPostgreDAO.createAuthorBookConnection(book.getId(), author.getId());
+            if (authorPostgreDAO.getAuthorByName(author.getName()).size() == 0){
+                authorPostgreDAO.createAuthor(author);
+            }
+            authorBookPostgreDAO.createAuthorBookConnection(book.getId(), authorPostgreDAO.getAuthorByName(author.getName()).get(0).getId());
+
         }
     }
 

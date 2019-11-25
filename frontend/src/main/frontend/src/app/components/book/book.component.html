@@ -1,3 +1,6 @@
+<app-navigation></app-navigation>
+<div style="padding-top: 67px; margin-left: 70px"></div>
+
 <div class="container">
     <div *ngIf="book">
         <h1 class="text-muted">{{book.header }}</h1>
@@ -55,11 +58,8 @@
                 </div>
             </div>
         </div>
+        <div>
+            <app-reviews-list [book]="book"></app-reviews-list>
+        </div>
     </div>
-    <!--
-    <div>
-        <app-reviews-list [book]="book"></app-reviews-list>
-    </div>
-    -->
 </div>
-

@@ -24,18 +24,20 @@ public class NotificationService {
 		return notificationPostgreDAO.getAllNotifications();
 	}
 
-	public void createNotification(Notification notification) {
+	public Notification createNotification(Notification notification) {
 		if (userPostgreDAO.getUserById(notification.getUserId()) != null &&
 				notificationPostgreDAO.getNotificationByActionID(notification.getActionId()) != null) {
 			notificationPostgreDAO.createNotification(notification);
 		}
+		return notification;
 	}
 
-	public void deleteNotification(int userId, int actionId) {
-		if (userPostgreDAO.getUserById(userId) != null &&
-				notificationPostgreDAO.getNotificationByActionID(actionId) != null) {
-			notificationPostgreDAO.deleteNotification(userId, actionId);
+	public Notification deleteNotification(Notification notification) {
+		if (userPostgreDAO.getUserById(notification.getUserId()) != null &&
+				notificationPostgreDAO.getNotificationByActionID(notification.getActionId()) != null) {
+			notificationPostgreDAO.deleteNotification(notification.getUserId(), notification.getActionId());
 		}
+		return notification;
 	}
 
 	public Notification getNotificationByActionID(int actionId) {

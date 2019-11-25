@@ -21,5 +21,8 @@ public class ReviewQuery {
 	public static final String GET_ACCEPTED_REVIEWS_OF_BOOK = "SELECT * FROM " + TABLE_NAME +
 			" WHERE " +  STATUS + "=(?) AND " + BOOK_ID + " =(?)";
 
+	public static final String DELETE_REVIEW_BY_ID = "DELETE FROM " + TABLE_NAME + " WHERE " + REVIEW_ID + " =(?)";
+
+	public static final String GET_REVIEW_BY_ID = "SELECT * FROM " + TABLE_NAME + " WHERE " + REVIEW_ID + " =(?)";
 }
 

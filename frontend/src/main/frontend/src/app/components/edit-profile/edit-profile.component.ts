@@ -12,6 +12,7 @@ import {Subscription} from "rxjs";
 })
 export class EditProfileComponent implements OnInit, OnDestroy {
     repeatPassword: string = '';
+    editStatus: string;
 
     private currentUser: User;
     private updatedUser: User = new User();
@@ -21,7 +22,6 @@ export class EditProfileComponent implements OnInit, OnDestroy {
     constructor(private userService: UserService,
                 private route: ActivatedRoute,
                 private storageService: StorageService) {
-
     }
 
     ngOnInit() {
@@ -33,16 +33,17 @@ export class EditProfileComponent implements OnInit, OnDestroy {
     }
 
     update(): void {
-        if (this.userService.equals(this.updatedUser, this.currentUser)) {
-            console.log('Users are equal');
-            return;
-        }
+        if (this.userService.equals(this.updatedUser, this.currentUser)) return;
         this.userService.updateProfile(this.updatedUser)
             .subscribe(
                 user => {
+                    this.editStatus = 'success';
+                    this.repeatPassword='';
                     this.storageService.setUser(user);
                 },
-                error => console.log(error)
+                error => {
+                    this.editStatus = 'error';
+                }
             );
     }
 
