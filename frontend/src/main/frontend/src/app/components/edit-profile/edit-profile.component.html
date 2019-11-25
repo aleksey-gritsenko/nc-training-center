@@ -33,7 +33,20 @@
                     </div>
                 </div>
             </div>
-            <button class="btn btn-primary pull-right" type="button" (click)="update()">Update Profile</button>
+            <div [ngSwitch]="editStatus">
+                <div class="alert alert-success text-center" role="alert" *ngSwitchCase="'success'">
+                    Success! The user has been changed
+                </div>
+                <div class="alert alert-warning text-center" role="alert" *ngSwitchCase="'password'">
+                    The password should contain at least 8 characters, 1 upper letter and 1 number
+                </div>
+                <div class="alert alert-danger text-center" role="alert" *ngSwitchCase="'error'">
+                    This email is already exist! Try again!
+                </div>
+            </div>
+            <button class="btn btn-primary pull-right" type="button"
+                    [disabled]="userService.equals(currentUser, updatedUser) || updatedUser.userPassword != repeatPassword"
+                    (click)="update()">Update Profile</button>
         </form>
     </div>
 </div>

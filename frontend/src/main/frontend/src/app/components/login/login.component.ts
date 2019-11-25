@@ -18,6 +18,7 @@ export class LoginComponent implements OnInit {
         password: ''
     };
 
+    isError: boolean = false;
     returnUrl: string;
 
     constructor(
@@ -38,6 +39,9 @@ export class LoginComponent implements OnInit {
                     this.router.navigate([this.returnUrl]);
                 },
                 error => {
+                    this.isError = true;
+                    this.model.password = '';
+                    this.model.login = '';
                     //  this.error = error;
                     //  this.loading = false;
                 }
