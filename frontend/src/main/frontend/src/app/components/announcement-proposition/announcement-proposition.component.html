@@ -1,1 +1,30 @@
-<p>announcement-proposition works!</p>
+<style>
+
+    .announcement{
+
+        padding: 130px 130px;
+        position: relative;
+    }
+
+</style>
+<div class = "navigation">
+    <app-navigation></app-navigation>
+    <router-outlet></router-outlet>
+</div>
+
+
+
+
+<div class="announcement">
+    <ul>
+        <li *ngFor="let announcement of announcements">
+            <div class="alert alert-warning">
+                <div>Description: {{announcement.description}}</div>
+                <div>Date: {{announcement.announcementDate}}</div>
+            </div>
+            <button  class="btn btn-primary" (click)="publishAnnouncement(announcement.id)">Publish
+            </button>
+        </li>
+    </ul>
+
+</div>

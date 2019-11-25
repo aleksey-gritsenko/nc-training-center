@@ -52,12 +52,22 @@ public class AnnouncementController {
 	@RequestMapping(value = "/proposeAnnouncement", method = RequestMethod.POST)
 	public Announcement proposeAnnouncement(@RequestBody Announcement announcement){
 		announcementService.proposeAnnouncement(announcement);
+		System.out.println(announcement.toString());
+
 		return announcement;
 	}
-
+/*
 	@RequestMapping(value = "/new/{id}", method = RequestMethod.POST)
 	public void publishAnnouncement(@PathVariable("id") int id) {
 		announcementService.publishAnnouncement(id);
+	}
+
+ */
+
+	@RequestMapping(value = "/publish", method = RequestMethod.POST)
+	public void publishAnnouncement(@RequestBody Announcement announcement) {
+		System.out.println("id "+announcement.getId());
+		announcementService.publishAnnouncement(announcement.getId());
 	}
 
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)

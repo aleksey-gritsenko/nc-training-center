@@ -2,7 +2,7 @@ package ua.com.nc.nctrainingproject.persistance.dao.postgre.queries;
 
 public class AnnouncementQuery {
 	public static final String TABLE_NAME = "announcement";
-	public static final String ANNOUNCEMENT_ID = "announcement_ID";
+	public static final String ANNOUNCEMENT_ID = "announcement_id";
 	public static final String DESCRIPTION = "description";
 	public static final String ANNOUNCEMENT_DATE = "announcement_date";
 	public static final String BOOK_ID = "book_id";
