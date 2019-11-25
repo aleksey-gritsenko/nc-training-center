@@ -13,6 +13,7 @@ import {Author} from "../../models/author";
 export class BookComponent implements OnInit {
     book: Book = new Book();
     authors: Author[] = [];
+
     constructor(private apiService: CommonService, private route: ActivatedRoute) {
     }
 
@@ -21,12 +22,15 @@ export class BookComponent implements OnInit {
     ngOnInit() {
         this.id = parseInt(this.route.snapshot.paramMap.get('id'));
         this.getBook();
+
     }
 
     updateBook(): void {
-        const newCreatedBook: Book = Object.assign({}, this.book);
+
         this.book.authors = [];
-        this.authors.forEach(author=>{this.book.authors.push(author)});
+        const newCreatedBook: Book = Object.assign({}, this.book);
+
+
         this.apiService.updateBook(newCreatedBook).subscribe(
             res => {
                 this.book = res;

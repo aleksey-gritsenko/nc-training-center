@@ -1,6 +1,8 @@
 package ua.com.nc.nctrainingproject.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ua.com.nc.nctrainingproject.models.Review;
 import ua.com.nc.nctrainingproject.services.ReviewService;
@@ -19,23 +21,24 @@ public class ReviewController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public Review addReview(@RequestParam(name = "book") int bookId,
-							@RequestParam(name = "user") int userId,
-							@RequestParam(name = "text") String text,
-							@RequestParam(name = "grade") int grade) {
-		return reviewService.createReview(bookId, userId, text, grade);
+	public ResponseEntity<?> addReview(@RequestParam(name = "book") int bookId,
+									@RequestParam(name = "user") int userId,
+									@RequestParam(name = "text") String text,
+									@RequestParam(name = "grade") int grade) {
+		Review response =  reviewService.createReview(userId,bookId, text, grade);
+		return response != null ? ResponseEntity.ok(response) : new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
 
 	@RequestMapping(value = "/all", method = RequestMethod.GET)
-	public List<Review> getReviewsOfBook(@RequestParam(name = "book") int bookId) {
+	public ResponseEntity<?>  getReviewsOfBook(@RequestParam(name = "book") int bookId) {
 		System.out.println(bookId);
-		return reviewService.getReviewOfBook(bookId);
+		return ResponseEntity.ok(reviewService.getReviewOfBook(bookId));
 	}
 
 	@RequestMapping(value = "/accepted", method = RequestMethod.GET)
-	public List<Review> getAcceptedReviews(@RequestParam(name = "book") int bookId,
+	public ResponseEntity<?>  getAcceptedReviews(@RequestParam(name = "book") int bookId,
 										 @RequestParam(name = "status") boolean status) {
-		return reviewService.getAcceptedReview(status,bookId);
+		return ResponseEntity.ok(reviewService.getAcceptedReview(status,bookId));
 	}
 
 

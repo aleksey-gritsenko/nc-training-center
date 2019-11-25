@@ -112,16 +112,18 @@ export class BooksListComponent implements OnInit {
         this.createdAuthors.split(',').forEach(name=>{
             let author = new Author();
             author.name = name;
-            this.createdBook.authors.push(author)
+            this.createdBook.authors.push(author);
         });
         const newCreatedBook: Book = Object.assign({}, this.createdBook);
         this.apiService.createBook(newCreatedBook)
             .subscribe(res => {
                     this.books.push(res);
+                    console.log(newCreatedBook);
                 },
                 err => {
                     alert("Error in create book");
                 });
+
     }
     createBookFromChange(){
 
