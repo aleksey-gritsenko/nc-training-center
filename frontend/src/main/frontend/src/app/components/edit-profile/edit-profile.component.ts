@@ -12,6 +12,7 @@ import {Subscription} from "rxjs";
 })
 export class EditProfileComponent implements OnInit, OnDestroy {
     repeatPassword: string = '';
+    editStatus: string;
 
     private currentUser: User;
     private updatedUser: User = new User();
@@ -36,9 +37,13 @@ export class EditProfileComponent implements OnInit, OnDestroy {
         this.userService.updateProfile(this.updatedUser)
             .subscribe(
                 user => {
+                    this.editStatus = 'success';
+                    this.repeatPassword='';
                     this.storageService.setUser(user);
                 },
-                error => console.log(error)
+                error => {
+                    this.editStatus = 'error';
+                }
             );
     }
 

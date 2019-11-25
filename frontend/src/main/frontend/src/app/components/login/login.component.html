@@ -25,6 +25,9 @@
                             <div class="form-group">
                                 <button type="submit" class="btn btn-default">Sign in</button>
                             </div>
+                            <div class="alert alert-danger text-center" role="alert" *ngIf="isError">
+                                Username or password are incorrect!
+                            </div>
                             <div class="form-group forgot-pass">
                                 <a href="/recover">Forgot password?</a>
                             </div>
