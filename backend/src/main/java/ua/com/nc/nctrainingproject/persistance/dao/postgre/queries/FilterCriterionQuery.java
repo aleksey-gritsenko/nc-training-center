@@ -55,34 +55,30 @@ public class FilterCriterionQuery {
 		return args;
 	}
 
-	private StringBuilder makeGenresConditions() {
-		StringBuilder genresCondition = new StringBuilder("");
+	private String makeGenresConditions() {
+		String genresCondition = " ";
 
 		if (genre.size() != 0) {
-			for (int i = 0; i < genre.size(); i++) {
-				genresCondition.append(BookQuery.CONDITIONS_GENRES);
-				if (i < genre.size()) {
-					genresCondition.append(" OR ");
-				}
-			}
+			genresCondition =
+					genre.stream().map((i) -> BookQuery.CONDITIONS_GENRES+" OR ")
+							.reduce((g,n)->g+n).get();
 		}
 		return genresCondition;
 	}
 
-	private StringBuilder makeAuthorConditins() {
-		StringBuilder authorCondition = new StringBuilder("");
+	private String makeAuthorConditins() {
+		String authorCondition = " ";
 
 		if (author.size() != 0) {
-			for (int i = 0; i < author.size(); i++) {
-				authorCondition.append(BookQuery.CONDITION_AUTHOR);
-				authorCondition.append(" OR ");
-			}
+			authorCondition =  author.stream().map((i) -> BookQuery.CONDITION_AUTHOR
+					+" OR ").reduce((g,n)->g+n).get();
+
 		}
 		return authorCondition;
 	}
 
-	private StringBuilder makeHeaderCondition() {
-		return new StringBuilder(BookQuery.CONDITIONS_NAME);
+	private String makeHeaderCondition() {
+		return BookQuery.CONDITIONS_NAME;
 	}
 
 	public ArrayList<String> getGenre() {

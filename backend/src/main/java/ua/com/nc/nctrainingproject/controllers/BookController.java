@@ -55,10 +55,12 @@ public class BookController {
 	}
 
 	@RequestMapping(value = "/filter", method = RequestMethod.GET)
-	public List<Book> filterBook(@RequestParam(name = "header") String header,
-								 @RequestParam(name = "genre") ArrayList<String> genres,
-								 @RequestParam(name = "author") ArrayList<String> authors) {
-
+	public List<Book> filterBook(@RequestParam(name = "header") String header
+								 //@RequestParam(name = "genre") ArrayList<String> genres,
+								// @RequestParam(name = "author") ArrayList<String> authors
+								 ) {
+ArrayList<String> genres = new ArrayList<>();
+ArrayList<String> authors = new ArrayList<>();
 		return bookService.filterBooks(header + "%", genres, authors);
 	}
 	@RequestMapping(value = "/genres", method = RequestMethod.GET)

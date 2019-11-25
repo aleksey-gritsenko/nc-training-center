@@ -25,10 +25,9 @@ public class PasswordRecoverController {
 	@RequestMapping("/email")
 	@ResponseBody
 	public ResponseEntity<?> emailSender(@RequestParam String email) {
-		if (email != null) {
+		if (!email.equals("")) {
 			try {
-				if (passwordRecoverService.isEmail(email) &&
-						passwordRecoverService.verifyEmail(email)) {
+				if (passwordRecoverService.checkEmail(email)) {
 					passwordRecoverService.makeEmail(email);
 					return new ResponseEntity<>(HttpStatus.OK);
 				}
@@ -43,7 +42,7 @@ public class PasswordRecoverController {
 	@ResponseBody
 	public ResponseEntity<?> passwordRecoverUser(@RequestParam String recoverCode,
 												 @RequestParam String newPassword) {
-		if (recoverCode != null && newPassword != null) {
+		if (!recoverCode.equals("") && !newPassword.equals("")) {
 			if (passwordRecoverService.passwordRecover(recoverCode, newPassword)) {
 				return new ResponseEntity<>(HttpStatus.OK);
 			}
