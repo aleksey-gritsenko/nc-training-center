@@ -1,3 +1,7 @@
 .login {
     margin-left: 15px;
 }
+
+.select:hover {
+    color: white;
+}

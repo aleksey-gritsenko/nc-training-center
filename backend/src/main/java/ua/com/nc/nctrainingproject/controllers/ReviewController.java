@@ -28,11 +28,12 @@ public class ReviewController {
 
 	@RequestMapping(value = "/all", method = RequestMethod.GET)
 	public List<Review> getReviewsOfBook(@RequestParam(name = "book") int bookId) {
+		System.out.println(bookId);
 		return reviewService.getReviewOfBook(bookId);
 	}
 
 	@RequestMapping(value = "/accepted", method = RequestMethod.GET)
-	public List<Review> getReviewsOfBook(@RequestParam(name = "book") int bookId,
+	public List<Review> getAcceptedReviews(@RequestParam(name = "book") int bookId,
 										 @RequestParam(name = "status") boolean status) {
 		return reviewService.getAcceptedReview(status,bookId);
 	}
@@ -43,6 +44,11 @@ public class ReviewController {
 							 @RequestParam(name = "status") boolean status,
 							 @RequestParam(name = "admin") int adminId) {
 		reviewService.acceptReview(reviewId,adminId,status);
+	}
+
+	@RequestMapping(value = "/delete")
+	public void deleteReviewById(@RequestParam(name="review") int reviewId){
+		reviewService.deleteReviewById(reviewId);
 	}
 
 }

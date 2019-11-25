@@ -35,50 +35,58 @@ import {SidebarComponent} from './components/sidebar/sidebar.component';
 import {AuthenticationService} from './services/authentification/authentication.service';
 import {RecoverComponent} from './components/recover/recover.component';
 import {ChangePasswordComponent} from './components/change-password/change-password.component';
+import {ViewProfileComponent} from './components/view-profile/view-profile.component';
+import {EditProfileComponent} from './components/edit-profile/edit-profile.component';
+import {AddAdminComponent} from './components/add-admin/add-admin.component';
+import {DeactivateAccountComponent} from './components/deactivate-account/deactivate-account.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    NavigationComponent,
-    LoginComponent,
-    RegistrationComponent,
-    LandingComponent,
-    ErrorpageComponent,
-    UserProfileComponent,
-    AnnouncementListComponent,
-    BooksListComponent,
-    ReviewsListComponent,
-    NotificationsListComponent,
-    BookOverviewPropositionComponent,
-    BookReviewPropositionComponent,
-    AnnouncementPropositionComponent,
-    BookComponent,
-    ReviewComponent,
-    AnnouncementComponent,
-    ActivityComponent,
-    ActivitiesListComponent,
-    FriendsListComponent,
-    SuperadminProfileComponent,
-    AdminProfileComponent,
-    ModeratorProfileComponent,
-    ModeratorsListComponent,
-    AdminsListComponent,
-    ChatComponent,
-    CalendarComponent,
-    SidebarComponent,
-    RecoverComponent,
-    ChangePasswordComponent
-  ],
+    declarations: [
+        AppComponent,
+        NavigationComponent,
+        LoginComponent,
+        RegistrationComponent,
+        LandingComponent,
+        ErrorpageComponent,
+        UserProfileComponent,
+        AnnouncementListComponent,
+        BooksListComponent,
+        ReviewsListComponent,
+        NotificationsListComponent,
+        BookOverviewPropositionComponent,
+        BookReviewPropositionComponent,
+        AnnouncementPropositionComponent,
+        BookComponent,
+        ReviewComponent,
+        AnnouncementComponent,
+        ActivityComponent,
+        ActivitiesListComponent,
+        FriendsListComponent,
+        SuperadminProfileComponent,
+        AdminProfileComponent,
+        ModeratorProfileComponent,
+        ModeratorsListComponent,
+        AdminsListComponent,
+        ChatComponent,
+        CalendarComponent,
+        SidebarComponent,
+        RecoverComponent,
+        ChangePasswordComponent,
+        ViewProfileComponent,
+        EditProfileComponent,
+        AddAdminComponent,
+        DeactivateAccountComponent
+    ],
 
-  imports: [
-    BrowserModule,
-    HttpClientModule,
-    FormsModule,
-    AppRoutingModule
-  ],
+    imports: [
+        BrowserModule,
+        HttpClientModule,
+        FormsModule,
+        AppRoutingModule
+    ],
 
-  providers: [AuthenticationService],
-  bootstrap: [AppComponent]
+    providers: [AuthenticationService],
+    bootstrap: [AppComponent]
 })
 
 export class AppModule {

@@ -12,6 +12,17 @@ public class Book extends Entity {
     private int fileId;
     private String genre;
 
+    public Book(String header, List<Author> authors, String overview,
+                String status, int photo, int fileId, String genre) {
+        this.header = header;
+        this.authors = authors;
+        this.overview = overview;
+        this.status = status;
+        this.photo = photo;
+        this.fileId = fileId;
+        this.genre = genre;
+    }
+
     public Book(String header, String overview, String status, int photo, int fileId) {
         this.header = header;
         this.overview = overview;
