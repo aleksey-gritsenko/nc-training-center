@@ -28,8 +28,10 @@ export class ReviewsListComponent implements OnInit{
 
 
     ngOnChanges() {
-        this.getAcceptedReviews();
-        this.getNotAcceptedReviews();
+        if(this.book.id!=null){
+            this.getAcceptedReviews();
+            this.getNotAcceptedReviews();
+        }
     }
     getAcceptedReviews(): void {
         this.commonService.getAcceptedReviews(this.book.id, true).subscribe(
@@ -51,7 +53,7 @@ export class ReviewsListComponent implements OnInit{
         review.adminId=1;
         this.commonService.acceptReview(review, true).subscribe(
             res=>{this.acceptedReviews.push(review);
-            this.notAcceptedReviews.splice(this.notAcceptedReviews.indexOf(review));
+                this.notAcceptedReviews.splice(this.notAcceptedReviews.indexOf(review));
             }
         );
     }
