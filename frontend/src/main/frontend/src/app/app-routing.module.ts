@@ -25,6 +25,7 @@ const routes: Routes = [
         path: 'announcementlist',
         component: AnnouncementListComponent
     },
+
     {
         path: 'change',
         component: ChangePasswordComponent

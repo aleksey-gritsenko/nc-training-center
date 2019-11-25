@@ -1,10 +1,27 @@
-<div>
+
+<style>
+
+    .announcement{
+
+        padding: 130px 130px;
+        position: relative;
+    }
+
+</style>
+<div class = "navigation">
+    <app-navigation></app-navigation>
+    <router-outlet></router-outlet>
+</div>
+
+
+
+
+<div class="announcement">
     <ul>
         <li *ngFor="let announcement of announcements">
             <div class="alert alert-warning">
-                <div><a routerLink="announcementlist/{{announcement.title}}">Title: {{announcement.title}}</a></div>
                 <div>Description: {{announcement.description}}</div>
-                <div>Date: {{announcement.date}}</div>
+                <div>Date: {{announcement.announcementDate}}</div>
             </div>
         </li>
     </ul>

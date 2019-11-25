@@ -12,7 +12,7 @@ import java.util.List;
 public class AnnouncementController2 {
    @RequestMapping(value = "/myannouncement", method = RequestMethod.POST)
     public void getAnnouncement(@RequestBody   Announcement2 announcement){
-        System.out.println(announcement);
+        System.out.println(announcement.toString());
     }
 @Autowired
 AnnouncementService3 announcementService3;
@@ -20,11 +20,6 @@ AnnouncementService3 announcementService3;
     public List<Announcement2> getAllAnnouncement(){
         return announcementService3.method();
     }
-    @RequestMapping(value = "/announcement", method = RequestMethod.GET)
-
-  public void getAnnouncement2(@RequestParam Announcement2 announcement2){
-   System.out.println(announcement2);
-  }
 
 
 

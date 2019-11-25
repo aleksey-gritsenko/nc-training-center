@@ -73,5 +73,15 @@ public class Announcement2 {
     private int ownerId;
     private String status;
 
-
+    @Override
+    public String toString() {
+        return "Announcement2{" +
+                "description='" + description + '\'' +
+                ", announcementDate='" + announcementDate + '\'' +
+                ", bookID=" + bookID +
+                ", priority='" + priority + '\'' +
+                ", ownerId=" + ownerId +
+                ", status='" + status + '\'' +
+                '}';
+    }
 }

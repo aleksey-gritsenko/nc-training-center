@@ -10,6 +10,7 @@ import {StorageService} from "../../services/storage/storage.service";
     styleUrls: ['./announcement.component.css']
 })
 export class AnnouncementComponent implements OnInit {
+    role:String;
     model : Announcement = {
     id :0,
     description: '',
@@ -31,15 +32,19 @@ export class AnnouncementComponent implements OnInit {
         this.id
             = parseInt(this.route.snapshot.paramMap.get('id'));
         this.storage
+        this.role = 'admin';
     }
 
     createAnnouncement(): void {
-        let url = 'http://localhost:8080//announcement';
+        let url = 'http://localhost:8080//myannouncement';
         this.model.bookID = this.id;
+        if(this.role == 'admin'){
+            this.model.status = 'PUBLISHED';
+        }
        // this.model.ownerId = this.storage.getUser().id;
         this.http.post(url, this.model).subscribe(
             res=>{
-                location.reload();
+                //location.reload();
             },
             err=>{
                 err => {alert(JSON.parse(JSON.stringify(err)).message);}      }

@@ -1,4 +1,7 @@
 import {Component, OnInit} from '@angular/core';
+import {Announcement} from "../../models/announcement";
+import {HttpClient} from "@angular/common/http";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
     selector: 'app-announcement-proposition',
@@ -7,10 +10,36 @@ import {Component, OnInit} from '@angular/core';
 })
 export class AnnouncementPropositionComponent implements OnInit {
 
-    constructor() {
+    announcements: Announcement[] = [];
+
+    constructor(private http: HttpClient,private route: ActivatedRoute) {
     }
 
     ngOnInit() {
+        this.getAllAnnouncement();
     }
 
+    public getAllAnnouncement() {
+        let url = 'http://localhost:8080/myallannouncement';
+        this.http.get<Announcement[]>(url).subscribe(
+            res => {
+                this.announcements = res;
+            },
+            err => {
+                alert("ERROr");
+            }
+        )
+    }
+    public publishAnnouncement(i : number){
+        let url = 'http://localhost:8080//myannouncement';
+
+        // this.model.ownerId = this.storage.getUser().id;
+        this.http.post(url, this.announcements[i]).subscribe(
+            res=>{
+                //location.reload();
+            },
+            err=>{
+                err => {alert(JSON.parse(JSON.stringify(err)).message);}      }
+        );
+    }
 }
