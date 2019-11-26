@@ -29,7 +29,6 @@ export class CommonService {
             .set('Accept', 'application/json').set('Access-Control-Allow-Origin', '*')
     };
 
-
     getBooks(): Observable<Book[]> {
         const url = `${this.booksUrl}\\all`;
         return this.http.get<Book[]>(url);
@@ -59,7 +58,8 @@ export class CommonService {
 
 
     updateBook(book: Book): Observable<Book> {
-        return this.http.post<Book>(this.booksUrl, book);
+        const url = `${this.booksUrl}\\update`;
+        return this.http.post<Book>(url, book);
     }
 
     getAnnouncements(): Observable<Announcement[]> {
