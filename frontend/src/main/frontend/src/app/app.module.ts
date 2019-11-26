@@ -36,6 +36,7 @@ import {ViewProfileComponent} from './components/user/view-profile/view-profile.
 import {EditProfileComponent} from './components/user/edit-profile/edit-profile.component';
 import {AddAdminComponent} from './components/user/add-admin/add-admin.component';
 import {DeactivateAccountComponent} from './components/deactivate-account/deactivate-account.component';
+import {CKEditorModule} from "@ckeditor/ckeditor5-angular";
 
 @NgModule({
     declarations: [
@@ -76,7 +77,8 @@ import {DeactivateAccountComponent} from './components/deactivate-account/deacti
         BrowserModule,
         HttpClientModule,
         FormsModule,
-        AppRoutingModule
+        AppRoutingModule,
+        CKEditorModule
     ],
 
     providers: [AuthenticationService],

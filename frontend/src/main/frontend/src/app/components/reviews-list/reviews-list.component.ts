@@ -4,6 +4,7 @@ import {Review} from '../../models/review'
 import {CommonService} from '../../services/common/common.service'
 import {Book} from "../../models/book";
 import {UserService} from "../../services/user/user.service";
+import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 @Component({
     selector: 'app-reviews-list',
@@ -11,7 +12,7 @@ import {UserService} from "../../services/user/user.service";
     styleUrls: ['./reviews-list.component.css']
 })
 export class ReviewsListComponent implements OnInit{
-
+    public Editor = ClassicEditor;
     acceptedReviews: Review[] = [];
     notAcceptedReviews: Review[] = [];
     @Input() book: Book;
@@ -81,6 +82,7 @@ export class ReviewsListComponent implements OnInit{
         const newCreatedReview: Review = Object.assign({}, this.createdReview);
         newCreatedReview.bookId = this.book.id;
         newCreatedReview.userId = parseInt(this.route.snapshot.paramMap.get('id'));
+        console.log(this.createdReview.text);
         if(isNaN(newCreatedReview.userId))
         {
             this.router.navigate(['/login']);
@@ -105,5 +107,9 @@ export class ReviewsListComponent implements OnInit{
         this.commonService.deleteReviewById(review).subscribe(
             res=>{this.notAcceptedReviews.splice(this.notAcceptedReviews.indexOf(review),1)}
         );
+    }
+
+    fillArray(grade:number){
+        return Array.from({ length: grade }, (v, i) => i)
     }
 }
