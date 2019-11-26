@@ -9,6 +9,7 @@ a:hover, a:focus {
     background: linear-gradient(to bottom, #6f0000, #200122);
     padding: 40px 50px;
     position: relative;
+    border-radius: 30px;
 }
 
 .tab:before {
@@ -21,6 +22,8 @@ a:hover, a:focus {
     left: 0;
     background: linear-gradient(#2e3a6a, #2f0b45);
     opacity: 0.85;
+    border-radius: 30px;
+
 }
 
 .tab .nav-tabs {

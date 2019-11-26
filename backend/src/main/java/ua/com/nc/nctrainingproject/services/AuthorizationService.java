@@ -28,6 +28,8 @@ public class AuthorizationService {
 	public User register(String login, String password, String email) {
 		if (userPostgreDAO.getUserByUserName(login) == null && userPostgreDAO.getUserByEmail(email) == null) {
 			User user = new User(login, password, email);
+			user.setUserRole("user");
+
 			userPostgreDAO.createUser(user);
 
 			return userPostgreDAO.getUserByUserName(login);

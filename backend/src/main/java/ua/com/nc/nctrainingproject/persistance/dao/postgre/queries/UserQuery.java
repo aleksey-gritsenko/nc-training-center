@@ -15,7 +15,7 @@ public class  UserQuery {
 			+ " WHERE " + USERNAME + " =(?)";
 
 	public static final String CREATE_USER = "INSERT INTO " + TABLE_NAME
-			+ " (" + USERNAME + "," + USER_PASSWORD + "," + EMAIL + ")" + " VALUES(?,?,?)";
+			+ " (" + USERNAME + "," + USER_PASSWORD + "," + EMAIL + "," + ROLE + ")" + " VALUES(?,?,?,?)";
 
 	public static final String GET_ALL = "SELECT * FROM " + TABLE_NAME;
 	public static final String UPDATE_PASSWORD_BY_EMAIL =
