@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {RegView} from '../../models/regview';
+import {RegView} from '../../../models/regview';
 import {HttpClient} from '@angular/common/http';
-import {Route, Router} from "@angular/router";
-import {StorageService} from "../../services/storage/storage.service";
-import {User} from "../../models/user";
+import {Router} from "@angular/router";
+import {StorageService} from "../../../services/storage/storage.service";
+import {AuthenticationService} from "../../../services/authentification/authentication.service";
 
 @Component({
     selector: 'app-registration',
@@ -20,7 +20,8 @@ export class RegistrationComponent implements OnInit {
 
     constructor(private http: HttpClient,
                 private router: Router,
-                private storage: StorageService) {
+                private storage: StorageService,
+                private authenticationService: AuthenticationService) {
     }
 
     confirmPassword: string = '';
@@ -29,24 +30,15 @@ export class RegistrationComponent implements OnInit {
     }
 
     register(): void {
-        let url = 'http://localhost:8080/registration';
-        let form = new FormData();
-        form.append('login', this.model.login);
-        form.append('password', this.model.password);
-        form.append('email', this.model.email);
-
-        this.http.post<User>(url, form).subscribe(
+        this.authenticationService.register(this.model.login, this.model.password, this.model.email).subscribe(
             res => {
                 if (res != null) {
-                    // localStorage.setItem('isAdmin', 'false');
-                    //localStorage.setItem('currentUser', JSON.stringify(res));
-                    //location.assign('/');
                     this.storage.setUser(res);
                     this.router.navigateByUrl('/')
                 }
             },
             err => {
-                alert(JSON.parse(JSON.stringify(err)).message);
+                console.log(err);
             }
         );
     }

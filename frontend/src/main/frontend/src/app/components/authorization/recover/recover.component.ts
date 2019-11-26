@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {RecView} from '../../models/recview';
-import {RecoverService} from '../../services/recover/recover.service';
+import {RecView} from '../../../models/recview';
+import {RecoverService} from '../../../services/recover/recover.service';
 import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({

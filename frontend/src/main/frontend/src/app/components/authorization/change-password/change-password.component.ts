@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {Changeview} from '../../models/changeview';
-import {ChangePasswordService} from '../../services/change/change-password.service';
+import {Changeview} from '../../../models/changeview';
+import {ChangePasswordService} from '../../../services/change/change-password.service';
 import {Router} from "@angular/router";
 
 @Component({

@@ -1,17 +1,17 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {LoginComponent} from './components/login/login.component';
-import {RegistrationComponent} from './components/registration/registration.component';
+import {LoginComponent} from './components/authorization/login/login.component';
+import {RegistrationComponent} from './components/authorization/registration/registration.component';
 import {LandingComponent} from './components/landing/landing.component';
 import {ErrorpageComponent} from './components/errorpage/errorpage.component';
-import {UserProfileComponent} from './components/user-profile/user-profile.component';
-import {RecoverComponent} from './components/recover/recover.component';
-import {ChangePasswordComponent} from './components/change-password/change-password.component';
+import {UserProfileComponent} from './components/user/user-profile/user-profile.component';
+import {RecoverComponent} from './components/authorization/recover/recover.component';
+import {ChangePasswordComponent} from './components/authorization/change-password/change-password.component';
 import {BookComponent} from './components/book/book.component';
 import {BooksListComponent} from "./components/books-list/books-list.component";
 import {AnnouncementComponent} from "./components/announcement/announcement.component";
 import {AnnouncementListComponent} from "./components/announcement-list/announcement-list.component";
-import  {AnnouncementPropositionComponent} from "./components/announcement-proposition/announcement-proposition.component";
+import {AnnouncementPropositionComponent} from "./components/announcement-proposition/announcement-proposition.component";
 
 const routes: Routes = [
     {

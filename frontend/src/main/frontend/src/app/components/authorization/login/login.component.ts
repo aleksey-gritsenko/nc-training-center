@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {LogView} from '../../models/logview';
+import {LogView} from '../../../models/logview';
 import {HttpClient} from '@angular/common/http';
 import {first} from 'rxjs/operators';
-import {Router, ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
-import {AuthenticationService} from '../../services/authentification/authentication.service';
+import {AuthenticationService} from '../../../services/authentification/authentication.service';
 
 @Component({
     selector: 'app-login',
