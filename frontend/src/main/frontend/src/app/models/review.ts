@@ -8,4 +8,5 @@ export class Review extends Entity {
     grade: number;
     adminId: number;
     status: boolean;
+    username: string;
 }

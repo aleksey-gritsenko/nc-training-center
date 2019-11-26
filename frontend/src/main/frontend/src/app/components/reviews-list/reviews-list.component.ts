@@ -1,8 +1,10 @@
 import {Component, DoCheck, Input, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {Review} from '../../models/review'
 import {CommonService} from '../../services/common/common.service'
 import {Book} from "../../models/book";
+import {UserService} from "../../services/user/user.service";
+import {User} from "../../models/user";
 
 @Component({
     selector: 'app-reviews-list',
@@ -18,7 +20,10 @@ export class ReviewsListComponent implements OnInit{
 
     createdReview: Review = new Review();
 
-    constructor(private commonService: CommonService, private route: ActivatedRoute) {
+    constructor(private commonService: CommonService,
+                private route: ActivatedRoute,
+                private router: Router,
+                private  userService:UserService) {
     }
 
     ngOnInit() {
@@ -37,8 +42,19 @@ export class ReviewsListComponent implements OnInit{
         this.commonService.getAcceptedReviews(this.book.id, true).subscribe(
             res => {
                 this.acceptedReviews = res;
+                this.acceptedReviews.forEach(
+                    review => {
+                        this.userService.searchUser(review.userId.toString()).subscribe(
+                            res=>{
+                                review.username = res.userName;
+                            });
+                    }
+                );
+
             }
-        )
+
+
+        );
     }
 
     getNotAcceptedReviews(): void{
@@ -50,7 +66,7 @@ export class ReviewsListComponent implements OnInit{
     }
 
     acceptReview(review:Review):void{
-        review.adminId=1;
+        review.adminId=parseInt(this.route.snapshot.paramMap.get('id'));
         this.commonService.acceptReview(review, true).subscribe(
             res=>{this.acceptedReviews.push(review);
                 this.notAcceptedReviews.splice(this.notAcceptedReviews.indexOf(review));
@@ -60,14 +76,21 @@ export class ReviewsListComponent implements OnInit{
     createReview(): void {
         const newCreatedReview: Review = Object.assign({}, this.createdReview);
         newCreatedReview.bookId = this.book.id;
-        this.commonService.createReview(newCreatedReview)
-            .subscribe(res => {
-                    this.notAcceptedReviews.push(res)
-                },
-                err => {
-                    alert("Error in creating new review");
-                }
-            );
+        newCreatedReview.userId = parseInt(this.route.snapshot.paramMap.get('id'));
+        if(isNaN(newCreatedReview.userId))
+        {
+            this.router.navigate(['/login']);
+        }else
+        {
+            this.commonService.createReview(newCreatedReview)
+                .subscribe(res => {
+                        this.notAcceptedReviews.push(res)
+                    },
+                    err => {
+                        alert("Error in creating new review");
+                    }
+                );
+        }
     }
 
     deleteReviewById(review:Review){

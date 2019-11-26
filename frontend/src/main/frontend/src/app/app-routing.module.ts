@@ -52,11 +52,19 @@ const routes: Routes = [
         component: BooksListComponent
     },
     {
-        path: 'books/:id/announcement',
+        path: 'books/:bookId/announcement',
         component: AnnouncementComponent
     },
     {
-        path: 'books/:id',
+        path: 'user/:id/books',
+        component: BooksListComponent
+    },
+    {
+        path: 'user/:id/books/book/:bookId',
+        component: BookComponent
+    },
+    {
+        path: 'books/book/:bookId',
         component: BookComponent
     },
     {
