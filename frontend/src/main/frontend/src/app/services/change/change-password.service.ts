@@ -15,6 +15,6 @@ export class ChangePasswordService {
         form.append('recoverCode', code);
         form.append('newPassword', password);
         this.http.post(url, form).subscribe();
-        location.assign('login');
+
     }
 }

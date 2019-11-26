@@ -4,6 +4,7 @@ import {Announcement} from '../../models/announcement';
 import {HttpClient} from "@angular/common/http";
 //import {Storage} from '../../services/storage';
 import {StorageService} from "../../services/storage/storage.service";
+import {User} from "../../models/user";
 @Component({
     selector: 'app-announcement',
     templateUrl: './announcement.component.html',
@@ -21,6 +22,7 @@ export class AnnouncementComponent implements OnInit {
     status: 'UNPUBLISHED'
 
 };
+    currentUser: User;
     constructor(private http: HttpClient,private route: ActivatedRoute,
                 private storage: StorageService) {
     }
@@ -29,19 +31,21 @@ export class AnnouncementComponent implements OnInit {
 
     ngOnInit() {
         this.model
-        this.id
-            = parseInt(this.route.snapshot.paramMap.get('id'));
+        //this.id = parseInt(this.route.snapshot.paramMap.get('id'));
         this.storage
         this.role = 'user';
+
+        this.currentUser = this.storage.getUser();
+
     }
 
     createAnnouncement(): void {
         let url = 'http://localhost:8080//announcements//proposeAnnouncement';
         this.model.bookID = this.id;
-        if(this.role == 'admin'){
+        if(this.currentUser.userRole == 'admin'){
             this.model.status = 'PUBLISHED';
         }
-      // this.model.ownerId = this.storage.getUser().id;
+        this.model.ownerId = this.currentUser.id;
         this.http.post(url, this.model).subscribe(
             res=>{
                 //location.reload();
