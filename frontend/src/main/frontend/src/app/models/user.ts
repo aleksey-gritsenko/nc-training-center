@@ -4,5 +4,6 @@ export class User extends Entity {
     userName: string;
     userPassword: string;
     email: string;
-    userRole: number;
+    userRole: string;
+    recoverCode: string;
 }

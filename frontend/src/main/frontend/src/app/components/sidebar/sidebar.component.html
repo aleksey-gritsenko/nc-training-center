@@ -1,15 +1,35 @@
-<div class="sidebar" data-color="purple" data-background-color="black" data-image="../assets/img/sidebar-2.jpg">
-    <div class="logo"><a href="/" class="simple-text logo-normal">
+<div class="sidebar" data-color="purple">
+    <div class="logo"><a class="simple-text logo-normal" routerLink="/">
         BookNet
     </a></div>
     <div class="sidebar-wrapper">
         <ul class="nav">
             <li class="nav-item ">
-                <a class="nav-link" href="/">
-                    <i class="material-icons">domain</i>
-                    <p>Main</p>
+            <a class="nav-link" routerLink="/">
+                <i class="material-icons">domain</i>
+                <p>Main</p>
+            </a>
+        </li>
+            <li class="nav-item ">
+                <a class="nav-link" routerLink="/announcement">
+                    <i class="material-icons">announcement</i>
+                    <p>New Announcement</p>
+                </a>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link" routerLink="/announcementlist">
+                    <i class="material-icons">dns</i>
+                    <p>All Announcements</p>
+                </a>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link" routerLink="books">
+                    <i class="material-icons">list</i>
+                    <p>Books</p>
                 </a>
             </li>
         </ul>
     </div>
 </div>
+
+

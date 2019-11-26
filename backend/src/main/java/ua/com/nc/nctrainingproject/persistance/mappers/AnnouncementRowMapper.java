@@ -16,7 +16,7 @@ public class AnnouncementRowMapper implements RowMapper<Announcement> {
 		announcement.setAnnouncementDate(resultSet.getDate(AnnouncementQuery.ANNOUNCEMENT_DATE));
 		announcement.setBookID(resultSet.getInt(AnnouncementQuery.BOOK_ID));
 		announcement.setPriority(resultSet.getString(AnnouncementQuery.PRIORITY));
-		announcement.setAdminID(resultSet.getInt(AnnouncementQuery.ADMIN_ID));
+		announcement.setOwnerId(resultSet.getInt(AnnouncementQuery.OWNER_ID));
 		announcement.setStatus(resultSet.getString(AnnouncementQuery.STATUS));
 		return announcement;
 	}

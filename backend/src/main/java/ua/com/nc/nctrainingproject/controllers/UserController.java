@@ -1,6 +1,7 @@
 package ua.com.nc.nctrainingproject.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ua.com.nc.nctrainingproject.models.User;
@@ -19,15 +20,21 @@ public class UserController {
 
 	@RequestMapping(method = RequestMethod.POST, value = "/update")
 	ResponseEntity<?> update(@RequestParam(name = "login") String login,
-							 @RequestParam(name = "newLogin") String newLogin,
 							 @RequestParam(name = "newPassword") String newPassword,
 							 @RequestParam(name = "newEmail") String newEmail) {
-		User newData = new User(newLogin, newPassword, newEmail);
-		return ResponseEntity.ok(userService.updateByName(login, newData));
+		User newData = new User(login, newPassword, newEmail);
+		User response = userService.updateByName(newData);
+		return response != null ? ResponseEntity.ok(response) : new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
 
-	@RequestMapping(method = RequestMethod.GET, value = "/{userName}")
-	ResponseEntity<?> get(@PathVariable(value = "userName") String userName) {
-		return ResponseEntity.ok(userService.getByName(userName));
+    @RequestMapping(method = RequestMethod.GET, value = "/{id}")
+    ResponseEntity<?> get(@PathVariable(value = "id") int id) {
+        return ResponseEntity.ok(userService.getById(id));
 	}
+
+	@RequestMapping(method = RequestMethod.POST, value = "/create/admin")
+    ResponseEntity<?> createAdmin(@RequestBody User admin) {
+        User response = userService.createAdmin(admin);
+        return response != null ? ResponseEntity.ok(response) :  new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
 }

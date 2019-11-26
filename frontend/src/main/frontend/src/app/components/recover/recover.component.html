@@ -13,7 +13,7 @@
             <div class="tab" role="tabpanel">
                 <div class="tab-content tabs">
                     <div role="tabpanel" class="tab-pane fade in active" id="Section1">
-                        <form class="form-horizontal" method="post" #f="ngForm" (submit)="recover()">
+                        <form class="form-horizontal" method="post" #f="ngForm">
                             <div class="form-group">
                                 <label>Enter your email to get recover code</label>
                             </div>
@@ -23,7 +23,7 @@
                                        [(ngModel)]="model.email">
                             </div>
                             <div class="form-group">
-                                <button type="submit" class="btn btn-default">Send recover code</button>
+                                <button type="button" class="btn btn-default" (click)="recover()">Send recover code</button>
                             </div>
                         </form>
                     </div>

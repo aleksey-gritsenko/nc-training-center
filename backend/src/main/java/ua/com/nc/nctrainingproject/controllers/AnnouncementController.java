@@ -44,39 +44,30 @@ public class AnnouncementController {
 	}
 
 	@RequestMapping(value = "/newAnnouncement", method = RequestMethod.POST)
-	public Announcement createAnnouncement(
-			@RequestParam(name = "description") String description,
-			@RequestParam(name = "announcementDate") String announcementDate,
-			@RequestParam(name = "bookID") int bookID,
-			@RequestParam(name = "priority") String priority,
-			@RequestParam(name = "adminID") int adminID,
-			@RequestParam(name = "status") String status
-	) throws ParseException {
-		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-		Date date = formatter.parse(announcementDate);
-		Announcement announcement = new Announcement(description, date, bookID, priority, adminID, status);
+	public Announcement createAnnouncement(@RequestBody Announcement announcement){
 		announcementService.createAnnouncement(announcement);
 		return announcement;
 	}
 
 	@RequestMapping(value = "/proposeAnnouncement", method = RequestMethod.POST)
-	public Announcement proposeAnnouncement(
-			@RequestParam(name = "description") String description,
-			@RequestParam(name = "announcementDate") String announcementDate,
-			@RequestParam(name = "bookID") int bookID,
-			@RequestParam(name = "priority") String priority,
-			@RequestParam(name = "adminID") int adminID
-	) throws ParseException {
-		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-		Date date = formatter.parse(announcementDate);
-		Announcement announcement = new Announcement(description, date, bookID, priority, adminID);
+	public Announcement proposeAnnouncement(@RequestBody Announcement announcement){
 		announcementService.proposeAnnouncement(announcement);
+		System.out.println(announcement.toString());
+
 		return announcement;
 	}
-
+/*
 	@RequestMapping(value = "/new/{id}", method = RequestMethod.POST)
 	public void publishAnnouncement(@PathVariable("id") int id) {
 		announcementService.publishAnnouncement(id);
+	}
+
+ */
+
+	@RequestMapping(value = "/publish", method = RequestMethod.POST)
+	public void publishAnnouncement(@RequestBody Announcement announcement) {
+		System.out.println("id "+announcement.getId());
+		announcementService.publishAnnouncement(announcement.getId());
 	}
 
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
@@ -85,19 +76,7 @@ public class AnnouncementController {
 	}
 
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
-	public Announcement updateAnnouncement(
-			@RequestParam(name = "announcementId") int announcementID,
-			@RequestParam(name = "description") String description,
-			@RequestParam(name = "announcementDate") String announcementDate,
-			@RequestParam(name = "bookID") int bookID,
-			@RequestParam(name = "priority") String priority,
-			@RequestParam(name = "adminID") int adminID,
-			@RequestParam(name = "status") String status
-	) throws ParseException {
-		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-		Date date = formatter.parse(announcementDate);
-		Announcement announcement = new Announcement(announcementID, description, date,
-				bookID, priority, adminID, status);
+	public Announcement updateAnnouncement(@RequestBody Announcement announcement){
 		announcementService.updateAnnouncement(announcement);
 		return announcement;
 	}

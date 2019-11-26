@@ -2,8 +2,13 @@ package ua.com.nc.nctrainingproject.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ua.com.nc.nctrainingproject.models.Author;
 import ua.com.nc.nctrainingproject.models.Book;
+import ua.com.nc.nctrainingproject.models.Genre;
+import ua.com.nc.nctrainingproject.persistance.dao.postgre.AuthorBookPostgreDAO;
+import ua.com.nc.nctrainingproject.persistance.dao.postgre.AuthorPostgreDAO;
 import ua.com.nc.nctrainingproject.persistance.dao.postgre.BookPostgreDAO;
+import ua.com.nc.nctrainingproject.persistance.dao.postgre.GenrePostgreDAO;
 import ua.com.nc.nctrainingproject.persistance.dao.postgre.queries.FilterCriterionQuery;
 
 import java.util.ArrayList;
@@ -13,16 +18,23 @@ import java.util.List;
 public class BookService {
 	private final BookPostgreDAO bookPostgreDAO;
 	private final FilterCriterionQuery filterCriterionQuery;
+	private final GenrePostgreDAO genrePostgreDAO;
+	private final AuthorPostgreDAO authorPostgreDAO;
+	private final AuthorBookPostgreDAO authorBookPostgreDAO;
 
 	@Autowired
-	public BookService(BookPostgreDAO bookPostgreDAO, FilterCriterionQuery filterCriterionQuery) {
+	public BookService(BookPostgreDAO bookPostgreDAO, FilterCriterionQuery filterCriterionQuery, GenrePostgreDAO genrePostgreDAO, AuthorPostgreDAO authorPostgreDAO, AuthorBookPostgreDAO authorBookPostgreDAO) {
 		this.bookPostgreDAO = bookPostgreDAO;
 		this.filterCriterionQuery = filterCriterionQuery;
+		this.genrePostgreDAO = genrePostgreDAO;
+		this.authorPostgreDAO = authorPostgreDAO;
+		this.authorBookPostgreDAO = authorBookPostgreDAO;
 	}
 
-	public Book createBook(String header, String overview, String status, String photo, int fileId) {
-		Book book = new Book(header, overview, status, photo, fileId);
-		bookPostgreDAO.createBook(book);
+	public Book createBook(Book book) {
+		if (bookPostgreDAO.getBookById(book.getId()) == null) {
+			bookPostgreDAO.createBook(book);
+		}
 
 		return book;
 	}
@@ -31,16 +43,9 @@ public class BookService {
 		return bookPostgreDAO.getBookById(bookId);
 	}
 
-	public Book updateBook(int bookId, String header, String overview, String status, String photo, int fileId) {
-		Book book = bookPostgreDAO.getBookById(bookId);
-
-		if (book != null) {
-			book.setHeader(header);
-			book.setOverview(overview);
-			book.setStatus(status);
-			book.setPhotoId(photo);
-			book.setFileId(fileId);
-			bookPostgreDAO.updateBookById(bookId, book);
+	public Book updateBook(Book book) {
+		if (bookPostgreDAO.getBookById(book.getId()) != null) {
+			bookPostgreDAO.updateBookById(book.getId(), book);
 			return book;
 		} else {
 			return null;
@@ -58,4 +63,9 @@ public class BookService {
 		filterCriterionQuery.setHeader(header);
 		return bookPostgreDAO.filterBooks(filterCriterionQuery);
 	}
+
+	public List<Author> getAllAuthors() {return authorPostgreDAO.getAllAuthors();}
+	public List<Author> getAuthorsByBookId(int bookId){return authorBookPostgreDAO.getAuthorsByBookId(bookId);}
+	public List<Genre> getAllGenres() {return genrePostgreDAO.getAllGenres();}
+	public Genre getGenreByBookId(int bookId)  {return bookPostgreDAO.getGenreByBookId(bookId);}
 }

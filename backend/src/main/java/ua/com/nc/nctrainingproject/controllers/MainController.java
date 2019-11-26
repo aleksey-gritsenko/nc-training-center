@@ -32,4 +32,9 @@ public class MainController {
     @GetMapping("/userBook")
     public String addUserBook() {return "userBook";}
 
+	@GetMapping("/notification")
+	public String createNotification() {
+		return "notification";
+	}
+
 }

@@ -1,59 +1,67 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {User} from "../../models/user";
+import {StorageService} from "../../services/storage/storage.service";
+import {Subscription} from "rxjs";
 import {UserService} from "../../services/user/user.service";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
     selector: 'app-user-profile',
     templateUrl: './user-profile.component.html',
     styleUrls: ['./user-profile.component.css']
 })
-export class UserProfileComponent implements OnInit {
-    user: User;
-    currentUser: string;
-    loggedUserName: string;
-    isLoggedUserProfile: boolean;
-    isAdmin: boolean;
+export class UserProfileComponent implements OnInit, OnDestroy {
+    isOpen: string; // Which tab is open
 
-    constructor(private userService: UserService,
-                private route: ActivatedRoute) {
+    userSubscription: Subscription;
+
+    currentUser: User; //The user in the system
+    isCurrUserAnAdmin: boolean;
+    isThisCurrUserProfile: boolean;
+    user: User = new User(); //The user page we look at
+
+    constructor(private storageService: StorageService,
+                private userService: UserService,
+                private route: ActivatedRoute,
+                private router: Router) {
+        this.isOpen = "View";
+
+        this.userSubscription = this.storageService.currentUser.subscribe(user => {
+            if (!user) this.router.navigateByUrl('/login');
+            else this.currentUser = user;
+            this.user = user;
+        });
+    }
+
+    ngOnInit() {
+        this.isCurrUserAnAdmin = this.currentUser.userRole != 'user';
+
+        this.route.params.subscribe(param => {
+            if (this.currentUser.id != param.id) this.getUserInfo(param.id);
+            else {
+                this.user = this.currentUser;
+                this.isThisCurrUserProfile = true;
+            }
+        })
+    }
+
+    open(tab: string) {
+        this.isOpen = tab;
+    }
+
+    async getUserInfo(id: string) {
+        await this.userService.searchUser(id).toPromise().then(user => {
+            this.user = user;
+        });
+        this.isThisCurrUserProfile = false;
+        if (!this.isCurrUserAnAdmin && this.user.userRole != 'user') this.router.navigateByUrl('/error');
+    }
+
+    deactivateAccount() {
 
     }
 
-    async ngOnInit() {
-        if (!JSON.parse(localStorage.getItem('currentUser'))) {
-            location.assign('/login');
-        }
-        this.user = JSON.parse(localStorage.getItem('currentUser'));
-        this.loggedUserName = this.user.userName;
-        this.isAdmin = this.user.userRole != 0;
-
-        this.currentUser = this.route.snapshot.paramMap.get('userName');
-        await this.userService.searchUser(this.currentUser)
-            .toPromise().then(user => {
-                if (!this.isAdmin && user.userRole != 0) this.user = null;
-                else this.user = user;
-            });
-
-        if (this.user == null) {
-            location.assign('/error');
-        }
-
-        this.isLoggedUserProfile = this.loggedUserName === this.user.userName;
+    ngOnDestroy(): void {
+        this.userSubscription.unsubscribe();
     }
-
-    addFriend() {
-        //Function for adding friends
-    }
-
-    update(): void {
-        this.userService.updateProfile(this.currentUser, this.user)
-            .subscribe(
-                user => {
-                    if (!this.isAdmin) localStorage.setItem('currentUser', JSON.stringify(user));
-                    location.assign('/user/' + user.userName);
-                }
-            );
-    }
-
 }

@@ -1,5 +1,8 @@
 <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top " id="navigation-example">
     <div class="container-fluid">
+        <div class="navbar-wrapper">
+            <a class="navbar-brand" routerLink="/">Booknet</a>
+        </div>
         <div class="collapse navbar-collapse justify-content-end">
             <form class="navbar-form">
                 <div class="input-group no-border">
@@ -14,19 +17,19 @@
                 <app-notifications-list *ngIf="user"></app-notifications-list>
                 <li class="nav-item">
                     <a *ngIf="user" class="dropdown nav-link" data-toggle="dropdown" id="userMenuLabel"
-                                    href="javascript:void(0)" style="color: grey">
+                                    href="javascript:void(0)">
                         <i class="material-icons">person</i>
                         <p class="d-lg-none d-md-block">
                             Account
                         </p>
                     </a>
-                    <a *ngIf="!user" href="/login" class="login">
+                    <a *ngIf="!user" class="login" routerLink="/login">
                         <button type="button" class="btn btn-outline-primary">Login</button>
                     </a>
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userMenuLabel">
-                        <a href="/user/{{user.userName}}" class="dropdown-item">My profile</a>
-                        <a href="/books" class="dropdown-item">My books</a>
-                        <a class="dropdown-item" style="cursor: pointer" (click)="logout()">Logout</a>
+                    <div *ngIf="user" aria-labelledby="userMenuLabel" class="dropdown-menu dropdown-menu-right">
+                        <a class="dropdown-item" routerLink="/user/{{user.id}}">My profile</a>
+                        <a class="dropdown-item" routerLink="/books">My books</a>
+                        <a (click)="logout()" class="dropdown-item" href="javascript:void(0)">Logout</a>
                     </div>
                 </li>
             </ul>

@@ -5,6 +5,8 @@ import {Book} from "../../models/book";
 import {BookFilter} from "../../models/bookfilter";
 import {Announcement} from "../../models/announcement";
 import {Review} from "../../models/review";
+import {Genre} from "../../models/genre";
+import {Author} from "../../models/author";
 
 @Injectable({
     providedIn: 'root'
@@ -13,7 +15,7 @@ export class CommonService {
 
     private booksUrl = 'http://localhost:8080/book'; // change with necessity
     private announcementsUrl = '/announcements'; // change with necessity
-
+    private reviewsUrl = 'http://localhost:8080/review';
     // private reviewsUrl = 'api/books'; // -?
 
     // announcements : Announcement[] = [];
@@ -35,26 +37,14 @@ export class CommonService {
 
     getBooksByFilter(filter: BookFilter): Observable<Book[]> {
 
-        let body = {
-            'header': filter.header,
-            'author': filter.author,
-            'genre': filter.genre
-        };
+        let params = new HttpParams()
+            .set('header', filter.header)
+            .set('author', JSON.stringify(filter.author))
+            .set('genre',  JSON.stringify(filter.genre));
 
         const url = `${this.booksUrl}\\filter`;
-        return this.http.get<Book[]>(url, {params: body});
-    }
-
-    getBooksByTitle(title: string): Observable<Book[]> {
-        const url = `${this.booksUrl}\\title`;
-        let params = new HttpParams()
-            .set('title', title);
-
+        console.log(params);
         return this.http.get<Book[]>(url, {params: params});
-    }
-
-    getBookByName(name: string): Observable<Book> {
-        return null;
     }
 
 
@@ -64,36 +54,12 @@ export class CommonService {
     }
 
     createBook(book: Book): Observable<Book> {
-        const body = new HttpParams()
-            .set('header', book.header)
-            .set('status', book.status)
-            .set('overview', book.overview)
-            .set('photo', book.photoId)
-            .set('file', book.fileId.toString());
-
-
-        return this.http.post<Book>(this.booksUrl, body, this.httpOptions);
+        return this.http.post<Book>(this.booksUrl, book);
     }
 
-    deleteBook(id: number): Observable<Book> {
-        const url = `${this.booksUrl}/?id=${id}`;
-        return this.http.delete<Book>(url);
-    }
 
     updateBook(book: Book): Observable<Book> {
-        console.log(book.id);
-        const body = new HttpParams()
-            .set('bookId', book.id.toString())
-            .set('header', book.header)
-            .set('overview', book.overview)
-            .set('photo', book.photoId)
-            .set('file', book.fileId.toString())
-            .set('status', book.status);
-
-
-        console.log(body);
-        const url = `${this.booksUrl}\\update`;
-        return this.http.post<Book>(this.booksUrl, body, this.httpOptions);
+        return this.http.post<Book>(this.booksUrl, book);
     }
 
     getAnnouncements(): Observable<Announcement[]> {
@@ -103,38 +69,75 @@ export class CommonService {
     // getAnnouncementsByFilter() : Observable<Announcement[]>{
     // }
 
-    getAllAuthor(): Observable<string[]> {
-        const url = `${this.booksUrl}/authors`;
-        //return this.http.get<string[]>(url);
-        return null;
+    getAuthorsByBookId(bookId: number): Observable<Author[]>{
+        const url = `${this.booksUrl}\\authors\\book`;
+        const params = new HttpParams()
+            .set("book", bookId.toString());
+        return this.http.get<Author[]>(url,{params:params});
     }
 
-    getAllGenre(): Observable<string[]> {
+    getGenreByBookId(bookId: number): Observable<Genre>{
+        const url = `${this.booksUrl}\\genre\\book`;
+        const params = new HttpParams()
+            .set("book", bookId.toString());
+        return this.http.get<Genre>(url,{params:params});
+    }
+
+    getAllAuthor(): Observable<Author[]> {
+        const url = `${this.booksUrl}/authors`;
+        return this.http.get<Author[]>(url);
+    }
+
+    getAllGenre(): Observable<Genre[]> {
         const url = `${this.booksUrl}/genres`;
-        //return this.http.get<string[]>(url);
-        return null;
+        return this.http.get<Genre[]>(url);
     }
 
     getReviews(id: number): Observable<Review[]> {
-        const url = `${this.booksUrl}/${id}/review`;
-        // return this.http.get<Review[]>(url);
-        return null;
+        let body = new HttpParams()
+            .set('book', id.toString());
+        const url =`${this.reviewsUrl}/all`;
+        return this.http.get<Review[]>(url, {params:body});
     }
 
     createReview(review: Review): Observable<Review> {
+        console.log(review);
         const body = new HttpParams()
-            .set('book', review.book.toString())
-            .set('user', review.user.toString())
+            .set('book', review.bookId.toString())
+            .set('user', review.userId.toString())
             .set('text', review.text)
-            .set('reviewDate', review.reviewDate.toDateString())
-            .set('grade', review.grade.toString())
-            .set('adminId', review.adminId.toString());
+            .set('grade', review.grade.toString());
         console.log(body);
 
-        return this.http.post<Review>(this.booksUrl, body, this.httpOptions);
+        return this.http.post<Review>(this.reviewsUrl, body, this.httpOptions);
     }
 
+    getAcceptedReviews(bookId: number, status: boolean):Observable<Review[]>{
+        const body = new HttpParams()
+            .set('book', bookId.toString())
+            .set('status', JSON.stringify(status));
+        const url =`${this.reviewsUrl}/accepted`;
+        console.log(body);
+        return this.http.get<Review[]>(url, {params:body});
+    }
 
+    acceptReview(review:Review, status:boolean):Observable<Review>{
+        const body = new HttpParams()
+            .set('review', review.id.toString())
+            .set('status', JSON.stringify(status))
+            .set('admin', review.adminId.toString());
+        const url =`${this.reviewsUrl}/accept`;
+        console.log(body);
+        return this.http.post<Review>(url,body);
+    }
+
+    deleteReviewById(review:Review):Observable<Review>{
+        const body = new HttpParams()
+            .set('review',review.id.toString());
+        const url = `${this.reviewsUrl}/delete`;
+        console.log(body);
+        return this.http.post<Review>(url,body);
+    }
     getAnnouncementsByFilter(): Observable<Announcement[]> {
         return null;
     }

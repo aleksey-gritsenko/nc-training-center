@@ -1,6 +1,8 @@
 package ua.com.nc.nctrainingproject.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ua.com.nc.nctrainingproject.models.Book;
 import ua.com.nc.nctrainingproject.services.BookService;
@@ -12,51 +14,65 @@ import java.util.List;
 @CrossOrigin
 @RequestMapping("/book")
 public class BookController {
-	private final BookService bookService;
+    private final BookService bookService;
 
-	@Autowired
-	public BookController(BookService bookService) {
-		this.bookService = bookService;
-	}
+    @Autowired
+    public BookController(BookService bookService) {
+        this.bookService = bookService;
+    }
 
-	@RequestMapping(method = RequestMethod.POST)
-	public Book addBook(@RequestParam(name = "header") String header,
-						@RequestParam(name = "overview") String overview,
-						@RequestParam(name = "photo") String photo,
-						@RequestParam(name = "file") int fileId,
-						@RequestParam(name = "status") String status) {
+    @RequestMapping(method = RequestMethod.POST)
+    public ResponseEntity<?> addBook(@RequestBody Book book) {
+        Book response = bookService.createBook(book);
 
+        return response != null ? ResponseEntity.ok(response) : new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
 
-		return bookService.createBook(header, overview, status, photo, fileId);
-	}
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    public ResponseEntity<?> updateBook(@RequestBody Book book) {
+        Book response = bookService.updateBook(book);
+        return response != null ? ResponseEntity.ok(response) : new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
 
-	@RequestMapping(value = "/update", method = RequestMethod.POST)
-	public Book updateBook(@RequestParam(name = "bookId") int bookId,
-						   @RequestParam(name = "header") String header,
-						   @RequestParam(name = "overview") String overview,
-						   @RequestParam(name = "photo") String photo,
-						   @RequestParam(name = "file") int fileId,
-						   @RequestParam(name = "status") String status) {
+    @RequestMapping(value = "/id", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<?> getBookById(@RequestParam(name = "id") String bookId) {
+        return ResponseEntity.ok(bookService.getBookById(Integer.parseInt(bookId)));
+    }
 
-		return bookService.updateBook(bookId, header, overview, status, photo, fileId);
-	}
+    @RequestMapping(value = "/all", method = RequestMethod.GET)
+    public ResponseEntity<?> getAllBooks() {
+        return ResponseEntity.ok(bookService.getAllBooks());
+    }
 
-	@RequestMapping(value = "/id", method = RequestMethod.GET)
-	@ResponseBody
-	public Book getBookById(@RequestParam(name = "id") int bookId) {
-		return bookService.getBookById(bookId);
-	}
+    @RequestMapping(value = "/filter", method = RequestMethod.GET)
 
-	@RequestMapping(value = "/all", method = RequestMethod.GET)
-	public List<Book> getAllBooks() {
-		return bookService.getAllBooks();
-	}
+    public List<Book> filterBook(@RequestParam(name = "header") String header,
+                                 @RequestParam(name = "genre") ArrayList<String> genres,
+                                 @RequestParam(name = "author") ArrayList<String> authors
+    ) {
+        System.out.println(genres);
+        System.out.println(authors);
+        return bookService.filterBooks(header + "%", genres, authors);
+    }
 
-	@RequestMapping(value = "/filter", method = RequestMethod.GET)
-	public List<Book> filterBook(@RequestParam(name = "header") String header,
-			 					 @RequestParam(name = "genre") ArrayList<String> genres,
-								 @RequestParam(name = "author") ArrayList<String> authors) {
+    @RequestMapping(value = "/genres", method = RequestMethod.GET)
+    public ResponseEntity<?> getAllGenres() {
+        return ResponseEntity.ok(bookService.getAllGenres());
+    }
 
-		return bookService.filterBooks(header + "%", genres, authors);
-	}
+    @RequestMapping(value = "/authors", method = RequestMethod.GET)
+    public ResponseEntity<?> getAllAuthors() {
+        return ResponseEntity.ok(bookService.getAllAuthors());
+    }
+
+    @RequestMapping(value = "/authors/book", method = RequestMethod.GET)
+    public ResponseEntity<?> getAuthorsByBookId(@RequestParam(name = "book") int bookId) {
+        return ResponseEntity.ok(bookService.getAuthorsByBookId(bookId));
+    }
+
+    @RequestMapping(value = "/genre/book", method = RequestMethod.GET)
+    public ResponseEntity<?> getGenreByBookId(@RequestParam(name = "book") int bookId) {
+        return ResponseEntity.ok(bookService.getGenreByBookId(bookId));
+    }
 }

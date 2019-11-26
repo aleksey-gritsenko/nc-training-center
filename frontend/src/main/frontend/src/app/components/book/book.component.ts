@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {Book} from '../../models/book';
 import {CommonService} from "../../services/common/common.service";
 import {ActivatedRoute} from "@angular/router";
+import {Genre} from "../../models/genre";
+import {Author} from "../../models/author";
 
 @Component({
     selector: 'app-book',
@@ -10,6 +12,7 @@ import {ActivatedRoute} from "@angular/router";
 })
 export class BookComponent implements OnInit {
     book: Book = new Book();
+    authors: Author[] = [];
 
     constructor(private apiService: CommonService, private route: ActivatedRoute) {
     }
@@ -17,12 +20,16 @@ export class BookComponent implements OnInit {
     id: any;
 
     ngOnInit() {
-        this.id = parseInt(this.route.snapshot.paramMap.get('id'));
+        this.id = parseInt(this.route.snapshot.paramMap.get('bookId'));
         this.getBook();
+
     }
 
     updateBook(): void {
+
         const newCreatedBook: Book = Object.assign({}, this.book);
+
+
         this.apiService.updateBook(newCreatedBook).subscribe(
             res => {
                 this.book = res;
@@ -36,23 +43,23 @@ export class BookComponent implements OnInit {
         this.apiService.getBookById(this.id).subscribe(
             res => {
                 this.book = res;
-                console.log(this.book);
+                this.apiService.getGenreByBookId(this.id).subscribe(
+                    genre=>{
+                        this.book.genre = genre.name;
+                    });
+                this.apiService.getAuthorsByBookId(this.id).subscribe(
+                    authors=>{
+                        this.book.authors = [];
+                        this.authors = authors;
+                        authors.forEach(author=>this.book.authors.push(author));
+                    }
+                );
             },
             err => {
                 alert("Error in get book by id")
             }
         );
     }
+
 }
 
-/*
-  getBooks():void{
-    this.apiService.getBooks().subscribe(
-      res=>{
-        this.books = res;
-        console.log(this.books);
-      },
-      err=>{alert("Error in get all reviews")}
-    );
-  }
-*/

@@ -7,35 +7,38 @@ import ua.com.nc.nctrainingproject.persistance.dao.postgre.UserPostgreDAO;
 
 @Service
 public class UserService {
-	private final UserPostgreDAO userPostgreDAO;
+    private final UserPostgreDAO userPostgreDAO;
 
-	@Autowired
-	UserService(UserPostgreDAO userPostgreDAO) {
-		this.userPostgreDAO = userPostgreDAO;
-	}
+    @Autowired
+    UserService(UserPostgreDAO userPostgreDAO) {
+        this.userPostgreDAO = userPostgreDAO;
+    }
 
-	public User updateByName(String userName, User user) { // There is no check for the same user
-		User currUser = userPostgreDAO.getUserByUserName(userName);
-		boolean isSameEmail = currUser.getEmail().equals(user.getEmail());
-		boolean isSameName = currUser.getUserName().equals(user.getUserName());
-		boolean isUserByEmail = userPostgreDAO.getUserByEmail(user.getEmail()) != null;
-		boolean isUserByName = userPostgreDAO.getUserByUserName(user.getUserName()) != null;
+    public User updateByName(User user) {
+        User currUser = userPostgreDAO.getUserByUserName(user.getUserName());
+        boolean isSameEmail = currUser.getEmail().equals(user.getEmail());
 
-		if (isSameName) {
-			if (!isUserByEmail || isSameEmail) {
+        if (!isSameEmail || !currUser.getUserPassword().equals(user.getUserPassword())) {
+            if (!isSameEmail && userPostgreDAO.getUserByEmail(user.getEmail()) != null) {
+                return null;
+            }
+            userPostgreDAO.updateUserByName(user.getUserName(), user);
+            return userPostgreDAO.getUserByUserName(user.getUserName());
+        }
+        return currUser;
+    }
 
-				userPostgreDAO.updateUserByName(userName, user);
-				return userPostgreDAO.getUserByUserName(user.getUserName());
-			}
+    public User getById(int id) {
+        return userPostgreDAO.getUserById(id);
+    }
 
-		} else if (!isUserByName && !isUserByEmail || isSameEmail) {
-			userPostgreDAO.updateUserByName(userName, user);
-			return userPostgreDAO.getUserByUserName(user.getUserName());
-		}
-		return null;
-	}
+    public User createAdmin(User admin) {
+        if (userPostgreDAO.getUserByUserName(admin.getUserName()) == null
+                && userPostgreDAO.getUserByEmail(admin.getEmail()) == null) {
 
-	public User getByName(String userName) {
-		return userPostgreDAO.getUserByUserName(userName);
-	}
+            userPostgreDAO.createAdmin(admin);
+            return userPostgreDAO.getUserByUserName(admin.getUserName());
+        }
+        return null;
+    }
 }
