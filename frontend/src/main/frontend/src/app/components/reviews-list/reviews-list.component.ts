@@ -49,10 +49,7 @@ export class ReviewsListComponent implements OnInit{
                             });
                     }
                 );
-
             }
-
-
         );
     }
 
@@ -90,13 +87,10 @@ export class ReviewsListComponent implements OnInit{
         }
         else
         {
-
             this.commonService.createReview(newCreatedReview)
                 .subscribe(res => {
                         this.userService.searchUser(res.userId.toString()).subscribe(
-                            user=>{
-                                res.username = user.userName;
-                            }
+                            user=>{res.username = user.userName;}
                         );
                         this.notAcceptedReviews.push(res);
                     },

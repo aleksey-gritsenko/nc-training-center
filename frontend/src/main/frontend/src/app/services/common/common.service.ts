@@ -7,6 +7,7 @@ import {Announcement} from "../../models/announcement";
 import {Review} from "../../models/review";
 import {Genre} from "../../models/genre";
 import {Author} from "../../models/author";
+import {UserBook} from "../../models/userBook";
 
 @Injectable({
     providedIn: 'root'
@@ -142,6 +143,10 @@ export class CommonService {
         return null;
     }
 
+    addBookToUser(userBook:UserBook):Observable<UserBook>{
+        const url = `http://localhost:8080/userbook`;
+        return this.http.post<UserBook>(url, userBook);
+    }
 
     recoverPassword() {
 
