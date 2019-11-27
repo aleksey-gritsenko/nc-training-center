@@ -8,6 +8,7 @@ import {Genre} from "../../models/genre";
 import {Author} from "../../models/author";
 import {UserBook} from "../../models/userBook";
 import {error} from "util";
+import {StorageService} from "../../services/storage/storage.service";
 
 @Component({
     selector: 'app-books-list',
@@ -29,7 +30,8 @@ export class BooksListComponent implements OnInit{
     listOfSelectedAuthor: SelectedItem[] = [];
     userId: any;
 
-    constructor(private apiService: CommonService, private route: ActivatedRoute, private router: Router) {
+    constructor(private apiService: CommonService, private route: ActivatedRoute, private router: Router,
+    private storage: StorageService) {
 
     }
 
@@ -122,15 +124,13 @@ export class BooksListComponent implements OnInit{
     }
 
     addBookToUser(bookId:number){
-        this.userId = parseInt(this.route.snapshot.paramMap.get('id'));
-        console.log(this.userId + " " + bookId);
-        if(isNaN(this.userId))
+        let userBook:UserBook = new UserBook();
+        userBook.userId = this.storage.getUser().id;
+        if(isNaN(userBook.userId))
         {
             this.router.navigate(['/login']);
         }
-        let userBook:UserBook = new UserBook();
         userBook.bookId = bookId;
-        userBook.userId = this.userId;
         this.apiService.addBookToUser(userBook).subscribe(
             res=>{
                 console.log(res);
