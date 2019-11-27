@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import ua.com.nc.nctrainingproject.models.User;
 import ua.com.nc.nctrainingproject.services.PasswordRecoverService;
 
 import javax.mail.MessagingException;
@@ -49,4 +50,17 @@ public class PasswordRecoverController {
 		}
 		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
+	@RequestMapping("/change")
+	public  ResponseEntity<?> resend(User user){
+		try {
+
+            passwordRecoverService.reSend(user);
+				return new ResponseEntity<>(HttpStatus.OK);
+
+
+		} catch (MessagingException ex) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+	}
+
 }

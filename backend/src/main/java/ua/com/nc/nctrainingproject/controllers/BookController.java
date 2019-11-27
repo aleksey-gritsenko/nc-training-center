@@ -8,6 +8,7 @@ import ua.com.nc.nctrainingproject.models.Book;
 import ua.com.nc.nctrainingproject.services.BookService;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -47,13 +48,20 @@ public class BookController {
 
     @RequestMapping(value = "/filter", method = RequestMethod.GET)
 
-    public List<Book> filterBook(@RequestParam(name = "header") String header
-                                 //@RequestParam(name = "genre") ArrayList<String> genres,
-                                 // @RequestParam(name = "author") ArrayList<String> authors
+    public List<Book> filterBook(@RequestParam(name = "header") String header,
+                                 @RequestParam(name = "genre") String[] genres,
+                                 @RequestParam(name = "author") ArrayList<String> authors
     ) {
-        ArrayList<String> genres = new ArrayList<>();
-        ArrayList<String> authors = new ArrayList<>();
-        return bookService.filterBooks(header + "%", genres, authors);
+        List<String> genre;
+        genre = Arrays.asList(genres);
+        for (String s:genre
+             ) {
+            System.out.println(s);
+        }
+        ArrayList d = new ArrayList();
+      //  ArrayList<String> authors = new ArrayList<>();
+        System.out.println(genre);
+        return bookService.filterBooks(header + "%", d, authors);
     }
 
     @RequestMapping(value = "/genres", method = RequestMethod.GET)

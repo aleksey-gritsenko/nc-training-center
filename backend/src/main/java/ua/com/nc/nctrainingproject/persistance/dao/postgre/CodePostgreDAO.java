@@ -25,7 +25,7 @@ public class CodePostgreDAO implements CodeRecoverDAO {
 		jdbcTemplate.update(CodeRecoverQuery.CREATE_CODE, code, new Date(), email);
 	}
 
-	public RecoverCode getCodeByUserName(String code) {
+	public RecoverCode getCodeBy(String code) {
 		try {
 			return jdbcTemplate.queryForObject(CodeRecoverQuery.GET_CODE, new Object[]{code}, new CodeRowMapper());
 		} catch (EmptyResultDataAccessException e) {
@@ -36,4 +36,5 @@ public class CodePostgreDAO implements CodeRecoverDAO {
 	public void deleteByCode(String code) {
 		jdbcTemplate.update(CodeRecoverQuery.DELETE_CODE, code);
 	}
+	public void deleteByCodeEmail(String email){jdbcTemplate.update(CodeRecoverQuery.DELETE_CODE_EMAIL, email);}
 }

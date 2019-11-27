@@ -16,5 +16,8 @@ public class CodeRecoverQuery {
 
 	public static final String DELETE_CODE = "DELETE FROM "
 			+ TABLE_NAME + " WHERE " + CODE + " =(?)";
+	public static final String DELETE_CODE_EMAIL = "DELETE FROM "
+			+ TABLE_NAME + " WHERE " + EMAIL + " =(?)";
+
 
 }

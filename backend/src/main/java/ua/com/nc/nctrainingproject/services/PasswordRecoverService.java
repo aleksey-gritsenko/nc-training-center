@@ -5,6 +5,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 import ua.com.nc.nctrainingproject.models.RecoverCode;
+import ua.com.nc.nctrainingproject.models.User;
 import ua.com.nc.nctrainingproject.persistance.dao.postgre.CodePostgreDAO;
 import ua.com.nc.nctrainingproject.persistance.dao.postgre.UserPostgreDAO;
 
@@ -68,14 +69,29 @@ public class PasswordRecoverService {
         return matcher.matches();
     }
 
-    public boolean passwordRecover(String code, String newPassword) {
-        RecoverCode codeDB = codePostgreDAO.getCodeByUserName(code);
+    public void deleteCode(String code) {
+        codePostgreDAO.deleteByCode(code);
+    }
 
+    public void deleteCodeEmail(String code) {
+        codePostgreDAO.deleteByCodeEmail(code);
+    }
+
+
+
+    public boolean passwordRecover(String code, String newPassword) {
+
+        RecoverCode codeDB = codePostgreDAO.getCodeBy(code);
         if (code.equals(codeDB.getCode())) {
             userPostgreDAO.updatePassword(newPassword, codeDB.getEmail());
-            codePostgreDAO.deleteByCode(code);
+            deleteCode(code);
             return true;
         }
         return false;
+    }
+    public  void reSend(User user) throws MessagingException{
+        deleteCodeEmail(user.getEmail());
+        makeEmail(user.getEmail());
+
     }
 }
