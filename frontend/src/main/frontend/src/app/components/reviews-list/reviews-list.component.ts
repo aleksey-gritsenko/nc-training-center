@@ -72,7 +72,7 @@ export class ReviewsListComponent implements OnInit{
     }
 
     acceptReview(review:Review):void{
-        review.adminId=parseInt(this.route.snapshot.paramMap.get('id'));
+        review.adminId=this.storage.getUser().id;
         this.commonService.acceptReview(review, true).subscribe(
             res=>{this.acceptedReviews.push(review);
                 this.notAcceptedReviews.splice(this.notAcceptedReviews.indexOf(review));
