@@ -6,11 +6,11 @@ import {HttpClientModule} from '@angular/common/http';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {NavigationComponent} from './components/navigation/navigation.component';
-import {LoginComponent} from './components/login/login.component';
-import {RegistrationComponent} from './components/registration/registration.component';
+import {LoginComponent} from './components/authorization/login/login.component';
+import {RegistrationComponent} from './components/authorization/registration/registration.component';
 import {LandingComponent} from './components/landing/landing.component';
 import {ErrorpageComponent} from './components/errorpage/errorpage.component';
-import {UserProfileComponent} from './components/user-profile/user-profile.component';
+import {UserProfileComponent} from './components/user/user-profile/user-profile.component';
 import {AnnouncementListComponent} from './components/announcement-list/announcement-list.component';
 import {BooksListComponent} from './components/books-list/books-list.component';
 import {ReviewsListComponent} from './components/reviews-list/reviews-list.component';
@@ -24,20 +24,17 @@ import {AnnouncementComponent} from './components/announcement/announcement.comp
 import {ActivityComponent} from './components/activity/activity.component';
 import {ActivitiesListComponent} from './components/activities-list/activities-list.component';
 import {FriendsListComponent} from './components/friends-list/friends-list.component';
-import {SuperadminProfileComponent} from './components/superadmin-profile/superadmin-profile.component';
-import {AdminProfileComponent} from './components/admin-profile/admin-profile.component';
-import {ModeratorProfileComponent} from './components/moderator-profile/moderator-profile.component';
 import {ModeratorsListComponent} from './components/moderators-list/moderators-list.component';
 import {AdminsListComponent} from './components/admins-list/admins-list.component';
 import {ChatComponent} from './components/chat/chat.component';
 import {CalendarComponent} from './components/calendar/calendar.component';
 import {SidebarComponent} from './components/sidebar/sidebar.component';
 import {AuthenticationService} from './services/authentification/authentication.service';
-import {RecoverComponent} from './components/recover/recover.component';
-import {ChangePasswordComponent} from './components/change-password/change-password.component';
-import {ViewProfileComponent} from './components/view-profile/view-profile.component';
-import {EditProfileComponent} from './components/edit-profile/edit-profile.component';
-import {AddAdminComponent} from './components/add-admin/add-admin.component';
+import {RecoverComponent} from './components/authorization/recover/recover.component';
+import {ChangePasswordComponent} from './components/authorization/change-password/change-password.component';
+import {ViewProfileComponent} from './components/user/view-profile/view-profile.component';
+import {EditProfileComponent} from './components/user/edit-profile/edit-profile.component';
+import {AddAdminComponent} from './components/user/add-admin/add-admin.component';
 import {DeactivateAccountComponent} from './components/deactivate-account/deactivate-account.component';
 
 @NgModule({
@@ -62,9 +59,6 @@ import {DeactivateAccountComponent} from './components/deactivate-account/deacti
         ActivityComponent,
         ActivitiesListComponent,
         FriendsListComponent,
-        SuperadminProfileComponent,
-        AdminProfileComponent,
-        ModeratorProfileComponent,
         ModeratorsListComponent,
         AdminsListComponent,
         ChatComponent,

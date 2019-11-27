@@ -1,8 +1,8 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {User} from "../../models/user";
-import {StorageService} from "../../services/storage/storage.service";
+import {User} from "../../../models/user";
+import {StorageService} from "../../../services/storage/storage.service";
 import {Subscription} from "rxjs";
-import {UserService} from "../../services/user/user.service";
+import {UserService} from "../../../services/user/user.service";
 import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
@@ -28,8 +28,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
 
         this.userSubscription = this.storageService.currentUser.subscribe(user => {
             if (!user) this.router.navigateByUrl('/login');
-            else this.currentUser = user;
-            this.user = user;
+            else this.currentUser = this.user = user;
         });
     }
 
@@ -49,12 +48,12 @@ export class UserProfileComponent implements OnInit, OnDestroy {
         this.isOpen = tab;
     }
 
-    async getUserInfo(id: string) {
-        await this.userService.searchUser(id).toPromise().then(user => {
+     getUserInfo(id: string) {
+        this.userService.searchUser(id).toPromise().then(user => {
+            if (!this.isCurrUserAnAdmin && user.userRole != 'user') this.router.navigateByUrl('/error');
             this.user = user;
         });
         this.isThisCurrUserProfile = false;
-        if (!this.isCurrUserAnAdmin && this.user.userRole != 'user') this.router.navigateByUrl('/error');
     }
 
     deactivateAccount() {

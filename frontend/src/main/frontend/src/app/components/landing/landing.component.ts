@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {StorageService} from "../../services/storage/storage.service";
 
 @Component({
     selector: 'app-landing',
@@ -7,7 +8,7 @@ import {Component, OnInit} from '@angular/core';
 })
 export class LandingComponent implements OnInit {
 
-    constructor() {
+    constructor(private storageService: StorageService) {
     }
 
     ngOnInit() {

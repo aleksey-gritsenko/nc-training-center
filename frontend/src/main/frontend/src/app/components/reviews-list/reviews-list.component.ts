@@ -4,7 +4,6 @@ import {Review} from '../../models/review'
 import {CommonService} from '../../services/common/common.service'
 import {Book} from "../../models/book";
 import {UserService} from "../../services/user/user.service";
-import {User} from "../../models/user";
 
 @Component({
     selector: 'app-reviews-list',
@@ -50,10 +49,7 @@ export class ReviewsListComponent implements OnInit{
                             });
                     }
                 );
-
             }
-
-
         );
     }
 
@@ -61,6 +57,14 @@ export class ReviewsListComponent implements OnInit{
         this.commonService.getAcceptedReviews(this.book.id, false).subscribe(
             res => {
                 this.notAcceptedReviews = res;
+                this.notAcceptedReviews.forEach(
+                    review => {
+                        this.userService.searchUser(review.userId.toString()).subscribe(
+                            res=>{
+                                review.username = res.userName;
+                            });
+                    }
+                );
             }
         )
     }
@@ -80,11 +84,15 @@ export class ReviewsListComponent implements OnInit{
         if(isNaN(newCreatedReview.userId))
         {
             this.router.navigate(['/login']);
-        }else
+        }
+        else
         {
             this.commonService.createReview(newCreatedReview)
                 .subscribe(res => {
-                        this.notAcceptedReviews.push(res)
+                        this.userService.searchUser(res.userId.toString()).subscribe(
+                            user=>{res.username = user.userName;}
+                        );
+                        this.notAcceptedReviews.push(res);
                     },
                     err => {
                         alert("Error in creating new review");
