@@ -12,6 +12,7 @@ import {BooksListComponent} from "./components/books-list/books-list.component";
 import {AnnouncementComponent} from "./components/announcement/announcement.component";
 import {AnnouncementListComponent} from "./components/announcement-list/announcement-list.component";
 import {AnnouncementPropositionComponent} from "./components/announcement-proposition/announcement-proposition.component";
+import {ReviewComponent} from "./components/review/review.component";
 
 const routes: Routes = [
     {
@@ -56,16 +57,12 @@ const routes: Routes = [
         component: AnnouncementComponent
     },
     {
-        path: 'user/:id/books',
-        component: BooksListComponent
-    },
-    {
-        path: 'user/:id/books/book/:bookId',
-        component: BookComponent
-    },
-    {
         path: 'books/book/:bookId',
         component: BookComponent
+    },
+    {
+        path: 'books/book/:bookId/review/:reviewId',
+        component: ReviewComponent
     },
     {
         path: 'user',

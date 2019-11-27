@@ -18,6 +18,7 @@ import {StorageService} from "../../services/storage/storage.service";
 
 export class BooksListComponent implements OnInit{
     createdAuthors: string;
+    searchTitle:string;
     genres: Genre[] = [];
     authors: Author[] = [];
     books: Book[] = [];
@@ -71,7 +72,22 @@ export class BooksListComponent implements OnInit{
         );
 
     }
+    searchByTitle(){
+        this.apiService.getBooksByTitle(this.searchTitle).subscribe(
+            res=>{
+                this.books = res;
+                this.books.forEach(book=>{
+                    this.apiService.getAuthorsByBookId(book.id).subscribe(
+                        authors => book.authors = authors
+                    );
+                    this.apiService.getGenreByBookId(book.id).subscribe(
+                        genre=> book.genre  = genre
+                    )
+                })
 
+            }
+        )
+    }
     searchByFilter() {
         this.bookFilter.author = [];
         this.bookFilter.genre = [];
@@ -87,6 +103,14 @@ export class BooksListComponent implements OnInit{
         this.apiService.getBooksByFilter(this.bookFilter).subscribe(
             res => {
                 this.books = res;
+                this.books.forEach(book=>{
+                    this.apiService.getAuthorsByBookId(book.id).subscribe(
+                        authors => book.authors = authors
+                    );
+                    this.apiService.getGenreByBookId(book.id).subscribe(
+                        genre=> book.genre  = genre
+                    )
+                })
             },
             error => alert("error in filter")
         );
@@ -106,7 +130,6 @@ export class BooksListComponent implements OnInit{
         this.apiService.getBooks().subscribe(
             res => {
                 this.books = res;
-                console.log(res);
                 this.books.forEach(book=>{
                      this.apiService.getAuthorsByBookId(book.id).subscribe(
                         authors => book.authors = authors

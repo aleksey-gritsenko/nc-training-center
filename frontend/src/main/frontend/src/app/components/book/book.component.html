@@ -1,63 +1,64 @@
 <app-navigation></app-navigation>
-<div style="padding-top: 67px; margin-left: 70px"></div>
+<div style="padding-top: 67px; margin-left: 70px;"></div>
 
 <div class="container">
     <div *ngIf="book">
-        <h1 class="text-muted">{{book.header }}</h1>
-        <div class="card">
-            <div class="card-header">
-                <label><input class="form-control" [(ngModel)]="book.header" placeholder="name"/></label>
-            </div>
-            <div class="card-body">
-                <table class="table">
-                    <tr>
-                        <td *ngIf="authors">
-                            <label for="authors" class="bmd-label-floating">Authors:</label>
-                        </td>
-                        <td *ngFor="let author of authors">
-                            <input id="authors" class="form-control" type="text" [(ngModel)]="author.name">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label for="status" class="bmd-label-floating">Status:</label>
-                        </td>
-                        <td>
-                            <input class="form-control" type="text" [(ngModel)]="book.status" id="status">
-                        </td>
-                    </tr>
-                    <tr *ngIf="book.genre">
-                        <td>
-                            <label for="genre" class="bmd-label-floating">Genre</label>
-                        </td>
-                        <td>
-                            <input class="form-control" type="text" [(ngModel)]="book.genre.name" id="genre">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label for="overview" class="bmd-label-floating">Overview</label>
-                        </td>
-                        <td>
-                            <input type="text" class="form-control" [(ngModel)]="book.overview" id="overview">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label for="file" class="bmd-label-floating">File</label>
-                        </td>
-                        <td>
-                            <input type="number" class="form-control" [(ngModel)]="book.fileId" id="file">
-                        </td>
-                    </tr>
-                </table>
-                <button class="btn btn-default" (click)="updateBook()">Save changes</button>
 
-                <div class="btn-default btn">
-                    <a [routerLink]="['/books',book.id,'announcement']">Create announcement</a>
+            <h1 class="text-muted">{{book.header }}</h1>
+            <form class="card" [formGroup]="bookForm">
+                <div class="card-header">
+                    <label><input formControlName="header" class="form-control" [(ngModel)]="book.header" placeholder="name"/></label>
                 </div>
-            </div>
-        </div>
+                <div class="card-body">
+                    <table class="table">
+                        <tr>
+                            <td *ngIf="authors">
+                                <label for="authors" class="bmd-label-floating">Authors:</label>
+                            </td>
+                            <td *ngFor="let author of authors">
+                                <input formControlName="author" id="authors" class="form-control" type="text" [(ngModel)]="author.name">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="status" class="bmd-label-floating">Status:</label>
+                            </td>
+                            <td>
+                                <input   formControlName="status" class="form-control" type="text" [(ngModel)]="book.status" id="status">
+                            </td>
+                        </tr>
+                        <tr *ngIf="book.genre">
+                            <td>
+                                <label for="genre" class="bmd-label-floating">Genre</label>
+                            </td>
+                            <td>
+                                <input formControlName="genre" class="form-control" type="text" [(ngModel)]="book.genre.name" id="genre">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="overview" class="bmd-label-floating">Overview</label>
+                            </td>
+                            <td>
+                                <input formControlName="overview" type="text" class="form-control" [(ngModel)]="book.overview" id="overview">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="file" class="bmd-label-floating">File</label>
+                            </td>
+                            <td>
+                                <input formControlName="file" type="number" class="form-control" [(ngModel)]="book.fileId" id="file">
+                            </td>
+                        </tr>
+                    </table>
+                    <button class="btn btn-default" (click)="updateBook()">Save changes</button>
+                    <div class="btn-default btn">
+                        <a [routerLink]="['/books',book.id,'announcement']">Create announcement</a>
+                    </div>
+                </div>
+            </form>
+
         <div>
             <app-reviews-list [book]="book"></app-reviews-list>
         </div>

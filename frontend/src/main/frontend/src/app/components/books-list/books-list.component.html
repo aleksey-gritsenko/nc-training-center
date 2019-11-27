@@ -5,6 +5,8 @@
     <div class="col-9">
         <div class="text-muted">
             <h1>Books</h1>
+            <input class="form-control col-3" type="text" [(ngModel)]="searchTitle" placeholder="Search..." name="header">
+            <button class="btn btn-primary" (click)="searchByTitle()">Search</button>
         </div>
         <div>
             <div class="row">
@@ -86,6 +88,7 @@
                     </button>
 
                 </div>
+                <button class="btn btn-primary" (click)="searchByFilter()">Search by filter</button>
                 <button class="btn btn-primary" (click)="resetFiler()">Reset filter</button>
             </div>
 
