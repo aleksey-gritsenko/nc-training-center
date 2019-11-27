@@ -1,6 +1,5 @@
 package ua.com.nc.nctrainingproject.services;
 
-import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 import org.springframework.stereotype.Service;
 import ua.com.nc.nctrainingproject.models.Book;
 import ua.com.nc.nctrainingproject.models.UserBook;
