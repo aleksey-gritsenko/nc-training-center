@@ -4,6 +4,7 @@ import {Review} from '../../models/review'
 import {CommonService} from '../../services/common/common.service'
 import {Book} from "../../models/book";
 import {UserService} from "../../services/user/user.service";
+import {StorageService} from "../../services/storage/storage.service";
 
 @Component({
     selector: 'app-reviews-list',
@@ -22,12 +23,13 @@ export class ReviewsListComponent implements OnInit{
     constructor(private commonService: CommonService,
                 private route: ActivatedRoute,
                 private router: Router,
-                private  userService:UserService) {
+                private  userService:UserService, private storage: StorageService){
     }
 
     ngOnInit() {
         this.addReviewVisible = false;
         this.ngOnChanges();
+
     }
 
 
@@ -80,7 +82,7 @@ export class ReviewsListComponent implements OnInit{
     createReview(): void {
         const newCreatedReview: Review = Object.assign({}, this.createdReview);
         newCreatedReview.bookId = this.book.id;
-        newCreatedReview.userId = parseInt(this.route.snapshot.paramMap.get('id'));
+        newCreatedReview.userId = this.storage.getUser().id;
         if(isNaN(newCreatedReview.userId))
         {
             this.router.navigate(['/login']);
