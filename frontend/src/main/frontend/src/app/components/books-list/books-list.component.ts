@@ -6,6 +6,9 @@ import {BookFilter} from '../../models/bookfilter';
 import {SelectedItem} from '../../models/selected-item-filter';
 import {Genre} from "../../models/genre";
 import {Author} from "../../models/author";
+import {UserBook} from "../../models/userBook";
+import {error} from "util";
+import {StorageService} from "../../services/storage/storage.service";
 
 @Component({
     selector: 'app-books-list',
@@ -13,7 +16,7 @@ import {Author} from "../../models/author";
     styleUrls: ['./books-list.component.css']
 })
 
-export class BooksListComponent implements OnInit {
+export class BooksListComponent implements OnInit{
     createdAuthors: string;
     genres: Genre[] = [];
     authors: Author[] = [];
@@ -25,17 +28,20 @@ export class BooksListComponent implements OnInit {
     selectedGenres: SelectedItem[] = [];
     listOfSelectedGenres: SelectedItem[] = [];
     listOfSelectedAuthor: SelectedItem[] = [];
+    userId: any;
 
-    constructor(private apiService: CommonService, private route: ActivatedRoute, private router: Router) {
+    constructor(private apiService: CommonService, private route: ActivatedRoute, private router: Router,
+    private storage: StorageService) {
+
     }
 
     ngOnInit() {
-        this.addBookVisible = false;
         this.getBooks();
+        this.addBookVisible = false;
         this.getAllAuthor();
         this.getAllGenre();
-
     }
+
 
     getAllAuthor() {
         this.apiService.getAllAuthor().subscribe(
@@ -81,7 +87,6 @@ export class BooksListComponent implements OnInit {
         this.apiService.getBooksByFilter(this.bookFilter).subscribe(
             res => {
                 this.books = res;
-                console.log(this.books);
             },
             error => alert("error in filter")
         );
@@ -101,12 +106,43 @@ export class BooksListComponent implements OnInit {
         this.apiService.getBooks().subscribe(
             res => {
                 this.books = res;
+                console.log(res);
+                this.books.forEach(book=>{
+                     this.apiService.getAuthorsByBookId(book.id).subscribe(
+                        authors => book.authors = authors
+                     );
+                     this.apiService.getGenreByBookId(book.id).subscribe(
+                         genre=> book.genre  = genre
+                     )
+                })
+
             },
             err => {
                 alert("Error in get all reviews")
             }
         );
     }
+
+    addBookToUser(bookId:number){
+        let userBook:UserBook = new UserBook();
+        userBook.userId = this.storage.getUser().id;
+        if(isNaN(userBook.userId))
+        {
+            this.router.navigate(['/login']);
+        }
+        userBook.bookId = bookId;
+        this.apiService.addBookToUser(userBook).subscribe(
+            res=>{
+                console.log(res);
+            },
+            err=>{
+                console.log("Show error");
+            }
+
+
+        );
+    }
+
 
     createBook(): void {
         this.createdAuthors.split(',').forEach(name=>{

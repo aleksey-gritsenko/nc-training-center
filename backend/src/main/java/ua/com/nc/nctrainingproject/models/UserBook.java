@@ -12,6 +12,13 @@ public class UserBook {
 		this.isRead = isRead;
 		this.isFavorite = isFavorite;
 	}
+	public UserBook(int userId, int bookId){
+		this.userId = userId;
+		this.bookId = bookId;
+		this.isRead = false;
+		this.isFavorite = false;
+	}
+
 
 	public UserBook() {
 	}
@@ -24,11 +31,11 @@ public class UserBook {
 		return bookId;
 	}
 
-	public boolean isRead() {
+	public boolean getRead() {
 		return isRead;
 	}
 
-	public boolean isFavorite() {
+	public boolean getFavorite() {
 		return isFavorite;
 	}
 

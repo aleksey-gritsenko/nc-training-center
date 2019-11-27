@@ -26,12 +26,12 @@
                             <input class="form-control" type="text" [(ngModel)]="book.status" id="status">
                         </td>
                     </tr>
-                    <tr>
+                    <tr *ngIf="book.genre">
                         <td>
                             <label for="genre" class="bmd-label-floating">Genre</label>
                         </td>
                         <td>
-                            <input class="form-control" type="text" [(ngModel)]="book.genre" id="genre">
+                            <input class="form-control" type="text" [(ngModel)]="book.genre.name" id="genre">
                         </td>
                     </tr>
                     <tr>

@@ -4,7 +4,9 @@ import {Review} from '../../models/review'
 import {CommonService} from '../../services/common/common.service'
 import {Book} from "../../models/book";
 import {UserService} from "../../services/user/user.service";
-import {User} from "../../models/user";
+import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import {StorageService} from "../../services/storage/storage.service";
+
 
 @Component({
     selector: 'app-reviews-list',
@@ -12,7 +14,7 @@ import {User} from "../../models/user";
     styleUrls: ['./reviews-list.component.css']
 })
 export class ReviewsListComponent implements OnInit{
-
+    public Editor = ClassicEditor;
     acceptedReviews: Review[] = [];
     notAcceptedReviews: Review[] = [];
     @Input() book: Book;
@@ -23,12 +25,13 @@ export class ReviewsListComponent implements OnInit{
     constructor(private commonService: CommonService,
                 private route: ActivatedRoute,
                 private router: Router,
-                private  userService:UserService) {
+                private  userService:UserService, private storage: StorageService){
     }
 
     ngOnInit() {
         this.addReviewVisible = false;
         this.ngOnChanges();
+
     }
 
 
@@ -50,10 +53,7 @@ export class ReviewsListComponent implements OnInit{
                             });
                     }
                 );
-
             }
-
-
         );
     }
 
@@ -61,12 +61,20 @@ export class ReviewsListComponent implements OnInit{
         this.commonService.getAcceptedReviews(this.book.id, false).subscribe(
             res => {
                 this.notAcceptedReviews = res;
+                this.notAcceptedReviews.forEach(
+                    review => {
+                        this.userService.searchUser(review.userId.toString()).subscribe(
+                            res=>{
+                                review.username = res.userName;
+                            });
+                    }
+                );
             }
         )
     }
 
     acceptReview(review:Review):void{
-        review.adminId=parseInt(this.route.snapshot.paramMap.get('id'));
+        review.adminId=this.storage.getUser().id;
         this.commonService.acceptReview(review, true).subscribe(
             res=>{this.acceptedReviews.push(review);
                 this.notAcceptedReviews.splice(this.notAcceptedReviews.indexOf(review));
@@ -76,15 +84,19 @@ export class ReviewsListComponent implements OnInit{
     createReview(): void {
         const newCreatedReview: Review = Object.assign({}, this.createdReview);
         newCreatedReview.bookId = this.book.id;
-        newCreatedReview.userId = parseInt(this.route.snapshot.paramMap.get('id'));
+        newCreatedReview.userId = this.storage.getUser().id;
         if(isNaN(newCreatedReview.userId))
         {
             this.router.navigate(['/login']);
-        }else
+        }
+        else
         {
             this.commonService.createReview(newCreatedReview)
                 .subscribe(res => {
-                        this.notAcceptedReviews.push(res)
+                        this.userService.searchUser(res.userId.toString()).subscribe(
+                            user=>{res.username = user.userName;}
+                        );
+                        this.notAcceptedReviews.push(res);
                     },
                     err => {
                         alert("Error in creating new review");
@@ -97,5 +109,9 @@ export class ReviewsListComponent implements OnInit{
         this.commonService.deleteReviewById(review).subscribe(
             res=>{this.notAcceptedReviews.splice(this.notAcceptedReviews.indexOf(review),1)}
         );
+    }
+
+    fillArray(grade:number){
+        return Array.from({ length: grade }, (v, i) => i)
     }
 }

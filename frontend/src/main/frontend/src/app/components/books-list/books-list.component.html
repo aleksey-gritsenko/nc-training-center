@@ -1,62 +1,10 @@
 <app-navigation></app-navigation>
 <div style="padding-top: 67px; margin-left: 70px"></div>
 
-<div class="content">
-    <div class="container">
-
+<div class="content row">
+    <div class="col-9">
         <div class="text-muted">
             <h1>Books</h1>
-        </div>
-        <div>
-            <form action="">
-                <div class="card-body bmd-form-group col-lg-4 row">
-                    <div class="input-group no-border">
-                        <input class="form-control" type="text" [(ngModel)]="bookFilter.header" placeholder="Search..." name="header">
-                        <button type="submit" (click)="searchByFilter()" class="btn btn-default btn-round btn-just-icon">
-                            <i class="material-icons">search</i>
-                            <div class="ripple-container"></div>
-                        </button>
-
-                    </div>
-                    <button class="btn btn-primary" (click)="resetFiler()">Reset filter</button>
-                </div>
-
-                <div class="row">
-                    <div class="col-lg-6 col-md-12">
-                        <div class="card form-check">
-                            <div class="card-title card-header-primary">
-                                <h2>Author</h2>
-                            </div>
-                            <div class="card-body row">
-                                <div *ngFor="let author of selectedAuthors;" class="col-4">
-                                    <label class="form-check-label" >
-                                        <input class="form-check-input" type="checkbox" [(ngModel)]="author.selected" name="{{author.name}}">{{author.name}}
-                                        <span class="form-check-sign"><span class="check"></span></span>
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-6 col-md-12">
-                        <div class="card form-check">
-                            <div class="card-title card-header-primary">
-                                <h2>Genre</h2>
-                            </div>
-                            <div class="card-body row">
-                                <div *ngFor="let genre of selectedGenres;" class="col-4">
-                                    <label class="form-check-label">
-                                        <input class="form-check-input" type="checkbox" [(ngModel)]="genre.selected" name="{{genre.name}}">{{genre.name}}
-                                        <span class="form-check-sign"><span class="check"></span></span>
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
-            </form>
         </div>
         <div>
             <div class="row">
@@ -74,8 +22,11 @@
                                     <div *ngFor="let author of book.authors ">
                                         <div>{{author.name}}</div>
                                     </div>
-
                                 </div>
+                                <div *ngIf="book.genre">Genre: {{book.genre.name}}</div>
+                            </div>
+                            <div>
+                                <button class="btn btn-primary" (click)="addBookToUser(book.id)">Add book</button>
                             </div>
                         </div>
                     </div>
@@ -110,7 +61,7 @@
                     </tr>
                     <tr>
                         <td><label for="genre">Genre</label></td>
-                        <td><textarea class="form-control" type="text" [(ngModel)]="createdBook.genre" id="genre" name="genre"
+                        <td><textarea class="form-control" type="text" [(ngModel)]="createdBook.genre.name" id="genre" name="genre"
                                       rows="5"></textarea></td>
                     </tr>
                     <tr>
@@ -122,5 +73,57 @@
                 <button class="btn btn-default btn-primary" (click)="createBook();">Submit</button>
             </form>
         </div>
+    </div>
+
+    <div class="col-3">
+        <form action="">
+            <div class="card-body bmd-form-group row">
+                <div class="input-group no-border">
+                    <input class="form-control" type="text" [(ngModel)]="bookFilter.header" placeholder="Search..." name="header">
+                    <button type="submit" (click)="searchByFilter()" class="btn btn-default btn-round btn-just-icon">
+                        <i class="material-icons">search</i>
+                        <div class="ripple-container"></div>
+                    </button>
+
+                </div>
+                <button class="btn btn-primary" (click)="resetFiler()">Reset filter</button>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="card form-check">
+                        <div class="card-title card-header-primary">
+                            <h2>Author</h2>
+                        </div>
+                        <div class="card-body row">
+                            <div *ngFor="let author of selectedAuthors;" class="col-6">
+                                <label class="form-check-label" >
+                                    <input class="form-check-input" type="checkbox" [(ngModel)]="author.selected" name="{{author.name}}">{{author.name}}
+                                    <span class="form-check-sign"><span class="check"></span></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <div class="card form-check">
+                        <div class="card-title card-header-primary">
+                            <h2>Genre</h2>
+                        </div>
+                        <div class="card-body row">
+                            <div *ngFor="let genre of selectedGenres;" class="col-6">
+                                <label class="form-check-label">
+                                    <input class="form-check-input" type="checkbox" [(ngModel)]="genre.selected" name="{{genre.name}}">{{genre.name}}
+                                    <span class="form-check-sign"><span class="check"></span></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </form>
     </div>
 </div>

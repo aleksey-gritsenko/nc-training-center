@@ -17,19 +17,15 @@ export class BookComponent implements OnInit {
     constructor(private apiService: CommonService, private route: ActivatedRoute) {
     }
 
-    id: any;
+    bookId: any;
 
     ngOnInit() {
-        this.id = parseInt(this.route.snapshot.paramMap.get('bookId'));
+        this.bookId = parseInt(this.route.snapshot.paramMap.get('bookId'));
         this.getBook();
-
     }
 
     updateBook(): void {
-
         const newCreatedBook: Book = Object.assign({}, this.book);
-
-
         this.apiService.updateBook(newCreatedBook).subscribe(
             res => {
                 this.book = res;
@@ -38,16 +34,16 @@ export class BookComponent implements OnInit {
         );
     }
 
+
     getBook(): void {
-        console.log(this.id);
-        this.apiService.getBookById(this.id).subscribe(
+        this.apiService.getBookById(this.bookId).subscribe(
             res => {
                 this.book = res;
-                this.apiService.getGenreByBookId(this.id).subscribe(
+                this.apiService.getGenreByBookId(this.bookId).subscribe(
                     genre=>{
-                        this.book.genre = genre.name;
+                        this.book.genre = genre;
                     });
-                this.apiService.getAuthorsByBookId(this.id).subscribe(
+                this.apiService.getAuthorsByBookId(this.bookId).subscribe(
                     authors=>{
                         this.book.authors = [];
                         this.authors = authors;
