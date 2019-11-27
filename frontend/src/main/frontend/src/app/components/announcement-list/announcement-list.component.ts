@@ -18,7 +18,7 @@ export class AnnouncementListComponent implements OnInit {
     }
 
     public getAllAnnouncement() {
-        let url = 'http://localhost:8080//announcements//all';
+        let url = 'http://localhost:8080//announcements';
         this.http.get<Announcement[]>(url).subscribe(
             res => {
                 this.announcements = res;

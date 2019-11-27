@@ -30,11 +30,11 @@ export class AnnouncementPropositionComponent implements OnInit {
             }
         )
     }
-    public publishAnnouncement(i : number){
+    public publishAnnouncement(announcement : Announcement){
         let url = 'http://localhost:8080//announcements//publish';
 
         // this.model.ownerId = this.storage.getUser().id;
-        this.http.post(url, this.announcements[i]).subscribe(
+        this.http.post(url, announcement).subscribe(
             res=>{
                 //location.reload();
             },
