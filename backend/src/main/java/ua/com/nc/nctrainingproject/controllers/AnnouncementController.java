@@ -67,7 +67,7 @@ public class AnnouncementController {
 	@RequestMapping(value = "/publish", method = RequestMethod.POST)
 	public void publishAnnouncement(@RequestBody Announcement announcement) {
 		System.out.println("id "+announcement.getId());
-		announcementService.publishAnnouncement(announcement.getId());
+		announcementService.publishAnnouncement(announcement);
 	}
 
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
