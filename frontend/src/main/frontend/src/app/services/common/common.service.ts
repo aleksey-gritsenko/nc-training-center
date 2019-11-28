@@ -36,19 +36,20 @@ export class CommonService {
     }
 
     getBooksByFilter(filter: BookFilter): Observable<Book[]> {
-       let params = new HttpParams()
-                    .set('header',filter.header)
-                    .set('genre', filter.genre.toLocaleString())
-                    .set('author', filter.author.toLocaleString());
-      /*let params = {
-          'header': filter.header,
-          'genre': filter.genre,
-          'author': filter.author
-      };
-      */
-        const url = `${this.booksUrl}\\filter`;
+         let params = new HttpParams()
+                       .append('header', filter.header);
+
+        filter.genre!=[]?filter.genre.forEach((genre:string) =>{
+            params = params.append('genre', genre);
+        }):params = params.append('genre', "");
+        filter.author!=[]?filter.author.forEach((author:string) =>{
+            params = params.append('author', author);
+        }):params = params.append('author', "");
+
         console.log(params);
-        return this.http.post<Book[]>(url, params, this.httpOptions);
+        const url = `${this.booksUrl}\\filter`;
+
+        return this.http.post<Book[]>(url,params);
     }
 
     getBooksByTitle(title:string):Observable<Book[]>{

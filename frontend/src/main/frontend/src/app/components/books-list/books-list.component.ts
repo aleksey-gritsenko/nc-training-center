@@ -99,7 +99,7 @@ export class BooksListComponent implements OnInit{
 
         this.listOfSelectedGenres.forEach(genre => this.bookFilter.genre.push(genre.name));
         this.listOfSelectedAuthor.forEach(author => this.bookFilter.author.push(author.name));
-
+        this.books = [];
         this.apiService.getBooksByFilter(this.bookFilter).subscribe(
             res => {
                 this.books = res;
