@@ -53,6 +53,7 @@ export class CommonService {
     }
 
     createBook(book: Book): Observable<Book> {
+        console.log(book);
         return this.http.post<Book>(this.booksUrl, book);
     }
 
