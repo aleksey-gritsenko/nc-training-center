@@ -8,6 +8,7 @@ import ua.com.nc.nctrainingproject.models.Book;
 import ua.com.nc.nctrainingproject.services.BookService;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -45,15 +46,13 @@ public class BookController {
         return ResponseEntity.ok(bookService.getAllBooks());
     }
 
-    @RequestMapping(value = "/filter", method = RequestMethod.GET)
-
-    public List<Book> filterBook(@RequestParam(name = "header") String header,
-                                 @RequestParam(name = "genre") ArrayList<String> genres,
-                                 @RequestParam(name = "author") ArrayList<String> authors
+    @RequestMapping(value = "/filter", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity<?> filterBook(@RequestParam(name="header") String header,
+                                 @RequestParam(name="genre") ArrayList<String> genres,
+                                 @RequestParam(name="author") ArrayList<String> authors
     ) {
-        System.out.println(genres);
-        System.out.println(authors);
-        return bookService.filterBooks(header + "%", genres, authors);
+        return ResponseEntity.ok(bookService.filterBooks(header + "%", genres, authors));
     }
 
     @RequestMapping(value = "/genres", method = RequestMethod.GET)
