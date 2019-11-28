@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {Announcement} from "../../models/announcement";
 import {HttpClient} from "@angular/common/http";
 import {ActivatedRoute} from "@angular/router";
+import {StorageService} from "../../services/storage/storage.service";
+import {User} from "../../models/user";
 
 @Component({
     selector: 'app-announcement-proposition',
@@ -11,12 +13,16 @@ import {ActivatedRoute} from "@angular/router";
 export class AnnouncementPropositionComponent implements OnInit {
 
     announcements: Announcement[] = [];
+    currentUser: User;
 
-    constructor(private http: HttpClient,private route: ActivatedRoute) {
+
+    constructor(private http: HttpClient,private route: ActivatedRoute  , private storage: StorageService) {
     }
 
     ngOnInit() {
         this.getAllAnnouncement();
+        this.storage
+        this.currentUser = this.storage.getUser();
     }
 
     public getAllAnnouncement() {
@@ -33,7 +39,7 @@ export class AnnouncementPropositionComponent implements OnInit {
     public publishAnnouncement(announcement : Announcement){
         let url = 'http://localhost:8080//announcements//publish';
 
-        // this.model.ownerId = this.storage.getUser().id;
+        announcement.admin_id = this.storage.getUser().id;
         this.http.post(url, announcement).subscribe(
             res=>{
                 //location.reload();

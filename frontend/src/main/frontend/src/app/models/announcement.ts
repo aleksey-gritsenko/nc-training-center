@@ -6,6 +6,7 @@ export class Announcement extends Entity {
     bookID : number;
     priority: string;
     ownerId : number;
+    admin_id : number;
     status: string;
 
 
