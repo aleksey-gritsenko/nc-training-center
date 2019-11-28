@@ -1,8 +1,11 @@
 # NetCracker Training Project of Group 1 - Autumn 2019
 
+[![MIT License](https://img.shields.io/pypi/l/aiogram.svg?style=flat-square)](https://opensource.org/licenses/MIT)
+<br>
 This system helps user to decide what to read next,
 see friends, what friends read and so on.
 
+You can find the project website [here](https://nc-group1-2019-project.herokuapp.com/).
 ## Stack
 
 - [Spring Framework](https://spring.io/)
@@ -18,7 +21,15 @@ For building and running the application you need:
 - [NodeJS](https://nodejs.org)
 - [NPM](https://www.npmjs.com/)
 
+To build the project simply run this command in the root directory: 
+```shell
+mvn clean install 
+```
 ## Running the application locally
+
+This project is a Maven multimodule project with two submodules: 
+ - backend
+ - frontend
 
 There are several ways to run a Spring Boot application on your local machine. 
 One way is to execute the `main` method in the `Application` class from your IDE 
