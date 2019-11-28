@@ -1,6 +1,6 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 
 import {AppRoutingModule} from './app-routing.module';
@@ -37,6 +37,7 @@ import {EditProfileComponent} from './components/user/edit-profile/edit-profile.
 import {AddAdminComponent} from './components/user/add-admin/add-admin.component';
 import {DeactivateAccountComponent} from './components/deactivate-account/deactivate-account.component';
 import {CKEditorModule} from "@ckeditor/ckeditor5-angular";
+import { TruncateTextPipe } from './components/pipe/truncate-text.pipe';
 
 @NgModule({
     declarations: [
@@ -70,7 +71,8 @@ import {CKEditorModule} from "@ckeditor/ckeditor5-angular";
         ViewProfileComponent,
         EditProfileComponent,
         AddAdminComponent,
-        DeactivateAccountComponent
+        DeactivateAccountComponent,
+        TruncateTextPipe
     ],
 
     imports: [
@@ -78,7 +80,8 @@ import {CKEditorModule} from "@ckeditor/ckeditor5-angular";
         HttpClientModule,
         FormsModule,
         AppRoutingModule,
-        CKEditorModule
+        CKEditorModule,
+        ReactiveFormsModule
     ],
 
     providers: [AuthenticationService],

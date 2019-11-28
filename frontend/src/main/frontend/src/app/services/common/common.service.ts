@@ -36,17 +36,28 @@ export class CommonService {
     }
 
     getBooksByFilter(filter: BookFilter): Observable<Book[]> {
+         let params = new HttpParams()
+                       .append('header', filter.header);
 
-        let params = new HttpParams()
-            .set('header', filter.header)
-            .set('author', JSON.stringify(filter.author))
-            .set('genre',  JSON.stringify(filter.genre));
+        filter.genre!=[]?filter.genre.forEach((genre:string) =>{
+            params = params.append('genre', genre);
+        }):params = params.append('genre', "");
+        filter.author!=[]?filter.author.forEach((author:string) =>{
+            params = params.append('author', author);
+        }):params = params.append('author', "");
 
-        const url = `${this.booksUrl}\\filter`;
         console.log(params);
-        return this.http.get<Book[]>(url, {params: params});
+        const url = `${this.booksUrl}\\filter`;
+
+        return this.http.post<Book[]>(url,params);
     }
 
+    getBooksByTitle(title:string):Observable<Book[]>{
+        let params = new HttpParams()
+            .set('title', title);
+        const url = `${this.booksUrl}\\title`;
+        return this.http.get<Book[]>(url, {params:params});
+    }
 
     getBookById(id: number): Observable<Book> {
         const url = `${this.booksUrl}/id?id=${id}`;
@@ -114,12 +125,12 @@ export class CommonService {
     }
 
     getAcceptedReviews(bookId: number, status: boolean):Observable<Review[]>{
-        const body = new HttpParams()
+        const params = new HttpParams()
             .set('book', bookId.toString())
             .set('status', JSON.stringify(status));
         const url =`${this.reviewsUrl}/accepted`;
-        console.log(body);
-        return this.http.get<Review[]>(url, {params:body});
+        console.log(params);
+        return this.http.get<Review[]>(url, {params:params});
     }
 
     acceptReview(review:Review, status:boolean):Observable<Review>{
@@ -133,12 +144,20 @@ export class CommonService {
     }
 
     deleteReviewById(review:Review):Observable<Review>{
-        const body = new HttpParams()
+        const params = new HttpParams()
             .set('review',review.id.toString());
         const url = `${this.reviewsUrl}/delete`;
-        console.log(body);
-        return this.http.post<Review>(url,body);
+        console.log(params);
+        return this.http.post<Review>(url,params);
     }
+    getReviewById(reviewId:number){
+        const url = `${this.reviewsUrl}/detail`;
+        const params = new HttpParams()
+            .set('review',reviewId.toString());
+        return this.http.get<Review>(url,{params:params});
+    }
+
+
     getAnnouncementsByFilter(): Observable<Announcement[]> {
         return null;
     }

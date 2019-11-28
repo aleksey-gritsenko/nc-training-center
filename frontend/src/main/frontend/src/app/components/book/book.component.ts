@@ -4,6 +4,7 @@ import {CommonService} from "../../services/common/common.service";
 import {ActivatedRoute} from "@angular/router";
 import {Genre} from "../../models/genre";
 import {Author} from "../../models/author";
+import {FormControl, FormGroup} from "@angular/forms";
 
 @Component({
     selector: 'app-book',
@@ -13,13 +14,22 @@ import {Author} from "../../models/author";
 export class BookComponent implements OnInit {
     book: Book = new Book();
     authors: Author[] = [];
-
+    updatedBook: FormGroup;
+    bookId: any;
     constructor(private apiService: CommonService, private route: ActivatedRoute) {
     }
 
-    bookId: any;
+    bookForm = new FormGroup({
+        header: new FormControl(''),
+        genre: new FormControl(''),
+        status: new FormControl(''),
+        overview: new FormControl(''),
+        file: new FormControl(''),
+        author: new FormControl('')
+    });
 
     ngOnInit() {
+        this.bookForm.disable();
         this.bookId = parseInt(this.route.snapshot.paramMap.get('bookId'));
         this.getBook();
     }

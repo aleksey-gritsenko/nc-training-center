@@ -41,4 +41,10 @@ public class ReviewService {
 		}
 	}
 
+	public Review getReviewById(int reviewId){
+		if (reviewPostgreDAO.getReviewById(reviewId)!=null) {
+			return reviewPostgreDAO.getReviewById(reviewId);
+		}
+		return null;
+	}
 }

@@ -7,7 +7,6 @@ import {UserService} from "../../services/user/user.service";
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import {StorageService} from "../../services/storage/storage.service";
 
-
 @Component({
     selector: 'app-reviews-list',
     templateUrl: './reviews-list.component.html',
@@ -31,7 +30,6 @@ export class ReviewsListComponent implements OnInit{
     ngOnInit() {
         this.addReviewVisible = false;
         this.ngOnChanges();
-
     }
 
 
@@ -85,7 +83,7 @@ export class ReviewsListComponent implements OnInit{
         const newCreatedReview: Review = Object.assign({}, this.createdReview);
         newCreatedReview.bookId = this.book.id;
         newCreatedReview.userId = this.storage.getUser().id;
-        if(isNaN(newCreatedReview.userId))
+        if(isNaN(newCreatedReview.userId)||newCreatedReview.userId==null)
         {
             this.router.navigate(['/login']);
         }
