@@ -14,7 +14,7 @@
                     <div class="card card-profile">
                         <div class="card-body">
                             <div class="card-title">
-                                <h3><a  [routerLink]="['book', book.id]"> {{book.header}}</a></h3>
+                                <h3><a  (click)="saveFilterToStorage()" [routerLink]="['book', book.id]"> {{book.header}}</a></h3>
                             </div>
                             <div class="card-description">
                                 <div>Overview: {{book.overview}}</div>
@@ -42,11 +42,11 @@
                 <table class="table">
                     <tr>
                         <td><label for="header">Header</label></td>
-                        <td><input class="form-control" type="text" [(ngModel)]="model.header" id="header" name="header"></td>
+                        <td><input class="form-control" type="text" [(ngModel)]="model.header"   id="header" name="header"></td>
                     </tr>
                     <tr>
                         <td><label for="photo">Photo</label></td>
-                        <td><input class="form-control" type="number" [(ngModel)]="model.photoId" id="photo" name="photo"></td>
+                        <td><input class="form-control" type="number"  [(ngModel)]="model.photoId" id="photo" name="photo"></td>
                     </tr>
                     <tr>
                         <td><label for="file">File</label></td>
@@ -128,10 +128,6 @@
                                     <span class="form-check-sign"><span class="check"></span></span>
                                 </label>
                             </div>
-
-
-
-
                         </div>
                     </div>
                 </div>

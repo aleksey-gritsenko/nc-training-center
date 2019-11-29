@@ -5,6 +5,8 @@ import {ActivatedRoute} from "@angular/router";
 import {Genre} from "../../models/genre";
 import {Author} from "../../models/author";
 import {FormControl, FormGroup} from "@angular/forms";
+import {BookFilter} from "../../models/bookfilter";
+import {StorageService} from "../../services/storage/storage.service";
 
 @Component({
     selector: 'app-book',
@@ -15,8 +17,9 @@ export class BookComponent implements OnInit {
     book: Book = new Book();
     authors: Author[] = [];
     updatedBook: FormGroup;
+    suggestionBook:Book[] = [];
     bookId: any;
-    constructor(private apiService: CommonService, private route: ActivatedRoute) {
+    constructor(private apiService: CommonService, private route: ActivatedRoute, private storage:StorageService) {
     }
 
     bookForm = new FormGroup({
@@ -32,6 +35,7 @@ export class BookComponent implements OnInit {
         this.bookForm.disable();
         this.bookId = parseInt(this.route.snapshot.paramMap.get('bookId'));
         this.getBook();
+        this.makeSuggestion();
     }
 
     updateBook(): void {
@@ -65,6 +69,27 @@ export class BookComponent implements OnInit {
                 alert("Error in get book by id")
             }
         );
+    }
+
+
+    makeSuggestion(){
+        let authors = JSON.parse(localStorage.getItem('authors'));
+        let genres = JSON.parse(localStorage.getItem('genres'));
+
+        let suggestionFilter:BookFilter = new BookFilter();
+        suggestionFilter.genre = genres;
+        suggestionFilter.author = authors;
+
+        if(this.storage.getUser()!=null)
+        {
+            this.apiService.makeSuggestion(this.storage.getUser().id).subscribe(
+                books=>this.suggestionBook =books
+            )
+        }
+        this.apiService.getBooksByFilter(suggestionFilter).subscribe(
+            books=>books.forEach(book=>this.suggestionBook.push(book))
+        );
+
     }
 
 }
