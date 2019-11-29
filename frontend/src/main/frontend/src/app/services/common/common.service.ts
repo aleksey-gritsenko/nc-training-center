@@ -139,6 +139,7 @@ export class CommonService {
         console.log(params);
         return this.http.post<Review>(url,params);
     }
+
     getReviewById(reviewId:number){
         const url = `${this.reviewsUrl}/detail`;
         const params = new HttpParams()
@@ -152,7 +153,8 @@ export class CommonService {
     }
 
     addBookToUser(userBook:UserBook):Observable<UserBook>{
-        const url = `http://localhost:8080/userbook`;
+        const url = `http://localhost:8080/userBook/add`;
+        console.log(userBook);
         return this.http.post<UserBook>(url, userBook);
     }
 
