@@ -7,7 +7,7 @@ export class Book extends Entity {
     photoId: number;
     fileId: number;
     status: string;
-    genre: Genre;
+    genre: string;
     authors: Array<Author> = [];
 }
 

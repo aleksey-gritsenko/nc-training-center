@@ -9,6 +9,7 @@ import {Author} from "../../models/author";
 import {UserBook} from "../../models/userBook";
 import {error} from "util";
 import {StorageService} from "../../services/storage/storage.service";
+import {Announcement} from "../../models/announcement";
 
 @Component({
     selector: 'app-books-list',
@@ -23,6 +24,17 @@ export class BooksListComponent implements OnInit{
     authors: Author[] = [];
     books: Book[] = [];
     createdBook: Book = new Book();
+    model : Book = {
+        id :0,
+        header: '',
+        overview: '',
+        photoId: 0,
+        fileId: 0,
+        status: '',
+        genre: '',
+        authors: []
+    };
+
     bookFilter: BookFilter = new BookFilter();
     addBookVisible: boolean;
     selectedAuthors: SelectedItem[] =[];
@@ -81,7 +93,7 @@ export class BooksListComponent implements OnInit{
                         authors => book.authors = authors
                     );
                     this.apiService.getGenreByBookId(book.id).subscribe(
-                        genre=> book.genre  = genre
+                        genre=> book.genre  = genre.name
                     )
                 })
 
@@ -108,7 +120,7 @@ export class BooksListComponent implements OnInit{
                         authors => book.authors = authors
                     );
                     this.apiService.getGenreByBookId(book.id).subscribe(
-                        genre=> book.genre  = genre
+                        genre=> book.genre  = genre.name
                     )
                 })
             },
@@ -135,7 +147,7 @@ export class BooksListComponent implements OnInit{
                         authors => book.authors = authors
                      );
                      this.apiService.getGenreByBookId(book.id).subscribe(
-                         genre=> book.genre  = genre
+                         genre=> book.genre  = genre.name
                      )
                 })
 
@@ -171,9 +183,9 @@ export class BooksListComponent implements OnInit{
         this.createdAuthors.split(',').forEach(name=>{
             let author = new Author();
             author.name = name;
-            this.createdBook.authors.push(author);
+            this.model.authors.push(author);
         });
-        const newCreatedBook: Book = Object.assign({}, this.createdBook);
+        const newCreatedBook: Book = Object.assign({}, this.model);
         this.apiService.createBook(newCreatedBook)
             .subscribe(res => {
                     this.books.push(res);
