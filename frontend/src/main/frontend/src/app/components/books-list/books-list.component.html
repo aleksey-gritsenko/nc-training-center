@@ -5,6 +5,8 @@
     <div class="col-9">
         <div class="text-muted">
             <h1>Books</h1>
+            <input class="form-control col-3" type="text" [(ngModel)]="searchTitle" placeholder="Search..." name="header">
+            <button class="btn btn-primary" (click)="searchByTitle()">Search</button>
         </div>
         <div>
             <div class="row">
@@ -23,7 +25,7 @@
                                         <div>{{author.name}}</div>
                                     </div>
                                 </div>
-                                <div *ngIf="book.genre">Genre: {{book.genre.name}}</div>
+                                <div *ngIf="book.genre">Genre: {{book.genre}}</div>
                             </div>
                             <div>
                                 <button class="btn btn-primary" (click)="addBookToUser(book.id)">Add book</button>
@@ -40,30 +42,30 @@
                 <table class="table">
                     <tr>
                         <td><label for="header">Header</label></td>
-                        <td><input class="form-control" type="text" [(ngModel)]="createdBook.header" id="header" name="header"></td>
+                        <td><input class="form-control" type="text" [(ngModel)]="model.header" id="header" name="header"></td>
                     </tr>
                     <tr>
                         <td><label for="photo">Photo</label></td>
-                        <td><input class="form-control" type="number" [(ngModel)]="createdBook.photoId" id="photo" name="photo"></td>
+                        <td><input class="form-control" type="number" [(ngModel)]="model.photoId" id="photo" name="photo"></td>
                     </tr>
                     <tr>
-                        <td><label for="photo">File</label></td>
-                        <td><input class="form-control" type="number" [(ngModel)]="createdBook.fileId" id="file" name="file"></td>
+                        <td><label for="file">File</label></td>
+                        <td><input class="form-control" type="number" [(ngModel)]="model.fileId" id="file" name="file"></td>
                     </tr>
                     <tr>
                         <td><label for="status">Status</label></td>
-                        <td><input class="form-control" type="text" [(ngModel)]="createdBook.status" id="status" name="status"></td>
+                        <td><input class="form-control" type="text" [(ngModel)]="model.status" id="status" name="status"></td>
                     </tr>
                     <tr>
                         <td><label for="overview">Overview</label></td>
-                        <td><textarea class="form-control" type="text" [(ngModel)]="createdBook.overview" id="overview" name="overview"
+                        <td><textarea class="form-control" type="text" [(ngModel)]="model.overview" id="overview" name="overview"
                                       rows="5"></textarea></td>
                     </tr>
                     <tr>
                         <td><label for="genre">Genre</label></td>
-                        <td><textarea class="form-control" type="text" [(ngModel)]="createdBook.genre.name" id="genre" name="genre"
-                                      rows="5"></textarea></td>
+                        <td><input class="form-control" type="text" [(ngModel)]="model.genre" id="genre" name="genre"></td>
                     </tr>
+
                     <tr>
                         <td><label for="authors">Authors(split - ',')</label></td>
                         <td><textarea class="form-control" type="text" [(ngModel)]="createdAuthors" id="authors" name="authors"
@@ -86,6 +88,7 @@
                     </button>
 
                 </div>
+                <button class="btn btn-primary" (click)="searchByFilter()">Search by filter</button>
                 <button class="btn btn-primary" (click)="resetFiler()">Reset filter</button>
             </div>
 
@@ -96,28 +99,39 @@
                             <h2>Author</h2>
                         </div>
                         <div class="card-body row">
-                            <div *ngFor="let author of selectedAuthors;" class="col-6">
+                            <div *ngFor="let character of fillArray()">
+                                <h3  class="font-weight-bold btn-link border-bottom" (click)="filterAuthor(character)" >{{character}}</h3>
+                            </div>
+                            <div *ngFor="let author of filterAuthors;" class="col-6">
                                 <label class="form-check-label" >
                                     <input class="form-check-input" type="checkbox" [(ngModel)]="author.selected" name="{{author.name}}">{{author.name}}
                                     <span class="form-check-sign"><span class="check"></span></span>
                                 </label>
                             </div>
+
+
                         </div>
                     </div>
                 </div>
-
                 <div class="col-12">
                     <div class="card form-check">
                         <div class="card-title card-header-primary">
                             <h2>Genre</h2>
                         </div>
                         <div class="card-body row">
-                            <div *ngFor="let genre of selectedGenres;" class="col-6">
+                            <div *ngFor="let character of fillArray()">
+                                <h3 class="font-weight-bold btn-link  border-bottom" (click)="filterGenre(character)" >{{character}}</h3>
+                            </div>
+                            <div *ngFor="let genre of filterGenres;" class="col-6">
                                 <label class="form-check-label">
                                     <input class="form-check-input" type="checkbox" [(ngModel)]="genre.selected" name="{{genre.name}}">{{genre.name}}
                                     <span class="form-check-sign"><span class="check"></span></span>
                                 </label>
                             </div>
+
+
+
+
                         </div>
                     </div>
                 </div>

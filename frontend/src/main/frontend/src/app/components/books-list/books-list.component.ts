@@ -7,8 +7,8 @@ import {SelectedItem} from '../../models/selected-item-filter';
 import {Genre} from "../../models/genre";
 import {Author} from "../../models/author";
 import {UserBook} from "../../models/userBook";
-import {error} from "util";
 import {StorageService} from "../../services/storage/storage.service";
+
 
 @Component({
     selector: 'app-books-list',
@@ -18,16 +18,27 @@ import {StorageService} from "../../services/storage/storage.service";
 
 export class BooksListComponent implements OnInit{
     createdAuthors: string;
+    searchTitle:string;
     genres: Genre[] = [];
     authors: Author[] = [];
     books: Book[] = [];
-    createdBook: Book = new Book();
+    model : Book = {
+        id :0,
+        header: '',
+        overview: '',
+        photoId: 0,
+        fileId: 0,
+        status: '',
+        genre: '',
+        authors: []
+    };
+
     bookFilter: BookFilter = new BookFilter();
     addBookVisible: boolean;
     selectedAuthors: SelectedItem[] =[];
     selectedGenres: SelectedItem[] = [];
-    listOfSelectedGenres: SelectedItem[] = [];
-    listOfSelectedAuthor: SelectedItem[] = [];
+    filterGenres:SelectedItem[]=[];
+    filterAuthors:SelectedItem[]=[];
     userId: any;
 
     constructor(private apiService: CommonService, private route: ActivatedRoute, private router: Router,
@@ -71,22 +82,45 @@ export class BooksListComponent implements OnInit{
         );
 
     }
+    searchByTitle(){
+        this.apiService.getBooksByTitle(this.searchTitle).subscribe(
+            res=>{
+                this.books = res;
+                this.books.forEach(book=>{
+                    this.apiService.getAuthorsByBookId(book.id).subscribe(
+                        authors => book.authors = authors
+                    );
+                    this.apiService.getGenreByBookId(book.id).subscribe(
+                        genre=> book.genre  = genre.name
+                    )
+                })
 
+            }
+        )
+    }
     searchByFilter() {
         this.bookFilter.author = [];
         this.bookFilter.genre = [];
 
-        this.listOfSelectedGenres = this.selectedGenres
+        this.selectedGenres = this.selectedGenres
             .filter(v => v.selected);
-        this.listOfSelectedAuthor = this.selectedAuthors
+        this.selectedAuthors = this.selectedAuthors
             .filter(v => v.selected);
 
-        this.listOfSelectedGenres.forEach(genre => this.bookFilter.genre.push(genre.name));
-        this.listOfSelectedAuthor.forEach(author => this.bookFilter.author.push(author.name));
-
+        this.selectedGenres.forEach(genre => this.bookFilter.genre.push(genre.name));
+        this.selectedAuthors.forEach(author => this.bookFilter.author.push(author.name));
+        this.books = [];
         this.apiService.getBooksByFilter(this.bookFilter).subscribe(
             res => {
                 this.books = res;
+                this.books.forEach(book=>{
+                    this.apiService.getAuthorsByBookId(book.id).subscribe(
+                        authors => book.authors = authors
+                    );
+                    this.apiService.getGenreByBookId(book.id).subscribe(
+                        genre=> book.genre  = genre.name
+                    )
+                })
             },
             error => alert("error in filter")
         );
@@ -106,13 +140,12 @@ export class BooksListComponent implements OnInit{
         this.apiService.getBooks().subscribe(
             res => {
                 this.books = res;
-                console.log(res);
                 this.books.forEach(book=>{
                      this.apiService.getAuthorsByBookId(book.id).subscribe(
                         authors => book.authors = authors
                      );
                      this.apiService.getGenreByBookId(book.id).subscribe(
-                         genre=> book.genre  = genre
+                         genre=> book.genre  = genre.name
                      )
                 })
 
@@ -124,12 +157,12 @@ export class BooksListComponent implements OnInit{
     }
 
     addBookToUser(bookId:number){
-        let userBook:UserBook = new UserBook();
-        userBook.userId = this.storage.getUser().id;
-        if(isNaN(userBook.userId))
+        if(this.storage.getUser()==null)
         {
             this.router.navigate(['/login']);
         }
+        let userBook:UserBook = new UserBook();
+        userBook.userId = this.storage.getUser().id;
         userBook.bookId = bookId;
         this.apiService.addBookToUser(userBook).subscribe(
             res=>{
@@ -148,9 +181,9 @@ export class BooksListComponent implements OnInit{
         this.createdAuthors.split(',').forEach(name=>{
             let author = new Author();
             author.name = name;
-            this.createdBook.authors.push(author);
+            this.model.authors.push(author);
         });
-        const newCreatedBook: Book = Object.assign({}, this.createdBook);
+        const newCreatedBook: Book = Object.assign({}, this.model);
         this.apiService.createBook(newCreatedBook)
             .subscribe(res => {
                     this.books.push(res);
@@ -165,6 +198,19 @@ export class BooksListComponent implements OnInit{
 
     }
 
+
+    fillArray():string[]{
+        return "abcdefghijklmnopqrstuvwxyz".split("");
+    }
+
+    filterGenre(char:string){
+        this.filterGenres = this.selectedGenres.filter(genre=>genre.name.charAt(0).toLowerCase()==char);
+        console.log(this.filterGenres);
+    }
+    filterAuthor(char:string){
+        this.filterAuthors = this.selectedAuthors.filter(author=>author.name.charAt(0).toLowerCase()==char);
+        console.log(this.filterAuthors);
+    }
 }
 
 

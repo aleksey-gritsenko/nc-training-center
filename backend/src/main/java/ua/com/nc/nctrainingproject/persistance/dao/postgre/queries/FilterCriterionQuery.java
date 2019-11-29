@@ -29,6 +29,8 @@ public class FilterCriterionQuery {
 	}
 
 	public String makeQuery() {
+		System.out.println(BookQuery.GET_BOOKS_FILTRATION +
+				makeAuthorConditins() + makeGenresConditions() + makeHeaderCondition());
 		return BookQuery.GET_BOOKS_FILTRATION +
 				makeAuthorConditins() + makeGenresConditions() + makeHeaderCondition();
 	}
@@ -41,7 +43,6 @@ public class FilterCriterionQuery {
 		argsList.addAll(author);
 		argsList.addAll(genre);
 		argsList.addAll(headers);
-
 		args = argsList.toArray();
 		return args;
 	}
@@ -57,7 +58,6 @@ public class FilterCriterionQuery {
 
 	private String makeGenresConditions() {
 		String genresCondition = " ";
-
 		if (genre.size() != 0) {
 			genresCondition =
 					genre.stream().map((i) -> BookQuery.CONDITIONS_GENRES+" OR ")
@@ -74,6 +74,7 @@ public class FilterCriterionQuery {
 					+" OR ").reduce((g,n)->g+n).get();
 
 		}
+		System.out.println(authorCondition);
 		return authorCondition;
 	}
 

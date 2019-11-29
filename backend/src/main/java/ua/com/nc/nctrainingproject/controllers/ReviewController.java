@@ -29,9 +29,14 @@ public class ReviewController {
 		return response != null ? ResponseEntity.ok(response) : new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
 
+	@RequestMapping(value = "detail")
+	public ResponseEntity<?> getReviewById(@RequestParam(name = "review") int reviewId){
+		Review response = reviewService.getReviewById(reviewId);
+		return response != null ? ResponseEntity.ok(response) : new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+	}
+
 	@RequestMapping(value = "/all", method = RequestMethod.GET)
 	public ResponseEntity<?>  getReviewsOfBook(@RequestParam(name = "book") int bookId) {
-		System.out.println(bookId);
 		return ResponseEntity.ok(reviewService.getReviewOfBook(bookId));
 	}
 

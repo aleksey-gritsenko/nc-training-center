@@ -1,21 +1,21 @@
 package ua.com.nc.nctrainingproject.persistance.dao.postgre;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import ua.com.nc.nctrainingproject.models.User;
 import ua.com.nc.nctrainingproject.persistance.dao.AbstractDAO;
 import ua.com.nc.nctrainingproject.persistance.dao.postgre.queries.UserQuery;
 import ua.com.nc.nctrainingproject.persistance.mappers.UserRowMapper;
 
+import javax.sql.DataSource;
 import java.util.List;
 
 @Repository
 public class UserPostgreDAO extends AbstractDAO<User> {
 
     @Autowired
-    public UserPostgreDAO(JdbcTemplate jdbcTemplate) {
-        super(jdbcTemplate);
+    public UserPostgreDAO(DataSource dataSource) {
+        super(dataSource);
     }
 
     public User getUserById(int id) {
