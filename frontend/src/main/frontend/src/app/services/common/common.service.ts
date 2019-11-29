@@ -14,9 +14,11 @@ import {UserBook} from "../../models/userBook";
 })
 export class CommonService {
 
-    private booksUrl = 'http://localhost:8080/book'; // change with necessity
-    private announcementsUrl = '/announcements'; // change with necessity
-    private reviewsUrl = 'http://localhost:8080/review';
+    private siteUrl: string = 'https://nc-group1-2019-project.herokuapp.com';
+
+    private booksUrl: string = `${this.siteUrl}/book`;
+    private announcementsUrl: string = `${this.siteUrl}/announcements`;
+    private reviewsUrl: string = `${this.siteUrl}/review`;
     // private reviewsUrl = 'api/books'; // -?
 
     // announcements : Announcement[] = [];
@@ -153,7 +155,7 @@ export class CommonService {
     }
 
     addBookToUser(userBook:UserBook):Observable<UserBook>{
-        const url = `http://localhost:8080/userbook`;
+        const url = `${this.siteUrl}/userbook`;
         return this.http.post<UserBook>(url, userBook);
     }
 

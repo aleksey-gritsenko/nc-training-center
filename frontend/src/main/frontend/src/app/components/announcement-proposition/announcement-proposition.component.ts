@@ -10,9 +10,11 @@ import {ActivatedRoute} from "@angular/router";
 })
 export class AnnouncementPropositionComponent implements OnInit {
 
+    private siteUrl: string = 'https://nc-group1-2019-project.herokuapp.com';
+
     announcements: Announcement[] = [];
 
-    constructor(private http: HttpClient,private route: ActivatedRoute) {
+    constructor(private http: HttpClient, private route: ActivatedRoute) {
     }
 
     ngOnInit() {
@@ -20,26 +22,28 @@ export class AnnouncementPropositionComponent implements OnInit {
     }
 
     public getAllAnnouncement() {
-        let url = 'http://localhost:8080//announcements//new';
+        let url = `${this.siteUrl}/announcements/new`;
         this.http.get<Announcement[]>(url).subscribe(
             res => {
                 this.announcements = res;
             },
             err => {
-                alert("ERROr");
+                alert("Error in getting all announcements");
             }
         )
     }
-    public publishAnnouncement(i : number){
-        let url = 'http://localhost:8080//announcements//publish';
+
+    public publishAnnouncement(i: number) {
+        let url = `${this.siteUrl}/publish`;
 
         // this.model.ownerId = this.storage.getUser().id;
         this.http.post(url, this.announcements[i]).subscribe(
-            res=>{
+            res => {
                 //location.reload();
             },
-            err=>{
-                err => {alert(JSON.parse(JSON.stringify(err)).message);}      }
+            err => {
+                alert(JSON.parse(JSON.stringify(err)).message);
+            }
         );
     }
 }

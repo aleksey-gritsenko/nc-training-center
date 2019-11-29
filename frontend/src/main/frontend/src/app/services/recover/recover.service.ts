@@ -7,11 +7,13 @@ import {Router} from '@angular/router';
 })
 export class RecoverService {
 
+    private siteUrl: string = 'https://nc-group1-2019-project.herokuapp.com';
+
     constructor(private http: HttpClient, private router: Router) {
     }
 
     sendRecoverCode(email: string): void {
-        const url = 'http://localhost:8080/email';
+        const url = `${this.siteUrl}/email`;
         const form = new FormData();
         form.append('email', email);
         this.http.post(url, form).subscribe();
