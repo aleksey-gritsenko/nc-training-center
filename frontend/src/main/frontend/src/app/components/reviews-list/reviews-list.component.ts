@@ -80,15 +80,15 @@ export class ReviewsListComponent implements OnInit{
         );
     }
     createReview(): void {
-        const newCreatedReview: Review = Object.assign({}, this.createdReview);
-        newCreatedReview.bookId = this.book.id;
-        newCreatedReview.userId = this.storage.getUser().id;
-        if(isNaN(newCreatedReview.userId)||newCreatedReview.userId==null)
+        if(this.storage.getUser()==null)
         {
             this.router.navigate(['/login']);
         }
         else
         {
+            const newCreatedReview: Review = Object.assign({}, this.createdReview);
+            newCreatedReview.bookId = this.book.id;
+            newCreatedReview.userId = this.storage.getUser().id;
             this.commonService.createReview(newCreatedReview)
                 .subscribe(res => {
                         this.userService.searchUser(res.userId.toString()).subscribe(
