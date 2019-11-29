@@ -8,6 +8,7 @@ import ua.com.nc.nctrainingproject.persistance.dao.ActionTypeDAO;
 import ua.com.nc.nctrainingproject.persistance.dao.postgre.queries.ActionTypeQuery;
 import ua.com.nc.nctrainingproject.persistance.mappers.ActionTypeRowMapper;
 
+import javax.sql.DataSource;
 import java.util.List;
 
 @Repository
@@ -16,8 +17,8 @@ public class ActionTypePostgreDAO implements ActionTypeDAO {
 	private final JdbcTemplate jdbcTemplate;
 
 	@Autowired
-	public ActionTypePostgreDAO(JdbcTemplate jdbcTemplate) {
-		this.jdbcTemplate = jdbcTemplate;
+	public ActionTypePostgreDAO(DataSource dataSource) {
+		this.jdbcTemplate = new JdbcTemplate(dataSource);
 	}
 
 	@Override

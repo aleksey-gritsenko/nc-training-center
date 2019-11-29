@@ -2,22 +2,21 @@ package ua.com.nc.nctrainingproject.persistance.dao.postgre;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import ua.com.nc.nctrainingproject.models.Review;
 import ua.com.nc.nctrainingproject.persistance.dao.AbstractDAO;
-import ua.com.nc.nctrainingproject.persistance.dao.ReviewDAO;
 import ua.com.nc.nctrainingproject.persistance.dao.postgre.queries.ReviewQuery;
 import ua.com.nc.nctrainingproject.persistance.mappers.ReviewRowMapper;
 
+import javax.sql.DataSource;
 import java.util.List;
 
 @Repository
 public class ReviewPostgreDAO extends AbstractDAO<Review> {
 
 	@Autowired
-	public ReviewPostgreDAO(JdbcTemplate jdbcTemplate) {
-		super(jdbcTemplate);
+	public ReviewPostgreDAO(DataSource dataSource) {
+		super(dataSource);
 	}
 
 
