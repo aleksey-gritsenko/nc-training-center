@@ -78,23 +78,28 @@ public class PasswordRecoverService {
     }
 
 
+    public RecoverCode getCode(String code) {
+        return codePostgreDAO.getCodeBy(code);
+    }
 
     public boolean passwordRecover(String code, String newPassword) {
 
-        RecoverCode codeDB = codePostgreDAO.getCodeBy(code);
-        if (code.equals(codeDB.getCode())) {
+        RecoverCode codeDB = getCode(code);
+        if (codeDB!=null) {
             userPostgreDAO.updatePassword(newPassword, codeDB.getEmail());
             deleteCode(code);
             return true;
         }
         return false;
     }
-    public  void reSend(String user) throws MessagingException{
+
+    public void reSend(String user) throws MessagingException {
         deleteCodeEmail(user);
         makeEmail(user);
 
     }
-    public void deleteALL(){
+
+    public void deleteALL() {
         codePostgreDAO.deleteAll();
     }
 

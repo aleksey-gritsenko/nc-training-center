@@ -10,6 +10,7 @@ import ua.com.nc.nctrainingproject.persistance.dao.postgre.queries.CodeRecoverQu
 import ua.com.nc.nctrainingproject.persistance.mappers.CodeRowMapper;
 
 import javax.sql.DataSource;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Repository
@@ -23,7 +24,9 @@ public class CodePostgreDAO implements CodeRecoverDAO {
 
     @Override
     public void createCode(String code, String email) {
-        jdbcTemplate.update(CodeRecoverQuery.CREATE_CODE, code, new Date(), email);
+        jdbcTemplate.update(CodeRecoverQuery.CREATE_CODE, code,
+                 LocalDateTime.now(), email);
+        System.out.println(LocalDateTime.now());
     }
 
     public RecoverCode getCodeBy(String code) {
@@ -35,7 +38,7 @@ public class CodePostgreDAO implements CodeRecoverDAO {
     }
 
     public void deleteAll() {
-        jdbcTemplate.update(CodeRecoverQuery.DELETE_ALL);
+        jdbcTemplate.update(CodeRecoverQuery.DELETE_ALL_HOUR);
     }
 
     public void deleteByCode(String code) {

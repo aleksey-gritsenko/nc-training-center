@@ -2,16 +2,21 @@ package ua.com.nc.nctrainingproject.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ua.com.nc.nctrainingproject.models.RecoverCode;
 import ua.com.nc.nctrainingproject.models.User;
+import ua.com.nc.nctrainingproject.persistance.dao.postgre.CodePostgreDAO;
 import ua.com.nc.nctrainingproject.persistance.dao.postgre.UserPostgreDAO;
 
 @Service
 public class UserService {
     private final UserPostgreDAO userPostgreDAO;
+    private final CodePostgreDAO codePostgreDAO;
+
 
     @Autowired
-    UserService(UserPostgreDAO userPostgreDAO) {
+    UserService(UserPostgreDAO userPostgreDAO, CodePostgreDAO codePostgreDAO) {
         this.userPostgreDAO = userPostgreDAO;
+        this.codePostgreDAO = codePostgreDAO;
     }
 
     public User updateByName(User user) {
@@ -40,5 +45,12 @@ public class UserService {
             return userPostgreDAO.getUserByUserName(admin.getUserName());
         }
         return null;
+    }
+
+    public void activateAccount(String email, String code) {
+
+        if (codePostgreDAO.getCodeBy(code) != null) {
+            userPostgreDAO.activateAccount(email);
+        }
     }
 }
