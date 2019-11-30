@@ -9,6 +9,7 @@ import ua.com.nc.nctrainingproject.persistance.dao.CodeRecoverDAO;
 import ua.com.nc.nctrainingproject.persistance.dao.postgre.queries.CodeRecoverQuery;
 import ua.com.nc.nctrainingproject.persistance.mappers.CodeRowMapper;
 
+import javax.sql.DataSource;
 import java.util.Date;
 
 @Repository
@@ -16,8 +17,8 @@ public class CodePostgreDAO implements CodeRecoverDAO {
 	private final JdbcTemplate jdbcTemplate;
 
 	@Autowired
-	public CodePostgreDAO(JdbcTemplate jdbcTemplate) {
-		this.jdbcTemplate = jdbcTemplate;
+	public CodePostgreDAO(DataSource dataSource) {
+		this.jdbcTemplate = new JdbcTemplate(dataSource);
 	}
 
 	@Override
