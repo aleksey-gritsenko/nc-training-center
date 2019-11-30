@@ -156,7 +156,7 @@ export class CommonService {
     }
 
     addBookToUser(userBook:UserBook):Observable<UserBook>{
-        const url = `http://localhost:8080/userBook/add`;
+        const url = `${this.userBookUrl}/add`;
         console.log(userBook);
         return this.http.post<UserBook>(url, userBook);
     }
@@ -167,14 +167,14 @@ export class CommonService {
     }
 
     markUserBookAsRead(userBook: UserBook): Observable<UserBook>{
-        const url = `http://localhost:8080/userBook/markread`;
+        const url = `${this.userBookUrl}/markread`;
         userBook.isRead = true;
         console.log(userBook);
         return this.http.post<UserBook>(url, userBook);
     }
 
     markUserBookAsFavourite(userBook: UserBook): Observable<UserBook>{
-        const url = `http://localhost:8080/userBook/markfav`;
+        const url = `${this.userBookUrl}/markfav`;
         userBook.isFavorite = true;
         console.log(userBook);
         return this.http.post<UserBook>(url, userBook);
@@ -204,6 +204,12 @@ export class CommonService {
     removeFromRead(userBook: UserBook): Observable<UserBook>{
         const url = `${this.userBookUrl}/remove_read`;
         userBook.isRead = false;
+        console.log(userBook);
+        return this.http.post<UserBook>(url, userBook);
+    }
+
+    deleteFromAdded(userBook: UserBook): Observable<UserBook>{
+        const url = `${this.userBookUrl}/delete`;
         console.log(userBook);
         return this.http.post<UserBook>(url, userBook);
     }

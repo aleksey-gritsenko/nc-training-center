@@ -6,7 +6,6 @@ import {BookFilter} from '../../models/bookfilter';
 import {SelectedItem} from '../../models/selected-item-filter';
 import {Genre} from "../../models/genre";
 import {Author} from "../../models/author";
-import {UserBook} from "../../models/userBook";
 import {StorageService} from "../../services/storage/storage.service";
 
 
@@ -40,14 +39,6 @@ export class BooksListComponent implements OnInit{
     filterGenres:SelectedItem[]=[];
     filterAuthors:SelectedItem[]=[];
     userId: any;
-
-    userAddedBook: boolean = true;
-    userAddedToRead: boolean = true;
-    userAddedToFav: boolean = true;
-
-    userBook:UserBook = new UserBook();
-
-    userBooks : UserBook[] = [];
 
     constructor(private apiService: CommonService, private route: ActivatedRoute, private router: Router,
     private storage: StorageService) {
@@ -164,108 +155,6 @@ export class BooksListComponent implements OnInit{
         );
     }
 
-    addBookToUser(bookId:number){
-        if (this.storage.getUser() == null) {
-            this.router.navigate(['/login']);
-        }
-        let userBook:UserBook = new UserBook();
-        userBook.userId = this.storage.getUser().id;
-        userBook.bookId = bookId;
-        this.userAddedBook = true;
-
-        this.apiService.addBookToUser(userBook).subscribe(
-            res=>{
-                console.log(res);
-            },
-            err=>{
-                console.log("Add  book error");
-            }
-        );
-    }
-
-    addBookToFavourite(bookId: number){
-        if (this.storage.getUser() == null) {
-            this.router.navigate(['/login']);
-        }
-
-        let userBook:UserBook = new UserBook();
-        userBook.userId = this.storage.getUser().id;
-        userBook.bookId = bookId;
-
-        this.userAddedToFav = false;
-
-        this.apiService.markUserBookAsFavourite(userBook).subscribe(
-            res=>{
-                console.log(res);
-            },
-            err=>{
-                console.log("Add to FAV book error");
-            }
-        );
-    }
-
-    addBookToRead(bookId: number){
-        if (this.storage.getUser() == null) {
-            this.router.navigate(['/login']);
-        }
-
-        let userBook:UserBook = new UserBook();
-        userBook.userId = this.storage.getUser().id;
-        userBook.bookId = bookId;
-
-        this.userAddedToRead = false;
-
-        this.apiService.markUserBookAsRead(userBook).subscribe(
-            res=>{
-                console.log(res);
-            },
-            err=>{
-                console.log("Add to READ book error");
-            }
-        );
-    }
-
-    removeBookFromFav(bookId: number){
-       if (this.storage.getUser() == null) {
-            this.router.navigate(['/login']);
-        }
-
-        let userBook:UserBook = new UserBook();
-        userBook.userId = this.storage.getUser().id;
-        userBook.bookId = bookId;
-
-        this.userAddedToFav = true;
-
-        this.apiService.removeFromFavourite(userBook).subscribe(
-            res=>{
-                console.log(res);
-            },
-            err=>{
-                console.log("Remove from FAV book error");
-            }
-        );
-    }
-
-    removeBookFromRead(bookId: number){
-        if (this.storage.getUser() == null) {
-            this.router.navigate(['/login']);
-        }
-
-        let userBook:UserBook = new UserBook();
-        userBook.userId = this.storage.getUser().id;
-        userBook.bookId = bookId;
-
-        this.userAddedToRead = true;
-
-        this.apiService.removeFromRead(userBook).subscribe(
-            res=>{
-                console.log(res);
-            },
-            err=>{
-                console.log("Remove from READ book error");
-            }
-        );
-    }
 
     createBook(): void {
         this.createdAuthors.split(',').forEach(name=>{
