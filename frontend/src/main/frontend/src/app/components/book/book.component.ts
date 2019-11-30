@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Book} from '../../models/book';
 import {CommonService} from "../../services/common/common.service";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {Genre} from "../../models/genre";
 import {Author} from "../../models/author";
 import {FormControl, FormGroup} from "@angular/forms";
@@ -86,24 +86,23 @@ export class BookComponent implements OnInit {
         );
     }
 
-    makeSuggestion(){
+    makeSuggestion() {
         let authors = JSON.parse(localStorage.getItem('authors'));
         let genres = JSON.parse(localStorage.getItem('genres'));
 
-        let suggestionFilter:BookFilter = new BookFilter();
+        let suggestionFilter: BookFilter = new BookFilter();
         suggestionFilter.genre = genres;
         suggestionFilter.author = authors;
 
-        if(this.storage.getUser()!=null)
-        {
+        if (this.storage.getUser() != null) {
             this.apiService.makeSuggestion(this.storage.getUser().id).subscribe(
-                books=>this.suggestionBook=books
+                books => this.suggestionBook = books
             )
         }
         this.apiService.getBooksByFilter(suggestionFilter).subscribe(
-            books=>books.forEach(book=>this.suggestionBook.push(book))
+            books => books.forEach(book => this.suggestionBook.push(book))
         );
-
+    }
 
     addBookToUser(bookId:number){
         if (this.storage.getUser() == null) {

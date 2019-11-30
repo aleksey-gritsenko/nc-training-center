@@ -27,7 +27,7 @@ export class UserBooksComponent implements OnInit {
 
     ngOnInit() {
         this.curBook.bookForm.disable();
-        this.bookId = parseInt(this.curBook.bookParamMap.get('bookId'));
+        this.bookId = parseInt(this.route.snapshot.paramMap.get('bookId'));
         this.curBook.getBook();
 
         this.curBookList.getUsersBookList();
