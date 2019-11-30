@@ -6,8 +6,9 @@ import {BookFilter} from '../../models/bookfilter';
 import {SelectedItem} from '../../models/selected-item-filter';
 import {Genre} from "../../models/genre";
 import {Author} from "../../models/author";
-import {StorageService} from "../../services/storage/storage.service";
 import {UserBook} from "../../models/userBook";
+import {StorageService} from "../../services/storage/storage.service";
+
 
 
 @Component({
@@ -44,10 +45,13 @@ export class BooksListComponent implements OnInit{
     selectedGenres: SelectedItem[] = [];
     filterGenres:SelectedItem[]=[];
     filterAuthors:SelectedItem[]=[];
+    historyGenres:string[]=[];
+    historyAuthors:string[]=[];
+
     userId: any;
 
     constructor(private apiService: CommonService, private route: ActivatedRoute, private router: Router,
-    private storage: StorageService) {
+                private storage: StorageService) {
 
     }
 
@@ -79,6 +83,7 @@ export class BooksListComponent implements OnInit{
         );
     }
 
+
     getAllAuthor() {
         this.apiService.getAllAuthor().subscribe(
             res => {
@@ -86,6 +91,7 @@ export class BooksListComponent implements OnInit{
                 this.authors.forEach(author => {
                     this.selectedAuthors.push({name: author.name, selected: false});
                 });
+                console.log(this.authors);
             },
             err => {
                 alert("error in get all author")
@@ -100,6 +106,7 @@ export class BooksListComponent implements OnInit{
                 this.genres.forEach(genre => {
                     this.selectedGenres.push({name: genre.name, selected: false})
                 });
+                console.log(this.genres);
             },
             err => {
                 alert("error in get all genre")
@@ -127,13 +134,19 @@ export class BooksListComponent implements OnInit{
         this.bookFilter.author = [];
         this.bookFilter.genre = [];
 
-        this.selectedGenres = this.selectedGenres
+        this.filterGenres = this.selectedGenres
             .filter(v => v.selected);
-        this.selectedAuthors = this.selectedAuthors
+        this.filterAuthors = this.selectedAuthors
             .filter(v => v.selected);
 
-        this.selectedGenres.forEach(genre => this.bookFilter.genre.push(genre.name));
-        this.selectedAuthors.forEach(author => this.bookFilter.author.push(author.name));
+        this.selectedGenres.forEach(genre => {
+            this.bookFilter.genre.push(genre.name);
+            this.historyGenres.push(genre.name)}
+        );
+        this.selectedAuthors.forEach(author => {
+            this.bookFilter.author.push(author.name);
+            this.historyAuthors.push(author.name);
+        });
         this.books = [];
         this.apiService.getBooksByFilter(this.bookFilter).subscribe(
             res => {
@@ -156,6 +169,8 @@ export class BooksListComponent implements OnInit{
         this.bookFilter.header = "";
         this.bookFilter.author = [];
         this.bookFilter.genre = [];
+        this.filterGenres = [];
+        this.filterAuthors = [];
         this.selectedGenres.forEach(genre => genre.selected = false);
         this.selectedAuthors.forEach(author => author.selected = false);
         this.getBooks();
@@ -173,13 +188,13 @@ export class BooksListComponent implements OnInit{
                          genre=> book.genre  = genre.name
                      )
                 });
+
             },
             err => {
                 alert("Error in get all reviews")
             }
         );
     }
-
 
     createBook(): void {
         this.createdAuthors.split(',').forEach(name=>{
@@ -188,6 +203,7 @@ export class BooksListComponent implements OnInit{
             this.model.authors.push(author);
         });
         const newCreatedBook: Book = Object.assign({}, this.model);
+        newCreatedBook.authors = this.model.authors;
         this.apiService.createBook(newCreatedBook)
             .subscribe(res => {
                     this.books.push(res);
@@ -202,18 +218,20 @@ export class BooksListComponent implements OnInit{
 
     }
 
+    saveFilterToStorage(){
+        localStorage.setItem('authors', JSON.stringify(this.historyAuthors));
+        localStorage.setItem('genres', JSON.stringify(this.historyGenres));
+    }
 
     fillArray():string[]{
-        return "abcdefghijklmnopqrstuvwxyz".split("");
+        return "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
     }
 
     filterGenre(char:string){
-        this.filterGenres = this.selectedGenres.filter(genre=>genre.name.charAt(0).toLowerCase()==char);
-        console.log(this.filterGenres);
+        this.filterGenres = this.selectedGenres.filter(genre=>genre.name.charAt(0).toUpperCase()==char);
     }
     filterAuthor(char:string){
-        this.filterAuthors = this.selectedAuthors.filter(author=>author.name.charAt(0).toLowerCase()==char);
-        console.log(this.filterAuthors);
+        this.filterAuthors = this.selectedAuthors.filter(author=>author.name.charAt(0).toUpperCase()==char);
     }
 }
 

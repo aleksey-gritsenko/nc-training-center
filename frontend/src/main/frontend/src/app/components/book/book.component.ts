@@ -1,12 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {Book} from '../../models/book';
 import {CommonService} from "../../services/common/common.service";
-import {ActivatedRoute, Router} from "@angular/router";
+import {ActivatedRoute} from "@angular/router";
 import {Genre} from "../../models/genre";
 import {Author} from "../../models/author";
 import {FormControl, FormGroup} from "@angular/forms";
-import {UserBook} from "../../models/userBook";
+import {BookFilter} from "../../models/bookfilter";
 import {StorageService} from "../../services/storage/storage.service";
+import {UserBook} from "../../models/userBook";
 
 @Component({
     selector: 'app-book',
@@ -17,6 +18,7 @@ export class BookComponent implements OnInit {
     book: Book = new Book();
     authors: Author[] = [];
     updatedBook: FormGroup;
+    suggestionBook:Book[] = [];
     bookId: any;
 
     userAddedBook: boolean = true;
@@ -24,7 +26,7 @@ export class BookComponent implements OnInit {
     userAddedToFav: boolean = true;
 
     userBook:UserBook = new UserBook();
-    bookParamMap = this.route.snapshot.paramMap;
+
     constructor(private apiService: CommonService, private route: ActivatedRoute, private router: Router,
                 private storage: StorageService) {
     }
@@ -40,8 +42,10 @@ export class BookComponent implements OnInit {
 
     ngOnInit() {
         this.bookForm.disable();
-        this.bookId = parseInt(this.bookParamMap.get('bookId'));
+        this.bookId = parseInt(this.route.snapshot.paramMap.get('bookId'));
         this.getBook();
+        this.checkAdmin();
+        this.makeSuggestion();
     }
 
     updateBook(): void {
@@ -52,6 +56,11 @@ export class BookComponent implements OnInit {
                 console.log(res);
             }
         );
+    }
+
+    //TODO
+    checkAdmin(){
+        this.bookForm.enable();
     }
 
 
@@ -76,6 +85,24 @@ export class BookComponent implements OnInit {
             }
         );
     }
+
+    makeSuggestion(){
+        let authors = JSON.parse(localStorage.getItem('authors'));
+        let genres = JSON.parse(localStorage.getItem('genres'));
+
+        let suggestionFilter:BookFilter = new BookFilter();
+        suggestionFilter.genre = genres;
+        suggestionFilter.author = authors;
+
+        if(this.storage.getUser()!=null)
+        {
+            this.apiService.makeSuggestion(this.storage.getUser().id).subscribe(
+                books=>this.suggestionBook=books
+            )
+        }
+        this.apiService.getBooksByFilter(suggestionFilter).subscribe(
+            books=>books.forEach(book=>this.suggestionBook.push(book))
+        );
 
 
     addBookToUser(bookId:number){

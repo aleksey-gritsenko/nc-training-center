@@ -74,4 +74,11 @@ public class BookController {
     public ResponseEntity<?> getGenreByBookId(@RequestParam(name = "book") int bookId) {
         return ResponseEntity.ok(bookService.getGenreByBookId(bookId));
     }
+
+    @RequestMapping(value = "/suggestion", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<?> makeSuggestion(@RequestParam(name = "user") int userId) {
+        return ResponseEntity.ok(bookService.makeSuggestion(userId));
+    }
+
 }
