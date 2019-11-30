@@ -47,14 +47,14 @@ public class ReviewPostgreDAO extends AbstractDAO<Review> {
 	}
 
 	public void acceptReview(Review review){
-		 jdbcTemplate.update(ReviewQuery.ACCEPT_REVIEW,
-				 review.getStatus(),
-				 review.getAdminId(),
-				 review.getReviewId());
+		jdbcTemplate.update(ReviewQuery.ACCEPT_REVIEW,
+				review.getStatus(),
+				review.getAdminId(),
+				review.getReviewId());
 	}
 
 	public void deleteReviewById(int reviewId){
-		 jdbcTemplate.update(ReviewQuery.DELETE_REVIEW_BY_ID, reviewId);
+		jdbcTemplate.update(ReviewQuery.DELETE_REVIEW_BY_ID, reviewId);
 	}
 
 	public Review getReviewById(int reviewId){

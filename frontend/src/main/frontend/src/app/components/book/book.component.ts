@@ -7,6 +7,7 @@ import {Author} from "../../models/author";
 import {FormControl, FormGroup} from "@angular/forms";
 import {BookFilter} from "../../models/bookfilter";
 import {StorageService} from "../../services/storage/storage.service";
+import { Router } from '@angular/router'
 
 @Component({
     selector: 'app-book',
@@ -18,7 +19,10 @@ export class BookComponent implements OnInit {
     authors: Author[] = [];
     suggestionBook:Book[] = [];
     bookId: any;
-    constructor(private apiService: CommonService, private route: ActivatedRoute, private storage:StorageService) {
+    constructor(private apiService: CommonService,
+                private route: ActivatedRoute,
+                private storage:StorageService,
+                private  router: Router) {
     }
 
     bookForm = new FormGroup({
@@ -88,15 +92,30 @@ export class BookComponent implements OnInit {
         if(this.storage.getUser()!=null)
         {
             this.apiService.makeSuggestion(this.storage.getUser().id).subscribe(
-                books=>this.suggestionBook=books
-            )
+                books=>{this.suggestionBook=books||[];}
+            );
+            this.apiService.getBooksByFilter(suggestionFilter).subscribe(
+                books=>{
+                    this.suggestionBook.push(...(books||[]));
+                }
+            );
         }
-        this.apiService.getBooksByFilter(suggestionFilter).subscribe(
-            books=>books.forEach(book=>this.suggestionBook.push(book))
+        this.apiService.getMostRatedBooks().subscribe(
+            books=>{
+                this.suggestionBook.push(...(books||[]));
+                this.suggestionBook = this.suggestionBook.filter(
+                    (thing, i, arr) => arr.findIndex(t => t.id === thing.id) === i
+                );
+            }
         );
 
 
+    }
 
+    navigateToBook(bookId: number){
+        this.router.navigate(['books/book', bookId]);
+        this.suggestionBook = [];
+        this.ngOnInit();
     }
 
 }

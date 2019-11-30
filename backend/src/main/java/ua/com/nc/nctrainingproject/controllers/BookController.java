@@ -76,9 +76,12 @@ public class BookController {
     }
 
     @RequestMapping(value = "/suggestion", method = RequestMethod.GET)
-    @ResponseBody
     public ResponseEntity<?> makeSuggestion(@RequestParam(name = "user") int userId) {
         return ResponseEntity.ok(bookService.makeSuggestion(userId));
+    }
+    @RequestMapping(value = "/rate", method = RequestMethod.GET)
+    public ResponseEntity<?> getMostRatedBook() {
+        return ResponseEntity.ok(bookService.getMostRatedBooks());
     }
 
 }

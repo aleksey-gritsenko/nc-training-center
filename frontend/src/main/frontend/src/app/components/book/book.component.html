@@ -1,10 +1,9 @@
 <app-navigation></app-navigation>
 <div style="padding-top: 67px; margin-left: 70px;"></div>
 
-<div class="col-9">
-    <div *ngIf="book">
-        <h1 class="text-muted">{{book.header }}</h1>
-        <form class="card" [formGroup]="bookForm">
+<div class="container">
+    <div *ngIf="book" class="row">
+        <form class="card col-9" [formGroup]="bookForm">
             <div class="card-header">
                 <input required formControlName="header" class="form-control" [(ngModel)]="book.header" placeholder="name"/>
             </div>
@@ -57,15 +56,34 @@
                 </div>
             </div>
         </form>
-
-        <div>
-            <app-reviews-list [book]="book"></app-reviews-list>
+    </div>
+    <div>
+        <app-reviews-list [book]="book"></app-reviews-list>
+    </div>
+    <div class="row">
+        <div *ngFor="let bookOfSuggestions of suggestionBook |  slice:0:3" class="col-3 col-lg-4  col-md-6">
+            <div class="card card-profile">
+                <div class="card-body">
+                    <div class="card-title">
+                        <h3><a (click)="navigateToBook(bookOfSuggestions.id)"> {{bookOfSuggestions.header}}</a></h3>
+                    </div>
+                    <div class="card-description">
+                        <div>Overview: {{bookOfSuggestions.overview}}</div>
+                        <div>Status: {{bookOfSuggestions.status}}</div>
+                        <div>
+                            <div>Authors:</div>
+                            <div *ngFor="let author of bookOfSuggestions.authors ">
+                                <div>{{author.name}}</div>
+                            </div>
+                        </div>
+                        <div *ngIf="bookOfSuggestions.genre">Genre: {{bookOfSuggestions.genre}}</div>
+                    </div>
+                    <div>
+                        <button class="btn btn-primary">Add book</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
-    <div class="col-3">
-        <div *ngFor="let book of suggestionBook">
-            {{book.header}}
-        </div>
-    </div>
 </div>

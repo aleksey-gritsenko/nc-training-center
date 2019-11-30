@@ -85,7 +85,7 @@ public class BookService {
 
 
 		if(suggestionBooks.isEmpty())
-			suggestionBooks = this.getMostRatedBooks();
+			return null;
 
 		return suggestionBooks;
 	}

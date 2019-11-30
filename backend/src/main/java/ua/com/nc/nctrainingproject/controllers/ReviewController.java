@@ -21,17 +21,17 @@ public class ReviewController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<?> addReview(@RequestParam(name = "book") int bookId,
-									@RequestParam(name = "user") int userId,
-									@RequestParam(name = "text") String text,
-									@RequestParam(name = "grade") int grade) {
-		Review response =  reviewService.createReview(userId,bookId, text, grade);
+	@ResponseBody
+	public ResponseEntity<?> addReview(@RequestBody  Review review) {
+		Review response =  reviewService.createReview(review);
+		System.out.println(response);
 		return response != null ? ResponseEntity.ok(response) : new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
 
 	@RequestMapping(value = "detail")
 	public ResponseEntity<?> getReviewById(@RequestParam(name = "review") int reviewId){
 		Review response = reviewService.getReviewById(reviewId);
+		System.out.println(response);
 		return response != null ? ResponseEntity.ok(response) : new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
 
@@ -48,10 +48,8 @@ public class ReviewController {
 
 
 	@RequestMapping(value = "/accept")
-	public void acceptReview(@RequestParam(name = "review") int reviewId,
-							 @RequestParam(name = "status") boolean status,
-							 @RequestParam(name = "admin") int adminId) {
-		reviewService.acceptReview(reviewId,adminId,status);
+	public void acceptReview(@RequestBody Review review) {
+		reviewService.acceptReview(review);
 	}
 
 	@RequestMapping(value = "/delete")

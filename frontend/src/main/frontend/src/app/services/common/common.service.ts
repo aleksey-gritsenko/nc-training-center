@@ -105,15 +105,8 @@ export class CommonService {
     }
 
     createReview(review: Review): Observable<Review> {
-        console.log(review);
-        const body = new HttpParams()
-            .set('book', review.bookId.toString())
-            .set('user', review.userId.toString())
-            .set('text', review.text)
-            .set('grade', review.grade.toString());
-        console.log(body);
-
-        return this.http.post<Review>(this.reviewsUrl, body, this.httpOptions);
+        const url = `http://localhost:8080/review`;
+        return this.http.post<Review>(url, review);
     }
 
     getAcceptedReviews(bookId: number, status: boolean):Observable<Review[]>{
@@ -160,10 +153,15 @@ export class CommonService {
     }
 
     makeSuggestion(userId: number):Observable<Book[]>{
-        const url = `${this.booksUrl}/suggestion`;
-        return this.http.get<Book[]>(url,
-            {params:new HttpParams().append('user', userId.toString())});
+        const url = `http://localhost:8080//book/suggestion?user=${userId}`;
+        ///const url = `${this.booksUrl}/suggestion?user=${userId}`;
+        return this.http.get<Book[]>(url);
+    }
 
+    getMostRatedBooks():Observable<Book[]>{
+        const url = `http://localhost:8080//book/rate`;
+        ///const url = `${this.booksUrl}/rate`;
+        return this.http.get<Book[]>(url);
     }
 
     recoverPassword() {

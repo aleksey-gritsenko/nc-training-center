@@ -64,8 +64,13 @@ public class BookQuery {
     public static final String CONDITIONS_NAME = HEADER + " LIKE " + "(?) ";
     public static final String CONDITION_AUTHOR = AUTHOR + " =(?)";
 
-    public static final String GET_MOST_RATED_BOOKS = GET_BOOKS_FILTRATION + TABLE_NAME + "." +  BOOK_ID  + " IN ( SELECT " + REVIEW_TABLE+ "." + BOOK_ID+
+    public static final String GET_MOST_RATED_BOOKS = "select distinct " + TABLE_NAME + "." + BOOK_ID + " , " + HEADER + ", " + AUTHOR + ", " + OVERVIEW + " ," + STATUS + " ," + PHOTO + ", " + FILE + ", " + GENRE + " " +
+            " from " + TABLE_NAME + " join " + GENRES_TABLE + " ON " + TABLE_NAME + "." + GENRE_ID + " = " + GENRES_TABLE + "." + GENRE_ID +
+            " join " + AuthorBookQuery.TABLE_NAME + " on " + TABLE_NAME + "." + BOOK_ID + " = " + AuthorBookQuery.TABLE_NAME + "." + AuthorBookQuery.BOOK_ID +
+            " join " + AuthorQuery.TABLE_NAME + " on " + AuthorBookQuery.TABLE_NAME + "." + AuthorBookQuery.AUTHOR_ID + " = " + AuthorQuery.TABLE_NAME + "." + AuthorQuery.ID + " where " +
+            TABLE_NAME + "." +  BOOK_ID  + " IN ( SELECT " + REVIEW_TABLE+ "." + BOOK_ID+
             " FROM " + TABLE_NAME + " JOIN " + REVIEW_TABLE + " ON " + REVIEW_TABLE + "." + BOOK_ID+ "="+TABLE_NAME + "." +
             BOOK_ID + " GROUP BY " + REVIEW_TABLE + "." + BOOK_ID +
             " ORDER BY avg(" + REVIEW_TABLE  + "." + GRADE + ") DESC)";
  }
+
