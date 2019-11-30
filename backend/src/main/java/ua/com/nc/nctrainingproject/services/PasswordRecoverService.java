@@ -89,9 +89,13 @@ public class PasswordRecoverService {
         }
         return false;
     }
-    public  void reSend(User user) throws MessagingException{
-        deleteCodeEmail(user.getEmail());
-        makeEmail(user.getEmail());
+    public  void reSend(String user) throws MessagingException{
+        deleteCodeEmail(user);
+        makeEmail(user);
 
     }
+    public void deleteALL(){
+        codePostgreDAO.deleteAll();
+    }
+
 }

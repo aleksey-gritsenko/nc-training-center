@@ -14,28 +14,35 @@ import java.util.Date;
 
 @Repository
 public class CodePostgreDAO implements CodeRecoverDAO {
-	private final JdbcTemplate jdbcTemplate;
+    private final JdbcTemplate jdbcTemplate;
 
-	@Autowired
-	public CodePostgreDAO(DataSource dataSource) {
-		this.jdbcTemplate = new JdbcTemplate(dataSource);
-	}
+    @Autowired
+    public CodePostgreDAO(DataSource dataSource) {
+        this.jdbcTemplate = new JdbcTemplate(dataSource);
+    }
 
-	@Override
-	public void createCode(String code, String email) {
-		jdbcTemplate.update(CodeRecoverQuery.CREATE_CODE, code, new Date(), email);
-	}
+    @Override
+    public void createCode(String code, String email) {
+        jdbcTemplate.update(CodeRecoverQuery.CREATE_CODE, code, new Date(), email);
+    }
 
-	public RecoverCode getCodeBy(String code) {
-		try {
-			return jdbcTemplate.queryForObject(CodeRecoverQuery.GET_CODE, new Object[]{code}, new CodeRowMapper());
-		} catch (EmptyResultDataAccessException e) {
-			return null;
-		}
-	}
+    public RecoverCode getCodeBy(String code) {
+        try {
+            return jdbcTemplate.queryForObject(CodeRecoverQuery.GET_CODE, new Object[]{code}, new CodeRowMapper());
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
+    }
 
-	public void deleteByCode(String code) {
-		jdbcTemplate.update(CodeRecoverQuery.DELETE_CODE, code);
-	}
-	public void deleteByCodeEmail(String email){jdbcTemplate.update(CodeRecoverQuery.DELETE_CODE_EMAIL, email);}
+    public void deleteAll() {
+        jdbcTemplate.update(CodeRecoverQuery.DELETE_ALL);
+    }
+
+    public void deleteByCode(String code) {
+        jdbcTemplate.update(CodeRecoverQuery.DELETE_CODE, code);
+    }
+
+    public void deleteByCodeEmail(String email) {
+        jdbcTemplate.update(CodeRecoverQuery.DELETE_CODE_EMAIL, email);
+    }
 }
