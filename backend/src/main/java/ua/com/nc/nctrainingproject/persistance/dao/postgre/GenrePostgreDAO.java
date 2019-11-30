@@ -8,6 +8,7 @@ import ua.com.nc.nctrainingproject.models.Genre;
 import ua.com.nc.nctrainingproject.persistance.dao.postgre.queries.GenreQuery;
 import ua.com.nc.nctrainingproject.persistance.mappers.GenreMapper;
 
+import javax.sql.DataSource;
 import java.util.List;
 
 @Repository
@@ -15,8 +16,8 @@ public class GenrePostgreDAO {
 	private final JdbcTemplate jdbcTemplate;
 
 	@Autowired
-	public GenrePostgreDAO(JdbcTemplate jdbcTemplate) {
-		this.jdbcTemplate = jdbcTemplate;
+	public GenrePostgreDAO(DataSource dataSource) {
+		this.jdbcTemplate = new JdbcTemplate(dataSource);
 	}
 
 	public String getGenreById(int id) {

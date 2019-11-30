@@ -2,14 +2,15 @@ package ua.com.nc.nctrainingproject.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class MainController {
 
-    @GetMapping("/")
+   /* @GetMapping("/")
     public String welcome() {
         return "login";
-    }
+    }*/
 
     @GetMapping("/registration")
     public String reg(){
@@ -36,5 +37,11 @@ public class MainController {
 	public String createNotification() {
 		return "notification";
 	}
+
+	// In this way Spring serves Angular contents
+    @RequestMapping({ "", "/login", "/products/**" })
+    public String gui() {
+        return "forward:/index.html";
+    }
 
 }

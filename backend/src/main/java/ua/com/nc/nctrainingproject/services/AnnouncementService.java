@@ -44,10 +44,10 @@ public class AnnouncementService {
 		announcementsPostgreDAO.proposeAnnouncement(announcement);
 	}
 
-	public void publishAnnouncement(int id) {
-		if (announcementsPostgreDAO.getAnnouncementByID(id) == null)
+	public void publishAnnouncement(Announcement announcement) {
+		if (announcementsPostgreDAO.getAnnouncementByID(announcement.getAnnouncementID()) == null)
 			return;
-		announcementsPostgreDAO.publishAnnouncement(id);
+		announcementsPostgreDAO.publishAnnouncement(announcement);
 	}
 
 	public void deleteAnnouncement(int id) {

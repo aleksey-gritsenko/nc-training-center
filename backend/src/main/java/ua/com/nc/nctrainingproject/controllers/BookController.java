@@ -46,22 +46,13 @@ public class BookController {
         return ResponseEntity.ok(bookService.getAllBooks());
     }
 
-    @RequestMapping(value = "/filter", method = RequestMethod.GET)
-
-    public List<Book> filterBook(@RequestParam(name = "header") String header,
-                                 @RequestParam(name = "genre") String[] genres,
-                                 @RequestParam(name = "author") ArrayList<String> authors
+    @RequestMapping(value = "/filter", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity<?> filterBook(@RequestParam(name="header") String header,
+                                 @RequestParam(name="genre") ArrayList<String> genres,
+                                 @RequestParam(name="author") ArrayList<String> authors
     ) {
-        List<String> genre;
-        genre = Arrays.asList(genres);
-        for (String s:genre
-             ) {
-            System.out.println(s);
-        }
-        ArrayList d = new ArrayList();
-      //  ArrayList<String> authors = new ArrayList<>();
-        System.out.println(genre);
-        return bookService.filterBooks(header + "%", d, authors);
+        return ResponseEntity.ok(bookService.filterBooks(header + "%", genres, authors));
     }
 
     @RequestMapping(value = "/genres", method = RequestMethod.GET)

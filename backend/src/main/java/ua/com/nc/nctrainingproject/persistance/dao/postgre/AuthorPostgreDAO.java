@@ -10,6 +10,7 @@ import ua.com.nc.nctrainingproject.persistance.dao.AbstractDAO;
 import ua.com.nc.nctrainingproject.persistance.dao.postgre.queries.AuthorQuery;
 import ua.com.nc.nctrainingproject.persistance.mappers.AuthorMapper;
 
+import javax.sql.DataSource;
 import java.util.List;
 
 @Repository
@@ -18,8 +19,8 @@ public class AuthorPostgreDAO extends AbstractDAO<Author> {
 	private final AuthorBookPostgreDAO authorBookPostgreDAO;
 
 	@Autowired
-	public AuthorPostgreDAO(JdbcTemplate jdbcTemplate, AuthorBookPostgreDAO authorBookPostgreDAO) {
-		super(jdbcTemplate);
+	public AuthorPostgreDAO(DataSource dataSource, AuthorBookPostgreDAO authorBookPostgreDAO) {
+		super(dataSource);
 		this.authorBookPostgreDAO = authorBookPostgreDAO;
 	}
 

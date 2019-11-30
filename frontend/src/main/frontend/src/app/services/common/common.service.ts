@@ -7,15 +7,18 @@ import {Announcement} from "../../models/announcement";
 import {Review} from "../../models/review";
 import {Genre} from "../../models/genre";
 import {Author} from "../../models/author";
+import {UserBook} from "../../models/userBook";
 
 @Injectable({
     providedIn: 'root'
 })
 export class CommonService {
 
-    private booksUrl = 'http://localhost:8080/book'; // change with necessity
-    private announcementsUrl = '/announcements'; // change with necessity
-    private reviewsUrl = 'http://localhost:8080/review';
+    private siteUrl: string = 'https://nc-group1-2019-project.herokuapp.com';
+
+    private booksUrl: string = `${this.siteUrl}/book`;
+    private announcementsUrl: string = `${this.siteUrl}/announcements`;
+    private reviewsUrl: string = `${this.siteUrl}/review`;
     // private reviewsUrl = 'api/books'; // -?
 
     // announcements : Announcement[] = [];
@@ -29,24 +32,23 @@ export class CommonService {
             .set('Accept', 'application/json').set('Access-Control-Allow-Origin', '*')
     };
 
-
     getBooks(): Observable<Book[]> {
         const url = `${this.booksUrl}\\all`;
         return this.http.get<Book[]>(url);
     }
 
     getBooksByFilter(filter: BookFilter): Observable<Book[]> {
-
-        let params = new HttpParams()
-            .set('header', filter.header)
-            .set('author', JSON.stringify(filter.author))
-            .set('genre',  JSON.stringify(filter.genre));
-
         const url = `${this.booksUrl}\\filter`;
-        console.log(params);
-        return this.http.get<Book[]>(url, {params: params});
+        return this.http.post<Book[]>(url,filter);
     }
 
+    getBooksByTitle(title:string):Observable<Book[]>{
+        //TODO get books by title
+        let params = new HttpParams()
+            .set('title', title);
+        const url = `${this.booksUrl}\\title`;
+        return this.http.get<Book[]>(url, {params:params});
+    }
 
     getBookById(id: number): Observable<Book> {
         const url = `${this.booksUrl}/id?id=${id}`;
@@ -54,12 +56,14 @@ export class CommonService {
     }
 
     createBook(book: Book): Observable<Book> {
+        console.log(book);
         return this.http.post<Book>(this.booksUrl, book);
     }
 
 
     updateBook(book: Book): Observable<Book> {
-        return this.http.post<Book>(this.booksUrl, book);
+        const url = `${this.booksUrl}\\update`;
+        return this.http.post<Book>(url, book);
     }
 
     getAnnouncements(): Observable<Announcement[]> {
@@ -113,12 +117,12 @@ export class CommonService {
     }
 
     getAcceptedReviews(bookId: number, status: boolean):Observable<Review[]>{
-        const body = new HttpParams()
+        const params = new HttpParams()
             .set('book', bookId.toString())
             .set('status', JSON.stringify(status));
         const url =`${this.reviewsUrl}/accepted`;
-        console.log(body);
-        return this.http.get<Review[]>(url, {params:body});
+        console.log(params);
+        return this.http.get<Review[]>(url, {params:params});
     }
 
     acceptReview(review:Review, status:boolean):Observable<Review>{
@@ -132,16 +136,35 @@ export class CommonService {
     }
 
     deleteReviewById(review:Review):Observable<Review>{
-        const body = new HttpParams()
+        const params = new HttpParams()
             .set('review',review.id.toString());
         const url = `${this.reviewsUrl}/delete`;
-        console.log(body);
-        return this.http.post<Review>(url,body);
+        console.log(params);
+        return this.http.post<Review>(url,params);
     }
+    getReviewById(reviewId:number){
+        const url = `${this.reviewsUrl}/detail`;
+        const params = new HttpParams()
+            .set('review',reviewId.toString());
+        return this.http.get<Review>(url,{params:params});
+    }
+
+
     getAnnouncementsByFilter(): Observable<Announcement[]> {
         return null;
     }
 
+    addBookToUser(userBook:UserBook):Observable<UserBook>{
+        const url = `${this.siteUrl}/userbook`;
+        return this.http.post<UserBook>(url, userBook);
+    }
+
+    makeSuggestion(userId: number):Observable<Book[]>{
+        const url = `${this.booksUrl}/suggestion`;
+        return this.http.get<Book[]>(url,
+            {params:new HttpParams().append('user', userId.toString())});
+
+    }
 
     recoverPassword() {
 

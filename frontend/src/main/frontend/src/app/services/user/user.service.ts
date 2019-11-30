@@ -20,14 +20,14 @@ export class UserService {
     user: User;
     friend: User;
     book: Book;
-    url: string = "http://localhost:8080";
+    siteUrl: string = 'https://nc-group1-2019-project.herokuapp.com';
 
     constructor(private http: HttpClient, private commonService: CommonService) {
     }
 
     // Personal methods
     updateProfile(user: User) {
-        let url = 'http://localhost:8080/user/update';
+        let url = `${this.siteUrl}/user/update`;
         let form = new FormData();
 
         form.append('login', user.userName);
@@ -38,7 +38,7 @@ export class UserService {
     }
 
     searchUser(id: string) {
-        const url = "http://localhost:8080/user/" + id;
+        const url = `${this.siteUrl}/user/` + id;
         return this.http.get<User>(url);
     }
 
@@ -158,7 +158,7 @@ export class UserService {
     }
 
     createAdmin(admin: User): Observable<User> {
-        let url = this.url + "/user/create/admin";
+        let url = this.siteUrl + "/user/create/admin";
         console.log(url);
         return this.http.post<User>(url, admin);
     }

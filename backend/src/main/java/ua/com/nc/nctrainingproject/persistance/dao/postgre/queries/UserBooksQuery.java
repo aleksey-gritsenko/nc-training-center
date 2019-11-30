@@ -18,7 +18,7 @@ public class UserBooksQuery {
 	public static final String GET_ALL_READ_BOOKS_ID = GET_ALL_USER_BOOKS_ID + " AND " + IS_READ + " ='true'";
 
 	public static final String ADD_BOOK_TO_USER = "INSERT INTO " + TABLE_NAME + "(" + USER_ID + "," + BOOK_ID + ","
-			+ IS_READ + "," + IS_FAVOURITE + ")" + " VALUES (?,?,'false','false')";
+			+ IS_READ + "," + IS_FAVOURITE + ")" + " VALUES (?,?,?,?)";
 
 	public static final String MARK_BOOK_AS_READ = "UPDATE " + TABLE_NAME + " SET " + IS_READ + " = 'true' " +
             " WHERE " + USER_ID + " =(?)" + " AND " + BOOK_ID + " =(?)";
