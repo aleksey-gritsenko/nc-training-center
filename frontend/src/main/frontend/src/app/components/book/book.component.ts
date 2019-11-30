@@ -16,7 +16,6 @@ import {StorageService} from "../../services/storage/storage.service";
 export class BookComponent implements OnInit {
     book: Book = new Book();
     authors: Author[] = [];
-    updatedBook: FormGroup;
     suggestionBook:Book[] = [];
     bookId: any;
     constructor(private apiService: CommonService, private route: ActivatedRoute, private storage:StorageService) {
@@ -33,6 +32,7 @@ export class BookComponent implements OnInit {
 
     ngOnInit() {
         this.bookForm.disable();
+        this.checkAdmin();
         this.bookId = parseInt(this.route.snapshot.paramMap.get('bookId'));
         this.getBook();
         this.makeSuggestion();
@@ -46,6 +46,11 @@ export class BookComponent implements OnInit {
                 console.log(res);
             }
         );
+    }
+
+    //TODO
+    checkAdmin(){
+        this.bookForm.enable();
     }
 
 

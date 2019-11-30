@@ -112,16 +112,15 @@ export class BooksListComponent implements OnInit{
         this.filterAuthors = this.selectedAuthors
             .filter(v => v.selected);
 
-
-
-        this.selectedGenres.forEach(genre =>
-            {this.bookFilter.genre.push(genre.name);
+        this.selectedGenres.forEach(genre => {
+                this.bookFilter.genre.push(genre.name);
                 this.historyGenres.push(genre.name)}
         );
         this.selectedAuthors.forEach(author => {
             this.bookFilter.author.push(author.name);
             this.historyAuthors.push(author.name);
         });
+
 
 
         this.books = [];
@@ -139,15 +138,14 @@ export class BooksListComponent implements OnInit{
             },
             error => alert("error in filter")
         );
-
     }
 
     resetFiler() {
         this.bookFilter.header = "";
         this.bookFilter.author = [];
         this.bookFilter.genre = [];
-        this.filterGenres.forEach(genre=>genre.selected = false);
-        this.filterAuthors.forEach(author=>author.selected = false);
+        this.filterGenres = [];
+        this.filterAuthors = [];
         this.selectedGenres.forEach(genre => genre.selected = false);
         this.selectedAuthors.forEach(author => author.selected = false);
         this.getBooks();
@@ -222,14 +220,14 @@ export class BooksListComponent implements OnInit{
     }
 
     fillArray():string[]{
-        return "abcdefghijklmnopqrstuvwxyz".split("");
+        return "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
     }
 
     filterGenre(char:string){
-        this.filterAuthors = this.selectedGenres.filter(genre=>genre.name.charAt(0).toLowerCase()==char);
+        this.filterGenres = this.selectedGenres.filter(genre=>genre.name.charAt(0).toUpperCase()==char);
     }
     filterAuthor(char:string){
-        this.filterGenres = this.selectedAuthors.filter(author=>author.name.charAt(0).toLowerCase()==char);
+        this.filterAuthors = this.selectedAuthors.filter(author=>author.name.charAt(0).toUpperCase()==char);
     }
 }
 
