@@ -7,9 +7,8 @@ import {SelectedItem} from '../../models/selected-item-filter';
 import {Genre} from "../../models/genre";
 import {Author} from "../../models/author";
 import {UserBook} from "../../models/userBook";
-import {error} from "util";
 import {StorageService} from "../../services/storage/storage.service";
-import {Announcement} from "../../models/announcement";
+
 
 @Component({
     selector: 'app-books-list',
@@ -23,7 +22,6 @@ export class BooksListComponent implements OnInit{
     genres: Genre[] = [];
     authors: Author[] = [];
     books: Book[] = [];
-    createdBook: Book = new Book();
     model : Book = {
         id :0,
         header: '',
@@ -39,8 +37,8 @@ export class BooksListComponent implements OnInit{
     addBookVisible: boolean;
     selectedAuthors: SelectedItem[] =[];
     selectedGenres: SelectedItem[] = [];
-    listOfSelectedGenres: SelectedItem[] = [];
-    listOfSelectedAuthor: SelectedItem[] = [];
+    filterGenres:SelectedItem[]=[];
+    filterAuthors:SelectedItem[]=[];
     userId: any;
 
     constructor(private apiService: CommonService, private route: ActivatedRoute, private router: Router,
@@ -104,13 +102,13 @@ export class BooksListComponent implements OnInit{
         this.bookFilter.author = [];
         this.bookFilter.genre = [];
 
-        this.listOfSelectedGenres = this.selectedGenres
+        this.selectedGenres = this.selectedGenres
             .filter(v => v.selected);
-        this.listOfSelectedAuthor = this.selectedAuthors
+        this.selectedAuthors = this.selectedAuthors
             .filter(v => v.selected);
 
-        this.listOfSelectedGenres.forEach(genre => this.bookFilter.genre.push(genre.name));
-        this.listOfSelectedAuthor.forEach(author => this.bookFilter.author.push(author.name));
+        this.selectedGenres.forEach(genre => this.bookFilter.genre.push(genre.name));
+        this.selectedAuthors.forEach(author => this.bookFilter.author.push(author.name));
         this.books = [];
         this.apiService.getBooksByFilter(this.bookFilter).subscribe(
             res => {
@@ -159,12 +157,12 @@ export class BooksListComponent implements OnInit{
     }
 
     addBookToUser(bookId:number){
-        let userBook:UserBook = new UserBook();
-        userBook.userId = this.storage.getUser().id;
-        if(isNaN(userBook.userId))
+        if(this.storage.getUser()==null)
         {
             this.router.navigate(['/login']);
         }
+        let userBook:UserBook = new UserBook();
+        userBook.userId = this.storage.getUser().id;
         userBook.bookId = bookId;
         this.apiService.addBookToUser(userBook).subscribe(
             res=>{
@@ -200,6 +198,19 @@ export class BooksListComponent implements OnInit{
 
     }
 
+
+    fillArray():string[]{
+        return "abcdefghijklmnopqrstuvwxyz".split("");
+    }
+
+    filterGenre(char:string){
+        this.filterGenres = this.selectedGenres.filter(genre=>genre.name.charAt(0).toLowerCase()==char);
+        console.log(this.filterGenres);
+    }
+    filterAuthor(char:string){
+        this.filterAuthors = this.selectedAuthors.filter(author=>author.name.charAt(0).toLowerCase()==char);
+        console.log(this.filterAuthors);
+    }
 }
 
 

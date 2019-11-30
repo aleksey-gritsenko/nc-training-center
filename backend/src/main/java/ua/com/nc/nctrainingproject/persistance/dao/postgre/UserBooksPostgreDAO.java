@@ -1,13 +1,13 @@
 package ua.com.nc.nctrainingproject.persistance.dao.postgre;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import ua.com.nc.nctrainingproject.models.Book;
 import ua.com.nc.nctrainingproject.models.UserBook;
 import ua.com.nc.nctrainingproject.persistance.dao.AbstractDAO;
 import ua.com.nc.nctrainingproject.persistance.dao.postgre.queries.UserBooksQuery;
 
+import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,8 +16,8 @@ public class UserBooksPostgreDAO extends AbstractDAO {
 	private final BookPostgreDAO bookPostgreDAO;
 
 	@Autowired
-	public UserBooksPostgreDAO(JdbcTemplate jdbcTemplate, BookPostgreDAO bookPostgreDAO) {
-		super(jdbcTemplate);
+	public UserBooksPostgreDAO(DataSource dataSource, BookPostgreDAO bookPostgreDAO) {
+		super(dataSource);
 		this.bookPostgreDAO = bookPostgreDAO;
 	}
 

@@ -1,21 +1,21 @@
 package ua.com.nc.nctrainingproject.persistance.dao.postgre;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import ua.com.nc.nctrainingproject.models.Announcement;
 import ua.com.nc.nctrainingproject.persistance.dao.AbstractDAO;
 import ua.com.nc.nctrainingproject.persistance.dao.postgre.queries.AnnouncementQuery;
 import ua.com.nc.nctrainingproject.persistance.mappers.AnnouncementRowMapper;
 
+import javax.sql.DataSource;
 import java.util.List;
 
 @Repository
 public class AnnouncementPostgreDAO extends AbstractDAO<Announcement> {
 
 	@Autowired
-	public AnnouncementPostgreDAO(JdbcTemplate jdbcTemplate) {
-		super(jdbcTemplate);
+	public AnnouncementPostgreDAO(DataSource dataSource) {
+		super(dataSource);
 	}
 
 	public Announcement getAnnouncementByID(int id) {

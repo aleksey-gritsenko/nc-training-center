@@ -8,13 +8,14 @@ import ua.com.nc.nctrainingproject.persistance.dao.NotificationsDAO;
 import ua.com.nc.nctrainingproject.persistance.dao.postgre.queries.NotificationQuery;
 import ua.com.nc.nctrainingproject.persistance.mappers.NotificationRowMapper;
 
+import javax.sql.DataSource;
 import java.util.List;
 
 @Repository
 public class NotificationPostgreDAO extends AbstractDAO<Notification> implements NotificationsDAO {
 
-	public NotificationPostgreDAO(JdbcTemplate jdbcTemplate) {
-		super(jdbcTemplate);
+	public NotificationPostgreDAO(DataSource dataSource) {
+		super(dataSource);
 	}
 
 	@Override

@@ -49,7 +49,7 @@
                         <td><input class="form-control" type="number" [(ngModel)]="model.photoId" id="photo" name="photo"></td>
                     </tr>
                     <tr>
-                        <td><label for="photo">File</label></td>
+                        <td><label for="file">File</label></td>
                         <td><input class="form-control" type="number" [(ngModel)]="model.fileId" id="file" name="file"></td>
                     </tr>
                     <tr>
@@ -99,28 +99,39 @@
                             <h2>Author</h2>
                         </div>
                         <div class="card-body row">
-                            <div *ngFor="let author of selectedAuthors;" class="col-6">
+                            <div *ngFor="let character of fillArray()">
+                                <h3  class="font-weight-bold btn-link border-bottom" (click)="filterAuthor(character)" >{{character}}</h3>
+                            </div>
+                            <div *ngFor="let author of filterAuthors;" class="col-6">
                                 <label class="form-check-label" >
                                     <input class="form-check-input" type="checkbox" [(ngModel)]="author.selected" name="{{author.name}}">{{author.name}}
                                     <span class="form-check-sign"><span class="check"></span></span>
                                 </label>
                             </div>
+
+
                         </div>
                     </div>
                 </div>
-
                 <div class="col-12">
                     <div class="card form-check">
                         <div class="card-title card-header-primary">
                             <h2>Genre</h2>
                         </div>
                         <div class="card-body row">
-                            <div *ngFor="let genre of selectedGenres;" class="col-6">
+                            <div *ngFor="let character of fillArray()">
+                                <h3 class="font-weight-bold btn-link  border-bottom" (click)="filterGenre(character)" >{{character}}</h3>
+                            </div>
+                            <div *ngFor="let genre of filterGenres;" class="col-6">
                                 <label class="form-check-label">
                                     <input class="form-check-input" type="checkbox" [(ngModel)]="genre.selected" name="{{genre.name}}">{{genre.name}}
                                     <span class="form-check-sign"><span class="check"></span></span>
                                 </label>
                             </div>
+
+
+
+
                         </div>
                     </div>
                 </div>
