@@ -32,7 +32,7 @@ public class FilterCriterionQuery {
 	String	q = BookQuery.GET_BOOKS_FILTRATION +
 			makeAuthorConditins() + makeGenresConditions() + makeHeaderCondition();
 		q=q.trim();
-	if(q.endsWith("OR")) {
+	  if(q.endsWith("OR")) {
 
 		q=q.substring(0, q.length() - 2);	}
 		return q;
@@ -60,7 +60,7 @@ public class FilterCriterionQuery {
 
 			headers.add(header);
 		}
-		args = Stream.concat(Stream.concat(genre.stream(), author.stream()),
+		args = Stream.concat(Stream.concat(author.stream(), genre.stream()),
 				headers.stream()).toArray();
 
 		return args;

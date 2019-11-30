@@ -102,6 +102,7 @@ export class BooksListComponent implements OnInit{
         this.bookFilter.author = [];
         this.bookFilter.genre = [];
 
+
         this.selectedGenres = this.selectedGenres
             .filter(v => v.selected);
         this.selectedAuthors = this.selectedAuthors
