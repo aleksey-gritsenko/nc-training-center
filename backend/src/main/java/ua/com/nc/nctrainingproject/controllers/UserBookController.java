@@ -30,7 +30,7 @@ public class UserBookController {
 
 	@RequestMapping(value = "/all", method = RequestMethod.GET)
 	public ResponseEntity<?> getAllUsersBooks(@RequestBody UserBook userBook) {
-		List<Book> response = userBookService.getAllUserBooks(userBook);
+		List<Book> response = userBookService.getUserBookList(userBook);
 		return response != null ? ResponseEntity.ok(response) : new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
 
@@ -46,13 +46,13 @@ public class UserBookController {
 		return response != null ? ResponseEntity.ok(response) : new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
 
-	@RequestMapping(value = "/markread", method = RequestMethod.POST)
+	@RequestMapping(value = "/mark_read", method = RequestMethod.POST)
 	public ResponseEntity<?> markBookAsRead(@RequestBody UserBook userBook) {
 		UserBook response = userBookService.markBookAsRead(userBook);
 		return response != null ? ResponseEntity.ok(response) : new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
 
-	@RequestMapping(value = "/markfav", method = RequestMethod.POST)
+	@RequestMapping(value = "/mark_fav", method = RequestMethod.POST)
 	public ResponseEntity<?> markBookAsFavourite(@RequestBody UserBook userBook) {
 		UserBook response = userBookService.markBookAsFavourite(userBook);
 		return response != null ? ResponseEntity.ok(response) : new ResponseEntity<>(HttpStatus.BAD_REQUEST);

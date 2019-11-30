@@ -33,6 +33,10 @@ public class UserBookService {
 		return userBooksPostgreDAO.getAllUserBooks(userBook.getUserId());
 	}
 
+	public List<Book> getUserBookList(UserBook userBook){
+		return userBooksPostgreDAO.getUserBookList(userBook.getUserId());
+	}
+
 	public UserBook markBookAsRead(UserBook userBook) {
 		userBooksPostgreDAO.markBookAsRead(userBook.getUserId(), userBook.getBookId());
 		return userBook;
