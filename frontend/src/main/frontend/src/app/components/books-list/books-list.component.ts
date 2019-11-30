@@ -7,6 +7,7 @@ import {SelectedItem} from '../../models/selected-item-filter';
 import {Genre} from "../../models/genre";
 import {Author} from "../../models/author";
 import {StorageService} from "../../services/storage/storage.service";
+import {UserBook} from "../../models/userBook";
 
 
 @Component({
@@ -21,6 +22,11 @@ export class BooksListComponent implements OnInit{
     genres: Genre[] = [];
     authors: Author[] = [];
     books: Book[] = [];
+
+    userBooks : UserBook[] = [];
+    userBookList: Book[] = [];
+    book: Book;
+
     model : Book = {
         id :0,
         header: '',
@@ -52,6 +58,26 @@ export class BooksListComponent implements OnInit{
         this.getAllGenre();
     }
 
+    getUsersBookList(){
+        if (this.storage.getUser() == null) {
+            this.router.navigate(['/login']);
+        }
+        let userBook: UserBook = new UserBook();
+        userBook.userId = this.storage.getUser().id;
+        userBook.bookId = this.book.id;
+        this.apiService.getAllUserBooks(userBook).subscribe(
+            res => {
+                console.log(userBook);
+                console.log(res);
+                this.userBookList = res;
+            },
+            err => {
+                console.log(userBook);
+                console.log(this.userBookList);
+                console.log("Error in getting all users books")
+            }
+        );
+    }
 
     getAllAuthor() {
         this.apiService.getAllAuthor().subscribe(
@@ -146,8 +172,7 @@ export class BooksListComponent implements OnInit{
                      this.apiService.getGenreByBookId(book.id).subscribe(
                          genre=> book.genre  = genre.name
                      )
-                })
-
+                });
             },
             err => {
                 alert("Error in get all reviews")

@@ -24,9 +24,7 @@ export class BookComponent implements OnInit {
     userAddedToFav: boolean = true;
 
     userBook:UserBook = new UserBook();
-
-    userBooks : UserBook[] = [];
-
+    bookParamMap = this.route.snapshot.paramMap;
     constructor(private apiService: CommonService, private route: ActivatedRoute, private router: Router,
                 private storage: StorageService) {
     }
@@ -42,7 +40,7 @@ export class BookComponent implements OnInit {
 
     ngOnInit() {
         this.bookForm.disable();
-        this.bookId = parseInt(this.route.snapshot.paramMap.get('bookId'));
+        this.bookId = parseInt(this.bookParamMap.get('bookId'));
         this.getBook();
     }
 

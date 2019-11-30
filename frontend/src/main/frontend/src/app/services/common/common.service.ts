@@ -15,13 +15,12 @@ import {UserBook} from "../../models/userBook";
 export class CommonService {
 
     private siteUrl: string = 'https://nc-group1-2019-project.herokuapp.com';
-    private localhost: string = 'http://localhost:8080';
+    private localhost: string = 'http://localhost:8080/userBook';
 
     private booksUrl: string = `${this.siteUrl}/book`;
     private announcementsUrl: string = `${this.siteUrl}/announcements`;
     private reviewsUrl: string = `${this.siteUrl}/review`;
     private userBookUrl: string = `${this.siteUrl}/userBook`;
-    // private reviewsUrl = 'api/books'; // -?
 
     // announcements : Announcement[] = [];
     // reviews : Review[] = [];
@@ -71,9 +70,6 @@ export class CommonService {
     getAnnouncements(): Observable<Announcement[]> {
         return this.http.get<Announcement[]>(this.announcementsUrl);
     }
-
-    // getAnnouncementsByFilter() : Observable<Announcement[]>{
-    // }
 
     getAuthorsByBookId(bookId: number): Observable<Author[]>{
         const url = `${this.booksUrl}\\authors\\book`;
@@ -157,25 +153,27 @@ export class CommonService {
     }
 
     addBookToUser(userBook:UserBook):Observable<UserBook>{
-        const url = `${this.userBookUrl}/add`;
+        const url = `${this.localhost}/add`;
         console.log(userBook);
         return this.http.post<UserBook>(url, userBook);
     }
 
-    getAllUserBooks():Observable<UserBook[]>{
+    getAllUserBooks(userBook: UserBook):Observable<Book[]>{
         const url = `${this.userBookUrl}/all`;
-        return this.http.get<UserBook[]>(url);
+        const params = new HttpParams()
+            .set('userId', userBook.userId.toString());
+        return this.http.get<Book[]>(url, {params:params});
     }
 
     markUserBookAsRead(userBook: UserBook): Observable<UserBook>{
-        const url = `${this.userBookUrl}/markread`;
+        const url = `${this.userBookUrl}/mark_read`;
         userBook.isRead = true;
         console.log(userBook);
         return this.http.post<UserBook>(url, userBook);
     }
 
     markUserBookAsFavourite(userBook: UserBook): Observable<UserBook>{
-        const url = `${this.userBookUrl}/markfav`;
+        const url = `${this.userBookUrl}/mark_fav`;
         userBook.isFavorite = true;
         console.log(userBook);
         return this.http.post<UserBook>(url, userBook);
