@@ -45,6 +45,8 @@ export class BooksListComponent implements OnInit{
     userAddedToRead: boolean = true;
     userAddedToFav: boolean = true;
 
+    userBook:UserBook = new UserBook();
+
     userBooks : UserBook[] = [];
 
     constructor(private apiService: CommonService, private route: ActivatedRoute, private router: Router,
@@ -163,16 +165,13 @@ export class BooksListComponent implements OnInit{
     }
 
     addBookToUser(bookId:number){
-        if(this.storage.getUser()==null)
-        {
+        if (this.storage.getUser() == null) {
             this.router.navigate(['/login']);
         }
         let userBook:UserBook = new UserBook();
         userBook.userId = this.storage.getUser().id;
         userBook.bookId = bookId;
-
         this.userAddedBook = true;
-        this.userBooks.push(userBook);
 
         this.apiService.addBookToUser(userBook).subscribe(
             res=>{
@@ -188,11 +187,12 @@ export class BooksListComponent implements OnInit{
         if (this.storage.getUser() == null) {
             this.router.navigate(['/login']);
         }
+
         let userBook:UserBook = new UserBook();
         userBook.userId = this.storage.getUser().id;
         userBook.bookId = bookId;
 
-        this.userAddedToFav = true;
+        this.userAddedToFav = false;
 
         this.apiService.markUserBookAsFavourite(userBook).subscribe(
             res=>{
@@ -208,11 +208,12 @@ export class BooksListComponent implements OnInit{
         if (this.storage.getUser() == null) {
             this.router.navigate(['/login']);
         }
+
         let userBook:UserBook = new UserBook();
         userBook.userId = this.storage.getUser().id;
         userBook.bookId = bookId;
 
-        this.userAddedToRead = true;
+        this.userAddedToRead = false;
 
         this.apiService.markUserBookAsRead(userBook).subscribe(
             res=>{
@@ -225,14 +226,15 @@ export class BooksListComponent implements OnInit{
     }
 
     removeBookFromFav(bookId: number){
-        if (this.storage.getUser() == null) {
+       if (this.storage.getUser() == null) {
             this.router.navigate(['/login']);
         }
+
         let userBook:UserBook = new UserBook();
         userBook.userId = this.storage.getUser().id;
         userBook.bookId = bookId;
 
-        this.userAddedToRead = true;
+        this.userAddedToFav = true;
 
         this.apiService.removeFromFavourite(userBook).subscribe(
             res=>{
@@ -248,6 +250,7 @@ export class BooksListComponent implements OnInit{
         if (this.storage.getUser() == null) {
             this.router.navigate(['/login']);
         }
+
         let userBook:UserBook = new UserBook();
         userBook.userId = this.storage.getUser().id;
         userBook.bookId = bookId;
