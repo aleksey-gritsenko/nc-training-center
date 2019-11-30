@@ -5,14 +5,12 @@ import org.springframework.stereotype.Service;
 import ua.com.nc.nctrainingproject.models.Author;
 import ua.com.nc.nctrainingproject.models.Book;
 import ua.com.nc.nctrainingproject.models.Genre;
-import ua.com.nc.nctrainingproject.persistance.dao.postgre.AuthorBookPostgreDAO;
-import ua.com.nc.nctrainingproject.persistance.dao.postgre.AuthorPostgreDAO;
-import ua.com.nc.nctrainingproject.persistance.dao.postgre.BookPostgreDAO;
-import ua.com.nc.nctrainingproject.persistance.dao.postgre.GenrePostgreDAO;
+import ua.com.nc.nctrainingproject.persistance.dao.postgre.*;
 import ua.com.nc.nctrainingproject.persistance.dao.postgre.queries.FilterCriterionQuery;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class BookService {
@@ -21,14 +19,15 @@ public class BookService {
 	private final GenrePostgreDAO genrePostgreDAO;
 	private final AuthorPostgreDAO authorPostgreDAO;
 	private final AuthorBookPostgreDAO authorBookPostgreDAO;
-
+	private final UserBooksPostgreDAO userBooksPostgreDAO;
 	@Autowired
-	public BookService(BookPostgreDAO bookPostgreDAO, FilterCriterionQuery filterCriterionQuery, GenrePostgreDAO genrePostgreDAO, AuthorPostgreDAO authorPostgreDAO, AuthorBookPostgreDAO authorBookPostgreDAO) {
+	public BookService(BookPostgreDAO bookPostgreDAO, FilterCriterionQuery filterCriterionQuery, GenrePostgreDAO genrePostgreDAO, AuthorPostgreDAO authorPostgreDAO, AuthorBookPostgreDAO authorBookPostgreDAO, UserBooksPostgreDAO userBooksPostgreDAO) {
 		this.bookPostgreDAO = bookPostgreDAO;
 		this.filterCriterionQuery = filterCriterionQuery;
 		this.genrePostgreDAO = genrePostgreDAO;
 		this.authorPostgreDAO = authorPostgreDAO;
 		this.authorBookPostgreDAO = authorBookPostgreDAO;
+		this.userBooksPostgreDAO = userBooksPostgreDAO;
 	}
 
 	public Book createBook(Book book) {
@@ -68,4 +67,27 @@ public class BookService {
 	public List<Author> getAuthorsByBookId(int bookId){return authorBookPostgreDAO.getAuthorsByBookId(bookId);}
 	public List<Genre> getAllGenres() {return genrePostgreDAO.getAllGenres();}
 	public Genre getGenreByBookId(int bookId)  {return bookPostgreDAO.getGenreByBookId(bookId);}
+	public List<Book> getMostRatedBooks(){ return bookPostgreDAO.getMostRatedBooks(); }
+	public List<Book> makeSuggestion(int userId) {
+		ArrayList<String> suggestionAuthors = new ArrayList<>();
+		ArrayList<String> suggestionGenre = new ArrayList<>();
+		List<Book> suggestionBooks = userBooksPostgreDAO.getAllFavouriteBooks(userId);
+
+		suggestionBooks.forEach(book -> {
+			suggestionGenre.add(bookPostgreDAO.getGenreByBookId(book.getId()).getName());
+			authorBookPostgreDAO.getAuthorsByBookId(book.getId()).forEach(
+					author -> suggestionAuthors.add(author.getName()));
+
+		});
+
+		filterCriterionQuery.setAuthor(suggestionAuthors);
+		filterCriterionQuery.setGenre(suggestionGenre);
+
+
+		if(suggestionBooks.isEmpty())
+			suggestionBooks = this.getMostRatedBooks();
+
+		return suggestionBooks;
+	}
+
 }

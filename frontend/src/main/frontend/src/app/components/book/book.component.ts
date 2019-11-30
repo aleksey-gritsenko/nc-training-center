@@ -88,12 +88,14 @@ export class BookComponent implements OnInit {
         if(this.storage.getUser()!=null)
         {
             this.apiService.makeSuggestion(this.storage.getUser().id).subscribe(
-                books=>this.suggestionBook =books
+                books=>this.suggestionBook=books
             )
         }
         this.apiService.getBooksByFilter(suggestionFilter).subscribe(
             books=>books.forEach(book=>this.suggestionBook.push(book))
         );
+
+
 
     }
 

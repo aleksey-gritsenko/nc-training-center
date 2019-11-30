@@ -83,5 +83,14 @@ public class BookPostgreDAO extends AbstractDAO<Book> {
         }
         return genres.get(0);
     }
+
+    public List<Book> getMostRatedBooks(){
+        List<Book> books = jdbcTemplate.query(BookQuery.GET_MOST_RATED_BOOKS, new BookRowMapper());
+        for (Book book : books) {
+            book.setAuthors(authorBookPostgreDAO.getAuthorsByBookId(book.getId()));
+            book.setGenre(genrePostgreDAO.getGenreById(book.getId()));
+        }
+        return books;
+    }
 }
 
