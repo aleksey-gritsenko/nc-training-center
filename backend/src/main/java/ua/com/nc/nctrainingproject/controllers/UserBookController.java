@@ -70,6 +70,12 @@ public class UserBookController {
 		return response != null ? ResponseEntity.ok(response) : new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
 
+	@RequestMapping(value = "/delete", method = RequestMethod.POST)
+	public ResponseEntity<?> deleteBookFromAdded(@RequestBody UserBook userBook) {
+		UserBook response = userBookService.deleteBookFromAdded(userBook);
+		return response != null ? ResponseEntity.ok(response) : new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+	}
+
 }
 
 

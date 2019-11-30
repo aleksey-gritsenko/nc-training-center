@@ -68,4 +68,8 @@ public class UserBooksPostgreDAO extends AbstractDAO {
 	public void removeFromFavourite(int userId, int bookId) {
 		update(UserBooksQuery.REMOVE_FROM_FAVOURITE, new Object[]{userId, bookId});
 	}
+
+	public void deleteFromAdded(int userId, int bookId) {
+		update(UserBooksQuery.DELETE_BOOK_FROM_ADDED, new Object[]{userId, bookId});
+	}
 }

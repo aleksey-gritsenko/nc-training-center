@@ -31,4 +31,7 @@ public class UserBooksQuery {
 
 	public static final String REMOVE_FROM_FAVOURITE = "UPDATE " + TABLE_NAME + " SET " + IS_FAVOURITE +
 			" = 'false' " + " WHERE " + USER_ID + " =(?)" + " AND " + BOOK_ID + " =(?)";
+
+	public static final String DELETE_BOOK_FROM_ADDED = "DELETE FROM  " + TABLE_NAME + " WHERE " + USER_ID +
+			" =(?)" + " AND " + BOOK_ID + " =(?)";
 }

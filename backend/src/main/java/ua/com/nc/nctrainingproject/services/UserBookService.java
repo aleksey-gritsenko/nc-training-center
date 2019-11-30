@@ -53,6 +53,11 @@ public class UserBookService {
 		return userBook;
 	}
 
+	public UserBook deleteBookFromAdded(UserBook userBook) {
+		userBooksPostgreDAO.deleteFromAdded(userBook.getUserId(), userBook.getBookId());
+		return userBook;
+	}
+
 	public List<Book> getAllFavouriteBooks(UserBook userBook) {
 		return userBooksPostgreDAO.getAllFavouriteBooks(userBook.getUserId());
 	}
