@@ -46,25 +46,25 @@ public class UserBookController {
 		return response != null ? ResponseEntity.ok(response) : new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
 
-	@RequestMapping(value = "/markread", method = RequestMethod.GET)
+	@RequestMapping(value = "/markread", method = RequestMethod.POST)
 	public ResponseEntity<?> markBookAsRead(@RequestBody UserBook userBook) {
 		UserBook response = userBookService.markBookAsRead(userBook);
 		return response != null ? ResponseEntity.ok(response) : new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
 
-	@RequestMapping(value = "/markfav", method = RequestMethod.GET)
+	@RequestMapping(value = "/markfav", method = RequestMethod.POST)
 	public ResponseEntity<?> markBookAsFavourite(@RequestBody UserBook userBook) {
 		UserBook response = userBookService.markBookAsFavourite(userBook);
 		return response != null ? ResponseEntity.ok(response) : new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
 
-	@RequestMapping(value = "/remove_read", method = RequestMethod.GET)
+	@RequestMapping(value = "/remove_read", method = RequestMethod.POST)
 	public ResponseEntity<?> removeFromRead(@RequestBody UserBook userBook) {
 		UserBook response = userBookService.removeFromRead(userBook);
 		return response != null ? ResponseEntity.ok(response) : new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
 
-	@RequestMapping(value = "/remove_fav", method = RequestMethod.GET)
+	@RequestMapping(value = "/remove_fav", method = RequestMethod.POST)
 	public ResponseEntity<?> removeFromFavourite(@RequestBody UserBook userBook) {
 		UserBook response = userBookService.removeFromFavourite(userBook);
 		return response != null ? ResponseEntity.ok(response) : new ResponseEntity<>(HttpStatus.BAD_REQUEST);

@@ -28,7 +28,11 @@
                                 <div *ngIf="book.genre">Genre: {{book.genre}}</div>
                             </div>
                             <div>
-                                <button class="btn btn-primary" (click)="addBookToUser(book.id)">Add book</button>
+                                <button *ngIf="userAddedBook" class="btn btn-primary" (click)="addBookToUser(book.id)">Add book</button>
+                                <button *ngIf="userAddedToFav" class="btn btn-primary" (click)="addBookToFavourite(book.id)">Add to favourite</button>
+                                <button *ngIf="userAddedToRead" class="btn btn-primary" (click)="addBookToRead(book.id)">Add to read</button>
+                                <button *ngIf="!userAddedToFav" class="btn btn-primary" (click)="removeBookFromFav(book.id)">Remove from favourite</button>
+                                <button *ngIf="!userAddedToRead" class="btn btn-primary" (click)="removeBookFromRead(book.id)">Remove from read</button>
                             </div>
                         </div>
                     </div>

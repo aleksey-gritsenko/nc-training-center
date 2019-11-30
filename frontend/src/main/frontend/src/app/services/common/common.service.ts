@@ -19,6 +19,7 @@ export class CommonService {
     private booksUrl: string = `${this.siteUrl}/book`;
     private announcementsUrl: string = `${this.siteUrl}/announcements`;
     private reviewsUrl: string = `${this.siteUrl}/review`;
+    private userBookUrl: string = `${this.siteUrl}/userBook`;
     // private reviewsUrl = 'api/books'; // -?
 
     // announcements : Announcement[] = [];
@@ -155,7 +156,55 @@ export class CommonService {
     }
 
     addBookToUser(userBook:UserBook):Observable<UserBook>{
-        const url = `${this.siteUrl}/userbook`;
+        const url = `http://localhost:8080/userBook/add`;
+        console.log(userBook);
+        return this.http.post<UserBook>(url, userBook);
+    }
+
+    getAllUserBooks():Observable<UserBook[]>{
+        const url = `${this.userBookUrl}/all`;
+        return this.http.get<UserBook[]>(url);
+    }
+
+    markUserBookAsRead(userBook: UserBook): Observable<UserBook>{
+        const url = `http://localhost:8080/userBook/markread`;
+        userBook.isRead = true;
+        console.log(userBook);
+        return this.http.post<UserBook>(url, userBook);
+    }
+
+    markUserBookAsFavourite(userBook: UserBook): Observable<UserBook>{
+        const url = `http://localhost:8080/userBook/markfav`;
+        userBook.isFavorite = true;
+        console.log(userBook);
+        return this.http.post<UserBook>(url, userBook);
+    }
+
+    getAllFavouriteBooks(userBook: UserBook): Observable<UserBook[]>{
+        const params = new HttpParams()
+            .set('userId',userBook.userId.toString());
+        const url = `${this.userBookUrl}/all/favourite`;
+        return this.http.get<UserBook[]>(url, {params:params});
+    }
+
+    getAllReadBooks(userBook: UserBook): Observable<UserBook[]>{
+        const params = new HttpParams()
+            .set('userId',userBook.userId.toString());
+        const url = `${this.userBookUrl}/all/read`;
+        return this.http.get<UserBook[]>(url, {params:params});
+    }
+
+    removeFromFavourite(userBook: UserBook): Observable<UserBook>{
+        const url = `${this.userBookUrl}/remove_fav`;
+        userBook.isFavorite = false;
+        console.log(userBook);
+        return this.http.post<UserBook>(url, userBook);
+    }
+
+    removeFromRead(userBook: UserBook): Observable<UserBook>{
+        const url = `${this.userBookUrl}/remove_read`;
+        userBook.isRead = false;
+        console.log(userBook);
         return this.http.post<UserBook>(url, userBook);
     }
 
