@@ -38,6 +38,7 @@ import {AddAdminComponent} from './components/user/add-admin/add-admin.component
 import {DeactivateAccountComponent} from './components/deactivate-account/deactivate-account.component';
 import {CKEditorModule} from "@ckeditor/ckeditor5-angular";
 import { TruncateTextPipe } from './components/pipe/truncate-text.pipe';
+import { UserBooksComponent } from './components/user-books/user-books.component';
 
 @NgModule({
     declarations: [
@@ -72,7 +73,8 @@ import { TruncateTextPipe } from './components/pipe/truncate-text.pipe';
         EditProfileComponent,
         AddAdminComponent,
         DeactivateAccountComponent,
-        TruncateTextPipe
+        TruncateTextPipe,
+        UserBooksComponent
     ],
 
     imports: [

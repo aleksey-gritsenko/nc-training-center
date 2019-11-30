@@ -15,6 +15,7 @@ import {UserBook} from "../../models/userBook";
 export class CommonService {
 
     private siteUrl: string = 'https://nc-group1-2019-project.herokuapp.com';
+    private localhost: string = 'http://localhost:8080';
 
     private booksUrl: string = `${this.siteUrl}/book`;
     private announcementsUrl: string = `${this.siteUrl}/announcements`;
