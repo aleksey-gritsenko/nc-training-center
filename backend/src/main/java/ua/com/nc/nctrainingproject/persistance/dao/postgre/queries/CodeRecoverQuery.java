@@ -22,4 +22,6 @@ public class CodeRecoverQuery {
 	public static final String DELETE_ALL = "DELETE FROM "
 			+ TABLE_NAME + " WHERE 1=1";
 
+	public static final String DELETE_ALL_HOUR = "SELECT * from recovercode WHERE generate_date < now() - interval '1 hour'";
+
 }
