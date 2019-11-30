@@ -159,6 +159,13 @@ export class CommonService {
         return this.http.post<UserBook>(url, userBook);
     }
 
+    makeSuggestion(userId: number):Observable<Book[]>{
+        const url = `${this.booksUrl}/suggestion`;
+        return this.http.get<Book[]>(url,
+            {params:new HttpParams().append('user', userId.toString())});
+
+    }
+
     recoverPassword() {
 
     }
