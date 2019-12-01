@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Announcement} from '../../models/announcement';
+import {CommonService} from "../../services/common/common.service";
 
 @Component({
     selector: 'app-announcement-list',
@@ -10,7 +11,7 @@ import {Announcement} from '../../models/announcement';
 export class AnnouncementListComponent implements OnInit {
     announcements: Announcement[] = [];
 
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient, private apiService: CommonService) {
     }
 
     ngOnInit() {
@@ -27,5 +28,10 @@ export class AnnouncementListComponent implements OnInit {
                 alert("ERROr");
             }
         )
+    }
+
+    public getMoreInfo(announcement: Announcement) {
+        this.apiService.getBookById(announcement.bookID);
+
     }
 }
