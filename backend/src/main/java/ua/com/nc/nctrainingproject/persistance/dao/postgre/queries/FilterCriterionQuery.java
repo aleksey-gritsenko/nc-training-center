@@ -30,7 +30,7 @@ public class FilterCriterionQuery {
 	public String makeQuery() {
 
 	String	q = BookQuery.GET_BOOKS_FILTRATION +
-			makeAuthorConditins() + makeGenresConditions() + makeHeaderCondition();
+			makeAuthorConditions() + makeGenresConditions() + makeHeaderCondition();
 		q=q.trim();
 	  if(q.endsWith("OR")) {
 
@@ -76,7 +76,7 @@ public class FilterCriterionQuery {
 		return genresCondition;
 	}
 
-	private String makeAuthorConditins() {
+	private String makeAuthorConditions() {
 		String authorCondition = " ";
 
 		if (author.size() != 0) {
