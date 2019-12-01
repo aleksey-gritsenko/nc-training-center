@@ -82,4 +82,9 @@ public class BookController {
         return ResponseEntity.ok(bookService.makeSuggestion(userId));
     }
 
+    @RequestMapping(value = "/rate", method = RequestMethod.GET)
+    public ResponseEntity<?> getMostRatedBook() {
+        return ResponseEntity.ok(bookService.getMostRatedBooks());
+    }
+
 }

@@ -3,19 +3,23 @@
     <div>
         <button (click)="addReviewVisible=!addReviewVisible" class="btn btn-default">Add review</button>
 
-        <form *ngIf="addReviewVisible" action="" #reviewForm="ngForm">
+        <form *ngIf="addReviewVisible" action="" [formGroup]="createdReviewForm">
             <table class="table">
                 <tr>
                     <td><label for="grade">Grade</label></td>
-                    <td><input [(ngModel)]="createdReview.grade"  class="form-control" id="grade" name="grade" type="number" required>
+                    <td><input formControlName="grade" [(ngModel)]="createdReview.grade" class="form-control" id="grade"
+                               name="grade" type="number" required>
                     </td>
                 </tr>
                 <tr>
                     <td><label for="text">Text</label></td>
-                    <td><ckeditor id="text" [(ngModel)]="createdReview.text" [editor]="Editor" name="text" required></ckeditor></td>
+                    <td>
+                        <ckeditor formControlName="text"  id="text" [(ngModel)]="createdReview.text" [editor]="Editor"
+                                  required></ckeditor>
+                    </td>
                 </tr>
             </table>
-            <button [disabled]="!reviewForm.valid"  (click)="createReview();" class="btn btn-default">Submit</button>
+            <button [disabled]="!createdReviewForm.valid" (click)="createReview();" class="btn btn-default">Submit</button>
         </form>
     </div>
     <div>

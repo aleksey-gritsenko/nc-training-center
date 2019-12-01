@@ -27,7 +27,9 @@ export class BookComponent implements OnInit {
 
     userBook:UserBook = new UserBook();
 
-    constructor(private apiService: CommonService, private route: ActivatedRoute, private router: Router,
+    constructor(private apiService: CommonService,
+                private route: ActivatedRoute,
+                private router: Router,
                 private storage: StorageService) {
     }
 
@@ -96,12 +98,24 @@ export class BookComponent implements OnInit {
 
         if (this.storage.getUser() != null) {
             this.apiService.makeSuggestion(this.storage.getUser().id).subscribe(
-                books => this.suggestionBook = books
-            )
+                books=>{this.suggestionBook=books||[];}
+            );
+            this.apiService.getBooksByFilter(suggestionFilter).subscribe(
+                books=>{
+                    this.suggestionBook.push(...(books||[]));
+                }
+            );
         }
-        this.apiService.getBooksByFilter(suggestionFilter).subscribe(
-            books => books.forEach(book => this.suggestionBook.push(book))
+        this.apiService.getMostRatedBooks().subscribe(
+            books=>{
+                this.suggestionBook.push(...(books||[]));
+                this.suggestionBook = this.suggestionBook.filter(
+                    (thing, i, arr) => arr.findIndex(t => t.id === thing.id) === i
+                );
+            }
         );
+
+
     }
 
     addBookToUser(bookId:number){
@@ -224,6 +238,12 @@ export class BookComponent implements OnInit {
                 console.log("Remove from READ book error");
             }
         );
+    }
+
+    navigateToBook(bookId: number){
+        this.router.navigate(['books/book', bookId]);
+        this.suggestionBook = [];
+        this.ngOnInit();
     }
 
 }
