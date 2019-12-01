@@ -38,10 +38,10 @@ public class UserController {
         return response != null ? ResponseEntity.ok(response) :  new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 	@RequestMapping(method = RequestMethod.POST, value = "/activate")
-	ResponseEntity<?> activate(@RequestParam(name = "email") String email,
+	public  ResponseEntity<?> activate(@RequestParam(name = "email") String email,
 							 @RequestParam(name = "code") String code
 							) {
-		 userService.activateAccount(email,code);
+		User response = userService.activateAccount(email,code);
 		return response != null ? ResponseEntity.ok(response) : new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
 

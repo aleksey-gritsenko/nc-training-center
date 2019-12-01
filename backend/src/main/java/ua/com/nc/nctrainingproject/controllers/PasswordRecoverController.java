@@ -66,7 +66,7 @@ import javax.mail.MessagingException;
     @RequestMapping(value = "/clean", method = RequestMethod.GET)
     @ResponseBody
 
-   @Scheduled(fixedRate  = 3600000)
+  @Scheduled(fixedRate  = 3600000)
     public void cleanCodes() {
         passwordRecoverService.deleteALL();
     }

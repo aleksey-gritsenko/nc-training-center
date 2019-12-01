@@ -47,10 +47,12 @@ public class UserService {
         return null;
     }
 
-    public void activateAccount(String email, String code) {
+    public User activateAccount(String email, String code) {
 
         if (codePostgreDAO.getCodeBy(code) != null) {
             userPostgreDAO.activateAccount(email);
+           return userPostgreDAO.getUserByEmail(email);
         }
+        return null;
     }
 }

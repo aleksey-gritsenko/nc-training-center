@@ -38,7 +38,7 @@ public class  UserQuery {
 
 
 	public static final String UPDATE_STATUS_BY_EMAIL = "UPDATE " + TABLE_NAME + " SET " +
-			STATUS + " =(?), " +
+			STATUS + " =(?)  " +
 
 			" WHERE " + EMAIL + " =(?)";
 
