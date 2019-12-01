@@ -21,4 +21,6 @@ public interface UserBooksDAO {
 	void removeFromRead(int userId, int bookId);
 
 	void removeFromFavourite(int userId, int bookId);
+
+	void deleteFromAdded(int userId, int bookId);
 }

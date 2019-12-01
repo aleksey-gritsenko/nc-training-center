@@ -14,7 +14,7 @@
                     <div class="card card-profile">
                         <div class="card-body">
                             <div class="card-title">
-                                <h3><a  [routerLink]="['book', book.id]"> {{book.header}}</a></h3>
+                                <h3><a  (click)="saveFilterToStorage()" [routerLink]="['book', book.id]"> {{book.header}}</a></h3>
                             </div>
                             <div class="card-description">
                                 <div>Overview: {{book.overview}}</div>
@@ -27,9 +27,7 @@
                                 </div>
                                 <div *ngIf="book.genre">Genre: {{book.genre}}</div>
                             </div>
-                            <div>
-                                <button class="btn btn-primary" (click)="addBookToUser(book.id)">Add book</button>
-                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -38,41 +36,48 @@
         <div>
             <button (click)="addBookVisible=!addBookVisible" class="btn btn-primary btn-default">Add book</button>
 
-            <form *ngIf="addBookVisible" action="">
+            <form *ngIf="addBookVisible" action="" #createdBook="ngForm">
                 <table class="table">
                     <tr>
                         <td><label for="header">Header</label></td>
-                        <td><input class="form-control" type="text" [(ngModel)]="model.header" id="header" name="header"></td>
+                        <td><input #header="ngModel" required class="form-control" type="text" [(ngModel)]="model.header"   id="header" name="header"></td>
                     </tr>
                     <tr>
                         <td><label for="photo">Photo</label></td>
-                        <td><input class="form-control" type="number" [(ngModel)]="model.photoId" id="photo" name="photo"></td>
+                        <td><input #photo="ngModel" required class="form-control" type="number"  [(ngModel)]="model.photoId" id="photo" name="photo"></td>
                     </tr>
                     <tr>
                         <td><label for="file">File</label></td>
-                        <td><input class="form-control" type="number" [(ngModel)]="model.fileId" id="file" name="file"></td>
+                        <td><input #file="ngModel" required class="form-control" type="number" [(ngModel)]="model.fileId" id="file" name="file"></td>
                     </tr>
                     <tr>
                         <td><label for="status">Status</label></td>
-                        <td><input class="form-control" type="text" [(ngModel)]="model.status" id="status" name="status"></td>
+                        <td><input #status="ngModel" required class="form-control" type="text" [(ngModel)]="model.status" id="status" name="status"></td>
                     </tr>
                     <tr>
                         <td><label for="overview">Overview</label></td>
-                        <td><textarea class="form-control" type="text" [(ngModel)]="model.overview" id="overview" name="overview"
+                        <td><textarea #overview="ngModel" required class="form-control" type="text" [(ngModel)]="model.overview" id="overview" name="overview"
                                       rows="5"></textarea></td>
                     </tr>
                     <tr>
                         <td><label for="genre">Genre</label></td>
-                        <td><input class="form-control" type="text" [(ngModel)]="model.genre" id="genre" name="genre"></td>
+                        <td><input #genre="ngModel" required class="form-control" type="text" [(ngModel)]="model.genre" id="genre" name="genre"></td>
                     </tr>
 
                     <tr>
                         <td><label for="authors">Authors(split - ',')</label></td>
-                        <td><textarea class="form-control" type="text" [(ngModel)]="createdAuthors" id="authors" name="authors"
-                                      rows="5"></textarea></td>
+                        <td><textarea required class="form-control" type="text" [(ngModel)]="createdAuthors" id="authors" name="authors"
+                                      rows="5" #authors="ngModel"></textarea></td>
                     </tr>
                 </table>
-                <button class="btn btn-default btn-primary" (click)="createBook();">Submit</button>
+                <div class="form-control-feedback" *ngIf="authors.errors && (authors.dirty || authors.touched)&&header.errors && (header.dirty || header.touched)
+                            && genre.errors && (genre.dirty || genre.touched) && photo.errors && (photo.dirty || photo.touched) &&
+                            file.errors && (file.dirty || file.touched) && status.errors && (status.dirty || status.touched) &&
+                            overview.errors && (overview.dirty || overview.touched) ">
+                    <div>Check field</div>
+                </div>
+
+                <button [disabled]="!createdBook.valid" class="btn btn-default btn-primary" (click)="createBook();">Submit</button>
             </form>
         </div>
     </div>
@@ -99,10 +104,10 @@
                             <h2>Author</h2>
                         </div>
                         <div class="card-body row">
-                            <div *ngFor="let character of fillArray()">
+                            <div *ngFor="let character of fillArray()" class="col-1">
                                 <h3  class="font-weight-bold btn-link border-bottom" (click)="filterAuthor(character)" >{{character}}</h3>
                             </div>
-                            <div *ngFor="let author of filterAuthors;" class="col-6">
+                            <div *ngFor="let author of filterAuthors;" class="col-12">
                                 <label class="form-check-label" >
                                     <input class="form-check-input" type="checkbox" [(ngModel)]="author.selected" name="{{author.name}}">{{author.name}}
                                     <span class="form-check-sign"><span class="check"></span></span>
@@ -119,19 +124,15 @@
                             <h2>Genre</h2>
                         </div>
                         <div class="card-body row">
-                            <div *ngFor="let character of fillArray()">
+                            <div *ngFor="let character of fillArray()" class="col-1">
                                 <h3 class="font-weight-bold btn-link  border-bottom" (click)="filterGenre(character)" >{{character}}</h3>
                             </div>
-                            <div *ngFor="let genre of filterGenres;" class="col-6">
+                            <div *ngFor="let genre of filterGenres;" class="col-12">
                                 <label class="form-check-label">
                                     <input class="form-check-input" type="checkbox" [(ngModel)]="genre.selected" name="{{genre.name}}">{{genre.name}}
                                     <span class="form-check-sign"><span class="check"></span></span>
                                 </label>
                             </div>
-
-
-
-
                         </div>
                     </div>
                 </div>

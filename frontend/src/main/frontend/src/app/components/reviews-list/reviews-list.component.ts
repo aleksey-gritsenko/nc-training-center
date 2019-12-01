@@ -27,6 +27,8 @@ export class ReviewsListComponent implements OnInit{
                 private  userService:UserService, private storage: StorageService){
     }
 
+
+
     ngOnInit() {
         this.addReviewVisible = false;
         this.ngOnChanges();

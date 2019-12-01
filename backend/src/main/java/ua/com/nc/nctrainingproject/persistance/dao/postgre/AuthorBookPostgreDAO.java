@@ -9,6 +9,7 @@ import ua.com.nc.nctrainingproject.persistance.dao.postgre.queries.AuthorBookQue
 import ua.com.nc.nctrainingproject.persistance.mappers.AuthorMapper;
 import ua.com.nc.nctrainingproject.persistance.mappers.BookRowMapper;
 
+import javax.sql.DataSource;
 import java.util.List;
 
 @Repository
@@ -16,8 +17,8 @@ public class AuthorBookPostgreDAO {
 	private final JdbcTemplate jdbcTemplate;
 
 	@Autowired
-	public AuthorBookPostgreDAO(JdbcTemplate jdbcTemplate) {
-		this.jdbcTemplate = jdbcTemplate;
+	public AuthorBookPostgreDAO(DataSource dataSource) {
+		this.jdbcTemplate = new JdbcTemplate(dataSource);
 	}
 
 	public List<Book> getBooksByAuthorId(int id) {

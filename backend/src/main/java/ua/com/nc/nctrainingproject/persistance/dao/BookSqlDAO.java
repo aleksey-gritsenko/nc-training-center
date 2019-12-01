@@ -7,12 +7,14 @@ import ua.com.nc.nctrainingproject.models.User;
 import ua.com.nc.nctrainingproject.persistance.dao.postgre.queries.UserQuery;
 import ua.com.nc.nctrainingproject.persistance.mappers.UserRowMapper;
 
+import javax.sql.DataSource;
+
 @Repository
 public class BookSqlDAO extends AbstractDAO<User> {
 
 	@Autowired
-	public BookSqlDAO(JdbcTemplate jdbcTemplate) {
-		super(jdbcTemplate);
+	public BookSqlDAO(DataSource dataSource) {
+		super(dataSource);
 	}
 
 	public void create(User user) {

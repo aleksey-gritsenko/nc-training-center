@@ -39,6 +39,7 @@ public class FilterCriterionQuery {
 	}
 	public static String replaceLast(String text, String regex, String replacement) {
 		return text.replaceFirst("(?s)"+regex+"(?!.*?"+regex+")", replacement);
+
 	}
 
 
@@ -84,7 +85,6 @@ public class FilterCriterionQuery {
 					+ " OR ").reduce((g, n) -> g + n).get();
 
 		}
-		System.out.println(authorCondition);
 		return authorCondition;
 	}
 

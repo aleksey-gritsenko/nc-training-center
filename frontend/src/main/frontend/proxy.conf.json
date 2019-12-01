@@ -1,0 +1,6 @@
+{
+  "/": {
+    "target": "https://nc-group1-2019-project.herokuapp.com",
+    "secure": false
+  }
+}
