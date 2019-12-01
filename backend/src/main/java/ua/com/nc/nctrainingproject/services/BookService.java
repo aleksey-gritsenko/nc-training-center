@@ -83,10 +83,6 @@ public class BookService {
 		filterCriterionQuery.setAuthor(suggestionAuthors);
 		filterCriterionQuery.setGenre(suggestionGenre);
 
-
-		if(suggestionBooks.isEmpty())
-			suggestionBooks = this.getMostRatedBooks();
-
 		return suggestionBooks;
 	}
 

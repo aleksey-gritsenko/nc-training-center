@@ -6,6 +6,7 @@ import {Book} from "../../models/book";
 import {UserService} from "../../services/user/user.service";
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import {StorageService} from "../../services/storage/storage.service";
+import {FormBuilder, Validators} from "@angular/forms";
 
 @Component({
     selector: 'app-reviews-list',
@@ -21,10 +22,17 @@ export class ReviewsListComponent implements OnInit{
 
     createdReview: Review = new Review();
 
+    createdReviewForm = this.formBuilder.group({
+        grade: [0,[Validators.min(1),Validators.max(5)]],
+        text: ['', Validators.required]
+    });
+
     constructor(private commonService: CommonService,
                 private route: ActivatedRoute,
                 private router: Router,
-                private  userService:UserService, private storage: StorageService){
+                private  userService:UserService,
+                private storage: StorageService,
+                private formBuilder:FormBuilder){
     }
 
 
@@ -75,7 +83,7 @@ export class ReviewsListComponent implements OnInit{
 
     acceptReview(review:Review):void{
         review.adminId=this.storage.getUser().id;
-        this.commonService.acceptReview(review, true).subscribe(
+        this.commonService.acceptReview(review).subscribe(
             res=>{this.acceptedReviews.push(review);
                 this.notAcceptedReviews.splice(this.notAcceptedReviews.indexOf(review));
             }
@@ -103,6 +111,7 @@ export class ReviewsListComponent implements OnInit{
                     }
                 );
         }
+
     }
 
     deleteReviewById(review:Review){
