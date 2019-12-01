@@ -63,7 +63,7 @@ public class BookService {
 		filterCriterionQuery.setHeader(header);
 		return bookPostgreDAO.filterBooks(filterCriterionQuery);
 	}
-
+//bbb
 	public List<Author> getAllAuthors() {return authorPostgreDAO.getAllAuthors();}
 	public List<Author> getAuthorsByBookId(int bookId){return authorBookPostgreDAO.getAuthorsByBookId(bookId);}
 	public List<Genre> getAllGenres() {return genrePostgreDAO.getAllGenres();}
