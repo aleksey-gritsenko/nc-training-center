@@ -61,7 +61,7 @@ public class BookQuery {
                     " join " + AuthorQuery.TABLE_NAME + " on " + AuthorBookQuery.TABLE_NAME + "." + AuthorBookQuery.AUTHOR_ID + " = " + AuthorQuery.TABLE_NAME + "." + AuthorQuery.ID + " where ";
 
     public static final String CONDITIONS_GENRES = GENRE + "=(?)";
-    public static final String CONDITIONS_NAME = HEADER + " LIKE " + "(?) ";
+    public static final String CONDITIONS_NAME = HEADER + " LIKE " + "(?)";
     public static final String CONDITION_AUTHOR = AUTHOR + " =(?)";
 
     public static final String GET_MOST_RATED_BOOKS = GET_BOOKS_FILTRATION + TABLE_NAME + "." +  BOOK_ID  + " IN ( SELECT " + REVIEW_TABLE+ "." + BOOK_ID+

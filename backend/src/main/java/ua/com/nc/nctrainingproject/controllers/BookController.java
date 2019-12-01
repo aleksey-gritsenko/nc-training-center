@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ua.com.nc.nctrainingproject.models.Book;
+import ua.com.nc.nctrainingproject.persistance.dao.postgre.queries.FilterCriterionQuery;
 import ua.com.nc.nctrainingproject.services.BookService;
 
 import java.util.ArrayList;
@@ -48,11 +49,11 @@ public class BookController {
 
     @RequestMapping(value = "/filter", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<?> filterBook(@RequestParam(name="header") String header,
-                                 @RequestParam(name="genre") ArrayList<String> genres,
-                                 @RequestParam(name="author") ArrayList<String> authors
-    ) {
-        return ResponseEntity.ok(bookService.filterBooks(header + "%", genres, authors));
+    public ResponseEntity<?> filterBook(@RequestBody FilterCriterionQuery filterCriterionQuery
+                                   ) {
+        List<Book> books = bookService.filterBooks(filterCriterionQuery.getHeader()
+               , filterCriterionQuery.getGenre(), filterCriterionQuery.getAuthor());
+        return ResponseEntity.ok(books);
     }
 
     @RequestMapping(value = "/genres", method = RequestMethod.GET)
