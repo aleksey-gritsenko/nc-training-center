@@ -139,11 +139,11 @@ export class BooksListComponent implements OnInit{
         this.filterAuthors = this.selectedAuthors
             .filter(v => v.selected);
 
-        this.selectedGenres.forEach(genre => {
+        this.filterGenres.forEach(genre => {
             this.bookFilter.genre.push(genre.name);
             this.historyGenres.push(genre.name)}
         );
-        this.selectedAuthors.forEach(author => {
+        this.filterAuthors.forEach(author => {
             this.bookFilter.author.push(author.name);
             this.historyAuthors.push(author.name);
         });
