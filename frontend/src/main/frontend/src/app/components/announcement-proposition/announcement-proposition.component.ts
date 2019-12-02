@@ -4,6 +4,7 @@ import {HttpClient} from "@angular/common/http";
 import {ActivatedRoute} from "@angular/router";
 import {StorageService} from "../../services/storage/storage.service";
 import {User} from "../../models/user";
+import {CommonService} from "../../services/common/common.service";
 
 @Component({
     selector: 'app-announcement-proposition',
@@ -18,7 +19,7 @@ export class AnnouncementPropositionComponent implements OnInit {
     currentUser: User;
 
 
-    constructor(private http: HttpClient,private route: ActivatedRoute  , private storage: StorageService) {
+    constructor(private http: HttpClient,private route: ActivatedRoute  , private storage: StorageService,private apiService :CommonService) {
     }
 
     ngOnInit() {
@@ -29,7 +30,7 @@ export class AnnouncementPropositionComponent implements OnInit {
 
     public getAllAnnouncement() {
         let url = `${this.siteUrl}/announcements/new`;
-        this.http.get<Announcement[]>(url).subscribe(
+        this.apiService.getAnnouncementsUnPublish().subscribe(
             res => {
                 this.announcements = res;
             },
@@ -39,10 +40,10 @@ export class AnnouncementPropositionComponent implements OnInit {
         )
     }
     public publishAnnouncement(announcement : Announcement){
-        let url = 'http://localhost:8080//announcements//publish';
+        let url = 'http://localhost:8080/announcements/publish';
 
-        announcement.admin_id = this.storage.getUser().id;
-        this.http.post(url, announcement).subscribe(
+        //announcement.admin_id = this.storage.getUser().id;
+        this.apiService.publishAnnouncement(announcement).subscribe(
             res=>{
                 //location.reload();
             },

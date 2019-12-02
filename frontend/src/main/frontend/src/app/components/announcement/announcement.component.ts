@@ -4,6 +4,7 @@ import {Announcement} from '../../models/announcement';
 import {HttpClient} from "@angular/common/http";
 import {StorageService} from "../../services/storage/storage.service";
 import {User} from "../../models/user";
+import {CommonService} from "../../services/common/common.service";
 
 
 @Component({
@@ -29,7 +30,7 @@ export class AnnouncementComponent implements OnInit {
     id: any;
 
     constructor(private http: HttpClient, private route: ActivatedRoute,
-                private storage: StorageService) {
+                private storage: StorageService,private apiService :CommonService) {
     }
 
     ngOnInit() {
@@ -55,7 +56,7 @@ export class AnnouncementComponent implements OnInit {
         this.model.ownerId = this.currentUser.id;
       // this.model.ownerId = this.storage.getUser().id;
 
-        this.http.post(url, this.model).subscribe(
+        this.apiService.createAnnouncement(this.model) .subscribe(
             res => {
                 //location.reload();
             },

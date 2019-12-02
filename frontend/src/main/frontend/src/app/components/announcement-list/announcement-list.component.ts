@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Announcement} from '../../models/announcement';
 import {CommonService} from "../../services/common/common.service";
+import {Book} from "../../models/book";
 
 @Component({
     selector: 'app-announcement-list',
@@ -13,7 +14,7 @@ export class AnnouncementListComponent implements OnInit {
     private siteUrl: string = 'https://nc-group1-2019-project.herokuapp.com';
 
     announcements: Announcement[] = [];
-
+     book:Book;
     constructor(private http: HttpClient, private apiService: CommonService) {
     }
 
@@ -24,7 +25,7 @@ export class AnnouncementListComponent implements OnInit {
     public getAllAnnouncement() {
         let url = 'http://localhost:8080//announcements';
         let url2 = `${this.siteUrl}/all`;
-        this.http.get<Announcement[]>(url).subscribe(
+        this.apiService.getAnnouncements().subscribe(
             res => {
                 this.announcements = res;
             },
@@ -35,7 +36,11 @@ export class AnnouncementListComponent implements OnInit {
     }
 
     public getMoreInfo(announcement: Announcement) {
-        this.apiService.getBookById(announcement.bookID);
+        this.apiService.getBookById(announcement.bookID).subscribe(
+            res=>{
+                this.book =res;
+            }
+        );
 
     }
 }
