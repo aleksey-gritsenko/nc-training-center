@@ -20,6 +20,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
     isThisCurrUserProfile: boolean;
     isAllowedToChange: boolean;
     isAllowedToAddAgent: boolean;
+    isAllowedToDeactivate: boolean;
 
     user: User = new User(); //The user page we look at
 
@@ -47,6 +48,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
                 this.isThisCurrUserProfile = true;
                 this.isAllowedToChange = this.currentUser.userRole == 'user' || this.currentUser.userRole == 'super';
                 this.isAllowedToAddAgent = this.currentUser.userRole == 'super' || this.currentUser.userRole == 'admin';
+                this.isAllowedToDeactivate = false;
             }
         })
     }
@@ -60,16 +62,12 @@ export class UserProfileComponent implements OnInit, OnDestroy {
             user => {
             if (!this.isCurrUserAnAdmin && user.userRole != 'user') this.router.navigateByUrl('/error');
             this.user = user;
-            this.isAllowedToChange = this.currentUser.userRole == 'super' && user.userRole != 'user' || (this.currentUser.userRole == 'admin' && user.userRole == 'moderator');
-            this.isAllowedToAddAgent = false;
+            this.isAllowedToDeactivate = this.isAllowedToChange = this.currentUser.userRole == 'super' && user.userRole != 'user' || (this.currentUser.userRole == 'admin' && user.userRole == 'moderator');
         },
             error => {
                 this.router.navigateByUrl('/error');
             });
         this.isThisCurrUserProfile = false;
-    }
-
-    deactivateAccount() {
     }
 
     ngOnDestroy(): void {

@@ -8,6 +8,7 @@
                 <app-view-profile [user]="user" *ngIf="isOpen =='View'"></app-view-profile>
                 <app-edit-profile [user]="user" *ngIf="isOpen == 'Edit'"></app-edit-profile>
                 <app-add-admin *ngIf="isOpen == 'Add'"></app-add-admin>
+                <app-deactivate-account *ngIf="isOpen=='Deactivate'"></app-deactivate-account>
             </div>
             <div class="col-md-4">
                 <div class="card menu" *ngIf="user">
@@ -20,8 +21,8 @@
                         <li class="list-group-item" *ngIf="isAllowedToAddAgent"
                             (click)="open('Add')" [class.selected]="isOpen=='Add'">Add agent
                         </li>
-                        <li class="list-group-item" (click)="deactivateAccount()"
-                            *ngIf="isAllowedToAddAgent">Deactivate the account
+                        <li class="list-group-item" [class.selected]="isOpen=='Deactivate'"
+                            *ngIf="isAllowedToChange && user.userRole!='super'" (click)="open('Deactivate')">Deactivate the account
                         </li>
                     </ul>
                 </div>
