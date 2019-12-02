@@ -10,12 +10,14 @@
         </div>
         <div [ngSwitch]="status">
             <div class="alert alert-success text-center" role="alert" *ngSwitchCase="'success'">
-                Success! The user has deactivated
+                Success! The user has been deactivated
             </div>
             <div class="alert alert-danger text-center" role="alert" *ngSwitchCase="'error'">
                 Something went wrong! Please try again!
             </div>
         </div>
-        <button class="btn btn-primary pull-center" type="button" (click)="deactivateAccount()">Deactivate</button>
+        <div class="text-center">
+            <button class="btn btn-primary" type="button" (click)="deactivateAccount()">Deactivate</button>
+        </div>
     </div>
 </div>
