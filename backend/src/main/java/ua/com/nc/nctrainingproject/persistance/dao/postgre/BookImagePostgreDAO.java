@@ -1,6 +1,5 @@
 package ua.com.nc.nctrainingproject.persistance.dao.postgre;
 
-import com.sun.org.apache.xpath.internal.objects.XNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import ua.com.nc.nctrainingproject.models.Book;
