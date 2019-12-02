@@ -167,4 +167,10 @@ export class UserService {
     // createModerator(): Observable<User> {
     //
     // }
+
+    deactivateAccount(id: string) {
+        let url = `${this.siteUrl}/user/${id}/deactivate`;
+
+        return this.http.get(url);
+    }
 }

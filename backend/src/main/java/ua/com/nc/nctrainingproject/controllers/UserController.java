@@ -40,6 +40,7 @@ public class UserController {
         User response = userService.createAdmin(admin);
 		return Optional.ofNullable(response).map(ResponseEntity::ok).orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
     }
+
 	@RequestMapping(method = RequestMethod.POST, value = "/activate")
 	public  ResponseEntity<?> activate(@RequestParam(name = "email") String email,
 							 @RequestParam(name = "code") String code
@@ -48,4 +49,8 @@ public class UserController {
 		return Optional.ofNullable(response).map(ResponseEntity::ok).orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
 	}
 
+	@RequestMapping(method = RequestMethod.GET, value = "/{id}/deactivate")
+	public ResponseEntity<?> deactivateAccount(@PathVariable(value = "id") int id) {
+		return userService.deactivateAccount(id) ? new ResponseEntity<>(HttpStatus.OK) : new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+	}
 }

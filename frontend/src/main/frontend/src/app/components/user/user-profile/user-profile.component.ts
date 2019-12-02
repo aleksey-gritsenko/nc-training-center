@@ -69,9 +69,6 @@ export class UserProfileComponent implements OnInit, OnDestroy {
         this.isThisCurrUserProfile = false;
     }
 
-    deactivateAccount() {
-    }
-
     ngOnDestroy(): void {
         this.userSubscription.unsubscribe();
     }

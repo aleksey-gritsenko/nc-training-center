@@ -42,6 +42,7 @@ public class UserService {
         if (userPostgreDAO.getUserByUserName(admin.getUserName()) == null
                 && userPostgreDAO.getUserByEmail(admin.getEmail()) == null) {
 
+            admin.setVerified(true);
             userPostgreDAO.createAdmin(admin);
             return userPostgreDAO.getUserByUserName(admin.getUserName());
         }
@@ -55,5 +56,14 @@ public class UserService {
            return userPostgreDAO.getUserByEmail(email);
         }
         return null;
+    }
+
+    public boolean deactivateAccount(int id) {
+        if (userPostgreDAO.getUserById(id) != null) {
+            userPostgreDAO.deactivateAccount(id);
+
+            return true;
+        }
+        return false;
     }
 }

@@ -36,6 +36,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     register(): void {
         this.subscription = this.authenticationService.register(this.model.login, this.model.password, this.model.email).subscribe(
             res => {
+                this.storage.setUser(res);
                 this.router.navigateByUrl('/activate');
             },
             err => {

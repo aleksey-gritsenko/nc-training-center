@@ -13,6 +13,8 @@ export class AddAdminComponent implements OnInit {
     repeatPassword: string;
     user: User;
 
+    editStatus: string;
+
     constructor(private userService: UserService,
                 private storageService: StorageService) {
         this.user = storageService.getUser();
@@ -26,6 +28,14 @@ export class AddAdminComponent implements OnInit {
     }
 
     createAdmin() {
-        this.userService.createAdmin(this.admin).toPromise().then();
+        this.userService.createAdmin(this.admin).toPromise()
+            .then(
+                response => {
+                    this.editStatus = 'success';
+                },
+                error => {
+                    this.editStatus = 'error';
+                }
+            );
     }
 }
