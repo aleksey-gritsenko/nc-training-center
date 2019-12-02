@@ -2,6 +2,12 @@ import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { CommonModule } from '@angular/common';
+import { FlatpickrModule } from 'angularx-flatpickr';
+import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
@@ -39,6 +45,7 @@ import {DeactivateAccountComponent} from './components/deactivate-account/deacti
 import {CKEditorModule} from "@ckeditor/ckeditor5-angular";
 import { TruncateTextPipe } from './components/pipe/truncate-text.pipe';
 import { UserBooksComponent } from './components/user-books/user-books.component';
+
 
 @NgModule({
     declarations: [
@@ -78,16 +85,24 @@ import { UserBooksComponent } from './components/user-books/user-books.component
     ],
 
     imports: [
+        CommonModule,
+        NgbModalModule,
+        FlatpickrModule.forRoot(),
         BrowserModule,
         HttpClientModule,
         FormsModule,
         AppRoutingModule,
         CKEditorModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        BrowserAnimationsModule,
+        CalendarModule.forRoot({
+            provide: DateAdapter,
+             useFactory: adapterFactory})
     ],
 
     providers: [AuthenticationService],
-    bootstrap: [AppComponent]
+    bootstrap: [AppComponent],
+    exports: [CalendarComponent]
 })
 
 export class AppModule {

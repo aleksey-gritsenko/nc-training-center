@@ -14,6 +14,7 @@ import {AnnouncementListComponent} from "./components/announcement-list/announce
 import {AnnouncementPropositionComponent} from "./components/announcement-proposition/announcement-proposition.component";
 import {ReviewComponent} from "./components/review/review.component";
 import {UserBooksComponent} from "./components/user-books/user-books.component";
+import {CalendarComponent} from "./components/calendar/calendar.component";
 
 const routes: Routes = [
     {
@@ -36,6 +37,10 @@ const routes: Routes = [
     {
         path: 'change',
         component: ChangePasswordComponent
+    },
+    {
+        path: 'calendar',
+        component: CalendarComponent
     },
     {
         path: 'registration',
