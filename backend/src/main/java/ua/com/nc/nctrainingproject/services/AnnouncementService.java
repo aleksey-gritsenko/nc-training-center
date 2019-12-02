@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 import ua.com.nc.nctrainingproject.models.Announcement;
 import ua.com.nc.nctrainingproject.persistance.dao.postgre.AnnouncementPostgreDAO;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -21,10 +23,22 @@ public class AnnouncementService {
 	}
 
 	public List<Announcement> getAnnouncements() {
+
 		return announcementsPostgreDAO.getAnnouncements();
 	}
 
 	public List<Announcement> getPublishedAnnouncements() {
+	/*	//test
+		List<Announcement> res = new ArrayList<>();
+		Announcement an = new Announcement();
+		an.setAdmin_id(1);
+		an.setAnnouncementDate(new  Date());
+		an.setBookID(1);
+		an.setAnnouncementID(1);
+		an.setDescription("TEST");
+		res.add(an);
+		return res;
+		//end test*/
 		return announcementsPostgreDAO.getPublishedAnnouncements();
 	}
 

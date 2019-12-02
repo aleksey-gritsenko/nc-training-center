@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import ua.com.nc.nctrainingproject.models.Review;
 import ua.com.nc.nctrainingproject.services.ReviewService;
 
-import java.util.List;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin
@@ -23,13 +23,13 @@ public class ReviewController {
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<?> addReview(@RequestBody  Review review) {
 		Review response =  reviewService.createReview(review);
-		return response != null ? ResponseEntity.ok(response) : new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		return Optional.ofNullable(response).map(ResponseEntity::ok).orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
 	}
 
 	@RequestMapping(value = "/detail")
 	public ResponseEntity<?> getReviewById(@RequestParam(name = "review") int reviewId){
 		Review response = reviewService.getReviewById(reviewId);
-		return response != null ? ResponseEntity.ok(response) : new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		return Optional.ofNullable(response).map(ResponseEntity::ok).orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
 	}
 
 	@RequestMapping(value = "/all", method = RequestMethod.GET)

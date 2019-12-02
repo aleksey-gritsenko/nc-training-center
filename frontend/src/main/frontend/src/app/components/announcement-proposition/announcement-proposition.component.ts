@@ -2,6 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {Announcement} from "../../models/announcement";
 import {HttpClient} from "@angular/common/http";
 import {ActivatedRoute} from "@angular/router";
+import {StorageService} from "../../services/storage/storage.service";
+import {User} from "../../models/user";
+import {CommonService} from "../../services/common/common.service";
 
 @Component({
     selector: 'app-announcement-proposition',
@@ -13,17 +16,21 @@ export class AnnouncementPropositionComponent implements OnInit {
     private siteUrl: string = 'https://nc-group1-2019-project.herokuapp.com';
 
     announcements: Announcement[] = [];
+    currentUser: User;
 
-    constructor(private http: HttpClient, private route: ActivatedRoute) {
+
+    constructor(private http: HttpClient,private route: ActivatedRoute  , private storage: StorageService,private apiService :CommonService) {
     }
 
     ngOnInit() {
         this.getAllAnnouncement();
+        this.storage
+        this.currentUser = this.storage.getUser();
     }
 
     public getAllAnnouncement() {
         let url = `${this.siteUrl}/announcements/new`;
-        this.http.get<Announcement[]>(url).subscribe(
+        this.apiService.getAnnouncementsUnPublish().subscribe(
             res => {
                 this.announcements = res;
             },
@@ -32,13 +39,12 @@ export class AnnouncementPropositionComponent implements OnInit {
             }
         )
     }
+    public publishAnnouncement(announcement : Announcement){
+        let url = 'http://localhost:8080/announcements/publish';
 
-    public publishAnnouncement(i: number) {
-        let url = `${this.siteUrl}/publish`;
-
-        // this.model.ownerId = this.storage.getUser().id;
-        this.http.post(url, this.announcements[i]).subscribe(
-            res => {
+        //announcement.admin_id = this.storage.getUser().id;
+        this.apiService.publishAnnouncement(announcement).subscribe(
+            res=>{
                 //location.reload();
             },
             err => {

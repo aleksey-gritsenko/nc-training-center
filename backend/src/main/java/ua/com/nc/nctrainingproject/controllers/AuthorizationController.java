@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import ua.com.nc.nctrainingproject.models.User;
 import ua.com.nc.nctrainingproject.services.AuthorizationService;
 
+import java.util.Optional;
+
 @RestController
 @CrossOrigin
 public class AuthorizationController {
@@ -22,7 +24,7 @@ public class AuthorizationController {
     public ResponseEntity<?> login(@RequestParam(name = "login") String login,
                                    @RequestParam(name = "password") String password) {
         User response = authorizationService.auth(login, password);
-        return response != null ? ResponseEntity.ok(response) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return Optional.ofNullable(response).map(ResponseEntity::ok).orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
@@ -30,6 +32,6 @@ public class AuthorizationController {
                                           @RequestParam(name = "password") String password,
                                           @RequestParam(name = "email") String email) {
         User response = authorizationService.register(login, password, email);
-        return response != null ? ResponseEntity.ok(response) : new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        return Optional.ofNullable(response).map(ResponseEntity::ok).orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
     }
 }

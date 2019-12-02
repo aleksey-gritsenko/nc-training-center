@@ -9,6 +9,7 @@ import ua.com.nc.nctrainingproject.models.UserBook;
 import ua.com.nc.nctrainingproject.services.UserBookService;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin
@@ -24,56 +25,55 @@ public class UserBookController {
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	public ResponseEntity<?> addBookToUser(@RequestBody UserBook userBook) {
 		UserBook response = userBookService.addBookToUser(userBook);
-		//return Optional.ofNullable(response).ifPresentOrElse(ResponseEntity::ok(response),ResponseEntity::badRequest(HttpStatus.BAD_REQUEST);
-		return response != null ? ResponseEntity.ok(response) : new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		return Optional.ofNullable(response).map(ResponseEntity::ok).orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
 	}
 
 	@RequestMapping(value = "/all", method = RequestMethod.GET)
-	public ResponseEntity<?> getAllUsersBooks(@RequestBody UserBook userBook) {
-		List<Book> response = userBookService.getUserBookList(userBook);
-		return response != null ? ResponseEntity.ok(response) : new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+	public ResponseEntity<?> getAllUsersBooks(@RequestParam(name = "userId") int userId) {
+		List<Book> response = userBookService.getAllUserBooks(userId);
+		return Optional.ofNullable(response).map(ResponseEntity::ok).orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
 	}
 
 	@RequestMapping(value = "/all/favourite", method = RequestMethod.GET)
 	public ResponseEntity<?> getAllFavouriteBooks(@RequestBody UserBook userBook) {
 		List<Book> response = userBookService.getAllFavouriteBooks(userBook);
-		return response != null ? ResponseEntity.ok(response) : new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		return Optional.ofNullable(response).map(ResponseEntity::ok).orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
 	}
 
 	@RequestMapping(value = "/all/read", method = RequestMethod.GET)
 	public ResponseEntity<?> getAllReadBooks(@RequestBody UserBook userBook) {
 		List<Book> response = userBookService.getAllReadBooks(userBook);
-		return response != null ? ResponseEntity.ok(response) : new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		return Optional.ofNullable(response).map(ResponseEntity::ok).orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
 	}
 
 	@RequestMapping(value = "/mark_read", method = RequestMethod.POST)
 	public ResponseEntity<?> markBookAsRead(@RequestBody UserBook userBook) {
 		UserBook response = userBookService.markBookAsRead(userBook);
-		return response != null ? ResponseEntity.ok(response) : new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		return Optional.ofNullable(response).map(ResponseEntity::ok).orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
 	}
 
 	@RequestMapping(value = "/mark_fav", method = RequestMethod.POST)
 	public ResponseEntity<?> markBookAsFavourite(@RequestBody UserBook userBook) {
 		UserBook response = userBookService.markBookAsFavourite(userBook);
-		return response != null ? ResponseEntity.ok(response) : new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		return Optional.ofNullable(response).map(ResponseEntity::ok).orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
 	}
 
 	@RequestMapping(value = "/remove_read", method = RequestMethod.POST)
 	public ResponseEntity<?> removeFromRead(@RequestBody UserBook userBook) {
 		UserBook response = userBookService.removeFromRead(userBook);
-		return response != null ? ResponseEntity.ok(response) : new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		return Optional.ofNullable(response).map(ResponseEntity::ok).orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
 	}
 
 	@RequestMapping(value = "/remove_fav", method = RequestMethod.POST)
 	public ResponseEntity<?> removeFromFavourite(@RequestBody UserBook userBook) {
 		UserBook response = userBookService.removeFromFavourite(userBook);
-		return response != null ? ResponseEntity.ok(response) : new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		return Optional.ofNullable(response).map(ResponseEntity::ok).orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
 	}
 
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
 	public ResponseEntity<?> deleteBookFromAdded(@RequestBody UserBook userBook) {
 		UserBook response = userBookService.deleteBookFromAdded(userBook);
-		return response != null ? ResponseEntity.ok(response) : new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		return Optional.ofNullable(response).map(ResponseEntity::ok).orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
 	}
 
 }

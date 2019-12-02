@@ -6,6 +6,7 @@ import ua.com.nc.nctrainingproject.models.Book;
 import ua.com.nc.nctrainingproject.models.UserBook;
 import ua.com.nc.nctrainingproject.persistance.dao.AbstractDAO;
 import ua.com.nc.nctrainingproject.persistance.dao.postgre.queries.UserBooksQuery;
+import ua.com.nc.nctrainingproject.persistance.mappers.BookRowMapper;
 
 import javax.sql.DataSource;
 import java.util.ArrayList;
@@ -38,7 +39,7 @@ public class UserBooksPostgreDAO extends AbstractDAO {
 	public List<Book> getUserBookList(int userId) {
 		List<Book> books = new ArrayList<>();
 
-		for (int id : jdbcTemplate.queryForList(UserBooksQuery.GET_ALL_USER_BOOKS, Integer.class, userId)) {
+		for (int id : jdbcTemplate.queryForList(UserBooksQuery.GET_ALL_USER_BOOKS_ID, Integer.class, userId)) {
 			books.add(bookPostgreDAO.getBookById(id));
 		}
 		return books;

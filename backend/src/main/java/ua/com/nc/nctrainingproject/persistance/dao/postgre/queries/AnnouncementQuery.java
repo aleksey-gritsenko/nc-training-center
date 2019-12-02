@@ -41,7 +41,7 @@ public class AnnouncementQuery {
 			+ OWNER_ID + "," + STATUS + "," + ADMIN_ID + ")" + " VALUES(?,?,?,?,?,?)";
 
 	public static final String PUBLISH_ANNOUNCEMENT = "UPDATE " + TABLE_NAME + " SET " +
-			STATUS + "='" + PUBLISHED + "'," + ADMIN_ID + "=(?), WHERE " + ANNOUNCEMENT_ID + "=(?)";
+			STATUS + "='" + PUBLISHED + "'," + ADMIN_ID + "=(?) WHERE " + ANNOUNCEMENT_ID + "=(?)";
 
 	public static final String DELETE_ANNOUNCEMENT_BY_ID = "DELETE FROM " + TABLE_NAME +
 			" WHERE " + ANNOUNCEMENT_ID + " =(?)";
