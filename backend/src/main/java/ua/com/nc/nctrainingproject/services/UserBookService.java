@@ -5,7 +5,6 @@ import ua.com.nc.nctrainingproject.models.Book;
 import ua.com.nc.nctrainingproject.models.UserBook;
 import ua.com.nc.nctrainingproject.persistance.dao.postgre.UserBooksPostgreDAO;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -18,9 +17,9 @@ public class UserBookService {
 
 
 	public UserBook addBookToUser(UserBook userBook) {
-		List<Book> books = this.getAllUserBooks(userBook);
-		if(books.stream()
-				.filter(book->book.getId()==userBook.getBookId())
+		List<Book> books = this.getAllUserBooks(userBook.getUserId());
+		if (books.stream()
+				.filter(book->book.getId() == userBook.getBookId())
 				.findFirst()
 				.orElse(null)==null){
 			userBooksPostgreDAO.addBookToUser(userBook);
@@ -29,12 +28,8 @@ public class UserBookService {
 		return null;
 	}
 
-	public List<Book> getAllUserBooks(UserBook userBook){
-		return userBooksPostgreDAO.getAllUserBooks(userBook.getUserId());
-	}
-
-	public List<Book> getUserBookList(UserBook userBook){
-		return userBooksPostgreDAO.getUserBookList(userBook.getUserId());
+	public List<Book> getAllUserBooks(int userId){
+		return userBooksPostgreDAO.getAllUserBooks(userId);
 	}
 
 	public UserBook markBookAsRead(UserBook userBook) {

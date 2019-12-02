@@ -68,7 +68,7 @@ export class BooksListComponent implements OnInit{
         }
         let userBook: UserBook = new UserBook();
         userBook.userId = this.storage.getUser().id;
-        userBook.bookId = this.book.id;
+        //userBook.bookId = this.book.id;
         this.apiService.getAllUserBooks(userBook).subscribe(
             res => {
                 console.log(userBook);

@@ -158,31 +158,31 @@ export class CommonService {
     }
 
     addBookToUser(userBook:UserBook):Observable<UserBook>{
-        const url = `${this.userBookUrl}/add`;
-        //const url = `${this.localhost}/userBook/add`;
+        //const url = `${this.userBookUrl}/add`;
+        const url = `${this.localhost}/userBook/add`;
         console.log(userBook);
         return this.http.post<UserBook>(url, userBook);
     }
 
     getAllUserBooks(userBook: UserBook):Observable<Book[]>{
-        const url = `${this.userBookUrl}/all`;
-        //const url = `${this.localhost}/userBook/all`;
+        //const url = `${this.userBookUrl}/all`;
+        const url = `${this.localhost}/userBook/all`;
         const params = new HttpParams()
             .set('userId', userBook.userId.toString());
         return this.http.get<Book[]>(url, {params:params});
     }
 
     markUserBookAsRead(userBook: UserBook): Observable<UserBook>{
-        const url = `${this.userBookUrl}/mark_read`;
-        //const url = `${this.localhost}/userBook/mark_read`;
+        //const url = `${this.userBookUrl}/mark_read`;
+        const url = `${this.localhost}/userBook/mark_read`;
         userBook.isRead = true;
         console.log(userBook);
         return this.http.post<UserBook>(url, userBook);
     }
 
     markUserBookAsFavourite(userBook: UserBook): Observable<UserBook>{
-        const url = `${this.userBookUrl}/mark_fav`;
-        //const url = `${this.localhost}/userBook/mark_fav`;
+        //const url = `${this.userBookUrl}/mark_fav`;
+        const url = `${this.localhost}/userBook/mark_fav`;
         userBook.isFavorite = true;
         console.log(userBook);
         return this.http.post<UserBook>(url, userBook);
@@ -191,38 +191,38 @@ export class CommonService {
     getAllFavouriteBooks(userBook: UserBook): Observable<UserBook[]>{
         const params = new HttpParams()
             .set('userId',userBook.userId.toString());
-        const url = `${this.userBookUrl}/all/favourite`;
-        //const url = `${this.localhost}/userBook/all/favourite`;
+        //const url = `${this.userBookUrl}/all/favourite`;
+        const url = `${this.localhost}/userBook/all/favourite`;
         return this.http.get<UserBook[]>(url, {params:params});
     }
 
     getAllReadBooks(userBook: UserBook): Observable<UserBook[]>{
         const params = new HttpParams()
             .set('userId',userBook.userId.toString());
-        const url = `${this.userBookUrl}/all/read`;
-        //const url = `${this.localhost}/userBook/all/read`;
+        //const url = `${this.userBookUrl}/all/read`;
+        const url = `${this.localhost}/userBook/all/read`;
         return this.http.get<UserBook[]>(url, {params:params});
     }
 
     removeFromFavourite(userBook: UserBook): Observable<UserBook>{
-        const url = `${this.userBookUrl}/remove_fav`;
-        //const url = `${this.localhost}/userBook/remove_fav`;
+        //const url = `${this.userBookUrl}/remove_fav`;
+        const url = `${this.localhost}/userBook/remove_fav`;
         userBook.isFavorite = false;
         console.log(userBook);
         return this.http.post<UserBook>(url, userBook);
     }
 
     removeFromRead(userBook: UserBook): Observable<UserBook>{
-        const url = `${this.userBookUrl}/remove_read`;
-        //const url = `${this.localhost}/userBook/remove_read`;
+        //const url = `${this.userBookUrl}/remove_read`;
+        const url = `${this.localhost}/userBook/remove_read`;
         userBook.isRead = false;
         console.log(userBook);
         return this.http.post<UserBook>(url, userBook);
     }
 
     deleteFromAdded(userBook: UserBook): Observable<UserBook>{
-        const url = `${this.userBookUrl}/delete`;
-        //const url = `${this.localhost}/userBook/delete`;
+        //const url = `${this.userBookUrl}/delete`;
+        const url = `${this.localhost}/userBook/delete`;
         console.log(userBook);
         return this.http.post<UserBook>(url, userBook);
     }

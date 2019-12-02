@@ -43,7 +43,7 @@ export class BookComponent implements OnInit {
     ngOnInit() {
         this.bookForm.disable();
         this.bookId = parseInt(this.route.snapshot.paramMap.get('bookId'));
-        this.getBook();
+        this.getBook(this.bookId);
         this.checkAdmin();
         this.makeSuggestion();
     }
@@ -64,8 +64,8 @@ export class BookComponent implements OnInit {
     }
 
 
-    getBook(): void {
-        this.apiService.getBookById(this.bookId).subscribe(
+    getBook(bookId: number): void {
+        this.apiService.getBookById(bookId).subscribe(
             res => {
                 this.book = res;
                 this.apiService.getGenreByBookId(this.bookId).subscribe(
