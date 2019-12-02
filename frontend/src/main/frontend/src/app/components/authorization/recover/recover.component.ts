@@ -6,7 +6,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 @Component({
     selector: 'app-recover',
     templateUrl: './recover.component.html',
-    styleUrls: ['./recover.component.css']
+    styleUrls: ['../../../resources/styles/Authorization.css']
 })
 export class RecoverComponent implements OnInit {
     model: RecView = {
@@ -14,7 +14,6 @@ export class RecoverComponent implements OnInit {
         login: '',
         email: ''
     };
-
 
     constructor(private recoverService: RecoverService, private router: Router,
                 private route: ActivatedRoute) {

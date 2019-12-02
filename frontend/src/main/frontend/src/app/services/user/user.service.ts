@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {CommonService} from '../common/common.service';
 import {User} from "../../models/user";
 import {Book} from "../../models/book";
@@ -20,7 +20,8 @@ export class UserService {
     user: User;
     friend: User;
     book: Book;
-    siteUrl: string = 'https://nc-group1-2019-project.herokuapp.com';
+    // siteUrl: string = 'https://nc-group1-2019-project.herokuapp.com';
+    siteUrl: string = 'http://localhost:8080';
 
     constructor(private http: HttpClient, private commonService: CommonService) {
     }

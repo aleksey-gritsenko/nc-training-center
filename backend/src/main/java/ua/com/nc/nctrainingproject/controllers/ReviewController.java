@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import ua.com.nc.nctrainingproject.models.Review;
 import ua.com.nc.nctrainingproject.services.ReviewService;
 
-import java.util.List;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin
@@ -21,18 +21,15 @@ public class ReviewController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<?> addReview(@RequestParam(name = "book") int bookId,
-									@RequestParam(name = "user") int userId,
-									@RequestParam(name = "text") String text,
-									@RequestParam(name = "grade") int grade) {
-		Review response =  reviewService.createReview(userId,bookId, text, grade);
-		return response != null ? ResponseEntity.ok(response) : new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+	public ResponseEntity<?> addReview(@RequestBody  Review review) {
+		Review response =  reviewService.createReview(review);
+		return Optional.ofNullable(response).map(ResponseEntity::ok).orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
 	}
 
-	@RequestMapping(value = "detail")
+	@RequestMapping(value = "/detail")
 	public ResponseEntity<?> getReviewById(@RequestParam(name = "review") int reviewId){
 		Review response = reviewService.getReviewById(reviewId);
-		return response != null ? ResponseEntity.ok(response) : new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		return Optional.ofNullable(response).map(ResponseEntity::ok).orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
 	}
 
 	@RequestMapping(value = "/all", method = RequestMethod.GET)
@@ -48,10 +45,8 @@ public class ReviewController {
 
 
 	@RequestMapping(value = "/accept")
-	public void acceptReview(@RequestParam(name = "review") int reviewId,
-							 @RequestParam(name = "status") boolean status,
-							 @RequestParam(name = "admin") int adminId) {
-		reviewService.acceptReview(reviewId,adminId,status);
+	public void acceptReview(@RequestBody Review review) {
+		reviewService.acceptReview(review);
 	}
 
 	@RequestMapping(value = "/delete")

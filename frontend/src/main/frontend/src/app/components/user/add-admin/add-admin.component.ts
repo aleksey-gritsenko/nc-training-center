@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {User} from "../../../models/user";
 import {UserService} from "../../../services/user/user.service";
+import {StorageService} from "../../../services/storage/storage.service";
 
 @Component({
     selector: 'app-add-admin',
@@ -10,8 +11,11 @@ import {UserService} from "../../../services/user/user.service";
 export class AddAdminComponent implements OnInit {
     admin: User = new User();
     repeatPassword: string;
+    user: User;
 
-    constructor(private userService: UserService) {
+    constructor(private userService: UserService,
+                private storageService: StorageService) {
+        this.user = storageService.getUser();
     }
 
     ngOnInit() {

@@ -2,12 +2,10 @@
 <div style="padding-top: 67px; margin-left: 70px;"></div>
 
 <div class="container">
-    <div *ngIf="book">
-
-        <h1 class="text-muted">{{book.header }}</h1>
+    <div *ngIf="book" class="row">
         <form class="card" [formGroup]="bookForm">
             <div class="card-header">
-                <input formControlName="header" class="form-control" [(ngModel)]="book.header" placeholder="name"/>
+                <input required formControlName="header" class="form-control" [(ngModel)]="book.header" placeholder="name"/>
             </div>
             <div class="card-body">
                 <table class="table">
@@ -16,7 +14,7 @@
                             <label for="authors" class="bmd-label-floating">Authors:</label>
                         </td>
                         <td *ngFor="let author of authors" class="row">
-                            <input formControlName="author" id="authors" class="form-control" type="text" [(ngModel)]="author.name">
+                            <input required formControlName="author" id="authors" class="form-control" type="text" [(ngModel)]="author.name">
                         </td>
                     </tr>
                     <tr>
@@ -24,15 +22,15 @@
                             <label for="status" class="bmd-label-floating">Status:</label>
                         </td>
                         <td>
-                            <input   formControlName="status" class="form-control" type="text" [(ngModel)]="book.status" id="status">
+                            <input required  formControlName="status" class="form-control" type="text" [(ngModel)]="book.status" id="status">
                         </td>
                     </tr>
                     <tr *ngIf="book.genre">
                         <td>
-                            <label for="genre" class="bmd-label-floating">Genre</label>
+                            <label  for="genre" class="bmd-label-floating">Genre</label>
                         </td>
                         <td>
-                            <input formControlName="genre" class="form-control" type="text" [(ngModel)]="book.genre" id="genre">
+                            <input required formControlName="genre" class="form-control" type="text" [(ngModel)]="book.genre" id="genre">
                         </td>
                     </tr>
                     <tr>
@@ -40,7 +38,7 @@
                             <label for="overview" class="bmd-label-floating">Overview</label>
                         </td>
                         <td>
-                            <textarea rows="10" formControlName="overview" type="text" class="form-control" [(ngModel)]="book.overview" id="overview"></textarea>
+                            <textarea required rows="10" formControlName="overview" type="text" class="form-control" [(ngModel)]="book.overview" id="overview"></textarea>
                         </td>
                     </tr>
                     <tr>
@@ -48,19 +46,55 @@
                             <label for="file" class="bmd-label-floating">File</label>
                         </td>
                         <td>
-                            <input formControlName="file" type="number" class="form-control" [(ngModel)]="book.fileId" id="file">
+                            <input required formControlName="file" type="number" class="form-control" [(ngModel)]="book.fileId" id="file">
                         </td>
                     </tr>
                 </table>
-                <button class="btn btn-default" (click)="updateBook()">Save changes</button>
+                <button [disabled]="!bookForm.valid" class="btn btn-default" (click)="updateBook()">Save changes</button>
                 <div class="btn-default btn">
                     <a [routerLink]="['/books',book.id,'announcement']">Create announcement</a>
                 </div>
             </div>
         </form>
-
+        <div class="center">
+            <button  *ngIf="userAddedBook" id="addBook" class="btn btn-primary" (click)="addBookToUser(book.id)">Add book</button>
+            <button  *ngIf="!userAddedBook" id="removeBook" class="btn btn-primary" (click)="deleteBookFromUser(book.id)">Remove book</button>
+            <button  *ngIf="userAddedToFav" id="addFav"  class="btn btn-primary"  (click)="addBookToFavourite(book.id)">Add to favourite</button>
+            <button  *ngIf="!userAddedToFav" id="removeFav" class="btn btn-primary" (click)="removeBookFromFav(book.id)">Remove from favourite</button>
+            <button  *ngIf="userAddedToRead" id="addRead" class="btn btn-primary"   (click)="addBookToRead(book.id)">Add to read</button>
+            <button  *ngIf="!userAddedToRead" id="removeRead" class="btn btn-primary" (click)="removeBookFromRead(book.id)">Remove from read</button>
+        </div>
+    </div>
+    <div>
         <div>
             <app-reviews-list [book]="book"></app-reviews-list>
         </div>
+
+        <div class="row">
+            <div *ngFor="let bookOfSuggestions of suggestionBook |  slice:0:3" class="col-3 col-lg-4  col-md-6">
+                <div class="card card-profile">
+                    <div class="card-body">
+                        <div class="card-title">
+                            <h3><a (click)="navigateToBook(bookOfSuggestions.id)"> {{bookOfSuggestions.header}}</a></h3>
+                        </div>
+                        <div class="card-description">
+                            <div>Overview: {{bookOfSuggestions.overview}}</div>
+                            <div>Status: {{bookOfSuggestions.status}}</div>
+                            <div>
+                                <div>Authors:</div>
+                                <div *ngFor="let author of bookOfSuggestions.authors ">
+                                    <div>{{author.name}}</div>
+                                </div>
+                            </div>
+                            <div *ngIf="bookOfSuggestions.genre">Genre: {{bookOfSuggestions.genre}}</div>
+                        </div>
+                        <div>
+                            <button class="btn btn-primary">Add book</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>

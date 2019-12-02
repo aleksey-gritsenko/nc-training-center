@@ -1,22 +1,26 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {RegView} from '../../../models/regview';
 import {HttpClient} from '@angular/common/http';
 import {Router} from "@angular/router";
 import {StorageService} from "../../../services/storage/storage.service";
 import {AuthenticationService} from "../../../services/authentification/authentication.service";
+import {Subscription} from "rxjs";
 
 @Component({
     selector: 'app-registration',
     templateUrl: './registration.component.html',
-    styleUrls: ['./registration.component.css']
+    styleUrls: ['../../../resources/styles/Authorization.css']
 })
-export class RegistrationComponent implements OnInit {
+export class RegistrationComponent implements OnInit, OnDestroy {
     model: RegView = {
         id: 0,
         login: '',
         password: '',
         email: ''
     };
+
+    subscription: Subscription;
+    isError: boolean;
 
     constructor(private http: HttpClient,
                 private router: Router,
@@ -30,16 +34,17 @@ export class RegistrationComponent implements OnInit {
     }
 
     register(): void {
-        this.authenticationService.register(this.model.login, this.model.password, this.model.email).subscribe(
+        this.subscription = this.authenticationService.register(this.model.login, this.model.password, this.model.email).subscribe(
             res => {
-                if (res != null) {
-                    this.storage.setUser(res);
-                    this.router.navigateByUrl('/')
-                }
+                this.router.navigateByUrl('/activate');
             },
             err => {
-                console.log(err);
+                this.isError = true;
             }
         );
+    }
+
+    ngOnDestroy(): void {
+        if (this.subscription) this.subscription.unsubscribe();
     }
 }

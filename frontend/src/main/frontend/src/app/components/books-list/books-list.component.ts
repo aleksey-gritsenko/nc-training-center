@@ -10,6 +10,7 @@ import {UserBook} from "../../models/userBook";
 import {StorageService} from "../../services/storage/storage.service";
 
 
+
 @Component({
     selector: 'app-books-list',
     templateUrl: './books-list.component.html',
@@ -22,6 +23,11 @@ export class BooksListComponent implements OnInit{
     genres: Genre[] = [];
     authors: Author[] = [];
     books: Book[] = [];
+
+    userBooks : UserBook[] = [];
+    userBookList: Book[] = [];
+    book: Book;
+
     model : Book = {
         id :0,
         header: '',
@@ -39,10 +45,13 @@ export class BooksListComponent implements OnInit{
     selectedGenres: SelectedItem[] = [];
     filterGenres:SelectedItem[]=[];
     filterAuthors:SelectedItem[]=[];
+    historyGenres:string[]=[];
+    historyAuthors:string[]=[];
+
     userId: any;
 
     constructor(private apiService: CommonService, private route: ActivatedRoute, private router: Router,
-    private storage: StorageService) {
+                private storage: StorageService) {
 
     }
 
@@ -53,6 +62,27 @@ export class BooksListComponent implements OnInit{
         this.getAllGenre();
     }
 
+    getUsersBookList(){
+        if (this.storage.getUser() == null) {
+            this.router.navigate(['/login']);
+        }
+        let userBook: UserBook = new UserBook();
+        userBook.userId = this.storage.getUser().id;
+        //userBook.bookId = this.book.id;
+        this.apiService.getAllUserBooks(userBook).subscribe(
+            res => {
+                console.log(userBook);
+                console.log(res);
+                this.userBookList = res;
+            },
+            err => {
+                console.log(userBook);
+                console.log(this.userBookList);
+                console.log("Error in getting all users books")
+            }
+        );
+    }
+
 
     getAllAuthor() {
         this.apiService.getAllAuthor().subscribe(
@@ -61,6 +91,7 @@ export class BooksListComponent implements OnInit{
                 this.authors.forEach(author => {
                     this.selectedAuthors.push({name: author.name, selected: false});
                 });
+                console.log(this.authors);
             },
             err => {
                 alert("error in get all author")
@@ -75,6 +106,7 @@ export class BooksListComponent implements OnInit{
                 this.genres.forEach(genre => {
                     this.selectedGenres.push({name: genre.name, selected: false})
                 });
+                console.log(this.genres);
             },
             err => {
                 alert("error in get all genre")
@@ -83,32 +115,41 @@ export class BooksListComponent implements OnInit{
 
     }
     searchByTitle(){
-        this.apiService.getBooksByTitle(this.searchTitle).subscribe(
-            res=>{
-                this.books = res;
-                this.books.forEach(book=>{
-                    this.apiService.getAuthorsByBookId(book.id).subscribe(
-                        authors => book.authors = authors
-                    );
-                    this.apiService.getGenreByBookId(book.id).subscribe(
-                        genre=> book.genre  = genre.name
-                    )
-                })
+        if(this.searchTitle!="") {
+            this.bookFilter.header = this.searchTitle;
+            this.apiService.getBooksByFilter(this.bookFilter).subscribe(
+                res => {
+                    this.books = res;
+                    this.books.forEach(book => {
+                        this.apiService.getAuthorsByBookId(book.id).subscribe(
+                            authors => book.authors = authors
+                        );
+                        this.apiService.getGenreByBookId(book.id).subscribe(
+                            genre => book.genre = genre.name
+                        )
+                    })
 
-            }
-        )
+                }
+            )
+        }
     }
     searchByFilter() {
         this.bookFilter.author = [];
         this.bookFilter.genre = [];
 
-        this.selectedGenres = this.selectedGenres
+        this.filterGenres = this.selectedGenres
             .filter(v => v.selected);
-        this.selectedAuthors = this.selectedAuthors
+        this.filterAuthors = this.selectedAuthors
             .filter(v => v.selected);
 
-        this.selectedGenres.forEach(genre => this.bookFilter.genre.push(genre.name));
-        this.selectedAuthors.forEach(author => this.bookFilter.author.push(author.name));
+        this.filterGenres.forEach(genre => {
+            this.bookFilter.genre.push(genre.name);
+            this.historyGenres.push(genre.name)}
+        );
+        this.filterAuthors.forEach(author => {
+            this.bookFilter.author.push(author.name);
+            this.historyAuthors.push(author.name);
+        });
         this.books = [];
         this.apiService.getBooksByFilter(this.bookFilter).subscribe(
             res => {
@@ -131,6 +172,8 @@ export class BooksListComponent implements OnInit{
         this.bookFilter.header = "";
         this.bookFilter.author = [];
         this.bookFilter.genre = [];
+        this.filterGenres = [];
+        this.filterAuthors = [];
         this.selectedGenres.forEach(genre => genre.selected = false);
         this.selectedAuthors.forEach(author => author.selected = false);
         this.getBooks();
@@ -141,13 +184,13 @@ export class BooksListComponent implements OnInit{
             res => {
                 this.books = res;
                 this.books.forEach(book=>{
-                     this.apiService.getAuthorsByBookId(book.id).subscribe(
+                    this.apiService.getAuthorsByBookId(book.id).subscribe(
                         authors => book.authors = authors
-                     );
-                     this.apiService.getGenreByBookId(book.id).subscribe(
-                         genre=> book.genre  = genre.name
-                     )
-                })
+                    );
+                    this.apiService.getGenreByBookId(book.id).subscribe(
+                        genre=> book.genre  = genre.name
+                    )
+                });
 
             },
             err => {
@@ -156,27 +199,6 @@ export class BooksListComponent implements OnInit{
         );
     }
 
-    addBookToUser(bookId:number){
-        if(this.storage.getUser()==null)
-        {
-            this.router.navigate(['/login']);
-        }
-        let userBook:UserBook = new UserBook();
-        userBook.userId = this.storage.getUser().id;
-        userBook.bookId = bookId;
-        this.apiService.addBookToUser(userBook).subscribe(
-            res=>{
-                console.log(res);
-            },
-            err=>{
-                console.log("Show error");
-            }
-
-
-        );
-    }
-
-
     createBook(): void {
         this.createdAuthors.split(',').forEach(name=>{
             let author = new Author();
@@ -184,6 +206,7 @@ export class BooksListComponent implements OnInit{
             this.model.authors.push(author);
         });
         const newCreatedBook: Book = Object.assign({}, this.model);
+        newCreatedBook.authors = this.model.authors;
         this.apiService.createBook(newCreatedBook)
             .subscribe(res => {
                     this.books.push(res);
@@ -198,18 +221,20 @@ export class BooksListComponent implements OnInit{
 
     }
 
+    saveFilterToStorage(){
+        localStorage.setItem('authors', JSON.stringify(this.historyAuthors));
+        localStorage.setItem('genres', JSON.stringify(this.historyGenres));
+    }
 
     fillArray():string[]{
-        return "abcdefghijklmnopqrstuvwxyz".split("");
+        return "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
     }
 
     filterGenre(char:string){
-        this.filterGenres = this.selectedGenres.filter(genre=>genre.name.charAt(0).toLowerCase()==char);
-        console.log(this.filterGenres);
+        this.filterGenres = this.selectedGenres.filter(genre=>genre.name.charAt(0).toUpperCase()==char);
     }
     filterAuthor(char:string){
-        this.filterAuthors = this.selectedAuthors.filter(author=>author.name.charAt(0).toLowerCase()==char);
-        console.log(this.filterAuthors);
+        this.filterAuthors = this.selectedAuthors.filter(author=>author.name.charAt(0).toUpperCase()==char);
     }
 }
 

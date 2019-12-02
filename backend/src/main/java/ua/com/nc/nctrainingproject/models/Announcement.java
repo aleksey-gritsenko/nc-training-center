@@ -6,7 +6,6 @@ public class Announcement extends Entity {
 	private String description;
 	private Date announcementDate;
 	private int bookID;
-	private String priority;
 	private int ownerId;
 	private String status;
 
@@ -18,39 +17,35 @@ public class Announcement extends Entity {
 	}
 
 	public Announcement(String description, Date announcementDate,
-						int bookID, String priority) {
+						int bookID) {
 		this.description = description;
 		this.announcementDate = announcementDate;
 		this.bookID = bookID;
-		this.priority = priority;
 	}
 
 	public Announcement(String description, Date announcementDate,
-						int bookID, String priority, int ownerId) {
+						int bookID, int ownerId) {
 		this.description = description;
 		this.announcementDate = announcementDate;
 		this.bookID = bookID;
-		this.priority = priority;
 		this.ownerId = ownerId;
 	}
 
 	public Announcement(String description, Date announcementDate,
-						int bookID, String priority, int ownerId, String status) {
+						int bookID, int ownerId, String status) {
 		this.description = description;
 		this.announcementDate = announcementDate;
 		this.bookID = bookID;
-		this.priority = priority;
 		this.ownerId = ownerId;
 		this.status = status;
 	}
 
 	public Announcement(int announcementID, String description, Date announcementDate,
-						int bookID, String priority, int ownerId, String status) {
+						int bookID, int ownerId, String status) {
 		super(announcementID);
 		this.description = description;
 		this.announcementDate = announcementDate;
 		this.bookID = bookID;
-		this.priority = priority;
 		this.ownerId = ownerId;
 		this.status = status;
 	}
@@ -87,14 +82,6 @@ public class Announcement extends Entity {
 		this.bookID = bookID;
 	}
 
-	public String getPriority() {
-		return priority;
-	}
-
-	public void setPriority(String priority) {
-		this.priority = priority;
-	}
-
 	public int getOwnerId() {
 		return ownerId;
 	}
@@ -121,7 +108,6 @@ public class Announcement extends Entity {
 				", description='" + description + '\'' +
 				", announcementDate=" + announcementDate +
 				", bookID=" + bookID +
-				", priority='" + priority + '\'' +
 				", ownerId=" + ownerId +
 				", status='" + status + '\'' +
 				", adminId='" + admin_id + '\'' +

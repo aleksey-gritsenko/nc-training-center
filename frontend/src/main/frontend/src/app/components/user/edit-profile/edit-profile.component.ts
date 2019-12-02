@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {User} from "../../../models/user";
 import {UserService} from "../../../services/user/user.service";
 import {ActivatedRoute} from "@angular/router";
@@ -14,9 +14,9 @@ export class EditProfileComponent implements OnInit, OnDestroy {
     repeatPassword: string = '';
     editStatus: string;
 
-    private currentUser: User;
-    private updatedUser: User = new User();
+    @Input() private user: User;
 
+    private updatedUser: User = new User();
     private subscription: Subscription;
 
     constructor(private userService: UserService,
@@ -25,29 +25,33 @@ export class EditProfileComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.subscription = this.storageService.currentUser.subscribe(user => {
-            this.currentUser = user;
-            Object.assign(this.updatedUser, this.currentUser);
-        });
-
+        // this.subscription = this.storageService.currentUser.subscribe(user => {
+        //     this.currentUser = user;
+        //     Object.assign(this.updatedUser, this.currentUser);
+        // });
+        Object.assign(this.updatedUser, this.user);
     }
 
     update(): void {
-        if (this.userService.equals(this.updatedUser, this.currentUser)) return;
+        if (this.userService.equals(this.updatedUser, this.user)) return;
         this.userService.updateProfile(this.updatedUser)
             .subscribe(
                 user => {
                     this.editStatus = 'success';
-                    this.repeatPassword='';
                     this.storageService.setUser(user);
                 },
                 error => {
                     this.editStatus = 'error';
+                    Object.assign(this.updatedUser, this.user);
+                },
+                () => {
+                    this.repeatPassword='';
+
                 }
             );
     }
 
     ngOnDestroy(): void {
-        this.subscription.unsubscribe();
+        // this.subscription.unsubscribe();
     }
 }

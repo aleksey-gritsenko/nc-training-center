@@ -9,8 +9,8 @@
                 <div class="col-md-6">
                     <label for="Role">Role</label>
                     <select [(ngModel)]="admin.userRole" class=" custom-select" id="Role" name="Role">
-                        <option>admin</option>
-                        <option>moderator</option>
+                        <option *ngIf="user.userRole == 'super'">admin</option>
+                        <option *ngIf="user.userRole == 'super' || user.userRole == 'admin'">moderator</option>
                     </select>
                 </div>
                 <div *ngIf="admin.userRole == 'moderator'" class="col-md-6">

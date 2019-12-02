@@ -6,7 +6,6 @@ public class AnnouncementQuery {
 	public static final String DESCRIPTION = "description";
 	public static final String ANNOUNCEMENT_DATE = "announcement_date";
 	public static final String BOOK_ID = "book_id";
-	public static final String PRIORITY = "priority";
 	public static final String OWNER_ID = "owner_id";
 	public static final String STATUS = "status";
 	public static final String ADMIN_ID = "admin_id";
@@ -38,17 +37,17 @@ public class AnnouncementQuery {
 			+ " WHERE " + ANNOUNCEMENT_DATE + " BETWEEN (?) AND (?)";
 
 	public static final String CREATE_ANNOUNCEMENT = "INSERT INTO " + TABLE_NAME
-			+ " (" + DESCRIPTION + "," + ANNOUNCEMENT_DATE + "," + BOOK_ID + "," + PRIORITY + ","
-			+ OWNER_ID + "," + STATUS + "," + ADMIN_ID + ")" + " VALUES(?,?,?,?,?,?,?)";
+			+ " (" + DESCRIPTION + "," + ANNOUNCEMENT_DATE + "," + BOOK_ID + ","
+			+ OWNER_ID + "," + STATUS + "," + ADMIN_ID + ")" + " VALUES(?,?,?,?,?,?)";
 
 	public static final String PUBLISH_ANNOUNCEMENT = "UPDATE " + TABLE_NAME + " SET " +
-			STATUS + "='" + PUBLISHED + "'," + ADMIN_ID + "=(?), WHERE " + ANNOUNCEMENT_ID + "=(?)";
+			STATUS + "='" + PUBLISHED + "'," + ADMIN_ID + "=(?) WHERE " + ANNOUNCEMENT_ID + "=(?)";
 
 	public static final String DELETE_ANNOUNCEMENT_BY_ID = "DELETE FROM " + TABLE_NAME +
 			" WHERE " + ANNOUNCEMENT_ID + " =(?)";
 
 	public static final String UPDATE_ANNOUNCEMENT = "UPDATE " + TABLE_NAME + " SET " +
 			DESCRIPTION + "=(?), " + ANNOUNCEMENT_DATE + "=(?), " + BOOK_ID + "=(?), "
-			+ PRIORITY + "=(?)," + OWNER_ID + "=(?), " + STATUS + "=(?)" + ADMIN_ID + "=(?)"
+			+ OWNER_ID + "=(?), " + STATUS + "=(?)" + ADMIN_ID + "=(?)"
 			+ " WHERE " + ANNOUNCEMENT_ID + "=(?)";
 }

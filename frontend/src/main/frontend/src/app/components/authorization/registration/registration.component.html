@@ -3,7 +3,6 @@
 <div class="container">
     <div class="row">
         <div class="col-md-offset-3 col-md-6">
-
             <div class="tab" role="tabpanel">
                 <!-- Nav tabs -->
                 <ul class="nav nav-tabs " role="tablist">
@@ -13,7 +12,7 @@
                 <!-- Tab panes -->
                 <div class="tab-content tabs">
                     <div role="tabpanel" class="tab-pane fade in active" id="Section2">
-                        <form class="form-horizontal" method="post" #f="ngForm" (submit)="register()">
+                        <form class="form-horizontal" #f="ngForm">
                             <div class="form-group">
                                 <label for="exampleInputLogin1">Login</label>
                                 <input type="text" class="form-control" autocomplete="off" name="login"
@@ -35,9 +34,13 @@
                                        id="exampleInputPasswordConfirm1" [(ngModel)]="confirmPassword">
                             </div>
                             <div class="form-group">
+                                <div class="alert alert-danger text-center" role="alert" *ngIf="isError">
+                                    Something went wrong! Please try again!
+                                </div>
                                 <button type="submit" [disabled]="!(this.model.login.length != 0 && this.model.password.length > 0
-                && this.model.email.length > 0 && this.model.password===confirmPassword)" class="btn btn-default">Sign
-                                    up
+                                        && this.model.email.length > 0 && this.model.password==confirmPassword)" class="btn btn-default"
+                                        (click)="register()">
+                                    Sign up
                                 </button>
                             </div>
                         </form>
