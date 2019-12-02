@@ -4,6 +4,8 @@ import {Announcement} from '../../models/announcement';
 import {HttpClient} from "@angular/common/http";
 import {StorageService} from "../../services/storage/storage.service";
 import {User} from "../../models/user";
+import {CommonService} from "../../services/common/common.service";
+
 
 @Component({
     selector: 'app-announcement',
@@ -20,18 +22,22 @@ export class AnnouncementComponent implements OnInit {
         description: '',
         announcementDate: new Date(),
         bookID: 0,
-        priority: 'low',
         ownerId: 0,
+        admin_id:0,
         status: 'UNPUBLISHED'
     };
     currentUser: User;
     id: any;
 
     constructor(private http: HttpClient, private route: ActivatedRoute,
-                private storage: StorageService) {
+                private storage: StorageService,private apiService :CommonService) {
     }
 
     ngOnInit() {
+        this.model
+        this.id
+            = parseInt(this.route.snapshot.paramMap.get('id'));
+        this.storage
         //this.model
         //this.id = parseInt(this.route.snapshot.paramMap.get('id'));
         //this.storage
@@ -42,11 +48,15 @@ export class AnnouncementComponent implements OnInit {
     createAnnouncement(): void {
         let url = `${this.siteUrl}/announcements/proposeAnnouncement`;
         this.model.bookID = this.id;
-        if (this.currentUser.userRole == 'admin') {
+        if(this.currentUser.userRole == 'admin'){
+
             this.model.status = 'PUBLISHED';
+           this.model.admin_id = this.currentUser.id;
         }
         this.model.ownerId = this.currentUser.id;
-        this.http.post(url, this.model).subscribe(
+      // this.model.ownerId = this.storage.getUser().id;
+
+        this.apiService.createAnnouncement(this.model) .subscribe(
             res => {
                 //location.reload();
             },
