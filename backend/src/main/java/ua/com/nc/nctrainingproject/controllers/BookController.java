@@ -8,9 +8,8 @@ import ua.com.nc.nctrainingproject.models.Book;
 import ua.com.nc.nctrainingproject.persistance.dao.postgre.queries.FilterCriterionQuery;
 import ua.com.nc.nctrainingproject.services.BookService;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin
@@ -27,13 +26,14 @@ public class BookController {
     public ResponseEntity<?> addBook(@RequestBody Book book) {
         Book response = bookService.createBook(book);
 
-        return response != null ? ResponseEntity.ok(response) : new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        return Optional.ofNullable(response).map(ResponseEntity::ok).orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public ResponseEntity<?> updateBook(@RequestBody Book book) {
         Book response = bookService.updateBook(book);
-        return response != null ? ResponseEntity.ok(response) : new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+        return Optional.ofNullable(response).map(ResponseEntity::ok).orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
     }
 
     @RequestMapping(value = "/id", method = RequestMethod.GET)
