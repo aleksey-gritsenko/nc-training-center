@@ -82,4 +82,9 @@ public class UserPostgreDAO extends AbstractDAO<User> {
 
         }
 
+
+    public List<User> getUsersByRole(String userRole) {
+        return jdbcTemplate.query(UserQuery.GET_USERS_BY_ROLE, new UserRowMapper(),userRole);
+    }
+
 }

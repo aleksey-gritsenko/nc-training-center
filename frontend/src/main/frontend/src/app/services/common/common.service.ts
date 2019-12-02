@@ -19,7 +19,7 @@ export class CommonService {
     private localhost: string = 'http://localhost:8080';
 
     private booksUrl: string = `${this.siteUrl}/book`;
-    private announcementsUrl: string = `${this.siteUrl}/announcements`;
+    private announcementsUrl: string = `${this.localhost}/announcements`;
     private reviewsUrl: string = `${this.siteUrl}/review`;
     private userBookUrl: string = `${this.siteUrl}/userBook`;
 
@@ -69,15 +69,32 @@ export class CommonService {
 
 
     updateBook(book: Book): Observable<Book> {
-        const url = `${this.booksUrl}\\update`;
-        //const url = `${this.localhost}/book/update`;
+       // const url = `${this.booksUrl}\\update`;
+        const url = `${this.localhost}/book/update`;
         return this.http.post<Book>(url, book);
     }
 
     getAnnouncements(): Observable<Announcement[]> {
-        return this.http.get<Announcement[]>(this.announcementsUrl);
-    }
+        const url = `${this.localhost}/announcements`;
 
+        return this.http.get<Announcement[]>(url);
+    }
+    createAnnouncement(announcement: Announcement): Observable<Announcement> {
+        //const url =`${this.announcementsUrl}\newAnnouncement`;
+        const url = `${this.localhost}/newAnnouncement`;
+        return this.http.post<Announcement>(url, announcement);
+    }
+    getAnnouncementsUnPublish(): Observable<Announcement[]> {
+       // const url =`${this.announcementsUrl}`;
+        const url = `${this.localhost}/announcements/new`;
+
+        return this.http.get<Announcement[]>(url);
+    }
+    publishAnnouncement(announcement: Announcement):Observable<Announcement> {
+        const url = `${this.localhost}/announcements/publish`;
+
+        return   this.http.post<Announcement>(url, announcement);
+    }
     getAuthorsByBookId(bookId: number): Observable<Author[]>{
         const url = `${this.booksUrl}\\authors\\book`;
         //const url = `${this.localhost}/book/authors/book`;

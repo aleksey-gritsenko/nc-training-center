@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import ua.com.nc.nctrainingproject.models.User;
 import ua.com.nc.nctrainingproject.services.UserService;
 
+import java.util.Optional;
+
 @RestController
 @CrossOrigin
 @RequestMapping("/user")
@@ -24,7 +26,7 @@ public class UserController {
 							 @RequestParam(name = "newEmail") String newEmail) {
 		User newData = new User(login, newPassword, newEmail);
 		User response = userService.updateByName(newData);
-		return response != null ? ResponseEntity.ok(response) : new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		return Optional.ofNullable(response).map(ResponseEntity::ok).orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
 	}
 
     @RequestMapping(method = RequestMethod.GET, value = "/{id}")
@@ -35,14 +37,14 @@ public class UserController {
 	@RequestMapping(method = RequestMethod.POST, value = "/create/admin")
     ResponseEntity<?> createAdmin(@RequestBody User admin) {
         User response = userService.createAdmin(admin);
-        return response != null ? ResponseEntity.ok(response) :  new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		return Optional.ofNullable(response).map(ResponseEntity::ok).orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
     }
 	@RequestMapping(method = RequestMethod.POST, value = "/activate")
 	public  ResponseEntity<?> activate(@RequestParam(name = "email") String email,
 							 @RequestParam(name = "code") String code
 							) {
 		User response = userService.activateAccount(email,code);
-		return response != null ? ResponseEntity.ok(response) : new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		return Optional.ofNullable(response).map(ResponseEntity::ok).orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
 	}
 
 }

@@ -11,10 +11,11 @@ import ua.com.nc.nctrainingproject.persistance.dao.postgre.queries.FilterCriteri
 import ua.com.nc.nctrainingproject.services.BookFileManagementService;
 import ua.com.nc.nctrainingproject.services.BookService;
 
-import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin
@@ -32,13 +33,14 @@ public class BookController {
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<?> addBook(@RequestBody Book book) {
         Book response = bookService.createBook(book);
-        return response != null ? ResponseEntity.ok(response) : new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        return Optional.ofNullable(response).map(ResponseEntity::ok).orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public ResponseEntity<?> updateBook(@RequestBody Book book) {
         Book response = bookService.updateBook(book);
-        return response != null ? ResponseEntity.ok(response) : new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+        return Optional.ofNullable(response).map(ResponseEntity::ok).orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
     }
 
     @RequestMapping(value = "/id", method = RequestMethod.GET)
