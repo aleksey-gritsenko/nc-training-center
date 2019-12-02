@@ -28,7 +28,7 @@ public class AnnouncementService {
 	}
 
 	public List<Announcement> getPublishedAnnouncements() {
-		//test
+	/*	//test
 		List<Announcement> res = new ArrayList<>();
 		Announcement an = new Announcement();
 		an.setAdmin_id(1);
@@ -38,8 +38,8 @@ public class AnnouncementService {
 		an.setDescription("TEST");
 		res.add(an);
 		return res;
-		//end test
-		//return announcementsPostgreDAO.getPublishedAnnouncements();
+		//end test*/
+		return announcementsPostgreDAO.getPublishedAnnouncements();
 	}
 
 	public List<Announcement> getUnpublishedAnnouncements() {
