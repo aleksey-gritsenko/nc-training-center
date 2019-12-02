@@ -2,7 +2,6 @@ package ua.com.nc.nctrainingproject.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ua.com.nc.nctrainingproject.models.RecoverCode;
 import ua.com.nc.nctrainingproject.models.User;
 import ua.com.nc.nctrainingproject.persistance.dao.postgre.CodePostgreDAO;
 import ua.com.nc.nctrainingproject.persistance.dao.postgre.UserPostgreDAO;
@@ -34,7 +33,9 @@ public class UserService {
     }
 
     public User getById(int id) {
-        return userPostgreDAO.getUserById(id);
+        User user = userPostgreDAO.getUserById(id);
+
+        return user.isActivated() ? user : null;
     }
 
     public User createAdmin(User admin) {

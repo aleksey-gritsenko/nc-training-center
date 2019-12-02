@@ -29,7 +29,8 @@ public class UserController {
 
     @RequestMapping(method = RequestMethod.GET, value = "/{id}")
     ResponseEntity<?> get(@PathVariable(value = "id") int id) {
-        return ResponseEntity.ok(userService.getById(id));
+        User response = userService.getById(id);
+		return response != null ? ResponseEntity.ok(response) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "/create/admin")
