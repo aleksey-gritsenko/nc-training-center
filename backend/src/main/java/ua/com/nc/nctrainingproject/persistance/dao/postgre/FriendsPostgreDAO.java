@@ -24,12 +24,20 @@ public class FriendsPostgreDAO {
     }
 
     public void acceptRequest(int sender, int reciever) {
-jdbcTemplate.update(FriendQuery.ACCEPT_REQUES,true,sender,reciever);
+        jdbcTemplate.update(FriendQuery.ACCEPT_REQUEST,true,sender,reciever);
     }
-    public List<User> getAllFriends(User user){
-        return jdbcTemplate.query(FriendQuery.GET_ALL_FRIENDS,new UserRowMapper(),user.getId());
+    public List<User> getAllFriends(int user){
+        return jdbcTemplate.query(FriendQuery.GET_ALL_FRIENDS,new UserRowMapper(),true,user,true,user);
     }
-    public  List<User>  getAllNewRequests(User user){
-        return jdbcTemplate.query(FriendQuery.GET_ALL_NEW_REQUESTS,new UserRowMapper() ,user.getId());
+    public  List<User>  getAllNewRequests(int user){
+        return jdbcTemplate.query(FriendQuery.GET_ALL_NEW_REQUESTS,new UserRowMapper() ,false,user);
+    }
+    public List <User> getReciever(int sender,int reciever){
+        return jdbcTemplate.query(FriendQuery.GET_RECIEVER,new UserRowMapper(),sender,reciever
+        );
+    }
+    public List <User> getSender(int sender,int reciever){
+        return jdbcTemplate.query(FriendQuery.GET_SENDER,new UserRowMapper(),sender,reciever
+        );
     }
 }
