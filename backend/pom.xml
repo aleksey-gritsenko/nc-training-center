@@ -65,11 +65,6 @@
         </dependency>
 
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
-        </dependency>
-
-        <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <scope>runtime</scope>
@@ -88,6 +83,7 @@
             <version>${project.version}</version>
             <scope>runtime</scope>
         </dependency>
+
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
@@ -95,11 +91,12 @@
         </dependency>
 
         <!--WebSocket-->
-        <dependency>
+<!--        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-websocket</artifactId>
             <version>2.2.1.RELEASE</version>
-        </dependency>
+        </dependency>-->
+
     </dependencies>
 
     <build>

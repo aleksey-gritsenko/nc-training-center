@@ -1,3 +1,4 @@
+/*
 package ua.com.nc.nctrainingproject.controllers;
 
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -15,3 +16,4 @@ public class WebSocketController {
         return message;
     }
 }
+*/

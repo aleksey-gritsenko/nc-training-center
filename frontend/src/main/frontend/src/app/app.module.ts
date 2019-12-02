@@ -20,7 +20,6 @@ import {UserProfileComponent} from './components/user/user-profile/user-profile.
 import {AnnouncementListComponent} from './components/announcement-list/announcement-list.component';
 import {BooksListComponent} from './components/books-list/books-list.component';
 import {ReviewsListComponent} from './components/reviews-list/reviews-list.component';
-import {NotificationsListComponent} from './components/notifications-list/notifications-list.component';
 import {BookOverviewPropositionComponent} from './components/book-overview-proposition/book-overview-proposition.component';
 import {BookReviewPropositionComponent} from './components/book-review-proposition/book-review-proposition.component';
 import {AnnouncementPropositionComponent} from './components/announcement-proposition/announcement-proposition.component';
@@ -47,6 +46,7 @@ import {TruncateTextPipe} from './components/pipe/truncate-text.pipe';
 import {UserBooksComponent} from './components/user-books/user-books.component';
 import {ConfirmEmailComponent} from './components/authorization/confirm-email/confirm-email.component';
 import {UserMenuComponent} from "./components/user/user-menu/user-menu.component";
+//import {NotificationsListComponent} from "./components/notifications-list/notifications-list.component";
 
 
 @NgModule({
@@ -61,7 +61,7 @@ import {UserMenuComponent} from "./components/user/user-menu/user-menu.component
         AnnouncementListComponent,
         BooksListComponent,
         ReviewsListComponent,
-        NotificationsListComponent,
+       // NotificationsListComponent,
         BookOverviewPropositionComponent,
         BookReviewPropositionComponent,
         AnnouncementPropositionComponent,
