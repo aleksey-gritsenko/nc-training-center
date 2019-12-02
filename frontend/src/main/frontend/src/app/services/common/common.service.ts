@@ -19,7 +19,7 @@ export class CommonService {
     private localhost: string = 'http://localhost:8080';
 
     private booksUrl: string = `${this.siteUrl}/book`;
-    private announcementsUrl: string = `${this.siteUrl}/announcements`;
+    private announcementsUrl: string = `${this.localhost}/announcements`;
     private reviewsUrl: string = `${this.siteUrl}/review`;
     private userBookUrl: string = `${this.siteUrl}/userBook`;
 
