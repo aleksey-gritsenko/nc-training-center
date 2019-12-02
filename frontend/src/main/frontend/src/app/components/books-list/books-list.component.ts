@@ -115,20 +115,23 @@ export class BooksListComponent implements OnInit{
 
     }
     searchByTitle(){
-        this.apiService.getBooksByTitle(this.searchTitle).subscribe(
-            res=>{
-                this.books = res;
-                this.books.forEach(book=>{
-                    this.apiService.getAuthorsByBookId(book.id).subscribe(
-                        authors => book.authors = authors
-                    );
-                    this.apiService.getGenreByBookId(book.id).subscribe(
-                        genre=> book.genre  = genre.name
-                    )
-                })
+        if(this.searchTitle!="") {
+            this.bookFilter.header = this.searchTitle;
+            this.apiService.getBooksByFilter(this.bookFilter).subscribe(
+                res => {
+                    this.books = res;
+                    this.books.forEach(book => {
+                        this.apiService.getAuthorsByBookId(book.id).subscribe(
+                            authors => book.authors = authors
+                        );
+                        this.apiService.getGenreByBookId(book.id).subscribe(
+                            genre => book.genre = genre.name
+                        )
+                    })
 
-            }
-        )
+                }
+            )
+        }
     }
     searchByFilter() {
         this.bookFilter.author = [];
@@ -181,12 +184,12 @@ export class BooksListComponent implements OnInit{
             res => {
                 this.books = res;
                 this.books.forEach(book=>{
-                     this.apiService.getAuthorsByBookId(book.id).subscribe(
+                    this.apiService.getAuthorsByBookId(book.id).subscribe(
                         authors => book.authors = authors
-                     );
-                     this.apiService.getGenreByBookId(book.id).subscribe(
-                         genre=> book.genre  = genre.name
-                     )
+                    );
+                    this.apiService.getGenreByBookId(book.id).subscribe(
+                        genre=> book.genre  = genre.name
+                    )
                 });
 
             },
