@@ -11,6 +11,7 @@ endOfDay,
 subDays,
 addDays,
 endOfMonth,
+parseISO,
 isSameDay,
 isSameMonth,
 addHours
@@ -23,6 +24,9 @@ CalendarEventAction,
 CalendarEventTimesChangedEvent,
 CalendarView
 } from 'angular-calendar';
+
+import {CommonService} from "../../services/common/common.service";
+import {Announcement} from "../../models/announcement";
 
 const colors: any = {
 red: {
@@ -46,7 +50,7 @@ changeDetection: ChangeDetectionStrategy.OnPush,
 templateUrl: './calendar.component.html',
 styleUrls: ['./calendar.component.css']
 })
-export class CalendarComponent {
+export class CalendarComponent implements OnInit{
 @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any>;
 
 view: CalendarView = CalendarView.Month;
@@ -78,52 +82,35 @@ onClick: ({ event }: { event: CalendarEvent }): void => {
     }
   ];
 
-  refresh: Subject<any> = new Subject();
+     refresh: Subject<any> = new Subject();
 
-  events: CalendarEvent[] = [
-    {
-      start: subDays(startOfDay(new Date()), 1),
-      end: addDays(new Date(), 1),
-      title: 'A 3 day event',
-      color: colors.red,
-      actions: this.actions,
-      allDay: true,
-      resizable: {
-        beforeStart: true,
-        afterEnd: true
-      },
-      draggable: true
-    },
-    {
-      start: startOfDay(new Date()),
-      title: 'An event with no end date',
-      color: colors.yellow,
-      actions: this.actions
-    },
-    {
-      start: subDays(endOfMonth(new Date()), 3),
-      end: addDays(endOfMonth(new Date()), 3),
-      title: 'A long event that spans 2 months',
-      color: colors.blue,
-      allDay: true
-    },
-    {
-      start: addHours(startOfDay(new Date()), 2),
-      end: addHours(new Date(), 2),
-      title: 'A draggable and resizable event',
-      color: colors.yellow,
-      actions: this.actions,
-      resizable: {
-        beforeStart: true,
-        afterEnd: true
-      },
-      draggable: true
+    events: CalendarEvent[] = [];
+
+    activeDayIsOpen: boolean = true;
+    annoucementList: Announcement[];
+    ngOnInit() {
+
+        this.comServ.getAnnouncements().subscribe(
+            res=>{
+                this.annoucementList = res;
+                for(var ann of this.annoucementList){
+                    console.log(ann.announcementDate);
+                    this.events.push({
+                        start: addHours(startOfDay(new Date(ann.announcementDate)), 0),
+                        end: addHours(startOfDay(new Date(ann.announcementDate)), 0),
+                        title: ann.description,
+                        color: colors.red
+                    })
+                }
+                console.log(res);
+            },
+            err => {
+                console.log("Error in getting announcements from server")
+            }
+        );
     }
-  ];
-
-  activeDayIsOpen: boolean = true;
-
-  constructor(private modal: NgbModal) {}
+    constructor(private modal: NgbModal, public comServ: CommonService) {
+  }
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
     if (isSameMonth(date, this.viewDate)) {
