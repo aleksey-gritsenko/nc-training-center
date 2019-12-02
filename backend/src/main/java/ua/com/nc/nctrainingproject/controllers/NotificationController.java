@@ -9,6 +9,7 @@ import ua.com.nc.nctrainingproject.models.Notification;
 import ua.com.nc.nctrainingproject.services.NotificationService;
 
 import java.util.List;
+import java.util.Optional;
 
 @CrossOrigin
 @Controller
@@ -31,14 +32,14 @@ public class NotificationController {
 	@ResponseBody
 	public ResponseEntity<?> createNotification(@RequestBody Notification notification) {
 		Notification response = notificationService.createNotification(notification);
-		return response != null ? ResponseEntity.ok(response) : new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		return Optional.ofNullable(response).map(ResponseEntity::ok).orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
 	}
 
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity<?> deleteNotification(@RequestBody Notification notification) {
 		Notification response = notificationService.deleteNotification(notification);
-		return response != null ? ResponseEntity.ok(response) : new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		return Optional.ofNullable(response).map(ResponseEntity::ok).orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
 	}
 
 	@RequestMapping(value = "/get/{userId}", method = RequestMethod.POST)

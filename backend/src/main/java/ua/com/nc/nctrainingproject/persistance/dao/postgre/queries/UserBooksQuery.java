@@ -18,10 +18,6 @@ public class UserBooksQuery {
 
 	private static final String GET_ALL = "SELECT * FROM " + TABLE_NAME;
 
-	public static final String GET_ALL_USER_BOOKS = "SELECT b." + BOOK_ID + ", " + HEADER + ", " + OVERVIEW + ", "
-			+ PHOTO + ", " + FILE + ", " + STATUS + ", " + GENRE_ID + " FROM " + TABLE_NAME + " ub INNER JOIN " +
-			BOOKS + " on ub." + BOOK_ID + "=b." + BOOK_ID + " WHERE " + USER_ID + "=(?)";
-
 	public static final String GET_ALL_USER_BOOKS_ID = "SELECT " + BOOK_ID + " FROM " + TABLE_NAME + " WHERE "
 			+ USER_ID + " =(?)";
 

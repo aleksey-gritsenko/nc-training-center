@@ -12,6 +12,7 @@ public class AnnouncementRowMapper implements RowMapper<Announcement> {
 	public Announcement mapRow(ResultSet resultSet, int i) throws SQLException {
 		Announcement announcement = new Announcement();
 
+
 		announcement.setAnnouncementID(resultSet.getInt(AnnouncementQuery.ANNOUNCEMENT_ID));
 		announcement.setDescription(resultSet.getString(AnnouncementQuery.DESCRIPTION));
 		announcement.setAnnouncementDate(resultSet.getDate(AnnouncementQuery.ANNOUNCEMENT_DATE));

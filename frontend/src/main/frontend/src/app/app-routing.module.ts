@@ -14,6 +14,8 @@ import {AnnouncementListComponent} from "./components/announcement-list/announce
 import {AnnouncementPropositionComponent} from "./components/announcement-proposition/announcement-proposition.component";
 import {ReviewComponent} from "./components/review/review.component";
 import {UserBooksComponent} from "./components/user-books/user-books.component";
+import {ConfirmEmailComponent} from "./components/authorization/confirm-email/confirm-email.component";
+import {CalendarComponent} from "./components/calendar/calendar.component";
 
 const routes: Routes = [
     {
@@ -36,6 +38,10 @@ const routes: Routes = [
     {
         path: 'change',
         component: ChangePasswordComponent
+    },
+    {
+        path: 'calendar',
+        component: CalendarComponent
     },
     {
         path: 'registration',
@@ -78,8 +84,16 @@ const routes: Routes = [
         component: UserBooksComponent
     },
     {
+        path: 'userBooks/book/:bookId',
+        component: BookComponent
+    },
+    {
         path: 'user/:id',
         component: UserProfileComponent
+    },
+    {
+        path: 'verify',
+        component: ConfirmEmailComponent
     },
     {
         path: 'error',

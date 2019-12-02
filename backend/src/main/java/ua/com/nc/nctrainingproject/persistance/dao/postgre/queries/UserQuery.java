@@ -8,6 +8,10 @@ public class  UserQuery {
 	public static final String USER_PASSWORD = "password";
 	public static final String EMAIL = "email";
 	public static final String ROLE = "role";
+	public static final String STATUS = "activated";
+
+	public static final String VERIFIED = "verified";
+	public static final String ACTIVATED = "activated";
 
 	public static final String GET_ALL_USERS = "SELECT * FROM " + TABLE_NAME;
 
@@ -35,4 +39,17 @@ public class  UserQuery {
 
 	public static final String CREATE_ADMIN = "INSERT INTO " + TABLE_NAME
 			+ " (" + USERNAME + "," + USER_PASSWORD + "," + EMAIL + "," + ROLE + ")" + " VALUES(?,?,?,?)";
+
+	public static final String GET_USERS_BY_ROLE = "SELECT * FROM " + TABLE_NAME + " WHERE " + ROLE + " =(?)";
+
+
+
+	public static final String UPDATE_STATUS_BY_EMAIL = "UPDATE " + TABLE_NAME + " SET " +
+			STATUS + " =(?)  " +
+
+			" WHERE " + EMAIL + " =(?)";
+
+	public static final String CHECK_ACCOUNT_ACTIVATION = "DELETE FROM " + TABLE_NAME + " WHERE verified = FALSE AND " +
+			"date_part(\'hour\', CURRENT_TIMESTAMP - reg_time) >= (?)";
 }
+
