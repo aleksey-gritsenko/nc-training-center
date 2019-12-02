@@ -12,6 +12,8 @@ import {User} from "../../models/user";
 })
 export class AnnouncementPropositionComponent implements OnInit {
 
+    private siteUrl: string = 'https://nc-group1-2019-project.herokuapp.com';
+
     announcements: Announcement[] = [];
     currentUser: User;
 
@@ -26,13 +28,13 @@ export class AnnouncementPropositionComponent implements OnInit {
     }
 
     public getAllAnnouncement() {
-        let url = 'http://localhost:8080//announcements//new';
+        let url = `${this.siteUrl}/announcements/new`;
         this.http.get<Announcement[]>(url).subscribe(
             res => {
                 this.announcements = res;
             },
             err => {
-                alert("ERROr");
+                alert("Error in getting all announcements");
             }
         )
     }
@@ -44,8 +46,9 @@ export class AnnouncementPropositionComponent implements OnInit {
             res=>{
                 //location.reload();
             },
-            err=>{
-                err => {alert(JSON.parse(JSON.stringify(err)).message);}      }
+            err => {
+                alert(JSON.parse(JSON.stringify(err)).message);
+            }
         );
     }
 }

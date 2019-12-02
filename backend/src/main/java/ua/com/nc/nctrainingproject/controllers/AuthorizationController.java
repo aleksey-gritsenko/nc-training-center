@@ -1,6 +1,8 @@
 package ua.com.nc.nctrainingproject.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ua.com.nc.nctrainingproject.models.User;
 import ua.com.nc.nctrainingproject.services.AuthorizationService;
@@ -8,32 +10,26 @@ import ua.com.nc.nctrainingproject.services.AuthorizationService;
 @RestController
 @CrossOrigin
 public class AuthorizationController {
-	private final AuthorizationService authorizationService;
+    private final AuthorizationService authorizationService;
 
 
-	@Autowired
-	public AuthorizationController(AuthorizationService authorizationService) {
-		this.authorizationService = authorizationService;
-	}
+    @Autowired
+    public AuthorizationController(AuthorizationService authorizationService) {
+        this.authorizationService = authorizationService;
+    }
 
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public User login(@RequestParam(name = "login") String login,
-					  @RequestParam(name = "password") String password) {
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public ResponseEntity<?> login(@RequestParam(name = "login") String login,
+                                   @RequestParam(name = "password") String password) {
+        User response = authorizationService.auth(login, password);
+        return response != null ? ResponseEntity.ok(response) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
 
-		return authorizationService.auth(login, password);
-	}
-
-	@RequestMapping(value = "/registration", method = RequestMethod.POST)
-	public User registration(@RequestParam(name = "login") String login,
-							 @RequestParam(name = "password") String password,
-							 @RequestParam(name = "email") String email) {
-
-		return authorizationService.register(login, password, email);
-	}
-
-	@RequestMapping(value = "/testFeature", method = RequestMethod.POST)
-	public void loginUser(@RequestParam(name = "login") String login,
-						  @RequestParam(name = "password") String password) {
-		authorizationService.auth(login, password);
-	}
+    @RequestMapping(value = "/registration", method = RequestMethod.POST)
+    public ResponseEntity<?> registration(@RequestParam(name = "login") String login,
+                                          @RequestParam(name = "password") String password,
+                                          @RequestParam(name = "email") String email) {
+        User response = authorizationService.register(login, password, email);
+        return response != null ? ResponseEntity.ok(response) : new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
 }

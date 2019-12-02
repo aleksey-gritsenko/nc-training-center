@@ -1,21 +1,21 @@
 package ua.com.nc.nctrainingproject.persistance.dao.postgre;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import ua.com.nc.nctrainingproject.models.User;
 import ua.com.nc.nctrainingproject.persistance.dao.AbstractDAO;
 import ua.com.nc.nctrainingproject.persistance.dao.postgre.queries.UserQuery;
 import ua.com.nc.nctrainingproject.persistance.mappers.UserRowMapper;
 
+import javax.sql.DataSource;
 import java.util.List;
 
 @Repository
 public class UserPostgreDAO extends AbstractDAO<User> {
 
     @Autowired
-    public UserPostgreDAO(JdbcTemplate jdbcTemplate) {
-        super(jdbcTemplate);
+    public UserPostgreDAO(DataSource dataSource) {
+        super(dataSource);
     }
 
     public User getUserById(int id) {
@@ -67,10 +67,19 @@ public class UserPostgreDAO extends AbstractDAO<User> {
     }
 
     public void createUser(User user) {
-        jdbcTemplate.update(UserQuery.CREATE_USER, user.getUserName(), user.getUserPassword(), user.getEmail());
+        jdbcTemplate.update(UserQuery.CREATE_USER, user.getUserName(), user.getUserPassword(), user.getEmail(), user.getUserRole());
     }
 
     public void createAdmin(User admin) {
         jdbcTemplate.update(UserQuery.CREATE_ADMIN, admin.getUserName(), admin.getUserPassword(), admin.getEmail(), admin.getUserRole());
     }
+
+    public void activateAccount(String email) {
+        jdbcTemplate.update(UserQuery.UPDATE_STATUS_BY_EMAIL, true, email);
+    }
+        public void checkAccountActivation ( int hours){
+            jdbcTemplate.update(UserQuery.CHECK_ACCOUNT_ACTIVATION, hours);
+
+        }
+
 }

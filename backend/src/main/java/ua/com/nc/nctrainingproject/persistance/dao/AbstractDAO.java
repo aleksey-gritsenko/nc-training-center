@@ -6,15 +6,17 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 import ua.com.nc.nctrainingproject.models.Entity;
 
+import javax.sql.DataSource;
 import java.util.List;
 
 @Repository
 public abstract class AbstractDAO<T extends Entity> {
+
 	protected final JdbcTemplate jdbcTemplate;
 
 	@Autowired
-	public AbstractDAO(JdbcTemplate jdbcTemplate) {
-		this.jdbcTemplate = jdbcTemplate;
+	public AbstractDAO(DataSource dataSource) {
+		this.jdbcTemplate = new JdbcTemplate(dataSource);
 	}
 
 	// protected void create(String query, Entity entity) {

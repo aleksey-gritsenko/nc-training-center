@@ -9,6 +9,9 @@ import {CommonService} from "../../services/common/common.service";
     styleUrls: ['./announcement-list.component.css']
 })
 export class AnnouncementListComponent implements OnInit {
+
+    private siteUrl: string = 'https://nc-group1-2019-project.herokuapp.com';
+
     announcements: Announcement[] = [];
 
     constructor(private http: HttpClient, private apiService: CommonService) {
@@ -20,12 +23,13 @@ export class AnnouncementListComponent implements OnInit {
 
     public getAllAnnouncement() {
         let url = 'http://localhost:8080//announcements';
+        let url2 = `${this.siteUrl}/all`;
         this.http.get<Announcement[]>(url).subscribe(
             res => {
                 this.announcements = res;
             },
             err => {
-                alert("ERROr");
+                alert("Error in getting all announcements");
             }
         )
     }

@@ -10,8 +10,7 @@ public class FilterCriterionQuery {
 	private ArrayList<String> genre;
 	private String header;
 	private ArrayList<String> author;
-	private String dateFrom;
-	private String getDateTo;
+
 
 	public Object[] getArgs() {
 		return args;
@@ -29,9 +28,20 @@ public class FilterCriterionQuery {
 	}
 
 	public String makeQuery() {
-		return BookQuery.GET_BOOKS_FILTRATION +
-				makeAuthorConditins() + makeGenresConditions() + makeHeaderCondition();
+
+	String	q = BookQuery.GET_BOOKS_FILTRATION +
+			makeAuthorConditions() + makeGenresConditions() + makeHeaderCondition();
+		q=q.trim();
+	  if(q.endsWith("OR")) {
+
+		q=q.substring(0, q.length() - 2);	}
+		return q;
 	}
+	public static String replaceLast(String text, String regex, String replacement) {
+		return text.replaceFirst("(?s)"+regex+"(?!.*?"+regex+")", replacement);
+
+	}
+
 
 	public Object[] makeArrayArgs() {
 		ArrayList<Object> argsList = new ArrayList<>();
@@ -41,48 +51,48 @@ public class FilterCriterionQuery {
 		argsList.addAll(author);
 		argsList.addAll(genre);
 		argsList.addAll(headers);
-
 		args = argsList.toArray();
 		return args;
 	}
 
 	public Object[] makeArrayArgsStream() {
 		ArrayList<String> headers = new ArrayList<>();
-		headers.add(header);
-		args = Stream.concat(Stream.concat(genre.stream(), author.stream()),
+		if(header.length() !=0 && !header.equals("")) {
+
+			headers.add(header);
+		}
+		args = Stream.concat(Stream.concat(author.stream(), genre.stream()),
 				headers.stream()).toArray();
 
 		return args;
 	}
 
-	private StringBuilder makeGenresConditions() {
-		StringBuilder genresCondition = new StringBuilder("");
-
+	private String makeGenresConditions() {
+		String genresCondition = " ";
 		if (genre.size() != 0) {
-			for (int i = 0; i < genre.size(); i++) {
-				genresCondition.append(BookQuery.CONDITIONS_GENRES);
-				if (i < genre.size()) {
-					genresCondition.append(" OR ");
-				}
-			}
+			genresCondition =
+					genre.stream().map((i) -> BookQuery.CONDITIONS_GENRES + " OR ")
+							.reduce((g, n) -> g + n).get();
 		}
 		return genresCondition;
 	}
 
-	private StringBuilder makeAuthorConditins() {
-		StringBuilder authorCondition = new StringBuilder("");
+	private String makeAuthorConditions() {
+		String authorCondition = " ";
 
 		if (author.size() != 0) {
-			for (int i = 0; i < author.size(); i++) {
-				authorCondition.append(BookQuery.CONDITION_AUTHOR);
-				authorCondition.append(" OR ");
-			}
+			authorCondition = author.stream().map((i) -> BookQuery.CONDITION_AUTHOR
+					+ " OR ").reduce((g, n) -> g + n).get();
+
 		}
 		return authorCondition;
 	}
 
-	private StringBuilder makeHeaderCondition() {
-		return new StringBuilder(BookQuery.CONDITIONS_NAME);
+	private String makeHeaderCondition() {
+		if(header != null && !header.equals("") && header.length() !=0){
+			header = header+ "%";
+		return BookQuery.CONDITIONS_NAME;}
+		return " ";
 	}
 
 	public ArrayList<String> getGenre() {
@@ -107,21 +117,5 @@ public class FilterCriterionQuery {
 
 	public void setAuthor(ArrayList<String> author) {
 		this.author = author;
-	}
-
-	public String getDateFrom() {
-		return dateFrom;
-	}
-
-	public void setDateFrom(String dateFrom) {
-		this.dateFrom = dateFrom;
-	}
-
-	public String getGetDateTo() {
-		return getDateTo;
-	}
-
-	public void setGetDateTo(String getDateTo) {
-		this.getDateTo = getDateTo;
 	}
 }

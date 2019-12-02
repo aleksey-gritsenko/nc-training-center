@@ -8,27 +8,42 @@ public class UserBooksQuery {
 	public static final String IS_READ = "is_read";
 	public static final String IS_FAVOURITE = "is_favorite";
 
+	private static final String BOOKS = "books";
+	private static final String HEADER = "header";
+	private static final String OVERVIEW = "overview";
+	private static final String PHOTO = "photo_id";
+	private static final String FILE = "file";
+	private static final String STATUS = "status";
+	private static final String GENRE_ID = "genre_id";
+
 	private static final String GET_ALL = "SELECT * FROM " + TABLE_NAME;
 
+	public static final String GET_ALL_USER_BOOKS = "SELECT b." + BOOK_ID + ", " + HEADER + ", " + OVERVIEW + ", "
+			+ PHOTO + ", " + FILE + ", " + STATUS + ", " + GENRE_ID + " FROM " + TABLE_NAME + " ub INNER JOIN " +
+			BOOKS + " on ub." + BOOK_ID + "=b." + BOOK_ID + " WHERE " + USER_ID + "=(?)";
+
 	public static final String GET_ALL_USER_BOOKS_ID = "SELECT " + BOOK_ID + " FROM " + TABLE_NAME + " WHERE "
-            + USER_ID + " =(?)";
+			+ USER_ID + " =(?)";
 
 	public static final String GET_ALL_FAVOURITE_BOOKS_ID = GET_ALL_USER_BOOKS_ID + " AND " + IS_FAVOURITE + " ='true'";
 
 	public static final String GET_ALL_READ_BOOKS_ID = GET_ALL_USER_BOOKS_ID + " AND " + IS_READ + " ='true'";
 
 	public static final String ADD_BOOK_TO_USER = "INSERT INTO " + TABLE_NAME + "(" + USER_ID + "," + BOOK_ID + ","
-			+ IS_READ + "," + IS_FAVOURITE + ")" + " VALUES (?,?,'false','false')";
+			+ IS_READ + "," + IS_FAVOURITE + ")" + " VALUES (?,?,?,?)";
 
 	public static final String MARK_BOOK_AS_READ = "UPDATE " + TABLE_NAME + " SET " + IS_READ + " = 'true' " +
-            " WHERE " + USER_ID + " =(?)" + " AND " + BOOK_ID + " =(?)";
+			" WHERE " + USER_ID + " =(?)" + " AND " + BOOK_ID + " =(?)";
 
 	public static final String MARK_BOOK_AS_FAVOURITE = "UPDATE " + TABLE_NAME + " SET " + IS_FAVOURITE +
-            " = 'true' " + " WHERE " + USER_ID + " =(?)" + " AND " + BOOK_ID + " =(?)";
+			" = 'true' " + " WHERE " + USER_ID + " =(?)" + " AND " + BOOK_ID + " =(?)";
 
 	public static final String REMOVE_FROM_READ = "UPDATE " + TABLE_NAME + " SET " + IS_READ + " = 'false' " +
-            " WHERE " + USER_ID + " =(?)" + " AND " + BOOK_ID + " =(?)";
+			" WHERE " + USER_ID + " =(?)" + " AND " + BOOK_ID + " =(?)";
 
 	public static final String REMOVE_FROM_FAVOURITE = "UPDATE " + TABLE_NAME + " SET " + IS_FAVOURITE +
-            " = 'false' " + " WHERE " + USER_ID + " =(?)" + " AND " + BOOK_ID + " =(?)";
+			" = 'false' " + " WHERE " + USER_ID + " =(?)" + " AND " + BOOK_ID + " =(?)";
+
+	public static final String DELETE_BOOK_FROM_ADDED = "DELETE FROM  " + TABLE_NAME + " WHERE " + USER_ID +
+			" =(?)" + " AND " + BOOK_ID + " =(?)";
 }

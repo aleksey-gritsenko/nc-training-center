@@ -14,6 +14,7 @@ import ua.com.nc.nctrainingproject.persistance.dao.postgre.queries.GenreQuery;
 import ua.com.nc.nctrainingproject.persistance.mappers.BookRowMapper;
 import ua.com.nc.nctrainingproject.persistance.mappers.GenreMapper;
 
+import javax.sql.DataSource;
 import java.util.List;
 
 @Repository
@@ -23,9 +24,9 @@ public class BookPostgreDAO extends AbstractDAO<Book> {
     private final GenrePostgreDAO genrePostgreDAO;
     private final AuthorPostgreDAO authorPostgreDAO;
     @Autowired
-    public BookPostgreDAO(JdbcTemplate jdbcTemplate, AuthorBookPostgreDAO authorBookPostgreDAO,
+    public BookPostgreDAO(DataSource dataSource, AuthorBookPostgreDAO authorBookPostgreDAO,
                           GenrePostgreDAO genrePostgreDAO, AuthorPostgreDAO authorPostgreDAO) {
-        super(jdbcTemplate);
+        super(dataSource);
         this.authorBookPostgreDAO = authorBookPostgreDAO;
         this.genrePostgreDAO = genrePostgreDAO;
         this.authorPostgreDAO = authorPostgreDAO;
@@ -81,6 +82,15 @@ public class BookPostgreDAO extends AbstractDAO<Book> {
             return null;
         }
         return genres.get(0);
+    }
+
+    public List<Book> getMostRatedBooks(){
+        List<Book> books = jdbcTemplate.query(BookQuery.GET_MOST_RATED_BOOKS, new BookRowMapper());
+        for (Book book : books) {
+            book.setAuthors(authorBookPostgreDAO.getAuthorsByBookId(book.getId()));
+            book.setGenre(genrePostgreDAO.getGenreById(book.getId()));
+        }
+        return books;
     }
 }
 

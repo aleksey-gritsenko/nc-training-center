@@ -1,0 +1,31 @@
+<app-navigation></app-navigation>
+<app-sidebar></app-sidebar>
+
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-8" *ngIf="user">
+                <app-view-profile [user]="user" *ngIf="isOpen =='View'"></app-view-profile>
+                <app-edit-profile *ngIf="isOpen == 'Edit'"></app-edit-profile>
+                <app-add-admin *ngIf="isOpen == 'Add' && isCurrUserAnAdmin"></app-add-admin>
+            </div>
+            <div class="col-md-4">
+                <div class="card menu" *ngIf="user">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item" (click)="open('View')" [class.selected]="isOpen=='View'">About me
+                        </li>
+                        <li class="list-group-item" *ngIf="isThisCurrUserProfile" (click)="open('Edit')"
+                            [class.selected]="isOpen=='Edit'">Edit profile
+                        </li>
+                        <li class="list-group-item" *ngIf="isCurrUserAnAdmin && isThisCurrUserProfile"
+                            (click)="open('Add')" [class.selected]="isOpen=='Add'">Add agent
+                        </li>
+                        <li class="list-group-item" (click)="deactivateAccount()"
+                            *ngIf="isCurrUserAnAdmin">Deactivate the account
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
