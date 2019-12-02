@@ -37,4 +37,12 @@ public class UserController {
         User response = userService.createAdmin(admin);
         return response != null ? ResponseEntity.ok(response) :  new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
+	@RequestMapping(method = RequestMethod.POST, value = "/activate")
+	public  ResponseEntity<?> activate(@RequestParam(name = "email") String email,
+							 @RequestParam(name = "code") String code
+							) {
+		User response = userService.activateAccount(email,code);
+		return response != null ? ResponseEntity.ok(response) : new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+	}
+
 }
