@@ -73,4 +73,9 @@ public class UserPostgreDAO extends AbstractDAO<User> {
     public void createAdmin(User admin) {
         jdbcTemplate.update(UserQuery.CREATE_ADMIN, admin.getUserName(), admin.getUserPassword(), admin.getEmail(), admin.getUserRole());
     }
+
+    public List<User> getUsersByRole(String userRole) {
+        return jdbcTemplate.query(UserQuery.GET_USERS_BY_ROLE, new UserRowMapper(),userRole);
+    }
+
 }

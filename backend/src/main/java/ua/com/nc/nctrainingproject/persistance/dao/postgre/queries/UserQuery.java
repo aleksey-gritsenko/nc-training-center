@@ -35,4 +35,7 @@ public class  UserQuery {
 
 	public static final String CREATE_ADMIN = "INSERT INTO " + TABLE_NAME
 			+ " (" + USERNAME + "," + USER_PASSWORD + "," + EMAIL + "," + ROLE + ")" + " VALUES(?,?,?,?)";
+
+	public static final String GET_USERS_BY_ROLE = "SELECT * FROM " + TABLE_NAME + " WHERE " + ROLE + " =(?)";
+
 }
