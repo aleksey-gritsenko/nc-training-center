@@ -38,11 +38,15 @@ export class EditProfileComponent implements OnInit, OnDestroy {
             .subscribe(
                 user => {
                     this.editStatus = 'success';
-                    this.repeatPassword='';
                     this.storageService.setUser(user);
                 },
                 error => {
                     this.editStatus = 'error';
+                    Object.assign(this.updatedUser, this.currentUser);
+                },
+                () => {
+                    this.repeatPassword='';
+
                 }
             );
     }

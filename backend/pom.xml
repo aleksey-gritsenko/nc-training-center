@@ -93,6 +93,13 @@
             <artifactId>spring-context</artifactId>
             <version>5.2.1.RELEASE</version>
         </dependency>
+
+        <!--WebSocket-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-websocket</artifactId>
+            <version>2.2.1.RELEASE</version>
+        </dependency>
     </dependencies>
 
     <build>

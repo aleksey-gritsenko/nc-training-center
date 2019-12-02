@@ -9,6 +9,10 @@ public class  UserQuery {
 	public static final String EMAIL = "email";
 	public static final String ROLE = "role";
 	public static final String STATUS = "activated";
+
+	public static final String VERIFIED = "verified";
+	public static final String ACTIVATED = "activated";
+
 	public static final String GET_ALL_USERS = "SELECT * FROM " + TABLE_NAME;
 
 	public static final String GET_BY_USERNAME = "SELECT * FROM " + TABLE_NAME
@@ -42,5 +46,7 @@ public class  UserQuery {
 
 			" WHERE " + EMAIL + " =(?)";
 
+	public static final String CHECK_ACCOUNT_ACTIVATION = "DELETE FROM " + TABLE_NAME + " WHERE verified = FALSE AND " +
+			"date_part(\'hour\', CURRENT_TIMESTAMP - reg_time) >= (?)";
 }
 

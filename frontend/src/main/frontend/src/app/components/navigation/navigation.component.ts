@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {User} from "../../models/user";
 import {AuthenticationService} from "../../services/authentification/authentication.service";
 import {StorageService} from "../../services/storage/storage.service";
-import {Router} from "@angular/router";
 
 @Component({
     selector: 'app-navigation',
@@ -13,8 +12,8 @@ export class NavigationComponent implements OnInit {
     private user: User;
 
     constructor(private storageService: StorageService,
-                private authenticationService: AuthenticationService,
-                private router: Router) {
+                private authenticationService: AuthenticationService
+                ) {
         this.storageService.currentUser.subscribe(x => this.user = x);
     }
 
@@ -22,7 +21,7 @@ export class NavigationComponent implements OnInit {
     }
 
     logout(): void {
-        // this.router.navigateByUrl('/');
         this.authenticationService.logout();
+
     }
 }
