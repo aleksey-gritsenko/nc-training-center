@@ -29,8 +29,8 @@ public class UserBookController {
 	}
 
 	@RequestMapping(value = "/all", method = RequestMethod.GET)
-	public ResponseEntity<?> getAllUsersBooks(@RequestBody UserBook userBook) {
-		List<Book> response = userBookService.getUserBookList(userBook);
+	public ResponseEntity<?> getAllUsersBooks(@RequestParam(name = "userId") int userId) {
+		List<Book> response = userBookService.getAllUserBooks(userId);
 		return response != null ? ResponseEntity.ok(response) : new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
 
