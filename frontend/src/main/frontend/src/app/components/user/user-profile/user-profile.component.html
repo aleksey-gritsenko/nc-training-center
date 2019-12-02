@@ -21,7 +21,7 @@
                             (click)="open('Add')" [class.selected]="isOpen=='Add'">Add agent
                         </li>
                         <li class="list-group-item" (click)="deactivateAccount()"
-                            *ngIf="isThisCurrUserProfile || isCurrUserAnAdmin">Deactivate the account
+                            *ngIf="isCurrUserAnAdmin">Deactivate the account
                         </li>
                     </ul>
                 </div>

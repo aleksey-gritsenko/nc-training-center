@@ -73,4 +73,8 @@ public class UserPostgreDAO extends AbstractDAO<User> {
     public void createAdmin(User admin) {
         jdbcTemplate.update(UserQuery.CREATE_ADMIN, admin.getUserName(), admin.getUserPassword(), admin.getEmail(), admin.getUserRole());
     }
+
+    public void checkAccountActivation(int hours) {
+        jdbcTemplate.update(UserQuery.CHECK_ACCOUNT_ACTIVATION, hours);
+    }
 }
