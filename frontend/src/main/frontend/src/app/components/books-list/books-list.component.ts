@@ -45,8 +45,7 @@ export class BooksListComponent implements OnInit{
     selectedGenres: SelectedItem[] = [];
     filterGenres:SelectedItem[]=[];
     filterAuthors:SelectedItem[]=[];
-    historyGenres:string[]=[];
-    historyAuthors:string[]=[];
+    historyFilter:BookFilter;
 
     userId: any;
 
@@ -60,6 +59,8 @@ export class BooksListComponent implements OnInit{
         this.addBookVisible = false;
         this.getAllAuthor();
         this.getAllGenre();
+        this.historyFilter = this.storage.getFilter();
+        console.log(this.historyFilter);
     }
 
     getUsersBookList(){
@@ -144,12 +145,15 @@ export class BooksListComponent implements OnInit{
 
         this.filterGenres.forEach(genre => {
             this.bookFilter.genre.push(genre.name);
-            this.historyGenres.push(genre.name)}
-        );
+        });
         this.filterAuthors.forEach(author => {
             this.bookFilter.author.push(author.name);
-            this.historyAuthors.push(author.name);
         });
+
+        this.historyFilter.genre.push(...(this.bookFilter.genre||[]));
+        this.historyFilter.author.push(...(this.bookFilter.author||[]));
+        this.storage.setFilter(this.historyFilter);
+
         this.books = [];
         this.apiService.getBooksByFilter(this.bookFilter).subscribe(
             res => {
@@ -221,10 +225,7 @@ export class BooksListComponent implements OnInit{
 
     }
 
-    saveFilterToStorage(){
-        localStorage.setItem('authors', JSON.stringify(this.historyAuthors));
-        localStorage.setItem('genres', JSON.stringify(this.historyGenres));
-    }
+
 
     fillArray():string[]{
         return "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");

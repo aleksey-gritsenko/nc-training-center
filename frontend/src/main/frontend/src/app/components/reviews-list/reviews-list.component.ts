@@ -23,7 +23,7 @@ export class ReviewsListComponent implements OnInit{
     createdReview: Review = new Review();
 
     createdReviewForm = this.formBuilder.group({
-        grade: [0,[Validators.min(1),Validators.max(5)]],
+        grade: [5,Validators.required],
         text: ['', Validators.required]
     });
 
