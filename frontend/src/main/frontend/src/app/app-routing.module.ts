@@ -13,9 +13,10 @@ import {AnnouncementComponent} from "./components/announcement/announcement.comp
 import {AnnouncementListComponent} from "./components/announcement-list/announcement-list.component";
 import {AnnouncementPropositionComponent} from "./components/announcement-proposition/announcement-proposition.component";
 import {ReviewComponent} from "./components/review/review.component";
-import {UserBooksComponent} from "./components/user-books/user-books.component";
+import {UserBooksComponent} from "./components/user/user-books/user-books.component";
 import {ConfirmEmailComponent} from "./components/authorization/confirm-email/confirm-email.component";
 import {CalendarComponent} from "./components/calendar/calendar.component";
+import {SearchComponent} from "./components/search/search.component";
 
 const routes: Routes = [
     {
@@ -92,8 +93,12 @@ const routes: Routes = [
         component: UserProfileComponent
     },
     {
-        path: 'verify',
+        path: 'activate',
         component: ConfirmEmailComponent
+    },
+    {
+        path: 'search',
+        component: SearchComponent
     },
     {
         path: 'error',

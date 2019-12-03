@@ -58,6 +58,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
     }
 
      getUserInfo(id: string) {
+        this.user = new User();
         this.userService.searchUser(id).toPromise().then(
             user => {
             if (!this.isCurrUserAnAdmin && user.userRole != 'user') this.router.navigateByUrl('/error');

@@ -9,19 +9,18 @@ import {Chat} from "../../models/chat";
 import {Message} from "../../models/message";
 import {BookFilter} from "../../models/bookfilter";
 import {Observable} from "rxjs";
+import {userSearch} from "../../models/userSearch";
 
 @Injectable({
     providedIn: 'root'
 })
 export class UserService {
 
-    // private userUlr = '/user';
-    // private usersUlr = '/users/:login';
     user: User;
     friend: User;
     book: Book;
     siteUrl: string = 'https://nc-group1-2019-project.herokuapp.com';
-    //siteUrl: string = 'http://localhost:8080';
+    // siteUrl: string = 'http://localhost:8080';
 
     constructor(private http: HttpClient, private commonService: CommonService) {
     }
@@ -172,5 +171,11 @@ export class UserService {
         let url = `${this.siteUrl}/user/${id}/deactivate`;
 
         return this.http.get(url);
+    }
+
+    searchByUsername(username: string) {
+        let url = `${this.siteUrl}/user/search/${username}`;
+
+        return this.http.get<userSearch[]>(url);
     }
 }

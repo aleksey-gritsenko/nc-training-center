@@ -14,7 +14,6 @@ import java.util.Optional;
 public class AuthorizationController {
     private final AuthorizationService authorizationService;
 
-
     @Autowired
     public AuthorizationController(AuthorizationService authorizationService) {
         this.authorizationService = authorizationService;

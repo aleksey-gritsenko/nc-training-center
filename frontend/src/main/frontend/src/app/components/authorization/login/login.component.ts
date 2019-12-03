@@ -34,20 +34,6 @@ export class LoginComponent implements OnInit {
     }
 
     login(): void {
-        // this.serv.login(this.model.login, this.model.password)
-        //     .pipe(first())
-        //     .subscribe(
-        //         data => {
-        //             this.router.navigate([this.returnUrl]);
-        //         },
-        //         error => {
-        //             this.isError = true;
-        //             this.model.password = '';
-        //             this.model.login = '';
-        //             //  this.error = error;
-        //             //  this.loading = false;
-        //         }
-        //     );
         if (this.model.login.length == 0 || this.model.password.length == 0) return;
         this.serv.login(this.model.login, this.model.password)
             .subscribe(

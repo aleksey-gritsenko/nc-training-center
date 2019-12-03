@@ -22,7 +22,7 @@
                             (click)="open('Add')" [class.selected]="isOpen=='Add'">Add agent
                         </li>
                         <li class="list-group-item" [class.selected]="isOpen=='Deactivate'"
-                            *ngIf="isAllowedToChange && user.userRole!='super'" (click)="open('Deactivate')">Deactivate the account
+                            *ngIf="isAllowedToDeactivate" (click)="open('Deactivate')">Deactivate the account
                         </li>
                     </ul>
                 </div>

@@ -10,6 +10,7 @@ import {StorageService} from "../../services/storage/storage.service";
 })
 export class NavigationComponent implements OnInit {
     private user: User;
+    searchString: string = '';
 
     constructor(private storageService: StorageService,
                 private authenticationService: AuthenticationService
@@ -22,6 +23,9 @@ export class NavigationComponent implements OnInit {
 
     logout(): void {
         this.authenticationService.logout();
+    }
 
+    clear() {
+        this.searchString = '';
     }
 }

@@ -2,12 +2,12 @@ import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CalendarModule, DateAdapter } from 'angular-calendar';
-import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
-import { CommonModule } from '@angular/common';
-import { FlatpickrModule } from 'angularx-flatpickr';
-import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {CalendarModule, DateAdapter} from 'angular-calendar';
+import {adapterFactory} from 'angular-calendar/date-adapters/date-fns';
+import {CommonModule} from '@angular/common';
+import {FlatpickrModule} from 'angularx-flatpickr';
+import {NgbModalModule} from '@ng-bootstrap/ng-bootstrap';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
@@ -40,12 +40,13 @@ import {ChangePasswordComponent} from './components/authorization/change-passwor
 import {ViewProfileComponent} from './components/user/view-profile/view-profile.component';
 import {EditProfileComponent} from './components/user/edit-profile/edit-profile.component';
 import {AddAdminComponent} from './components/user/add-admin/add-admin.component';
-import {DeactivateAccountComponent} from './components/deactivate-account/deactivate-account.component';
+import {DeactivateAccountComponent} from './components/user/deactivate-account/deactivate-account.component';
 import {CKEditorModule} from "@ckeditor/ckeditor5-angular";
 import {TruncateTextPipe} from './components/pipe/truncate-text.pipe';
-import {UserBooksComponent} from './components/user-books/user-books.component';
+import {UserBooksComponent} from './components/user/user-books/user-books.component';
 import {ConfirmEmailComponent} from './components/authorization/confirm-email/confirm-email.component';
-import {UserMenuComponent} from "./components/user/user-menu/user-menu.component";
+import {SearchComponent} from './components/search/search.component';
+
 //import {NotificationsListComponent} from "./components/notifications-list/notifications-list.component";
 
 
@@ -83,9 +84,9 @@ import {UserMenuComponent} from "./components/user/user-menu/user-menu.component
         AddAdminComponent,
         DeactivateAccountComponent,
         TruncateTextPipe,
-        UserMenuComponent,
         ConfirmEmailComponent,
-        UserBooksComponent
+        UserBooksComponent,
+        SearchComponent
     ],
 
     imports: [

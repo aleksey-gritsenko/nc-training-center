@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import ua.com.nc.nctrainingproject.models.User;
 import ua.com.nc.nctrainingproject.services.UserService;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -52,5 +53,11 @@ public class UserController {
 	@RequestMapping(method = RequestMethod.GET, value = "/{id}/deactivate")
 	public ResponseEntity<?> deactivateAccount(@PathVariable(value = "id") int id) {
 		return userService.deactivateAccount(id) ? new ResponseEntity<>(HttpStatus.OK) : new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+	}
+
+	@RequestMapping(method = RequestMethod.GET, value = "/search/{searchName}")
+	public ResponseEntity<?> searchUsers(@PathVariable(value = "searchName") String searchName) {
+		List<User> response = userService.searchUsersByUsername(searchName);
+		return Optional.ofNullable(response).map(ResponseEntity::ok).orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
 	}
 }
