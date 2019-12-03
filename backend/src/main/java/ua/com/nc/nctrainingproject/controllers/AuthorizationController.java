@@ -86,9 +86,6 @@ public class AuthorizationController {
     HttpSession httpSession;
 
 
-
-
-
     @Autowired
     AuthenticationManagerBuilder authenticationManagerBuilder2;
 

@@ -95,7 +95,6 @@
             <version>1.0.11.RELEASE</version>
         </dependency>
 
-
         <dependency>
             <groupId>com.thetransactioncompany</groupId>
             <artifactId>cors-filter</artifactId>
@@ -107,12 +106,11 @@
             <version>${oauth.version}</version>
         </dependency>
 
+
     </dependencies>
     <properties>
         <oauth.version>2.3.3.RELEASE</oauth.version>
     </properties>
-
-
 
     <build>
         <resources>
