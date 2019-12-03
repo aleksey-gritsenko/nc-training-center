@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {CommonService} from "../../services/common/common.service";
-import {BooksListComponent} from "../books-list/books-list.component";
+import {CommonService} from "../../../services/common/common.service";
+import {BooksListComponent} from "../../books-list/books-list.component";
 import {ActivatedRoute, Router} from "@angular/router";
-import {StorageService} from "../../services/storage/storage.service";
-import {BookComponent} from "../book/book.component";
+import {StorageService} from "../../../services/storage/storage.service";
+import {BookComponent} from "../../book/book.component";
 
 @Component({
     selector: 'app-user-books',
