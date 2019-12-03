@@ -87,12 +87,9 @@ export class BookComponent implements OnInit {
     }
 
     makeSuggestion() {
-        let authors = JSON.parse(localStorage.getItem('authors'));
-        let genres = JSON.parse(localStorage.getItem('genres'));
 
-        let suggestionFilter: BookFilter = new BookFilter();
-        suggestionFilter.genre = genres;
-        suggestionFilter.author = authors;
+        let suggestionFilter: BookFilter = this.storage.getFilter();
+        console.log(suggestionFilter);
 
         if (this.storage.getUser() != null) {
             this.apiService.makeSuggestion(this.storage.getUser().id).subscribe(
