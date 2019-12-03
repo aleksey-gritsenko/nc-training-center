@@ -39,6 +39,8 @@ import {ViewProfileComponent} from './components/view-profile/view-profile.compo
 import {EditProfileComponent} from './components/edit-profile/edit-profile.component';
 import {AddAdminComponent} from './components/add-admin/add-admin.component';
 import {DeactivateAccountComponent} from './components/deactivate-account/deactivate-account.component';
+import {TestcomponentComponent} from './components/testcomponent/testcomponent.component';
+import {CookieService} from 'ngx-cookie-service';
 
 @NgModule({
     declarations: [
@@ -75,7 +77,8 @@ import {DeactivateAccountComponent} from './components/deactivate-account/deacti
         ViewProfileComponent,
         EditProfileComponent,
         AddAdminComponent,
-        DeactivateAccountComponent
+        DeactivateAccountComponent,
+        TestcomponentComponent
     ],
 
     imports: [
@@ -85,7 +88,7 @@ import {DeactivateAccountComponent} from './components/deactivate-account/deacti
         AppRoutingModule
     ],
 
-    providers: [AuthenticationService],
+    providers: [AuthenticationService, CookieService],
     bootstrap: [AppComponent]
 })
 

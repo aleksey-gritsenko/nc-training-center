@@ -11,7 +11,9 @@ import {BookComponent} from './components/book/book.component';
 import {BooksListComponent} from "./components/books-list/books-list.component";
 import {AnnouncementComponent} from "./components/announcement/announcement.component";
 import {AnnouncementListComponent} from "./components/announcement-list/announcement-list.component";
-import  {AnnouncementPropositionComponent} from "./components/announcement-proposition/announcement-proposition.component";
+import {AnnouncementPropositionComponent} from "./components/announcement-proposition/announcement-proposition.component";
+import {TestCommand} from "@angular/cli/commands/test-impl";
+import {TestcomponentComponent} from "./components/testcomponent/testcomponent.component";
 
 const routes: Routes = [
     {
@@ -83,6 +85,10 @@ const routes: Routes = [
     {
         path: 'error',
         component: ErrorpageComponent
+    },
+    {
+        path: 'test',
+        component: TestcomponentComponent
     },
     {
         path: '',
