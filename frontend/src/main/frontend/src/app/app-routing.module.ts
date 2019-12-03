@@ -16,6 +16,7 @@ import {ReviewComponent} from "./components/review/review.component";
 import {UserBooksComponent} from "./components/user-books/user-books.component";
 import {ConfirmEmailComponent} from "./components/authorization/confirm-email/confirm-email.component";
 import {CalendarComponent} from "./components/calendar/calendar.component";
+import {SearchComponent} from "./components/search/search.component";
 
 const routes: Routes = [
     {
@@ -92,8 +93,12 @@ const routes: Routes = [
         component: UserProfileComponent
     },
     {
-        path: 'verify',
+        path: 'activate',
         component: ConfirmEmailComponent
+    },
+    {
+        path: 'search',
+        component: SearchComponent
     },
     {
         path: 'error',

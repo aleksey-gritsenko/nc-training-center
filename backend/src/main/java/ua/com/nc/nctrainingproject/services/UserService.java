@@ -6,6 +6,8 @@ import ua.com.nc.nctrainingproject.models.User;
 import ua.com.nc.nctrainingproject.persistance.dao.postgre.CodePostgreDAO;
 import ua.com.nc.nctrainingproject.persistance.dao.postgre.UserPostgreDAO;
 
+import java.util.List;
+
 @Service
 public class UserService {
     private final UserPostgreDAO userPostgreDAO;
@@ -65,5 +67,9 @@ public class UserService {
             return true;
         }
         return false;
+    }
+
+    public List<User> searchUsersByUsername(String search) {
+        return userPostgreDAO.searchUsersByUsername(search);
     }
 }
