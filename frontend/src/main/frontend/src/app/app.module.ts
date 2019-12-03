@@ -41,6 +41,7 @@ import {TruncateTextPipe} from './components/pipe/truncate-text.pipe';
 import {UserBooksComponent} from './components/user-books/user-books.component';
 import {ConfirmEmailComponent} from './components/authorization/confirm-email/confirm-email.component';
 import {UserMenuComponent} from "./components/user/user-menu/user-menu.component";
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
 
 @NgModule({
     declarations: [
@@ -87,7 +88,8 @@ import {UserMenuComponent} from "./components/user/user-menu/user-menu.component
         FormsModule,
         AppRoutingModule,
         CKEditorModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        MatButtonToggleModule
     ],
 
     providers: [AuthenticationService],

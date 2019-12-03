@@ -18,6 +18,11 @@
             <div class="alert alert-warning">
                 <div>Description: {{announcement.description}}</div>
                 <div>Date: {{announcement.announcementDate}}</div>
+                <div>book: {{announcement.bookID}}</div>
+
+            </div>
+            <div class="btn-default btn">
+                <a [routerLink]="['/books/book',announcement.bookID]">Book</a>
             </div>
             <button  class="btn btn-primary" (click)="getMoreInfo(announcement)">Publish
             </button>
@@ -25,3 +30,5 @@
     </ul>
 
 </div>
+
+

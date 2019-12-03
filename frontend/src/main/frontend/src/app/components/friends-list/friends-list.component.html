@@ -1,1 +1,88 @@
-<p>friends-list works!</p>
+<!--
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+<input type="checkbox" checked data-toggle="toggle" data-on="Hello<br>World" data-off="Goodbye<br>World">
+-->
+<!--a class="nav-link" routerLink="/announcement">
+    <i class="material-icons">favorite</i>
+    <p>New Announcement</p>
+</a-->
+<!--i class="material-icons">favorite</i>
+ <button  class="btn btn-primary" (click)="getMoreInfo(announcement)">Publish
+            </button>
+<i class="mdi mdi-favorite">friends</i-->
+<!--button  class="mdc-icon-button material-icons" >Friends
+</button-->
+<!--div class ="friends">
+<button  class="btn btn-primary" (click)="getAllFriends()"><i class="material-icons">favorite</i>
+    <p>Friends</p>
+</button>
+<li *ngFor="let friend of userFriends">
+    <div class="alert alert-warning">
+        <div>Name: {{friend.userName}}</div>
+        <div>email: {{friend.email}}</div>
+
+    </div>
+</div>
+<div class="new">
+<button  class="btn btn-primary" (click)="getNewApplications()"><i class="material-icons">face</i>
+    <p>New Commers</p>
+</button>
+<li *ngFor="let friend of newApplications">
+    <div class="alert alert-warning">
+        <div>Name: {{friend.userName}}</div>
+        <div>email: {{friend.email}}</div>
+
+    </div>
+    aria-label="Font Style"
+</div-->
+
+
+
+
+
+
+
+    <mat-button-toggle-group name="fontStyle" #group = "matButtonToggleGroup" >
+        <mat-button-toggle value="new"><i class="material-icons md-48">face</i>
+
+        </mat-button-toggle>
+        <mat-button-toggle value="all">
+            <i class="material-icons">favorite</i></mat-button-toggle>
+    </mat-button-toggle-group>
+<!--div
+    *ngIf {{group.value}}="bold">
+    <li *ngFor="let friend of newApplications">
+        <div class="alert alert-warning">
+            <div>Name: {{friend.userName}}</div>
+            <div>email: {{friend.email}}</div>
+
+        </div>
+        <div class="exam">Val : {{group.value}}</div>
+
+</div-->
+
+
+
+
+
+<div [ngSwitch]="group.value">
+    <ng-template ngSwitchCase="new">
+        <li *ngFor="let new of newApplications">
+            <div class="alert alert-warning">
+                <div>Name: {{new.userName}}</div>
+                <div>email: {{new.email}}</div>
+
+            </div>
+    </ng-template>
+    <ng-template ngSwitchCase="all">
+        <li *ngFor="let friend of userFriends">
+            <div class="alert alert-warning">
+                <div>Name: {{friend.userName}}</div>
+                <div>email: {{friend.email}}</div>
+
+            </div>
+
+    </ng-template>
+</div>`
+
