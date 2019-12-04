@@ -97,13 +97,16 @@ export class CommonService {
         return   this.http.post<Announcement>(url, announcement);
     }
     getFriends(): Observable<User[]> {
-        const url = `${this.localhost}/friends/all`;
+        const url = `${this.siteUrl}/friends/all`;
+       // const url = `${this.localhost}/friends/all`;
         const params = new HttpParams()
             .set('id', '1');
         return this.http.get<User[]>(url,{params:params});
     }
     getNewApplications(): Observable<User[]> {
-        const url = `${this.localhost}/friends/new`;
+        const url = `${this.siteUrl}/friends/new`;
+
+     //   const url = `${this.localhost}/friends/new`;
         const params = new HttpParams()
             .set('id', '1');
         return this.http.get<User[]>(url,{params:params});
