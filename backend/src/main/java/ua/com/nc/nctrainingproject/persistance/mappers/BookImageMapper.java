@@ -14,7 +14,7 @@ public class BookImageMapper implements RowMapper<BookImage> {
         BookImage bookImage = new BookImage();
 
         bookImage.setBookId(resultSet.getInt(BookFileManagementQuery.BOOK_ID));
-        bookImage.setImage(resultSet.getBinaryStream(BookFileManagementQuery.FILE));
+        bookImage.setImage(resultSet.getBytes(BookFileManagementQuery.FILE));
         return bookImage;
     }
 }

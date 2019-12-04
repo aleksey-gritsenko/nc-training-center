@@ -14,7 +14,7 @@ public class BookFileMapper implements RowMapper<BookFile> {
         BookFile bookFile = new BookFile();
 
         bookFile.setBookId(resultSet.getInt(BookFileManagementQuery.BOOK_ID));
-        bookFile.setFile(resultSet.getBinaryStream(BookFileManagementQuery.FILE));
+        bookFile.setFile(resultSet.getBytes(BookFileManagementQuery.FILE));
         return bookFile;
     }
 }

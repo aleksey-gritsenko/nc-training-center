@@ -5,11 +5,11 @@ import java.io.InputStream;
 
 public class BookFile extends Entity {
     private int bookId;
-    private InputStream file;
+    private byte[] file;
 
     public BookFile(){}
 
-    public BookFile(int bookId, InputStream file) {
+    public BookFile(int bookId, byte[] file) {
         this.bookId = bookId;
         this.file = file;
     }
@@ -22,11 +22,11 @@ public class BookFile extends Entity {
         this.bookId = bookId;
     }
 
-    public InputStream getFile() {
+    public byte[] getFile() {
         return file;
     }
 
-    public void setFile(InputStream file) {
+    public void setFile(byte[] file) {
         this.file = file;
     }
 }
