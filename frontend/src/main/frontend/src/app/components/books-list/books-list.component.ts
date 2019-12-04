@@ -26,6 +26,8 @@ export class BooksListComponent implements OnInit{
 
     userBooks : UserBook[] = [];
     userBookList: Book[] = [];
+    userFavBookList: Book[] = [];
+    userReadBookList: Book[] = [];
     book: Book;
 
     model : Book = {
@@ -63,9 +65,8 @@ export class BooksListComponent implements OnInit{
     }
 
     getUsersBookList(){
-        if (this.storage.getUser() == null) {
-            this.router.navigate(['/login']);
-        }
+        this.checkPresentUser();
+
         let userBook: UserBook = new UserBook();
         userBook.userId = this.storage.getUser().id;
         //userBook.bookId = this.book.id;
@@ -79,6 +80,46 @@ export class BooksListComponent implements OnInit{
                 console.log(userBook);
                 console.log(this.userBookList);
                 console.log("Error in getting all users books")
+            }
+        );
+    }
+
+    getAllFavouriteBooks(){
+        this.checkPresentUser();
+        this.router.navigate(['/userBooks/read']);
+        let userBook: UserBook = new UserBook();
+        userBook.userId = this.storage.getUser().id;
+        //userBook.bookId = this.book.id;
+        this.apiService.getAllFavouriteBooks(userBook).subscribe(
+            res => {
+                console.log(userBook);
+                console.log(res);
+                this.userFavBookList = res;
+            },
+            err => {
+                console.log(userBook);
+                console.log(this.userFavBookList);
+                console.log("Error in getting all favourite users books")
+            }
+        );
+    }
+
+    getAllReadBooks(){
+        this.checkPresentUser();
+        this.router.navigate(['/userBooks/favourite']);
+        let userBook: UserBook = new UserBook();
+        userBook.userId = this.storage.getUser().id;
+        //userBook.bookId = this.book.id;
+        this.apiService.getAllReadBooks(userBook).subscribe(
+            res => {
+                console.log(userBook);
+                console.log(res);
+                this.userReadBookList = res;
+            },
+            err => {
+                console.log(userBook);
+                console.log(this.userReadBookList);
+                console.log("Error in getting all read users books")
             }
         );
     }
@@ -233,8 +274,15 @@ export class BooksListComponent implements OnInit{
     filterGenre(char:string){
         this.filterGenres = this.selectedGenres.filter(genre=>genre.name.charAt(0).toUpperCase()==char);
     }
+
     filterAuthor(char:string){
         this.filterAuthors = this.selectedAuthors.filter(author=>author.name.charAt(0).toUpperCase()==char);
+    }
+
+    checkPresentUser(){
+        if (this.storage.getUser() == null) {
+            this.router.navigate(['/login']);
+        }
     }
 }
 

@@ -88,6 +88,14 @@ const routes: Routes = [
         component: BookComponent
     },
     {
+        path: 'userBooks/read',
+        component: BooksListComponent
+    },
+    {
+        path: 'userBooks/favourite',
+        component: BooksListComponent
+    },
+    {
         path: 'user/:id',
         component: UserProfileComponent
     },
