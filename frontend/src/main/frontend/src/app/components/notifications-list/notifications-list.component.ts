@@ -1,3 +1,4 @@
+/*
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {WebSocketAPI} from "../../websocket/webSocketAPI";
 
@@ -40,3 +41,4 @@ export class NotificationsListComponent implements OnInit, OnDestroy {
         this.messages.unshift(JSON.parse(message.body)['message']);
     }
 }
+*/

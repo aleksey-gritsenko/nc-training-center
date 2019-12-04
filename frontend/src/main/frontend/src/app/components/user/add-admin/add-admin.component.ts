@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {User} from "../../../models/user";
 import {UserService} from "../../../services/user/user.service";
+import {StorageService} from "../../../services/storage/storage.service";
 
 @Component({
     selector: 'app-add-admin',
@@ -10,8 +11,13 @@ import {UserService} from "../../../services/user/user.service";
 export class AddAdminComponent implements OnInit {
     admin: User = new User();
     repeatPassword: string;
+    user: User;
 
-    constructor(private userService: UserService) {
+    editStatus: string;
+
+    constructor(private userService: UserService,
+                private storageService: StorageService) {
+        this.user = storageService.getUser();
     }
 
     ngOnInit() {
@@ -22,6 +28,14 @@ export class AddAdminComponent implements OnInit {
     }
 
     createAdmin() {
-        this.userService.createAdmin(this.admin).toPromise().then();
+        this.userService.createAdmin(this.admin).toPromise()
+            .then(
+                response => {
+                    this.editStatus = 'success';
+                },
+                error => {
+                    this.editStatus = 'error';
+                }
+            );
     }
 }

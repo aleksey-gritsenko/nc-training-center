@@ -77,9 +77,21 @@ public class UserPostgreDAO extends AbstractDAO<User> {
     public void activateAccount(String email) {
         jdbcTemplate.update(UserQuery.UPDATE_STATUS_BY_EMAIL, true, email);
     }
-        public void checkAccountActivation ( int hours){
-            jdbcTemplate.update(UserQuery.CHECK_ACCOUNT_ACTIVATION, hours);
 
-        }
+    public void checkAccountActivation(int hours) {
+        jdbcTemplate.update(UserQuery.CHECK_ACCOUNT_ACTIVATION, hours);
 
+    }
+
+    public List<User> getUsersByRole(String userRole) {
+        return jdbcTemplate.query(UserQuery.GET_USERS_BY_ROLE, new UserRowMapper(), userRole);
+    }
+
+    public void deactivateAccount(int id) {
+        jdbcTemplate.update(UserQuery.DEACTIVATE_ACCOUNT, false, id);
+    }
+
+    public List<User> searchUsersByUsername(String search) {
+        return jdbcTemplate.query(UserQuery.SEARCH_USERS_BY_USERNAME, new UserRowMapper(), "%"+search+"%");
+    }
 }

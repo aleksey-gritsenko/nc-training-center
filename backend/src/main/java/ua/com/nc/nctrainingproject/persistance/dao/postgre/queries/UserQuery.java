@@ -40,6 +40,7 @@ public class  UserQuery {
 	public static final String CREATE_ADMIN = "INSERT INTO " + TABLE_NAME
 			+ " (" + USERNAME + "," + USER_PASSWORD + "," + EMAIL + "," + ROLE + ")" + " VALUES(?,?,?,?)";
 
+	public static final String GET_USERS_BY_ROLE = "SELECT * FROM " + TABLE_NAME + " WHERE " + ROLE + " =(?)";
 
 	public static final String UPDATE_STATUS_BY_EMAIL = "UPDATE " + TABLE_NAME + " SET " +
 			STATUS + " =(?)  " +
@@ -48,5 +49,11 @@ public class  UserQuery {
 
 	public static final String CHECK_ACCOUNT_ACTIVATION = "DELETE FROM " + TABLE_NAME + " WHERE verified = FALSE AND " +
 			"date_part(\'hour\', CURRENT_TIMESTAMP - reg_time) >= (?)";
+
+	public static final String DEACTIVATE_ACCOUNT = "UPDATE " + TABLE_NAME + " SET " + ACTIVATED + " =(?) " +
+			"WHERE " + ID + " =(?)";
+
+	public static final String SEARCH_USERS_BY_USERNAME = "SELECT * FROM " + TABLE_NAME + " WHERE LOWER(" + USERNAME +
+            ") LIKE (?)";
 }
 
