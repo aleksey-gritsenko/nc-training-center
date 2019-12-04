@@ -47,6 +47,8 @@ import {ConfirmEmailComponent} from './components/authorization/confirm-email/co
 import { UserFavouriteBooksComponent } from './components/user/user-favourite-books/user-favourite-books.component';
 import { UserReadBooksComponent } from './components/user/user-read-books/user-read-books.component';
 import {SearchComponent} from './components/search/search.component';
+import {AddAchievmentComponent} from './components/user/add-achievment/add-achievment.component';
+
 //import {NotificationsListComponent} from "./components/notifications-list/notifications-list.component";
 
 @NgModule({
@@ -84,11 +86,11 @@ import {SearchComponent} from './components/search/search.component';
         DeactivateAccountComponent,
         TruncateTextPipe,
         ConfirmEmailComponent,
-        UserBooksComponent,
         UserFavouriteBooksComponent,
         UserReadBooksComponent,
         UserBooksComponent,
-        SearchComponent
+        SearchComponent,
+        AddAchievmentComponent
     ],
 
     imports: [

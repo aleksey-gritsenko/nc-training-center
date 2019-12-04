@@ -54,6 +54,6 @@ public class  UserQuery {
 			"WHERE " + ID + " =(?)";
 
 	public static final String SEARCH_USERS_BY_USERNAME = "SELECT * FROM " + TABLE_NAME + " WHERE " + USERNAME + " LIKE "
-			+ "'%(?)%'";
+			+ "(?)";
 }
 

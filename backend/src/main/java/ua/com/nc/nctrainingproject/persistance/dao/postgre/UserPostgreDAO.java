@@ -92,6 +92,6 @@ public class UserPostgreDAO extends AbstractDAO<User> {
     }
 
     public List<User> searchUsersByUsername(String search) {
-        return jdbcTemplate.query(UserQuery.SEARCH_USERS_BY_USERNAME, new UserRowMapper(), search);
+        return jdbcTemplate.query(UserQuery.SEARCH_USERS_BY_USERNAME, new UserRowMapper(), "%"+search+"%");
     }
 }

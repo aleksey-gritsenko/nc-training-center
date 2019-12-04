@@ -37,7 +37,7 @@ public class UserService {
     public User getById(int id) {
         User user = userPostgreDAO.getUserById(id);
 
-        return user.isActivated() ? user : null;
+        return user != null && user.isActivated() ? user : null;
     }
 
     public User createAdmin(User admin) {
