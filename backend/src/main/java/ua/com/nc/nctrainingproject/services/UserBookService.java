@@ -57,12 +57,12 @@ public class UserBookService {
 		return userBook;
 	}
 
-	public List<Book> getAllFavouriteBooks(UserBook userBook) {
-		return userBooksPostgreDAO.getAllFavouriteBooks(userBook.getUserId());
+	public List<Book> getAllFavouriteBooks(int userId) {
+		return userBooksPostgreDAO.getAllFavouriteBooks(userId);
 	}
 
-	public List<Book> getAllReadBooks(UserBook userBook) {
-		return userBooksPostgreDAO.getAllReadBooks(userBook.getUserId());
+	public List<Book> getAllReadBooks(int userId) {
+		return userBooksPostgreDAO.getAllReadBooks(userId);
 	}
 }
 

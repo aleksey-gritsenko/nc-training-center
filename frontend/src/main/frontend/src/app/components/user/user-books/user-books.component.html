@@ -8,26 +8,26 @@
             <input class="form-control col-3" type="text" [(ngModel)]="curBookList.searchTitle" placeholder="Search..." name="header">
             <button class="btn btn-primary" (click)="curBookList.searchByTitle()">Search</button>
         </div>
-        <div>
+      <!--  <div>-->
             <div>
                 <button class="btn btn-primary" (click)="curBookList.getAllFavouriteBooks()">My Favourite Books</button>
                 <div class="row">
-                    <div *ngFor="let book of curBookList.userFavBookList" class="col-lg-4  col-md-6">
+                    <div *ngFor="let favBook of curBookList.userFavBookList" class="col-lg-4  col-md-6">
                         <div class="card card-profile">
                             <div class="card-body">
                                 <div class="card-title">
-                                    <h3><a  [routerLink]="['book', book.id]"> {{book.header}}</a></h3>
+                                    <h3><a  [routerLink]="['book', favBook.id]"> {{favBook.header}}</a></h3>
                                 </div>
                                 <div class="card-description">
-                                    <div>Overview: {{book.overview}}</div>
-                                    <div>Status: {{book.status}}</div>
+                                    <div>Overview: {{favBook.overview}}</div>
+                                    <div>Status: {{favBook.status}}</div>
                                     <div>
                                         <div>Authors:</div>
-                                        <div *ngFor="let author of book.authors ">
+                                        <div *ngFor="let author of favBook.authors ">
                                             <div>{{author.name}}</div>
                                         </div>
                                     </div>
-                                    <div *ngIf="book.genre">Genre: {{book.genre}}</div>
+                                    <div *ngIf="favBook.genre">Genre: {{favBook.genre}}</div>
                                 </div>
                             </div>
                         </div>
@@ -37,22 +37,22 @@
             <div>
                 <button class="btn btn-primary" (click)="curBookList.getAllReadBooks()">My Read Books</button>
                 <div class="row">
-                    <div *ngFor="let book of curBookList.userReadBookList" class="col-lg-4  col-md-6">
+                    <div *ngFor="let readBook of curBookList.userReadBookList" class="col-lg-4  col-md-6">
                         <div class="card card-profile">
                             <div class="card-body">
                                 <div class="card-title">
-                                    <h3><a  [routerLink]="['book', book.id]"> {{book.header}}</a></h3>
+                                    <h3><a  [routerLink]="['book', readBook.id]"> {{readBook.header}}</a></h3>
                                 </div>
                                 <div class="card-description">
-                                    <div>Overview: {{book.overview}}</div>
-                                    <div>Status: {{book.status}}</div>
+                                    <div>Overview: {{readBook.overview}}</div>
+                                    <div>Status: {{readBook.status}}</div>
                                     <div>
                                         <div>Authors:</div>
-                                        <div *ngFor="let author of book.authors ">
+                                        <div *ngFor="let author of readBook.authors ">
                                             <div>{{author.name}}</div>
                                         </div>
                                     </div>
-                                    <div *ngIf="book.genre">Genre: {{book.genre}}</div>
+                                    <div *ngIf="readBook.genre">Genre: {{readBook.genre}}</div>
                                 </div>
                             </div>
                         </div>
@@ -89,7 +89,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+   <!--     </div>-->
     </div>
 
     <div class="col-3">
