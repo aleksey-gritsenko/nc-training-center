@@ -17,6 +17,8 @@ import {UserBooksComponent} from "./components/user/user-books/user-books.compon
 import {ConfirmEmailComponent} from "./components/authorization/confirm-email/confirm-email.component";
 import {CalendarComponent} from "./components/calendar/calendar.component";
 import {SearchComponent} from "./components/search/search.component";
+import {UserFavouriteBooksComponent} from "./components/user/user-favourite-books/user-favourite-books.component";
+import {UserReadBooksComponent} from "./components/user/user-read-books/user-read-books.component";
 
 const routes: Routes = [
     {
@@ -86,6 +88,22 @@ const routes: Routes = [
     },
     {
         path: 'userBooks/book/:bookId',
+        component: BookComponent
+    },
+    {
+        path: 'userBooks/read',
+        component: UserReadBooksComponent
+    },
+    {
+        path: 'userBooks/read/book/:bookId',
+        component: BookComponent
+    },
+    {
+        path: 'userBooks/favourite',
+        component: UserFavouriteBooksComponent
+    },
+    {
+        path: 'userBooks/favourite/book/:bookId',
         component: BookComponent
     },
     {

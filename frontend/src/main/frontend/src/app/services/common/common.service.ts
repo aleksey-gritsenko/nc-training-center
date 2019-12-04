@@ -208,20 +208,20 @@ export class CommonService {
         return this.http.post<UserBook>(url, userBook);
     }
 
-    getAllFavouriteBooks(userBook: UserBook): Observable<UserBook[]> {
+    getAllFavouriteBooks(userBook: UserBook): Observable<Book[]> {
         const params = new HttpParams()
             .set('userId', userBook.userId.toString());
         const url = `${this.userBookUrl}/all/favourite`;
         //const url = `${this.localhost}/userBook/all/favourite`;
-        return this.http.get<UserBook[]>(url, {params: params});
+        return this.http.get<Book[]>(url, {params: params});
     }
 
-    getAllReadBooks(userBook: UserBook): Observable<UserBook[]>{
+    getAllReadBooks(userBook: UserBook): Observable<Book[]>{
         const params = new HttpParams()
             .set('userId',userBook.userId.toString());
         const url = `${this.userBookUrl}/all/read`;
         //const url = `${this.localhost}/userBook/all/read`;
-        return this.http.get<UserBook[]>(url, {params:params});
+        return this.http.get<Book[]>(url, {params:params});
     }
 
     removeFromFavourite(userBook: UserBook): Observable<UserBook>{
