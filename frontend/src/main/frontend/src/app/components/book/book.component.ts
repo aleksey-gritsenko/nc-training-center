@@ -20,6 +20,7 @@ export class BookComponent implements OnInit {
     suggestionBook:Book[] = [];
     bookId: any;
 
+    //TODO check with model UserBook, not with boolean
     userAddedBook: boolean = true;
     userAddedToRead: boolean = true;
     userAddedToFav: boolean = true;

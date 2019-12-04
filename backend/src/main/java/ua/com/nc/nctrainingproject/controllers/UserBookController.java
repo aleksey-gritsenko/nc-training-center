@@ -42,7 +42,6 @@ public class UserBookController {
 
 	@RequestMapping(value = "/all/read", method = RequestMethod.GET)
 	public ResponseEntity<?> getAllReadBooks(@RequestParam(name = "userId") int userId) {
-		System.out.println("READ CONTROLLER");
 		List<Book> response = userBookService.getAllReadBooks(userId);
 		return Optional.ofNullable(response).map(ResponseEntity::ok).orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
 	}

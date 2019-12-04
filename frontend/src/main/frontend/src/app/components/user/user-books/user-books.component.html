@@ -10,7 +10,7 @@
         </div>
       <!--  <div>-->
             <div>
-                <button class="btn btn-primary" (click)="curBookList.getAllFavouriteBooks()">My Favourite Books</button>
+                <button class="btn btn-primary" (click)="router.navigate(['/userBooks/favourite'])">My Favourite Books</button>
                 <div class="row">
                     <div *ngFor="let favBook of curBookList.userFavBookList" class="col-lg-4  col-md-6">
                         <div class="card card-profile">
@@ -35,7 +35,7 @@
                 </div>
             </div>
             <div>
-                <button class="btn btn-primary" (click)="curBookList.getAllReadBooks()">My Read Books</button>
+                <button class="btn btn-primary" (click)="router.navigate(['/userBooks/read'])">My Read Books</button>
                 <div class="row">
                     <div *ngFor="let readBook of curBookList.userReadBookList" class="col-lg-4  col-md-6">
                         <div class="card card-profile">

@@ -58,6 +58,10 @@ export class BooksListComponent implements OnInit{
     }
 
     ngOnInit() {
+        this.getUsersBookList();
+        this.getAllReadBooks();
+        this.getAllFavouriteBooks();
+
         this.getBooks();
         this.addBookVisible = false;
         this.getAllAuthor();
@@ -86,7 +90,7 @@ export class BooksListComponent implements OnInit{
 
     getAllFavouriteBooks(){
         this.checkPresentUser();
-        this.router.navigate(['/userBooks/read']);
+
         let userBook: UserBook = new UserBook();
         userBook.userId = this.storage.getUser().id;
         //userBook.bookId = this.book.id;
@@ -94,6 +98,8 @@ export class BooksListComponent implements OnInit{
             res => {
                 console.log(userBook);
                 console.log(res);
+                console.log("THIS IS HERE");
+                console.log(this.userFavBookList);
                 this.userFavBookList = res;
             },
             err => {
@@ -102,11 +108,12 @@ export class BooksListComponent implements OnInit{
                 console.log("Error in getting all favourite users books")
             }
         );
+        //this.router.navigate(['/userBooks/favourite']);
     }
 
     getAllReadBooks(){
         this.checkPresentUser();
-        this.router.navigate(['/userBooks/favourite']);
+
         let userBook: UserBook = new UserBook();
         userBook.userId = this.storage.getUser().id;
         //userBook.bookId = this.book.id;
@@ -122,6 +129,7 @@ export class BooksListComponent implements OnInit{
                 console.log("Error in getting all read users books")
             }
         );
+        //this.router.navigate(['/userBooks/read']);
     }
 
 

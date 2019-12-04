@@ -8,7 +8,6 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { CommonModule } from '@angular/common';
 import { FlatpickrModule } from 'angularx-flatpickr';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
-
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {NavigationComponent} from './components/navigation/navigation.component';
@@ -45,6 +44,8 @@ import {CKEditorModule} from "@ckeditor/ckeditor5-angular";
 import {TruncateTextPipe} from './components/pipe/truncate-text.pipe';
 import {UserBooksComponent} from './components/user/user-books/user-books.component';
 import {ConfirmEmailComponent} from './components/authorization/confirm-email/confirm-email.component';
+import { UserFavouriteBooksComponent } from './components/user/user-favourite-books/user-favourite-books.component';
+import { UserReadBooksComponent } from './components/user/user-read-books/user-read-books.component';
 //import {NotificationsListComponent} from "./components/notifications-list/notifications-list.component";
 
 
@@ -83,7 +84,9 @@ import {ConfirmEmailComponent} from './components/authorization/confirm-email/co
         DeactivateAccountComponent,
         TruncateTextPipe,
         ConfirmEmailComponent,
-        UserBooksComponent
+        UserBooksComponent,
+        UserFavouriteBooksComponent,
+        UserReadBooksComponent,
     ],
 
     imports: [
