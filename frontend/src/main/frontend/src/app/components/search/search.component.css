@@ -1,0 +1,40 @@
+.content {
+    margin-left: 260px;
+    padding-top: 61px;
+    color: white;
+}
+
+h3 {
+    margin-top: 10px;
+}
+
+.user-search > .card-header-primary {
+    width: 10%;
+    text-align: center;
+}
+
+.card-header-primary {
+    font-size: 20px;
+}
+
+.users-list {
+    padding: 10px 0;
+    background-color: #988d09;
+    text-align: center;
+    border-radius: 30px;
+    cursor: pointer;
+}
+
+.users-list:hover {
+    background-color: #bdb209;
+}
+
+.users-list a {
+    font-size: 20px;
+    color: white;
+}
+
+.btn {
+    box-shadow: none !important;
+    border-radius: 10px;
+}

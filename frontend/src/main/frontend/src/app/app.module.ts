@@ -46,6 +46,7 @@ import {TruncateTextPipe} from './components/pipe/truncate-text.pipe';
 import {UserBooksComponent} from './components/user/user-books/user-books.component';
 import {ConfirmEmailComponent} from './components/authorization/confirm-email/confirm-email.component';
 import {SearchComponent} from './components/search/search.component';
+import {AddAchievmentComponent} from './components/user/add-achievment/add-achievment.component';
 
 //import {NotificationsListComponent} from "./components/notifications-list/notifications-list.component";
 
@@ -86,7 +87,8 @@ import {SearchComponent} from './components/search/search.component';
         TruncateTextPipe,
         ConfirmEmailComponent,
         UserBooksComponent,
-        SearchComponent
+        SearchComponent,
+        AddAchievmentComponent
     ],
 
     imports: [
