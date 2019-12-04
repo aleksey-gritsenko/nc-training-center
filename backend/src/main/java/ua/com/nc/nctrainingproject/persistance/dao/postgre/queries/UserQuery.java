@@ -53,7 +53,7 @@ public class  UserQuery {
 	public static final String DEACTIVATE_ACCOUNT = "UPDATE " + TABLE_NAME + " SET " + ACTIVATED + " =(?) " +
 			"WHERE " + ID + " =(?)";
 
-	public static final String SEARCH_USERS_BY_USERNAME = "SELECT * FROM " + TABLE_NAME + " WHERE " + USERNAME + " LIKE "
-			+ "(?)";
+	public static final String SEARCH_USERS_BY_USERNAME = "SELECT * FROM " + TABLE_NAME + " WHERE LOWER(" + USERNAME +
+            ") LIKE (?)";
 }
 

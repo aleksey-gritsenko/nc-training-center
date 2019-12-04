@@ -58,6 +58,6 @@ public class UserController {
 	@RequestMapping(method = RequestMethod.GET, value = "/search/{searchName}")
 	public ResponseEntity<?> searchUsers(@PathVariable(value = "searchName") String searchName) {
 		List<User> response = userService.searchUsersByUsername(searchName);
-		return Optional.ofNullable(response).map(ResponseEntity::ok).orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
+		return response.isEmpty() ? new ResponseEntity<>(HttpStatus.BAD_REQUEST) : ResponseEntity.ok(response);
 	}
 }

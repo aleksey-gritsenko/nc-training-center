@@ -178,4 +178,10 @@ export class UserService {
 
         return this.http.get<userSearch[]>(url);
     }
+
+    getAll() {
+        let url = `${this.siteUrl}/user/get/all`;
+
+        return this.http.get<userSearch[]>(url);
+    }
 }

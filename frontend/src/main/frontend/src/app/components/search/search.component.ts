@@ -30,8 +30,7 @@ export class SearchComponent implements OnInit, OnDestroy {
         });
         this.routSubscription = this.route.queryParams.subscribe(
             param => {
-                if (param.search) {
-                    console.log(param.search);
+                if (param.search.length > 0) {
                     this.search = param.search;
                     this.userService.searchByUsername(this.search).toPromise().then(
                         res => {
@@ -40,8 +39,7 @@ export class SearchComponent implements OnInit, OnDestroy {
                         () => {
                             this.userModel = null;
                         });
-                }
-                else this.search = '';
+                } else this.search = null;
             })
     }
 
