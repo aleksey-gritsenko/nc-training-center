@@ -14,12 +14,13 @@ export class UserProfileComponent implements OnInit, OnDestroy {
     isOpen: string; // Which tab is open
 
     userSubscription: Subscription;
+    // routSubscription: Subscription;
 
     currentUser: User; //The user in the system
     isCurrUserAnAdmin: boolean;
     isThisCurrUserProfile: boolean;
     isAllowedToChange: boolean;
-    isAllowedToAddAgent: boolean;
+    isAllowedToAdd: boolean;
     isAllowedToDeactivate: boolean;
 
     user: User = new User(); //The user page we look at
@@ -47,7 +48,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
                 this.user = this.currentUser;
                 this.isThisCurrUserProfile = true;
                 this.isAllowedToChange = this.currentUser.userRole == 'user' || this.currentUser.userRole == 'super';
-                this.isAllowedToAddAgent = this.currentUser.userRole == 'super' || this.currentUser.userRole == 'admin';
+                this.isAllowedToAdd = this.currentUser.userRole == 'super' || this.currentUser.userRole == 'admin';
                 this.isAllowedToDeactivate = false;
             }
         })
@@ -73,5 +74,6 @@ export class UserProfileComponent implements OnInit, OnDestroy {
 
     ngOnDestroy(): void {
         this.userSubscription.unsubscribe();
+        // this.routSubscription.unsubscribe();
     }
 }
