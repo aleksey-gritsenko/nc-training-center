@@ -50,6 +50,7 @@
                         </td>
                     </tr>
                 </table>
+                <app-file-upload [book]="book"></app-file-upload>
                 <button [disabled]="!bookForm.valid" class="btn btn-default" (click)="updateBook()">Save changes</button>
                 <div class="btn-default btn">
                     <a [routerLink]="['/books',book.id,'announcement']">Create announcement</a>

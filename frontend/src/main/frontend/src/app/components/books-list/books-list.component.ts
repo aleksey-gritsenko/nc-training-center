@@ -56,11 +56,13 @@ export class BooksListComponent implements OnInit{
 
     }
 
-    ngOnInit() {
-        this.getUsersBookList();
-        this.getAllReadBooks();
-        this.getAllFavouriteBooks();
 
+    ngOnInit() {
+        if(this.storage.getUser()!=null) {
+            this.getUsersBookList();
+            this.getAllReadBooks();
+            this.getAllFavouriteBooks();
+        }
         this.getBooks();
         this.addBookVisible = false;
         this.getAllAuthor();
