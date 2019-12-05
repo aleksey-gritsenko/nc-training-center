@@ -94,4 +94,20 @@ public class UserPostgreDAO extends AbstractDAO<User> {
     public List<User> searchUsersByUsername(String search) {
         return jdbcTemplate.query(UserQuery.SEARCH_USERS_BY_USERNAME, new UserRowMapper(), "%"+search+"%");
     }
+
+    public List<User> getAllAdmins() {
+        return jdbcTemplate.query(UserQuery.GET_ALL_ADMINS, new UserRowMapper());
+    }
+
+    public List<User> getAllModerators() {
+        return jdbcTemplate.query(UserQuery.GET_ALL_MODERATORS, new UserRowMapper());
+    }
+
+    public List<User> getActivatedModerators() {
+        return jdbcTemplate.query(UserQuery.GET_MODERATORS_BY_ACTIVATED, new UserRowMapper());
+    }
+
+    public List<User> getActivatedAdmins() {
+        return jdbcTemplate.query(UserQuery.GET_ADMIN_BY_ACTIVATED, new UserRowMapper());
+    }
 }
