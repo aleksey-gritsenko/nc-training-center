@@ -1,8 +1,5 @@
 package ua.com.nc.nctrainingproject.controllers;
 
-import com.sun.media.jfxmedia.Media;
-import javafx.scene.shape.Path;
-import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -15,9 +12,9 @@ import ua.com.nc.nctrainingproject.persistance.dao.postgre.queries.FilterCriteri
 import ua.com.nc.nctrainingproject.services.BookFileManagementService;
 import ua.com.nc.nctrainingproject.services.BookService;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
