@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {CommonService} from "../../services/common/common.service";
 import {User} from "../../models/user";
+import {StorageService} from "../../services/storage/storage.service";
 
 @Component({
     selector: 'app-friends-list',
@@ -10,10 +11,12 @@ import {User} from "../../models/user";
 export class FriendsListComponent implements OnInit {
     userFriends :User[]=[];
     newApplications:User[]=[];
-    constructor(private apiService: CommonService) {
+    currentUser:User;
+    constructor(private apiService: CommonService,private storage: StorageService) {
     }
 
     ngOnInit() {
+       // this.currentUser = this.storage.getUser();
         this.getNewApplications();
         this.getAllFriends();
     }
@@ -23,7 +26,7 @@ export class FriendsListComponent implements OnInit {
                 this.userFriends = res;
             },
             err => {
-                alert("Error in getting all announcements");
+                alert("Error in getting new friends");
             })
     }
     getNewApplications(){
@@ -32,7 +35,7 @@ export class FriendsListComponent implements OnInit {
                 this.newApplications = res;
             },
             err => {
-                alert("Error in getting all announcements");
+                alert("Error in getting all friends");
             })
     }
     addFriends(){

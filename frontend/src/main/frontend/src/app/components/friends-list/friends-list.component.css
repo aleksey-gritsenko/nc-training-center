@@ -3,15 +3,32 @@
 }
 
 
-.friends {
-    width: 150px;
-    background: #ccc;
+
+ li {
+    list-style-type: none;
+
+
+}
+
+
+.new {
+    width: 200px;
+    background: #FFD700	;
     padding: 5px;
     padding-right: 20px;
-    border: solid 1px black;
     border-radius: 50px;
     margin-left:200px;
+    opacity: .7;
+    border: none;
+    text-align: center;
+    float: left;
+
 }
+.letter {
+    color: lightyellow;
+    font-size: 100%;
+}
+
 .icon{
     margin-top:10px;
     width: 70px;
@@ -22,6 +39,6 @@
     margin-left:10px;
     padding-left:10px;
     float: right;
-    width: 70px;
+
 
 }

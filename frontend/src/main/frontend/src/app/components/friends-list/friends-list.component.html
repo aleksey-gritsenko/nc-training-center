@@ -44,11 +44,10 @@
 
 
     <mat-button-toggle-group name="fontStyle" #group = "matButtonToggleGroup" >
-        <mat-button-toggle value="new"><i class="material-icons md-48">face</i>
 
-        </mat-button-toggle>
         <mat-button-toggle value="all">
-            <i class="material-icons">favorite</i></mat-button-toggle>
+            <i class="material-icons">favorite</i> Friends </mat-button-toggle>
+        <mat-button-toggle value="new"><i class="material-icons md-48">face</i> New commers </mat-button-toggle>
     </mat-button-toggle-group>
 <!--div
     *ngIf {{group.value}}="bold">
@@ -64,29 +63,34 @@
 
 
 
-
-
 <div [ngSwitch]="group.value">
     <ng-template ngSwitchCase="new">
+
         <li *ngFor="let new of newApplications">
-            <div class="friends">
+            <div class="alert alert-warning">
 
-                <div class ="name">{{new.userName}}</div>
-
-
-            <a routerLink="/user/{{new.id}}">
-                <div class="icon"> <i class="material-icons">account_circle</i></div></a>
+                <div class ="name">{{new.email}}</div>
 
 
+                <div routerLink="/user/{{new.id}}">
+                    <span class="letter">   <a>{{new.userName}}</a> </span>
+                </div>
             </div>
+        </li>
+
+
     </ng-template>
     <ng-template ngSwitchCase="all">
         <li *ngFor="let friend of userFriends">
             <div class="alert alert-warning">
-                <div>Name: {{friend.userName}}</div>
-                <div>email: {{friend.email}}</div>
+                <div class ="name">{{friend.email}}</div>
 
+                <div routerLink="/user/{{friend.id}}">
+                    <span class="letter"><a>{{friend.userName}}</a></span>
+                </div>
             </div>
+        </li>
+
 
     </ng-template>
 </div>`
