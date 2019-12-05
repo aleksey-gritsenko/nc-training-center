@@ -10,9 +10,10 @@ import java.util.List;
 
 @Service
 public class UserService {
-    private final UserPostgreDAO userPostgreDAO;
-    private final CodePostgreDAO codePostgreDAO;
 
+    private final UserPostgreDAO userPostgreDAO;
+
+    private final CodePostgreDAO codePostgreDAO;
 
     @Autowired
     UserService(UserPostgreDAO userPostgreDAO, CodePostgreDAO codePostgreDAO) {
@@ -71,5 +72,21 @@ public class UserService {
 
     public List<User> searchUsersByUsername(String search) {
         return userPostgreDAO.searchUsersByUsername(search);
+    }
+
+    public List<User> getAllAdmins(){
+        return userPostgreDAO.getAllAdmins();
+    }
+
+    public List<User> getAllModerators(){
+        return userPostgreDAO.getAllModerators();
+    }
+
+    public List<User> getActivatedModerators(){
+        return userPostgreDAO.getActivatedModerators();
+    }
+
+    public List<User> getActivatedAdmins(){
+        return userPostgreDAO.getActivatedAdmins();
     }
 }

@@ -60,4 +60,28 @@ public class UserController {
 		List<User> response = userService.searchUsersByUsername(searchName);
 		return response.isEmpty() ? new ResponseEntity<>(HttpStatus.BAD_REQUEST) : ResponseEntity.ok(response);
 	}
+
+	@RequestMapping(method = RequestMethod.GET, value = "/allAdmins")
+	public ResponseEntity<?> getAdmins() {
+		List<User> response = userService.getAllAdmins();
+		return response.isEmpty() ? new ResponseEntity<>(HttpStatus.BAD_REQUEST) : ResponseEntity.ok(response);
+	}
+
+	@RequestMapping(method = RequestMethod.GET, value = "/allModer")
+	public ResponseEntity<?> getModerators() {
+		List<User> response = userService.getAllModerators();
+		return response.isEmpty() ? new ResponseEntity<>(HttpStatus.BAD_REQUEST) : ResponseEntity.ok(response);
+	}
+
+	@RequestMapping(method = RequestMethod.GET, value = "/allActivatedModer")
+	public ResponseEntity<?> getActivatedModerators() {
+		List<User> response = userService.getActivatedModerators();
+		return response.isEmpty() ? new ResponseEntity<>(HttpStatus.BAD_REQUEST) : ResponseEntity.ok(response);
+	}
+
+	@RequestMapping(method = RequestMethod.GET, value = "/allActivatedAdmin")
+	public ResponseEntity<?> getActivatedAdmins() {
+		List<User> response = userService.getActivatedAdmins();
+		return response.isEmpty() ? new ResponseEntity<>(HttpStatus.BAD_REQUEST) : ResponseEntity.ok(response);
+	}
 }
