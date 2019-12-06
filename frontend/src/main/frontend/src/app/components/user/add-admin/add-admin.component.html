@@ -9,8 +9,8 @@
                 <div class="col-md-6">
                     <label for="Role">Role</label>
                     <select [(ngModel)]="admin.userRole" class=" custom-select" id="Role" name="Role">
-                        <option>admin</option>
-                        <option>moderator</option>
+                        <option *ngIf="user.userRole == 'super'">admin</option>
+                        <option *ngIf="user.userRole == 'super' || user.userRole == 'admin'">moderator</option>
                     </select>
                 </div>
                 <div *ngIf="admin.userRole == 'moderator'" class="col-md-6">
@@ -46,6 +46,14 @@
                         <label class="bmd-label-floating">Repeat Password</label>
                         <input class="form-control" name="repeat password" type="password" [(ngModel)]="repeatPassword">
                     </div>
+                </div>
+            </div>
+            <div [ngSwitch]="editStatus">
+                <div class="alert alert-success text-center" role="alert" *ngSwitchCase="'success'">
+                    Success! The agent has been created
+                </div>
+                <div class="alert alert-danger text-center" role="alert" *ngSwitchCase="'error'">
+                    This email or username is already exist! Try again!
                 </div>
             </div>
             <button class="btn btn-primary pull-right" type="button" [disabled]="admin.userPassword != repeatPassword" (click)="createAgent()">Create agent</button>

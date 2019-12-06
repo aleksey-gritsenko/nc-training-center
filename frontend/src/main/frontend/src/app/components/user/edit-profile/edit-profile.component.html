@@ -8,7 +8,7 @@
             <div class="row">
                 <div class="col-md align-self-center">
                     <label for="userName">Username: </label>
-                    <h4 id="userName">{{currentUser.userName}}</h4>
+                    <h4 id="userName">{{updatedUser.userName}}</h4>
                 </div>
                 <div class="col-md">
                     <div class="form-group">
@@ -45,7 +45,7 @@
                 </div>
             </div>
             <button class="btn btn-primary pull-right" type="button"
-                    [disabled]="userService.equals(currentUser, updatedUser) || updatedUser.userPassword != repeatPassword"
+                    [disabled]="userService.equals(user, updatedUser) || (user.userPassword != updatedUser.userPassword && updatedUser.userPassword != repeatPassword)"
                     (click)="update()">Update Profile</button>
         </form>
     </div>

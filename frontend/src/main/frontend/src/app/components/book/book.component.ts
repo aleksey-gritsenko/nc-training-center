@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {Book} from '../../models/book';
 import {CommonService} from "../../services/common/common.service";
 import {ActivatedRoute, Router} from "@angular/router";
-import {Genre} from "../../models/genre";
 import {Author} from "../../models/author";
 import {FormControl, FormGroup} from "@angular/forms";
 import {BookFilter} from "../../models/bookfilter";
@@ -21,6 +20,7 @@ export class BookComponent implements OnInit {
     suggestionBook:Book[] = [];
     bookId: any;
 
+    //TODO check with model UserBook, not with boolean
     userAddedBook: boolean = true;
     userAddedToRead: boolean = true;
     userAddedToFav: boolean = true;
@@ -87,12 +87,9 @@ export class BookComponent implements OnInit {
     }
 
     makeSuggestion() {
-        let authors = JSON.parse(localStorage.getItem('authors'));
-        let genres = JSON.parse(localStorage.getItem('genres'));
 
-        let suggestionFilter: BookFilter = new BookFilter();
-        suggestionFilter.genre = genres;
-        suggestionFilter.author = authors;
+        let suggestionFilter: BookFilter = this.storage.getFilter();
+        console.log(suggestionFilter);
 
         if (this.storage.getUser() != null) {
             this.apiService.makeSuggestion(this.storage.getUser().id).subscribe(
@@ -115,9 +112,8 @@ export class BookComponent implements OnInit {
     }
 
     addBookToUser(bookId:number){
-        if (this.storage.getUser() == null) {
-            this.router.navigate(['/login']);
-        }
+        this.checkPresentUser();
+
         let userBook:UserBook = new UserBook();
         userBook.userId = this.storage.getUser().id;
         userBook.bookId = bookId;
@@ -134,9 +130,8 @@ export class BookComponent implements OnInit {
     }
 
     deleteBookFromUser(bookId:number){
-        if (this.storage.getUser() == null) {
-            this.router.navigate(['/login']);
-        }
+        this.checkPresentUser();
+
         let userBook:UserBook = new UserBook();
         userBook.userId = this.storage.getUser().id;
         userBook.bookId = bookId;
@@ -153,9 +148,7 @@ export class BookComponent implements OnInit {
     }
 
     addBookToFavourite(bookId: number){
-        if (this.storage.getUser() == null) {
-            this.router.navigate(['/login']);
-        }
+        this.checkPresentUser();
 
         let userBook:UserBook = new UserBook();
         userBook.userId = this.storage.getUser().id;
@@ -174,9 +167,7 @@ export class BookComponent implements OnInit {
     }
 
     addBookToRead(bookId: number){
-        if (this.storage.getUser() == null) {
-            this.router.navigate(['/login']);
-        }
+        this.checkPresentUser();
 
         let userBook:UserBook = new UserBook();
         userBook.userId = this.storage.getUser().id;
@@ -195,9 +186,7 @@ export class BookComponent implements OnInit {
     }
 
     removeBookFromFav(bookId: number){
-        if (this.storage.getUser() == null) {
-            this.router.navigate(['/login']);
-        }
+        this.checkPresentUser();
 
         let userBook:UserBook = new UserBook();
         userBook.userId = this.storage.getUser().id;
@@ -216,9 +205,7 @@ export class BookComponent implements OnInit {
     }
 
     removeBookFromRead(bookId: number){
-        if (this.storage.getUser() == null) {
-            this.router.navigate(['/login']);
-        }
+        this.checkPresentUser();
 
         let userBook:UserBook = new UserBook();
         userBook.userId = this.storage.getUser().id;
@@ -240,6 +227,12 @@ export class BookComponent implements OnInit {
         this.router.navigate(['books/book', bookId]);
         this.suggestionBook = [];
         this.ngOnInit();
+    }
+
+    checkPresentUser(){
+        if (this.storage.getUser() == null) {
+            this.router.navigate(['/login']);
+        }
     }
 }
 

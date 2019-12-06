@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {CommonService} from '../common/common.service';
 import {User} from "../../models/user";
 import {Book} from "../../models/book";
@@ -9,18 +9,18 @@ import {Chat} from "../../models/chat";
 import {Message} from "../../models/message";
 import {BookFilter} from "../../models/bookfilter";
 import {Observable} from "rxjs";
+import {userSearch} from "../../models/userSearch";
 
 @Injectable({
     providedIn: 'root'
 })
 export class UserService {
 
-    // private userUlr = '/user';
-    // private usersUlr = '/users/:login';
     user: User;
     friend: User;
     book: Book;
     siteUrl: string = 'https://nc-group1-2019-project.herokuapp.com';
+    //siteUrl: string = 'http://localhost:8080';
 
     constructor(private http: HttpClient, private commonService: CommonService) {
     }
@@ -166,4 +166,22 @@ export class UserService {
     // createModerator(): Observable<User> {
     //
     // }
+
+    deactivateAccount(id: string) {
+        let url = `${this.siteUrl}/user/${id}/deactivate`;
+
+        return this.http.get(url);
+    }
+
+    searchByUsername(username: string) {
+        let url = `${this.siteUrl}/user/search/${username}`;
+
+        return this.http.get<userSearch[]>(url);
+    }
+
+    getAll() {
+        let url = `${this.siteUrl}/user/get/all`;
+
+        return this.http.get<userSearch[]>(url);
+    }
 }

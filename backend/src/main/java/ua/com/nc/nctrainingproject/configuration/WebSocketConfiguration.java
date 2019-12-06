@@ -1,3 +1,4 @@
+/*
 package ua.com.nc.nctrainingproject.configuration;
 
 import org.springframework.context.annotation.Configuration;
@@ -21,3 +22,4 @@ public class WebSocketConfiguration implements WebSocketMessageBrokerConfigurer 
         registry.addEndpoint("/ws").setAllowedOrigins("http://localhost:4200").withSockJS();
     }
 }
+*/

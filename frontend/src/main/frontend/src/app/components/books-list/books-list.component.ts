@@ -26,6 +26,8 @@ export class BooksListComponent implements OnInit{
 
     userBooks : UserBook[] = [];
     userBookList: Book[] = [];
+    userFavBookList: Book[] = [];
+    userReadBookList: Book[] = [];
     book: Book;
 
     model : Book = {
@@ -45,8 +47,7 @@ export class BooksListComponent implements OnInit{
     selectedGenres: SelectedItem[] = [];
     filterGenres:SelectedItem[]=[];
     filterAuthors:SelectedItem[]=[];
-    historyGenres:string[]=[];
-    historyAuthors:string[]=[];
+    historyFilter:BookFilter;
 
     userId: any;
 
@@ -56,16 +57,21 @@ export class BooksListComponent implements OnInit{
     }
 
     ngOnInit() {
+        this.getUsersBookList();
+        this.getAllReadBooks();
+        this.getAllFavouriteBooks();
+
         this.getBooks();
         this.addBookVisible = false;
         this.getAllAuthor();
         this.getAllGenre();
+        this.historyFilter = this.storage.getFilter();
+        console.log(this.historyFilter);
     }
 
     getUsersBookList(){
-        if (this.storage.getUser() == null) {
-            this.router.navigate(['/login']);
-        }
+        this.checkPresentUser();
+
         let userBook: UserBook = new UserBook();
         userBook.userId = this.storage.getUser().id;
         //userBook.bookId = this.book.id;
@@ -81,6 +87,50 @@ export class BooksListComponent implements OnInit{
                 console.log("Error in getting all users books")
             }
         );
+    }
+
+    getAllFavouriteBooks(){
+        this.checkPresentUser();
+
+        let userBook: UserBook = new UserBook();
+        userBook.userId = this.storage.getUser().id;
+        //userBook.bookId = this.book.id;
+        this.apiService.getAllFavouriteBooks(userBook).subscribe(
+            res => {
+                console.log(userBook);
+                console.log(res);
+                console.log("THIS IS HERE");
+                console.log(this.userFavBookList);
+                this.userFavBookList = res;
+            },
+            err => {
+                console.log(userBook);
+                console.log(this.userFavBookList);
+                console.log("Error in getting all favourite users books")
+            }
+        );
+        //this.router.navigate(['/userBooks/favourite']);
+    }
+
+    getAllReadBooks(){
+        this.checkPresentUser();
+
+        let userBook: UserBook = new UserBook();
+        userBook.userId = this.storage.getUser().id;
+        //userBook.bookId = this.book.id;
+        this.apiService.getAllReadBooks(userBook).subscribe(
+            res => {
+                console.log(userBook);
+                console.log(res);
+                this.userReadBookList = res;
+            },
+            err => {
+                console.log(userBook);
+                console.log(this.userReadBookList);
+                console.log("Error in getting all read users books")
+            }
+        );
+        //this.router.navigate(['/userBooks/read']);
     }
 
 
@@ -115,20 +165,23 @@ export class BooksListComponent implements OnInit{
 
     }
     searchByTitle(){
-        this.apiService.getBooksByTitle(this.searchTitle).subscribe(
-            res=>{
-                this.books = res;
-                this.books.forEach(book=>{
-                    this.apiService.getAuthorsByBookId(book.id).subscribe(
-                        authors => book.authors = authors
-                    );
-                    this.apiService.getGenreByBookId(book.id).subscribe(
-                        genre=> book.genre  = genre.name
-                    )
-                })
+        if(this.searchTitle!="") {
+            this.bookFilter.header = this.searchTitle;
+            this.apiService.getBooksByFilter(this.bookFilter).subscribe(
+                res => {
+                    this.books = res;
+                    this.books.forEach(book => {
+                        this.apiService.getAuthorsByBookId(book.id).subscribe(
+                            authors => book.authors = authors
+                        );
+                        this.apiService.getGenreByBookId(book.id).subscribe(
+                            genre => book.genre = genre.name
+                        )
+                    })
 
-            }
-        )
+                }
+            )
+        }
     }
     searchByFilter() {
         this.bookFilter.author = [];
@@ -141,12 +194,15 @@ export class BooksListComponent implements OnInit{
 
         this.filterGenres.forEach(genre => {
             this.bookFilter.genre.push(genre.name);
-            this.historyGenres.push(genre.name)}
-        );
+        });
         this.filterAuthors.forEach(author => {
             this.bookFilter.author.push(author.name);
-            this.historyAuthors.push(author.name);
         });
+
+        this.historyFilter.genre.push(...(this.bookFilter.genre||[]));
+        this.historyFilter.author.push(...(this.bookFilter.author||[]));
+        this.storage.setFilter(this.historyFilter);
+
         this.books = [];
         this.apiService.getBooksByFilter(this.bookFilter).subscribe(
             res => {
@@ -181,12 +237,12 @@ export class BooksListComponent implements OnInit{
             res => {
                 this.books = res;
                 this.books.forEach(book=>{
-                     this.apiService.getAuthorsByBookId(book.id).subscribe(
+                    this.apiService.getAuthorsByBookId(book.id).subscribe(
                         authors => book.authors = authors
-                     );
-                     this.apiService.getGenreByBookId(book.id).subscribe(
-                         genre=> book.genre  = genre.name
-                     )
+                    );
+                    this.apiService.getGenreByBookId(book.id).subscribe(
+                        genre=> book.genre  = genre.name
+                    )
                 });
 
             },
@@ -218,10 +274,7 @@ export class BooksListComponent implements OnInit{
 
     }
 
-    saveFilterToStorage(){
-        localStorage.setItem('authors', JSON.stringify(this.historyAuthors));
-        localStorage.setItem('genres', JSON.stringify(this.historyGenres));
-    }
+
 
     fillArray():string[]{
         return "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
@@ -230,8 +283,15 @@ export class BooksListComponent implements OnInit{
     filterGenre(char:string){
         this.filterGenres = this.selectedGenres.filter(genre=>genre.name.charAt(0).toUpperCase()==char);
     }
+
     filterAuthor(char:string){
         this.filterAuthors = this.selectedAuthors.filter(author=>author.name.charAt(0).toUpperCase()==char);
+    }
+
+    checkPresentUser(){
+        if (this.storage.getUser() == null) {
+            this.router.navigate(['/login']);
+        }
     }
 }
 

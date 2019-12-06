@@ -77,14 +77,37 @@ public class UserPostgreDAO extends AbstractDAO<User> {
     public void activateAccount(String email) {
         jdbcTemplate.update(UserQuery.UPDATE_STATUS_BY_EMAIL, true, email);
     }
-        public void checkAccountActivation ( int hours){
-            jdbcTemplate.update(UserQuery.CHECK_ACCOUNT_ACTIVATION, hours);
 
-        }
+    public void checkAccountActivation(int hours) {
+        jdbcTemplate.update(UserQuery.CHECK_ACCOUNT_ACTIVATION, hours);
 
-
-    public List<User> getUsersByRole(String userRole) {
-        return jdbcTemplate.query(UserQuery.GET_USERS_BY_ROLE, new UserRowMapper(),userRole);
     }
 
+    public List<User> getUsersByRole(String userRole) {
+        return jdbcTemplate.query(UserQuery.GET_USERS_BY_ROLE, new UserRowMapper(), userRole);
+    }
+
+    public void deactivateAccount(int id) {
+        jdbcTemplate.update(UserQuery.DEACTIVATE_ACCOUNT, false, id);
+    }
+
+    public List<User> searchUsersByUsername(String search) {
+        return jdbcTemplate.query(UserQuery.SEARCH_USERS_BY_USERNAME, new UserRowMapper(), "%"+search+"%");
+    }
+
+    public List<User> getAllAdmins() {
+        return jdbcTemplate.query(UserQuery.GET_ALL_ADMINS, new UserRowMapper());
+    }
+
+    public List<User> getAllModerators() {
+        return jdbcTemplate.query(UserQuery.GET_ALL_MODERATORS, new UserRowMapper());
+    }
+
+    public List<User> getActivatedModerators() {
+        return jdbcTemplate.query(UserQuery.GET_MODERATORS_BY_ACTIVATED, new UserRowMapper());
+    }
+
+    public List<User> getActivatedAdmins() {
+        return jdbcTemplate.query(UserQuery.GET_ADMIN_BY_ACTIVATED, new UserRowMapper());
+    }
 }

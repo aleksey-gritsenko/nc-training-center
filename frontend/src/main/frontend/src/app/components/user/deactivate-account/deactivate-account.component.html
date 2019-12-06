@@ -1,0 +1,23 @@
+<div class="card">
+    <div class="card-header card-header-primary">
+        <h4 class="card-title">Deactivating</h4>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md text-center">
+                <h5>Do you really want to deactivate this account?</h5>
+            </div>
+        </div>
+        <div [ngSwitch]="status">
+            <div class="alert alert-success text-center" role="alert" *ngSwitchCase="'success'">
+                Success! The user has been deactivated
+            </div>
+            <div class="alert alert-danger text-center" role="alert" *ngSwitchCase="'error'">
+                Something went wrong! Please try again!
+            </div>
+        </div>
+        <div class="text-center">
+            <button class="btn btn-primary" type="button" (click)="deactivateAccount()">Deactivate</button>
+        </div>
+    </div>
+</div>

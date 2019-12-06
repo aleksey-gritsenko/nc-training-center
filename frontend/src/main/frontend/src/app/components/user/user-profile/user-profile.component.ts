@@ -14,10 +14,15 @@ export class UserProfileComponent implements OnInit, OnDestroy {
     isOpen: string; // Which tab is open
 
     userSubscription: Subscription;
+    // routSubscription: Subscription;
 
     currentUser: User; //The user in the system
     isCurrUserAnAdmin: boolean;
     isThisCurrUserProfile: boolean;
+    isAllowedToChange: boolean;
+    isAllowedToAdd: boolean;
+    isAllowedToDeactivate: boolean;
+
     user: User = new User(); //The user page we look at
 
     constructor(private storageService: StorageService,
@@ -28,7 +33,9 @@ export class UserProfileComponent implements OnInit, OnDestroy {
 
         this.userSubscription = this.storageService.currentUser.subscribe(user => {
             if (!user) this.router.navigateByUrl('/login');
-            else this.currentUser = this.user = user;
+            else {
+                this.currentUser = this.user = user;
+            }
         });
     }
 
@@ -40,6 +47,9 @@ export class UserProfileComponent implements OnInit, OnDestroy {
             else {
                 this.user = this.currentUser;
                 this.isThisCurrUserProfile = true;
+                this.isAllowedToChange = this.currentUser.userRole == 'user' || this.currentUser.userRole == 'super';
+                this.isAllowedToAdd = this.currentUser.userRole == 'super' || this.currentUser.userRole == 'admin';
+                this.isAllowedToDeactivate = false;
             }
         })
     }
@@ -49,18 +59,21 @@ export class UserProfileComponent implements OnInit, OnDestroy {
     }
 
      getUserInfo(id: string) {
-        this.userService.searchUser(id).toPromise().then(user => {
+        this.user = new User();
+        this.userService.searchUser(id).toPromise().then(
+            user => {
             if (!this.isCurrUserAnAdmin && user.userRole != 'user') this.router.navigateByUrl('/error');
             this.user = user;
-        });
+            this.isAllowedToDeactivate = this.isAllowedToChange = this.currentUser.userRole == 'super' && user.userRole != 'user' || (this.currentUser.userRole == 'admin' && user.userRole == 'moderator');
+        },
+            error => {
+                this.router.navigateByUrl('/error');
+            });
         this.isThisCurrUserProfile = false;
-    }
-
-    deactivateAccount() {
-
     }
 
     ngOnDestroy(): void {
         this.userSubscription.unsubscribe();
+        // this.routSubscription.unsubscribe();
     }
 }

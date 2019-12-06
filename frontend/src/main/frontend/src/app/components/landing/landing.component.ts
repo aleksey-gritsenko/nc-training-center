@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {WebSocketAPI} from "../../websocket/webSocketAPI";
+//import {WebSocketAPI} from "../../websocket/webSocketAPI";
 
 @Component({
     selector: 'app-landing',
@@ -7,17 +7,17 @@ import {WebSocketAPI} from "../../websocket/webSocketAPI";
     styleUrls: ['./landing.component.css']
 })
 export class LandingComponent implements OnInit {
-    private webSocketAPI: WebSocketAPI;
+    //private webSocketAPI: WebSocketAPI;
 
-    constructor() {
+ /*   constructor() {
         this.webSocketAPI = new WebSocketAPI();
-    }
+    }*/
 
     ngOnInit() {
     }
 
-    send() {
+ /*   send() {
         this.webSocketAPI._send('Test message');
-    }
+    }*/
 
 }

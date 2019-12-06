@@ -1,0 +1,28 @@
+<app-navigation></app-navigation>
+<app-sidebar></app-sidebar>
+<div class="content">
+    <div class="ml-5 mr-5">
+        <div *ngIf="search">
+            <h3>Search results for: {{search}}</h3>
+        </div>
+        <div class="user-search card" *ngIf="userModel">
+            <div class="card-header-primary">Users</div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-2 users-list mx-1" *ngFor="let user of userModel">
+                        <div routerLink="/user/{{user.id}}">
+                            <a>{{user.userName}}</a>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn pull-right btn-primary">View more</button>
+            </div>
+        </div>
+        <div class="book-search">
+
+        </div>
+        <div *ngIf="!userModel">
+            <h2>Ooops! Nothing found!</h2>
+        </div>
+    </div>
+</div>

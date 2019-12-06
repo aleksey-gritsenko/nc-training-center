@@ -36,15 +36,6 @@ public class UserBooksPostgreDAO extends AbstractDAO {
 		return books;
 	}
 
-	public List<Book> getUserBookList(int userId) {
-		List<Book> books = new ArrayList<>();
-
-		for (int id : jdbcTemplate.queryForList(UserBooksQuery.GET_ALL_USER_BOOKS_ID, Integer.class, userId)) {
-			books.add(bookPostgreDAO.getBookById(id));
-		}
-		return books;
-	}
-
 	public List<Book> getAllFavouriteBooks(int userId) {
 		List<Book> books = new ArrayList<>();
 
