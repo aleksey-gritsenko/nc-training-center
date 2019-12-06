@@ -28,12 +28,14 @@ export class AnnouncementComponent implements OnInit {
     };
     currentUser: User;
     id: any;
+    currentDate : Date;
 
     constructor(private http: HttpClient, private route: ActivatedRoute,
                 private storage: StorageService,private apiService :CommonService) {
     }
 
     ngOnInit() {
+        this.currentDate = new Date();
         this.model
         this.id
             = parseInt(this.route.snapshot.paramMap.get('id'));
