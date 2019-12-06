@@ -9,8 +9,6 @@ import {Author} from "../../models/author";
 import {UserBook} from "../../models/userBook";
 import {StorageService} from "../../services/storage/storage.service";
 
-
-
 @Component({
     selector: 'app-books-list',
     templateUrl: './books-list.component.html',
@@ -43,6 +41,11 @@ export class BooksListComponent implements OnInit{
 
     bookFilter: BookFilter = new BookFilter();
     addBookVisible: boolean;
+
+    emptyBookList: boolean = false;
+    emptyFavList: boolean = false;
+    emptyReadList: boolean = false;
+
     selectedAuthors: SelectedItem[] =[];
     selectedGenres: SelectedItem[] = [];
     filterGenres:SelectedItem[]=[];
@@ -71,15 +74,19 @@ export class BooksListComponent implements OnInit{
 
     getUsersBookList(){
         this.checkPresentUser();
-
         let userBook: UserBook = new UserBook();
         userBook.userId = this.storage.getUser().id;
-        //userBook.bookId = this.book.id;
         this.apiService.getAllUserBooks(userBook).subscribe(
             res => {
-                console.log(userBook);
                 console.log(res);
                 this.userBookList = res;
+                if (this.userBookList.length == 0) {
+                    this.emptyBookList = true;
+                    this.apiService.getMostRatedBooks().subscribe(
+                        bookList => {this.userBookList = bookList;
+                            console.log(this.userBookList)}
+                    );
+                }
             },
             err => {
                 console.log(userBook);
@@ -87,6 +94,7 @@ export class BooksListComponent implements OnInit{
                 console.log("Error in getting all users books")
             }
         );
+
     }
 
     getAllFavouriteBooks(){
@@ -94,22 +102,23 @@ export class BooksListComponent implements OnInit{
 
         let userBook: UserBook = new UserBook();
         userBook.userId = this.storage.getUser().id;
-        //userBook.bookId = this.book.id;
         this.apiService.getAllFavouriteBooks(userBook).subscribe(
             res => {
-                console.log(userBook);
-                console.log(res);
-                console.log("THIS IS HERE");
                 console.log(this.userFavBookList);
                 this.userFavBookList = res;
+                if (this.userFavBookList.length == 0) {
+                    this.emptyFavList = true;
+                    this.apiService.getMostRatedBooks().subscribe(
+                        favList => {this.userFavBookList = favList;
+                            console.log(this.userFavBookList)}
+                    );
+                }
             },
             err => {
-                console.log(userBook);
                 console.log(this.userFavBookList);
                 console.log("Error in getting all favourite users books")
             }
         );
-        //this.router.navigate(['/userBooks/favourite']);
     }
 
     getAllReadBooks(){
@@ -117,20 +126,22 @@ export class BooksListComponent implements OnInit{
 
         let userBook: UserBook = new UserBook();
         userBook.userId = this.storage.getUser().id;
-        //userBook.bookId = this.book.id;
         this.apiService.getAllReadBooks(userBook).subscribe(
             res => {
-                console.log(userBook);
-                console.log(res);
                 this.userReadBookList = res;
+                if (this.userReadBookList.length == 0) {
+                    this.emptyReadList = true;
+                    this.apiService.getMostRatedBooks().subscribe(
+                        readList => {this.userReadBookList = readList;
+                            console.log(this.userReadBookList)}
+                    );
+                }
             },
             err => {
-                console.log(userBook);
                 console.log(this.userReadBookList);
                 console.log("Error in getting all read users books")
             }
         );
-        //this.router.navigate(['/userBooks/read']);
     }
 
 
