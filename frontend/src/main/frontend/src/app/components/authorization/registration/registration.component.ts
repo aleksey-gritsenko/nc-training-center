@@ -5,6 +5,7 @@ import {Router} from "@angular/router";
 import {StorageService} from "../../../services/storage/storage.service";
 import {AuthenticationService} from "../../../services/authentification/authentication.service";
 import {Subscription} from "rxjs";
+import {SpringAuthService} from "../../../services/security/spring-auth.service";
 
 @Component({
     selector: 'app-registration',
@@ -25,7 +26,8 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     constructor(private http: HttpClient,
                 private router: Router,
                 private storage: StorageService,
-                private authenticationService: AuthenticationService) {
+                private authenticationService: AuthenticationService,
+                private springAuth: SpringAuthService) {
     }
 
     confirmPassword: string = '';
@@ -36,6 +38,11 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     register(): void {
         this.subscription = this.authenticationService.register(this.model.login, this.model.password, this.model.email).subscribe(
             res => {
+                // this.springAuth.authentificate(this.model.login, this.model.password).subscribe(data => {
+                //     window.sessionStorage.setItem('token', JSON.stringify(data));
+                // }, error => {
+                //     alert('Error');
+                // });
                 this.storage.setUser(res);
                 this.router.navigateByUrl('/activate');
             },

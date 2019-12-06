@@ -2,16 +2,18 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {StorageService} from "../storage/storage.service";
 import {User} from "../../models/user";
+import {SpringAuthService} from "../security/spring-auth.service";
 
 @Injectable({
     providedIn: 'root'
 })
 export class AuthenticationService {
-    // private siteUrl: string = 'https://nc-group1-2019-project.herokuapp.com';
+   //  private siteUrl: string = 'https://nc-group1-2019-project.herokuapp.com';
     private siteUrl: string = 'http://localhost:8080';
 
     constructor(private http: HttpClient,
-                private storageService: StorageService) {
+                private storageService: StorageService,
+                private springAuth: SpringAuthService) {
     }
 
     public login(username: string, password: string) {
@@ -19,10 +21,16 @@ export class AuthenticationService {
         form.append('login', username);
         form.append('password', password);
 
-        return this.http.post<User>(`${this.siteUrl}/login`, form);
+        this.springAuth.authentificate(username, password).subscribe(data => {
+            window.sessionStorage.setItem('token', JSON.stringify(data));
+            return this.http.post<User>(`${this.siteUrl}/login`, form);
+        }, error => {
+            alert('Error');
+        });
     }
 
     logout() {
+        window.sessionStorage.removeItem('token');
         this.storageService.setUser(null);
     }
 
@@ -32,7 +40,6 @@ export class AuthenticationService {
         form.append('login', login);
         form.append('password', password);
         form.append('email', email);
-
         return this.http.post<User>(url, form);
     }
 
