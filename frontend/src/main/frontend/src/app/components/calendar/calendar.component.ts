@@ -84,12 +84,13 @@ onClick: ({ event }: { event: CalendarEvent }): void => {
 
      refresh: Subject<any> = new Subject();
 
-    events: CalendarEvent[] = [];
+    events: CalendarEvent[];
 
-    activeDayIsOpen: boolean = true;
+    activeDayIsOpen: boolean = false;
     annoucementList: Announcement[];
     ngOnInit() {
 
+        this.events = [];
         this.comServ.getAnnouncements().subscribe(
             res=>{
                 this.annoucementList = res;
@@ -107,8 +108,7 @@ onClick: ({ event }: { event: CalendarEvent }): void => {
             err => {
                 console.log("Error in getting announcements from server")
             }
-        );
-    }
+        );    }
     constructor(private modal: NgbModal, public comServ: CommonService) {
   }
 
