@@ -10,11 +10,11 @@ public class FriendQuery {
     public static final String ACCEPT_REQUEST = "UPDATE " + TABLE_NAME + " SET " + REQUEST_STATUS + " =(?)" + " WHERE " + SENDER_ID + " =(?)" + " AND " + RECIEVER_ID + " =(?);";
 
     public static final String GET_ALL_FRIENDS = "SELECT "
-            + UserQuery.ID + " , " + UserQuery.USERNAME + " , " + UserQuery.USER_PASSWORD + " , " + UserQuery.EMAIL + " , " + UserQuery.ROLE + "  FROM " + TABLE_NAME + " join " + UserQuery.TABLE_NAME +
+            + UserQuery.ID + " , " + UserQuery.USERNAME + " , " + UserQuery.USER_PASSWORD + " , " + UserQuery.EMAIL + " , " + UserQuery.ROLE + " , " + UserQuery.VERIFIED+" , " + UserQuery.ACTIVATED+"  FROM " + TABLE_NAME + " join " + UserQuery.TABLE_NAME +
             " on " + RECIEVER_ID + " = " + UserQuery.ID +
             " WHERE " + REQUEST_STATUS + " =(?)" + " AND " + SENDER_ID + " =(?)" + " union " +
             " SELECT "
-            + UserQuery.ID + " , " + UserQuery.USERNAME + " , " + UserQuery.USER_PASSWORD + " , " + UserQuery.EMAIL + " , " + UserQuery.ROLE + "  FROM " + TABLE_NAME +
+            + UserQuery.ID + " , " + UserQuery.USERNAME + " , " + UserQuery.USER_PASSWORD + " , " + UserQuery.EMAIL + " , " + UserQuery.ROLE +" , " + UserQuery.VERIFIED+ " , " + UserQuery.ACTIVATED+"  FROM " + TABLE_NAME +
             " join "
             + UserQuery.TABLE_NAME +
             " on " + SENDER_ID + " = " + UserQuery.ID +
@@ -22,7 +22,7 @@ public class FriendQuery {
 
     public static final String GET_ALL_NEW_REQUESTS = "SELECT "
             + UserQuery.ID + " , " + UserQuery.USERNAME + " , " + UserQuery.USER_PASSWORD + " , " + UserQuery.EMAIL + " , " +
-            UserQuery.ROLE + "  FROM " + TABLE_NAME + " join " + UserQuery.TABLE_NAME +
+            UserQuery.ROLE + " , " + UserQuery.VERIFIED+" , " + UserQuery.ACTIVATED+ "  FROM " + TABLE_NAME + " join " + UserQuery.TABLE_NAME +
             " on " + SENDER_ID + " = " + UserQuery.ID +
             " WHERE " + REQUEST_STATUS + " =(?)" + " AND " + RECIEVER_ID + " =(?)";
 

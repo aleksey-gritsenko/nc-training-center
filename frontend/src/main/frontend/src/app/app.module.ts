@@ -44,6 +44,7 @@ import {CKEditorModule} from "@ckeditor/ckeditor5-angular";
 import {TruncateTextPipe} from './components/pipe/truncate-text.pipe';
 import {UserBooksComponent} from './components/user/user-books/user-books.component';
 import {ConfirmEmailComponent} from './components/authorization/confirm-email/confirm-email.component';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import { UserFavouriteBooksComponent } from './components/user/user-favourite-books/user-favourite-books.component';
 import { UserReadBooksComponent } from './components/user/user-read-books/user-read-books.component';
 import {SearchComponent} from './components/search/search.component';
@@ -103,6 +104,7 @@ import {AddAchievmentComponent} from './components/user/add-achievment/add-achie
         AppRoutingModule,
         CKEditorModule,
         ReactiveFormsModule,
+        MatButtonToggleModule,
         BrowserAnimationsModule,
         CalendarModule.forRoot({
             provide: DateAdapter,

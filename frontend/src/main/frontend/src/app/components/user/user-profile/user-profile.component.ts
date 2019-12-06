@@ -43,6 +43,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
         this.isCurrUserAnAdmin = this.currentUser.userRole != 'user';
 
         this.route.params.subscribe(param => {
+            this.isOpen = 'View';
             if (this.currentUser.id != param.id) this.getUserInfo(param.id);
             else {
                 this.user = this.currentUser;

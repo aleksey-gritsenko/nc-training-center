@@ -8,6 +8,7 @@ import {Review} from "../../models/review";
 import {Genre} from "../../models/genre";
 import {Author} from "../../models/author";
 import {UserBook} from "../../models/userBook";
+import {User} from "../../models/user";
 
 @Injectable({
     providedIn: 'root'
@@ -22,6 +23,7 @@ export class CommonService {
     private announcementsUrl: string = `${this.siteUrl}/announcements`;
     private reviewsUrl: string = `${this.siteUrl}/review`;
     private userBookUrl: string = `${this.siteUrl}/userBook`;
+    private userFriendsUrl: string = `${this.siteUrl}/friends`;
 
     // announcements : Announcement[] = [];
     // reviews : Review[] = [];
@@ -57,8 +59,8 @@ export class CommonService {
     }
 
     getBookById(id: number): Observable<Book> {
-        const url = `${this.booksUrl}/id?id=${id}`;
-        //const url = `${this.localhost}/book/id?id=${id}`;
+        //const url = `${this.booksUrl}/id?id=${id}`;
+        const url = `${this.localhost}/book/id?id=${id}`;
         return this.http.get<Book>(url);
     }
 
@@ -96,9 +98,24 @@ export class CommonService {
         //const url = `${this.localhost}/announcements/publish`;
         return this.http.post<Announcement>(url, announcement);
     }
+    getFriends(id:string): Observable<User[]> {
+       // const url = `${this.userFriendsUrl}/all`;
+       const url = `${this.localhost}/friends/all`;
+        const params = new HttpParams()
+            .set('id', id);
+        return this.http.get<User[]>(url,{params:params});
+    }
+    getNewApplications(id:string): Observable<User[]> {
+       // const url = `${this.userFriendsUrl}/new`;
 
-    getAuthorsByBookId(bookId: number): Observable<Author[]> {
-        const url = `${this.booksUrl}/authors/book`;
+     const url = `${this.localhost}/friends/new`;
+        const params = new HttpParams()
+            .set('id', id);
+        return this.http.get<User[]>(url,{params:params});
+    }
+    getAuthorsByBookId(bookId: number): Observable<Author[]>{
+        const url = `${this.booksUrl}\\authors\\book`;
+
         //const url = `${this.localhost}/book/authors/book`;
         const params = new HttpParams()
             .set("book", bookId.toString());

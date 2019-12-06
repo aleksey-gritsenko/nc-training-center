@@ -15,6 +15,7 @@ import {AnnouncementPropositionComponent} from "./components/announcement-propos
 import {ReviewComponent} from "./components/review/review.component";
 import {UserBooksComponent} from "./components/user/user-books/user-books.component";
 import {ConfirmEmailComponent} from "./components/authorization/confirm-email/confirm-email.component";
+import {FriendsListComponent} from "./components/friends-list/friends-list.component";
 import {CalendarComponent} from "./components/calendar/calendar.component";
 import {SearchComponent} from "./components/search/search.component";
 import {UserFavouriteBooksComponent} from "./components/user/user-favourite-books/user-favourite-books.component";
@@ -37,7 +38,10 @@ const routes: Routes = [
         path: 'announcementpublish',
         component: AnnouncementPropositionComponent
     },
-
+    {
+        path: 'friends',
+        component: FriendsListComponent
+    },
     {
         path: 'change',
         component: ChangePasswordComponent
