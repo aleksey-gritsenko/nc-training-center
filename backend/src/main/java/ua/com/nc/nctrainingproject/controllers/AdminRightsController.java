@@ -35,7 +35,7 @@ public class AdminRightsController {
         adminRightsService.updateDb(list);
         return  ResponseEntity.ok("true");
     }
-    @RequestMapping(value = "/gett-all-descriptions" , method = RequestMethod.GET)
+    @RequestMapping(value = "/get-all-descriptions" , method = RequestMethod.GET)
     public ResponseEntity<?> getAllDescriptions(){
         return ResponseEntity.ok(rightsPostgreDAO.getAllDescriptions());
     }

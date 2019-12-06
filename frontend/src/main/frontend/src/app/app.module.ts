@@ -48,7 +48,6 @@ import { UserFavouriteBooksComponent } from './components/user/user-favourite-bo
 import { UserReadBooksComponent } from './components/user/user-read-books/user-read-books.component';
 import {SearchComponent} from './components/search/search.component';
 import {AddAchievmentComponent} from './components/user/add-achievment/add-achievment.component';
-import {UserMenuComponent} from "./components/user/user-menu/user-menu.component";
 import { AdminRightsComponent } from './components/admin-rights/admin-rights.component';
 
 //import {NotificationsListComponent} from "./components/notifications-list/notifications-list.component";
@@ -92,7 +91,7 @@ import { AdminRightsComponent } from './components/admin-rights/admin-rights.com
         UserReadBooksComponent,
         UserBooksComponent,
         SearchComponent,
-        AddAchievmentComponent
+        AddAchievmentComponent,
         UserBooksComponent,
         AdminRightsComponent
     ],
