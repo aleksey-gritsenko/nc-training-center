@@ -98,19 +98,19 @@ export class CommonService {
         //const url = `${this.localhost}/announcements/publish`;
         return this.http.post<Announcement>(url, announcement);
     }
-    getFriends(): Observable<User[]> {
-        //const url = `${this.userFriendsUrl}/all`;
+    getFriends(id:string): Observable<User[]> {
+       // const url = `${this.userFriendsUrl}/all`;
        const url = `${this.localhost}/friends/all`;
         const params = new HttpParams()
-            .set('id', '1');
+            .set('id', id);
         return this.http.get<User[]>(url,{params:params});
     }
-    getNewApplications(): Observable<User[]> {
-        //const url = `${this.userFriendsUrl}/new`;
+    getNewApplications(id:string): Observable<User[]> {
+       // const url = `${this.userFriendsUrl}/new`;
 
-      const url = `${this.localhost}/friends/new`;
+     const url = `${this.localhost}/friends/new`;
         const params = new HttpParams()
-            .set('id', '1');
+            .set('id', id);
         return this.http.get<User[]>(url,{params:params});
     }
     getAuthorsByBookId(bookId: number): Observable<Author[]>{

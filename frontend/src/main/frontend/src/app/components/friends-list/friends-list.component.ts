@@ -1,7 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {CommonService} from "../../services/common/common.service";
 import {User} from "../../models/user";
 import {StorageService} from "../../services/storage/storage.service";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
     selector: 'app-friends-list',
@@ -11,17 +12,23 @@ import {StorageService} from "../../services/storage/storage.service";
 export class FriendsListComponent implements OnInit {
     userFriends :User[]=[];
     newApplications:User[]=[];
+
     currentUser:User;
-    constructor(private apiService: CommonService,private storage: StorageService) {
+    id:string;
+
+    constructor(private apiService: CommonService,private storage: StorageService,private activatedRoute: ActivatedRoute) {
     }
 
     ngOnInit() {
-       // this.currentUser = this.storage.getUser();
-        this.getNewApplications();
-        this.getAllFriends();
+        //this.activatedRoute.snapshot.paramMap.get('id');
+        this.currentUser = this.storage.getUser();
+        this.id = this.activatedRoute.snapshot.paramMap.get('id');
+        this.getNewApplications(this.id);
+        this.getAllFriends(this.id);
+
     }
-    getAllFriends(){
-        this.apiService.getFriends().subscribe(
+    getAllFriends(id:string){
+        this.apiService.getFriends(id).subscribe(
             res => {
                 this.userFriends = res;
             },
@@ -29,8 +36,8 @@ export class FriendsListComponent implements OnInit {
                 alert("Error in getting new friends");
             })
     }
-    getNewApplications(){
-        this.apiService.getNewApplications().subscribe(
+    getNewApplications(id:string){
+        this.apiService.getNewApplications(id).subscribe(
             res => {
                 this.newApplications = res;
             },
