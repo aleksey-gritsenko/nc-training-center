@@ -8,6 +8,7 @@ import {Genre} from "../../models/genre";
 import {Author} from "../../models/author";
 import {UserBook} from "../../models/userBook";
 import {StorageService} from "../../services/storage/storage.service";
+import {DomSanitizer} from "@angular/platform-browser";
 
 @Component({
     selector: 'app-books-list',
@@ -32,8 +33,8 @@ export class BooksListComponent implements OnInit{
         id :0,
         header: '',
         overview: '',
-        photoId: 0,
-        fileId: 0,
+        photo: '',
+        file: '',
         status: '',
         genre: '',
         authors: []
@@ -54,22 +55,24 @@ export class BooksListComponent implements OnInit{
 
     userId: any;
 
-    constructor(private apiService: CommonService, private route: ActivatedRoute, private router: Router,
+    constructor(private apiService: CommonService,
+                private route: ActivatedRoute,
+                private router: Router,
                 private storage: StorageService) {
 
     }
 
     ngOnInit() {
-        this.getUsersBookList();
-        this.getAllReadBooks();
-        this.getAllFavouriteBooks();
-
+        if(this.storage.getUser()!=null) {
+            this.getUsersBookList();
+            this.getAllReadBooks();
+            this.getAllFavouriteBooks();
+        }
         this.getBooks();
         this.addBookVisible = false;
         this.getAllAuthor();
         this.getAllGenre();
         this.historyFilter = this.storage.getFilter();
-        console.log(this.historyFilter);
     }
 
     getUsersBookList(){
@@ -244,6 +247,7 @@ export class BooksListComponent implements OnInit{
     }
 
     getBooks(): void {
+        let imgURL;
         this.apiService.getBooks().subscribe(
             res => {
                 this.books = res;
@@ -253,7 +257,19 @@ export class BooksListComponent implements OnInit{
                     );
                     this.apiService.getGenreByBookId(book.id).subscribe(
                         genre=> book.genre  = genre.name
-                    )
+                    );
+                    this.apiService.getImageByBook(book).subscribe(
+                        res=>{
+                            let reader = new FileReader();
+                            reader.addEventListener("load", () => {
+                                book.photo = reader.result;
+                            }, false);
+                            if (res) {
+                                reader.readAsDataURL(res);
+                            }
+                            console.log(book.photo);
+                        }
+                    );
                 });
 
             },
@@ -303,6 +319,10 @@ export class BooksListComponent implements OnInit{
         if (this.storage.getUser() == null) {
             this.router.navigate(['/login']);
         }
+    }
+    getSantizeUrl(url : string) {
+        let sanitizer: DomSanitizer;
+        return sanitizer.bypassSecurityTrustUrl(url);
     }
 }
 

@@ -17,6 +17,7 @@
                                 <h3><a  [routerLink]="['book', book.id]"> {{book.header}}</a></h3>
                             </div>
                             <div class="card-description">
+                                <div *ngIf="book.photo"><img [src]="getSantizeUrl(book.photo)" width="200" height="200" alt=""></div>
                                 <div>Overview: {{book.overview}}</div>
                                 <div>Status: {{book.status}}</div>
                                 <div>
@@ -43,14 +44,6 @@
                         <td><input #header="ngModel" required class="form-control" type="text" [(ngModel)]="model.header"   id="header" name="header"></td>
                     </tr>
                     <tr>
-                        <td><label for="photo">Photo</label></td>
-                        <td><input #photo="ngModel" required class="form-control" type="number"  [(ngModel)]="model.photoId" id="photo" name="photo"></td>
-                    </tr>
-                    <tr>
-                        <td><label for="file">File</label></td>
-                        <td><input #file="ngModel" required class="form-control" type="number" [(ngModel)]="model.fileId" id="file" name="file"></td>
-                    </tr>
-                    <tr>
                         <td><label for="status">Status</label></td>
                         <td><input #status="ngModel" required class="form-control" type="text" [(ngModel)]="model.status" id="status" name="status"></td>
                     </tr>
@@ -71,8 +64,7 @@
                     </tr>
                 </table>
                 <div class="form-control-feedback" *ngIf="authors.errors && (authors.dirty || authors.touched)&&header.errors && (header.dirty || header.touched)
-                            && genre.errors && (genre.dirty || genre.touched) && photo.errors && (photo.dirty || photo.touched) &&
-                            file.errors && (file.dirty || file.touched) && status.errors && (status.dirty || status.touched) &&
+                            && genre.errors && (genre.dirty || genre.touched) && status.errors && (status.dirty || status.touched) &&
                             overview.errors && (overview.dirty || overview.touched) ">
                     <div>Check field</div>
                 </div>

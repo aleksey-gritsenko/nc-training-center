@@ -40,11 +40,12 @@ export class ReviewsListComponent implements OnInit{
     ngOnInit() {
         this.addReviewVisible = false;
         this.ngOnChanges();
+        console.log(this.book);
     }
 
 
     ngOnChanges() {
-        if(this.book.id!=null){
+        if(this.book!=null){
             this.getAcceptedReviews();
             this.getNotAcceptedReviews();
         }

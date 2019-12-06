@@ -4,8 +4,8 @@ import {Genre} from "./genre";
 export class Book extends Entity {
     header: string;
     overview: string;
-    photoId: number;
-    fileId: number;
+    photo: string|ArrayBuffer;
+    file: string|ArrayBuffer;
     status: string;
     genre: string;
     authors: Array<Author> = [];
