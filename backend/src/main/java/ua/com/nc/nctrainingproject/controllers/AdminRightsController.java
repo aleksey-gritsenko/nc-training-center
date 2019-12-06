@@ -23,7 +23,7 @@ public class AdminRightsController {
         this.adminRightsService = adminRightsService;
     }
 
-    @RequestMapping(value = "/get", method = RequestMethod.POST)
+    @RequestMapping(value = "/get", method = RequestMethod.GET)
     public ResponseEntity<?> getAll() {
         return ResponseEntity.ok(adminRightsService.getData());
     }

@@ -47,6 +47,7 @@ import {TruncateTextPipe} from './components/pipe/truncate-text.pipe';
 import {UserBooksComponent} from './components/user-books/user-books.component';
 import {ConfirmEmailComponent} from './components/authorization/confirm-email/confirm-email.component';
 import {UserMenuComponent} from "./components/user/user-menu/user-menu.component";
+import { AdminRightsComponent } from './components/admin-rights/admin-rights.component';
 
 
 @NgModule({
@@ -85,7 +86,8 @@ import {UserMenuComponent} from "./components/user/user-menu/user-menu.component
         TruncateTextPipe,
         UserMenuComponent,
         ConfirmEmailComponent,
-        UserBooksComponent
+        UserBooksComponent,
+        AdminRightsComponent
     ],
 
     imports: [
