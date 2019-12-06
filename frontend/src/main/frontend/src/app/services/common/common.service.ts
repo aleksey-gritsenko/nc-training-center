@@ -259,6 +259,11 @@ export class CommonService {
         return this.http.get<Book[]>(url);
     }
 
+
+    getImageByBook(book:Book){
+        return this.http.post(`http://localhost:8080/book/bookImage`, book,{responseType: 'blob'});
+    }
+
     recoverPassword() {
 
     }

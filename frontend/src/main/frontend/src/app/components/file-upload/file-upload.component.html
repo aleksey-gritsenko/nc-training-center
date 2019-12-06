@@ -1,5 +1,4 @@
-<input class="file" id="myForm" type="file" name="file" (change)="postFile($event)">
-<div>
-    <img width="200px" height="200px" [src]=getSantizeUrl(imgURL)  alt="">
+<input  class="" id="myForm" type="file" name="file" (change)="postFile($event)">
+<div class="btn btn-primary">
+    <a (click)="downloadPDF()"><i>Download</i></a>
 </div>
-<a (click)="downloadPDF()"><i class="btn-link">Download</i></a>

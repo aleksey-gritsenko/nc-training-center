@@ -40,6 +40,7 @@ export class ReviewsListComponent implements OnInit{
     ngOnInit() {
         this.addReviewVisible = false;
         this.ngOnChanges();
+        console.log(this.book);
     }
 
 
@@ -82,12 +83,19 @@ export class ReviewsListComponent implements OnInit{
     }
 
     acceptReview(review:Review):void{
-        review.adminId=this.storage.getUser().id;
-        this.commonService.acceptReview(review).subscribe(
-            res=>{this.acceptedReviews.push(review);
-                this.notAcceptedReviews.splice(this.notAcceptedReviews.indexOf(review));
-            }
-        );
+        // if(this.storage.getUser()==null)
+        // {
+        //     this.router.navigate(['/login']);
+        // }
+        // else{
+        //     review.adminId=this.storage.getUser().id;
+        review.adminId=28;
+            this.commonService.acceptReview(review).subscribe(
+                res=>{this.acceptedReviews.push(review);
+                    this.notAcceptedReviews.splice(this.notAcceptedReviews.indexOf(review));
+                }
+            );
+        // }
     }
     createReview(): void {
         if(this.storage.getUser()==null)

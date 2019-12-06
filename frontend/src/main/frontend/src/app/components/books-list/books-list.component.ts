@@ -8,6 +8,7 @@ import {Genre} from "../../models/genre";
 import {Author} from "../../models/author";
 import {UserBook} from "../../models/userBook";
 import {StorageService} from "../../services/storage/storage.service";
+import {DomSanitizer} from "@angular/platform-browser";
 
 
 
@@ -34,8 +35,8 @@ export class BooksListComponent implements OnInit{
         id :0,
         header: '',
         overview: '',
-        photoId: 0,
-        fileId: 0,
+        photoId: '',
+        fileId: '',
         status: '',
         genre: '',
         authors: []
@@ -52,17 +53,16 @@ export class BooksListComponent implements OnInit{
     userId: any;
 
     constructor(private apiService: CommonService, private route: ActivatedRoute, private router: Router,
-                private storage: StorageService) {
+                private storage: StorageService,private sanitizer: DomSanitizer) {
 
     }
 
 
     ngOnInit() {
-        if(this.storage.getUser()!=null) {
+
             this.getUsersBookList();
             this.getAllReadBooks();
             this.getAllFavouriteBooks();
-        }
         this.getBooks();
         this.addBookVisible = false;
         this.getAllAuthor();
@@ -233,8 +233,12 @@ export class BooksListComponent implements OnInit{
         this.selectedAuthors.forEach(author => author.selected = false);
         this.getBooks();
     }
+    getSantizeUrl(url : string) {
+        return this.sanitizer.bypassSecurityTrustUrl(url);
+    }
 
     getBooks(): void {
+        let imgURL;
         this.apiService.getBooks().subscribe(
             res => {
                 this.books = res;
@@ -244,7 +248,19 @@ export class BooksListComponent implements OnInit{
                     );
                     this.apiService.getGenreByBookId(book.id).subscribe(
                         genre=> book.genre  = genre.name
-                    )
+                    );
+                     this.apiService.getImageByBook(book).subscribe(
+                         res=>{
+                             let reader = new FileReader();
+                             reader.addEventListener("load", () => {
+                                  book.photoId = reader.result;
+                             }, false);
+                             if (res) {
+                                 reader.readAsDataURL(res);
+                             }
+                             console.log(book.photoId);
+                         }
+                    );
                 });
 
             },

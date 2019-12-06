@@ -17,6 +17,7 @@
                                 <h3><a  [routerLink]="['book', book.id]"> {{book.header}}</a></h3>
                             </div>
                             <div class="card-description">
+                                <div *ngIf="book.photoId"><img [src]="getSantizeUrl(book.photoId)" width="200" height="200" alt=""></div>
                                 <div>Overview: {{book.overview}}</div>
                                 <div>Status: {{book.status}}</div>
                                 <div>
@@ -41,14 +42,6 @@
                     <tr>
                         <td><label for="header">Header</label></td>
                         <td><input #header="ngModel" required class="form-control" type="text" [(ngModel)]="model.header"   id="header" name="header"></td>
-                    </tr>
-                    <tr>
-                        <td><label for="photo">Photo</label></td>
-                        <td><input #photo="ngModel" required class="form-control" type="number"  [(ngModel)]="model.photoId" id="photo" name="photo"></td>
-                    </tr>
-                    <tr>
-                        <td><label for="file">File</label></td>
-                        <td><input #file="ngModel" required class="form-control" type="number" [(ngModel)]="model.fileId" id="file" name="file"></td>
                     </tr>
                     <tr>
                         <td><label for="status">Status</label></td>

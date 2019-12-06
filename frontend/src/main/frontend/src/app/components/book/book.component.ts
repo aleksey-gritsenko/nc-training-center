@@ -14,7 +14,7 @@ import {UserBook} from "../../models/userBook";
     styleUrls: ['./book.component.css']
 })
 export class BookComponent implements OnInit {
-    book: Book = new Book();
+    book: Book;
     authors: Author[] = [];
     updatedBook: FormGroup;
     suggestionBook:Book[] = [];
