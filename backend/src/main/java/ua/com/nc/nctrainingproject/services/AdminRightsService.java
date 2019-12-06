@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import ua.com.nc.nctrainingproject.models.AdminRightsDto;
 import ua.com.nc.nctrainingproject.models.User;
 import ua.com.nc.nctrainingproject.persistance.dao.postgre.AdminRightsPostgreDAO;
+import ua.com.nc.nctrainingproject.persistance.dao.postgre.RightsPostgreDAO;
 import ua.com.nc.nctrainingproject.persistance.dao.postgre.UserPostgreDAO;
 
 import java.util.ArrayList;
@@ -16,27 +17,26 @@ public class AdminRightsService {
 
     private final AdminRightsPostgreDAO adminRightsPostgreDAO;
     private final UserPostgreDAO userPostgreDAO;
+    private final RightsPostgreDAO rightsPostgreDAO;
     //TODO rewrite to add possibility to add new rights
     private final int NUMBER_OF_RIGHTS = 3;
     private final String role = "moderator";
 
 
     @Autowired
-    public AdminRightsService(AdminRightsPostgreDAO adminRightsPostgreDAO, UserPostgreDAO userPostgreDAO) {
+    public AdminRightsService(AdminRightsPostgreDAO adminRightsPostgreDAO, UserPostgreDAO userPostgreDAO, RightsPostgreDAO rightsPostgreDAO) {
         this.adminRightsPostgreDAO = adminRightsPostgreDAO;
         this.userPostgreDAO = userPostgreDAO;
+        this.rightsPostgreDAO = rightsPostgreDAO;
     }
 
     public void updateDb(List<AdminRightsDto> data){
 
         for (AdminRightsDto dto: data){
             adminRightsPostgreDAO.deleteRightsByUserId(dto.getUser().getId());
-            for (int i = 0 ; i < dto.getRights().size(); i++){
-                if (dto.getRights().get(i)){
-                    adminRightsPostgreDAO.add(dto.getUser().getId() , i);
-                }
+            for (String rightDescription: dto.getRights()){
+                adminRightsPostgreDAO.add(dto.getUser().getId(),rightsPostgreDAO.getIdByRightDescription(rightDescription));
             }
-
         }
     }
 
@@ -46,12 +46,12 @@ public class AdminRightsService {
         for (User admin: adminsList){
             AdminRightsDto dto = new AdminRightsDto();
             dto.setUser(admin);
-            List<Boolean> hasRight = new ArrayList<>();
+            List<String> rights = new ArrayList<>();
             List<Integer> actualRights = adminRightsPostgreDAO.getRightsIdByUserId(admin.getId());
-            for(int i = 0 ; i < NUMBER_OF_RIGHTS ; i++){
-                hasRight.add(actualRights.contains(i));
+            for(Integer i : actualRights){
+                rights.add(rightsPostgreDAO.getDescriptionByRightId(i.intValue()));
             }
-            dto.setRights(hasRight);
+            dto.setRights(rights);
             result.add(dto);
 
         }
