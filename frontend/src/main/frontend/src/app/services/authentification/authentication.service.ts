@@ -8,7 +8,7 @@ import {SpringAuthService} from "../security/spring-auth.service";
     providedIn: 'root'
 })
 export class AuthenticationService {
-   //  private siteUrl: string = 'https://nc-group1-2019-project.herokuapp.com';
+    //  private siteUrl: string = 'https://nc-group1-2019-project.herokuapp.com';
     private siteUrl: string = 'http://localhost:8080';
 
     constructor(private http: HttpClient,
@@ -23,7 +23,8 @@ export class AuthenticationService {
 
         this.springAuth.authentificate(username, password).subscribe(data => {
             window.sessionStorage.setItem('token', JSON.stringify(data));
-            return this.http.post<User>(`${this.siteUrl}/login`, form);
+            alert(window.sessionStorage.getItem('token'));
+            return this.http.post<User>(`${this.siteUrl}/login/` + '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token, form);
         }, error => {
             alert('Error');
         });
