@@ -16,7 +16,7 @@
                                        [(ngModel)]="email">
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputCode">Email</label>
+                                <label for="exampleInputCode">Code</label>
                                 <input type="text" class="form-control" id="exampleInputCode" name="code"
                                        [(ngModel)]="code">
                             </div>
@@ -26,8 +26,8 @@
                             <div class="alert alert-warning text-center" role="alert" *ngIf="message=='send'">
                                 The code has been sent
                             </div>
-                            <div class="form-group">
-                                <button type="button" class="btn btn-default resent" (click)="resend()">Send code</button>
+                            <div class="form-group send text-center">
+                                <button type="button" class="btn btn-default send-btn" (click)="resend()">Send code</button>
                             </div>
                             <div class="form-group">
                                 <button type="button" class="btn btn-default" (click)="confirm()">Confirm email</button>

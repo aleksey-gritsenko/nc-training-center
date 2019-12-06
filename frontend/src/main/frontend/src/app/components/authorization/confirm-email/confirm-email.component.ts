@@ -6,7 +6,7 @@ import {Router} from "@angular/router";
 @Component({
   selector: 'app-confirm-email',
   templateUrl: './confirm-email.component.html',
-  styleUrls: ['../../../resources/styles/Authorization.css']
+  styleUrls: ['../../../resources/styles/Authorization.css', './confirm-email.component.css']
 })
 export class ConfirmEmailComponent implements OnInit {
   code: string = '';
