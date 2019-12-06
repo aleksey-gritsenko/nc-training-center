@@ -5,6 +5,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 
 import {AuthenticationService} from '../../../services/authentification/authentication.service';
 import {StorageService} from "../../../services/storage/storage.service";
+import {User} from "../../../models/user";
 
 @Component({
     selector: 'app-login',
@@ -33,20 +34,20 @@ export class LoginComponent implements OnInit {
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     }
 
-    login(): void {
+    login() {
         if (this.model.login.length == 0 || this.model.password.length == 0) return;
         this.serv.login(this.model.login, this.model.password)
             .subscribe(
                 user => {
-                 if (!user.verified) this.router.navigateByUrl('/verify');
-                 else {
-                     this.storageService.setUser(user);
-                     this.router.navigate([this.returnUrl]);
-                 }
-        },
-            error => {
-                if (error.status == 404) this.isError = true;
-                this.model.password = '';
-            });
+                    if (!user.verified) this.router.navigateByUrl('/verify');
+                    else {
+                        this.storageService.setUser(user);
+                        this.router.navigate([this.returnUrl]);
+                    }
+                },
+                error => {
+                    if (error.status == 404) this.isError = true;
+                    this.model.password = '';
+                });
     }
 }

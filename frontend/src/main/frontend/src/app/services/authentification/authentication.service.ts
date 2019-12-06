@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {StorageService} from "../storage/storage.service";
 import {User} from "../../models/user";
 import {SpringAuthService} from "../security/spring-auth.service";
+import {Observable} from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
@@ -16,18 +17,28 @@ export class AuthenticationService {
                 private springAuth: SpringAuthService) {
     }
 
-    public login(username: string, password: string) {
+    public login(username: string, password: string): Observable<User> {
         let form = new FormData();
         form.append('login', username);
         form.append('password', password);
+        let user: User = new User();
+
+        user.userName = '';
+        user.userRole = 'guest';
+
 
         this.springAuth.authentificate(username, password).subscribe(data => {
             window.sessionStorage.setItem('token', JSON.stringify(data));
             alert(window.sessionStorage.getItem('token'));
-            return this.http.post<User>(`${this.siteUrl}/login/` + '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token, form);
+            let tmpUser:User = this.http.post<User>(`${this.siteUrl}/login/` + '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token, form);
+            user.userRole = tmpUser.userRole;
+            user.userName = tmpUser.userName;
+            user.email = tmpUser.email;
+            user.id = tmpUser.id;
         }, error => {
             alert('Error');
         });
+        return user;
     }
 
     logout() {
