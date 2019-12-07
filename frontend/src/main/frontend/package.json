@@ -30,6 +30,7 @@
     "angularx-flatpickr": "^6.1.1",
     "bootstrap-notify": "^3.1.3",
     "date-fns": "^2.8.1",
+    "file-saver": "^2.0.2",
     "flatpickr": "^4.6.3",
     "stompjs": "^2.3.3",
     "tslib": "^1.10.0",

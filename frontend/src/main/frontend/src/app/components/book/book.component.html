@@ -46,10 +46,11 @@
                             <label for="file" class="bmd-label-floating">File</label>
                         </td>
                         <td>
-                            <input required formControlName="file" type="number" class="form-control" [(ngModel)]="book.fileId" id="file">
+                            <input required formControlName="file" type="number" class="form-control" [(ngModel)]="book.file" id="file">
                         </td>
                     </tr>
                 </table>
+                <div><app-file-upload [book]="book"></app-file-upload></div>
                 <button [disabled]="!bookForm.valid" class="btn btn-default" (click)="updateBook()">Save changes</button>
                 <div class="btn-default btn">
                     <a [routerLink]="['/books',book.id,'announcement']">Create announcement</a>
@@ -64,11 +65,11 @@
             <button  *ngIf="userAddedToRead" id="addRead" class="btn btn-primary"   (click)="addBookToRead(book.id)">Add to read</button>
             <button  *ngIf="!userAddedToRead" id="removeRead" class="btn btn-primary" (click)="removeBookFromRead(book.id)">Remove from read</button>
         </div>
-    </div>
-    <div>
         <div>
             <app-reviews-list [book]="book"></app-reviews-list>
         </div>
+    </div>
+    <div>
 
         <div class="row">
             <div *ngFor="let bookOfSuggestions of suggestionBook |  slice:0:3" class="col-3 col-lg-4  col-md-6">

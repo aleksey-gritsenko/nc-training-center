@@ -13,22 +13,23 @@
             <button class="btn btn-primary" (click)="router.navigate(['/userBooks/favourite'])">My Favourite Books</button>
             <div><button class="btn btn-primary" (click)="curBookList.getAllReadBooks()">My Read Books</button></div>
             <div class="row">
-                <div *ngFor="let favBook of curBookList.userReadBookList" class="col-lg-4  col-md-6">
+                <div style="text-align: center; font-size: 30px"><h2 *ngIf="curBookList.emptyReadList">You do not have any favourite books yet</h2></div>
+                <div *ngFor="let readBook of curBookList.userReadBookList" class="col-lg-4  col-md-6">
                     <div class="card card-profile">
                         <div class="card-body">
                             <div class="card-title">
-                                <h3><a  [routerLink]="['book', favBook.id]"> {{favBook.header}}</a></h3>
+                                <h3><a  [routerLink]="['book', readBook.id]"> {{readBook.header}}</a></h3>
                             </div>
                             <div class="card-description">
-                                <div>Overview: {{favBook.overview}}</div>
-                                <div>Status: {{favBook.status}}</div>
+                                <div>Overview: {{readBook.overview}}</div>
+                                <div>Status: {{readBook.status}}</div>
                                 <div>
                                     <div>Authors:</div>
-                                    <div *ngFor="let author of favBook.authors ">
+                                    <div *ngFor="let author of readBook.authors ">
                                         <div>{{author.name}}</div>
                                     </div>
                                 </div>
-                                <div *ngIf="favBook.genre">Genre: {{favBook.genre}}</div>
+                                <div *ngIf="readBook.genre">Genre: {{readBook.genre}}</div>
                             </div>
                         </div>
                     </div>

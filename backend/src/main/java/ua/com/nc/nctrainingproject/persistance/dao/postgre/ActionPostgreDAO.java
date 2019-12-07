@@ -15,10 +15,12 @@ import java.util.List;
 public class ActionPostgreDAO implements ActionDAO {
 
 	private final JdbcTemplate jdbcTemplate;
+	private final ActionTypePostgreDAO actionTypePostgreDAO;
 
 	@Autowired
-	public ActionPostgreDAO(DataSource dataSource) {
+	public ActionPostgreDAO(DataSource dataSource, ActionTypePostgreDAO actionTypePostgreDAO) {
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
+		this.actionTypePostgreDAO =actionTypePostgreDAO;
 	}
 
 	@Override

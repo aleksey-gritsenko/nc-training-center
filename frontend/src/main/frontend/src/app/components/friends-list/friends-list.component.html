@@ -66,15 +66,14 @@
 <div [ngSwitch]="group.value">
     <ng-template ngSwitchCase="new">
 
-        <li *ngFor="let new of newApplications">
+        <li *ngFor="let newApp of newApplications">
             <div class="alert alert-warning">
 
-                <div class ="name">{{new.email}}</div>
+                <div class ="name">{{newApp.email}}</div>
 
 
-                <div routerLink="/user/{{new.id}}/user/{{new.id}}">
-                    <span class="letter">   <a>{{new.userName}}</a> </span>
-                </div>
+                <div routerLink="/user/{{newApp.id}}"> {{newApp.userName}}</div>
+                    <span class="letter">   <a>{{newApp.userName}}</a> </span>
             </div>
         </li>
 
