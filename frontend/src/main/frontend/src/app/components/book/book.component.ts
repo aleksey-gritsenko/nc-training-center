@@ -80,6 +80,15 @@ export class BookComponent implements OnInit {
                         authors.forEach(author=>this.book.authors.push(author));
                     }
                 );
+                this.apiService.getImageByBook(this.book).subscribe(
+                    img=>{ let reader = new FileReader();
+                        reader.addEventListener("load", () => {
+                            this.book.photoURL = reader.result;
+                        }, false);
+                        if (img) {
+                            reader.readAsDataURL(img);
+                        }}
+                )
             },
             err => {
                 alert("Error in get book by id")
