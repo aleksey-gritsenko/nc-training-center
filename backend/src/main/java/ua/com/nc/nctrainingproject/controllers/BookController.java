@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import ua.com.nc.nctrainingproject.models.Book;
 import ua.com.nc.nctrainingproject.models.BookFile;
 import ua.com.nc.nctrainingproject.models.BookImage;
@@ -114,11 +115,10 @@ public class BookController {
     }
 
     @RequestMapping(value = "/addImage", method = RequestMethod.POST)
-    public ResponseEntity<?> addBookImage(@RequestBody Book book, @RequestBody File file) throws IOException {
+    public ResponseEntity<?> addBookImage(@RequestParam(name = "bookId") int book,
+                                          @RequestParam(name = "img") MultipartFile file) throws IOException {
 
-        byte[] encodedImage = Base64.getEncoder().encode(Files.readAllBytes(file.toPath()));
-
-        BookImage bookImage = new BookImage(book.getId(), encodedImage);
+        BookImage bookImage = new BookImage(book, file.getBytes());
         BookImage response = bookFileManagementService.addImage(bookImage);
 
         return Optional.ofNullable(response).map(ResponseEntity::ok).orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
@@ -130,7 +130,7 @@ public class BookController {
         return bookFile.getFile();
     }
 
-    @GetMapping(produces = MediaType.IMAGE_PNG_VALUE, value = "/bookImage")
+    @RequestMapping(produces = MediaType.IMAGE_PNG_VALUE, value = "/bookImage")
     public @ResponseBody byte[] getBookImage(@RequestBody Book book) {
         BookImage bookImage = bookFileManagementService.getBookImage((book));
         return bookImage.getImage();
