@@ -3,14 +3,17 @@ package ua.com.nc.nctrainingproject.models;
 public class ActionType {
 	private int actionTypeId;
 	private String actionName;
+	private String entity;
 
-	public ActionType(int actionTypeId, String actionName) {
+	public ActionType(int actionTypeId, String actionName, String entity) {
 		this.actionTypeId = actionTypeId;
 		this.actionName = actionName;
+		this.entity = entity;
 	}
 
-	public ActionType(String actionName) {
+	public ActionType(String actionName, String entity) {
 		this.actionName = actionName;
+		this.entity = entity;
 	}
 
 	public ActionType() {
@@ -30,6 +33,14 @@ public class ActionType {
 
 	public void setActionName(String actionName) {
 		this.actionName = actionName;
+	}
+
+	public String getEntity() {
+		return entity;
+	}
+
+	public void setEntity(String entity) {
+		this.entity = entity;
 	}
 
 	@Override
