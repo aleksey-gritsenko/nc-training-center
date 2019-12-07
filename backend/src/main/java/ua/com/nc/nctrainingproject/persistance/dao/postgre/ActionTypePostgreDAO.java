@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import ua.com.nc.nctrainingproject.models.ActionType;
 import ua.com.nc.nctrainingproject.persistance.dao.ActionTypeDAO;
 import ua.com.nc.nctrainingproject.persistance.dao.postgre.queries.ActionTypeQuery;
+import ua.com.nc.nctrainingproject.persistance.mappers.ActionRowMapper;
 import ua.com.nc.nctrainingproject.persistance.mappers.ActionTypeRowMapper;
 
 import javax.sql.DataSource;
@@ -24,6 +25,10 @@ public class ActionTypePostgreDAO implements ActionTypeDAO {
 	@Override
 	public List<ActionType> getAllActionTypes() {
 		return jdbcTemplate.query(ActionTypeQuery.GET_ALL_ACTION_TYPES, new ActionTypeRowMapper());
+	}
+
+	public List<String> getAllActionTypesNames() {
+		return jdbcTemplate.queryForList(ActionTypeQuery.GET_ALL_ACTION_TYPES_NAMES, String.class);
 	}
 
 	@Override

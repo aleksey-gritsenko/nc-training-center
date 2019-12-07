@@ -9,6 +9,10 @@ public class ActionType {
 		this.actionName = actionName;
 	}
 
+	public ActionType(String actionName) {
+		this.actionName = actionName;
+	}
+
 	public ActionType() {
 	}
 

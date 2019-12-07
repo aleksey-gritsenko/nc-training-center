@@ -21,13 +21,16 @@ public class ActionTypeController {
 	}
 
 	@RequestMapping(value = "/all", method = RequestMethod.GET)
-	@ResponseBody
 	public List<ActionType> getAll() {
 		return actionTypeService.getAllActionTypes();
 	}
 
+	@RequestMapping(value = "/allNames", method = RequestMethod.GET)
+	public @ResponseBody List<String> getAllActionTypeNames() {
+		return actionTypeService.getAllActionTypesNames();
+	}
+
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
-	@ResponseBody
 	public ActionType createActionType(@RequestParam(name = "actionTypeId") int actionTypeId,
 									   @RequestParam(name = "actionName") String actionName) {
 		ActionType actionType = new ActionType(actionTypeId, actionName);

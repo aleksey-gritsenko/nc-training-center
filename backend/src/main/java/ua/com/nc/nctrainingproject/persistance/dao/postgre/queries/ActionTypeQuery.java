@@ -7,10 +7,12 @@ public class ActionTypeQuery {
 
 	public static final String GET_ALL_ACTION_TYPES = "SELECT * FROM " + TABLE_NAME;
 
-	public static final String GET_BY_ACTION_TYPE_ID = "SELECT * FROM " + TABLE_NAME
+	public static final String GET_BY_ACTION_TYPE_ID = GET_ALL_ACTION_TYPES
 			+ " WHERE " + ACTION_TYPE_ID + " =(?)";
 
-	public static final String GET_BY_ACTION_NAME = "SELECT * FROM " + TABLE_NAME
+	public static final String GET_ALL_ACTION_TYPES_NAMES = "SELECT " + ACTION_NAME + " FROM " + TABLE_NAME;
+
+	public static final String GET_BY_ACTION_NAME = GET_ALL_ACTION_TYPES
 			+ " WHERE " + ACTION_NAME + " =(?)";
 
 	public static final String DELETE_BY_ACTION_TYPE_ID = "DELETE FROM " + TABLE_NAME

@@ -21,6 +21,10 @@ public class ActionTypeService {
 		return actionTypePostgreDAO.getAllActionTypes();
 	}
 
+	public List<String>  getAllActionTypesNames() {
+		return actionTypePostgreDAO.getAllActionTypesNames();
+	}
+
 	public ActionType getActionTypeByActionTypeId(int actionTypeId) {
 		return actionTypePostgreDAO.getActionTypeByActionTypeId(actionTypeId);
 	}
