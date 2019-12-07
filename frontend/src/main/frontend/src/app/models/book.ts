@@ -9,5 +9,7 @@ export class Book extends Entity {
     authors: Array<Author> = [];
     fileId:number;
     photo:number;
+    photoURL:string|ArrayBuffer;
+    imageURL:string|ArrayBuffer;
 }
 

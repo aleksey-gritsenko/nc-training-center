@@ -37,7 +37,9 @@ export class BooksListComponent implements OnInit{
         genre: '',
         authors: [],
         photo:0,
-        fileId:0
+        fileId:0,
+        imageURL:'',
+        photoURL:''
     };
 
     bookFilter: BookFilter = new BookFilter();
