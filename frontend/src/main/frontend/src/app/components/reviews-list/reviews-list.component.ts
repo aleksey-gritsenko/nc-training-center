@@ -40,7 +40,6 @@ export class ReviewsListComponent implements OnInit{
     ngOnInit() {
         this.addReviewVisible = false;
         this.ngOnChanges();
-        console.log(this.book);
     }
 
 

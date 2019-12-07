@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import ua.com.nc.nctrainingproject.models.Review;
 import ua.com.nc.nctrainingproject.persistance.dao.postgre.ReviewPostgreDAO;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -17,8 +18,12 @@ public class ReviewService {
 	}
 
 	public Review createReview(Review review)  {
-		reviewPostgreDAO.createReview(review);
-		return review;
+		if(review!=null){
+			review.setReviewDate(new Date());
+			reviewPostgreDAO.createReview(review);
+			return review;
+		}
+		return null;
 	}
 
 	public List<Review> getReviewOfBook(int bookId) {
@@ -26,7 +31,10 @@ public class ReviewService {
 	}
 
 	public void acceptReview(Review review){
-		reviewPostgreDAO.acceptReview(review);
+		if(review!=null) {
+			review.setStatus(true);
+			reviewPostgreDAO.acceptReview(review);
+		}
 	}
 
 	public List<Review> getAcceptedReview(boolean status, int bookId){
