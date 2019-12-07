@@ -75,6 +75,11 @@ public class BookController {
         return ResponseEntity.ok(bookService.getAllAuthors());
     }
 
+    @RequestMapping(value = "/genresName", method = RequestMethod.GET)
+    public ResponseEntity<?> getAllGenresName() {
+        return ResponseEntity.ok(bookService.getAllGenresName());
+    }
+
     @RequestMapping(value = "/authors/book", method = RequestMethod.GET)
     public ResponseEntity<?> getAuthorsByBookId(@RequestParam(name = "book") int bookId) {
         return ResponseEntity.ok(bookService.getAuthorsByBookId(bookId));
