@@ -7,7 +7,10 @@ import {Router} from '@angular/router';
 })
 export class RecoverService {
 
-    private siteUrl: string = 'https://nc-group1-2019-project.herokuapp.com';
+    //private siteUrl: string = 'https://nc-group1-2019-project.herokuapp.com';
+
+    private siteUrl: string = 'http://localhost:8080';
+
 
     constructor(private http: HttpClient, private router: Router) {
     }

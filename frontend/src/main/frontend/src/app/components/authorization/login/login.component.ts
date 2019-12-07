@@ -5,6 +5,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 
 import {AuthenticationService} from '../../../services/authentification/authentication.service';
 import {StorageService} from "../../../services/storage/storage.service";
+import {SpringAuthService} from "../../../services/security/spring-auth.service";
 
 @Component({
     selector: 'app-login',
@@ -26,7 +27,8 @@ export class LoginComponent implements OnInit {
         private http: HttpClient, public serv: AuthenticationService,
         private route: ActivatedRoute,
         private router: Router,
-        private storageService: StorageService) {
+        private storageService: StorageService,
+        private springAuth: SpringAuthService) {
     }
 
     ngOnInit() {
@@ -34,19 +36,28 @@ export class LoginComponent implements OnInit {
     }
 
     login(): void {
-        if (this.model.login.length == 0 || this.model.password.length == 0) return;
-        this.serv.login(this.model.login, this.model.password)
-            .subscribe(
-                user => {
-                 if (!user.verified) this.router.navigateByUrl('/verify');
-                 else {
-                     this.storageService.setUser(user);
-                     this.router.navigate([this.returnUrl]);
-                 }
-        },
-            error => {
-                if (error.status == 404) this.isError = true;
-                this.model.password = '';
-            });
+        this.springAuth.authentificate(this.model.login, this.model.password).subscribe(
+            data => {
+                window.sessionStorage.setItem('token', JSON.stringify(data));
+                if (this.model.login.length == 0 || this.model.password.length == 0) return;
+                this.serv.login(this.model.login, this.model.password)
+                    .subscribe(
+                        user => {
+                            if (!user.verified) this.router.navigateByUrl('/verify');
+                            else {
+                                this.storageService.setUser(user);
+                                this.router.navigate([this.returnUrl]);
+                            }
+                        },
+                        error => {
+                            if (error.status == 404) this.isError = true;
+                            this.model.password = '';
+                        });
+            },
+            error1 => {
+                alert('error authentification');
+            }
+        );
+
     }
 }
