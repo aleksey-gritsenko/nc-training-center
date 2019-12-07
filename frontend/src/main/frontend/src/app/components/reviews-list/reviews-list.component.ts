@@ -82,6 +82,7 @@ export class ReviewsListComponent implements OnInit{
     }
 
     acceptReview(review:Review):void{
+        this.checkUser();
         review.adminId=this.storage.getUser().id;
         this.commonService.acceptReview(review).subscribe(
             res=>{this.acceptedReviews.push(review);
@@ -90,27 +91,21 @@ export class ReviewsListComponent implements OnInit{
         );
     }
     createReview(): void {
-        if(this.storage.getUser()==null)
-        {
-            this.router.navigate(['/login']);
-        }
-        else
-        {
-            const newCreatedReview: Review = Object.assign({}, this.createdReview);
-            newCreatedReview.bookId = this.book.id;
-            newCreatedReview.userId = this.storage.getUser().id;
-            this.commonService.createReview(newCreatedReview)
-                .subscribe(res => {
-                        this.userService.searchUser(res.userId.toString()).subscribe(
-                            user=>{res.username = user.userName;}
-                        );
-                        this.notAcceptedReviews.push(res);
-                    },
-                    err => {
-                        alert("Error in creating new review");
-                    }
-                );
-        }
+        this.checkUser();
+        const newCreatedReview: Review = Object.assign({}, this.createdReview);
+        newCreatedReview.bookId = this.book.id;
+        newCreatedReview.userId = this.storage.getUser().id;
+        this.commonService.createReview(newCreatedReview)
+            .subscribe(res => {
+                    this.userService.searchUser(res.userId.toString()).subscribe(
+                        user=>{res.username = user.userName;}
+                    );
+                    this.notAcceptedReviews.push(res);
+                },
+                err => {
+                    alert("Error in creating new review");
+                }
+            );
 
     }
 
@@ -122,5 +117,12 @@ export class ReviewsListComponent implements OnInit{
 
     fillArray(grade:number){
         return Array.from({ length: grade }, (v, i) => i)
+    }
+
+    checkUser(){
+        if(this.storage.getUser()==null)
+        {
+            this.router.navigate(['/login']);
+        }
     }
 }

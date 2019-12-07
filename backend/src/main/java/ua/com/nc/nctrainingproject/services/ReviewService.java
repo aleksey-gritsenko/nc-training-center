@@ -18,12 +18,10 @@ public class ReviewService {
 	}
 
 	public Review createReview(Review review)  {
-		if(review!=null){
-			review.setReviewDate(new Date());
-			reviewPostgreDAO.createReview(review);
-			return review;
-		}
-		return null;
+		review.setReviewDate(new Date());
+		reviewPostgreDAO.createReview(review);
+		review.setReviewId(getAllReview().get(getAllReview().size()-1).getId());
+		return review;
 	}
 
 	public List<Review> getReviewOfBook(int bookId) {
@@ -31,7 +29,7 @@ public class ReviewService {
 	}
 
 	public void acceptReview(Review review){
-		if(review!=null) {
+		if(getReviewById(review.getReviewId())!=null) {
 			review.setStatus(true);
 			reviewPostgreDAO.acceptReview(review);
 		}
@@ -52,5 +50,9 @@ public class ReviewService {
 			return reviewPostgreDAO.getReviewById(reviewId);
 		}
 		return null;
+	}
+
+	public List<Review> getAllReview(){
+		return reviewPostgreDAO.getAllReview();
 	}
 }

@@ -24,5 +24,7 @@ public class ReviewQuery {
 	public static final String DELETE_REVIEW_BY_ID = "DELETE FROM " + TABLE_NAME + " WHERE " + REVIEW_ID + " =(?)";
 
 	public static final String GET_REVIEW_BY_ID = "SELECT * FROM " + TABLE_NAME + " WHERE " + REVIEW_ID + " =(?)";
+
+	public static final String GET_ALL_REVIEW  = "SELECT * FROM " + TABLE_NAME;
 }
 
