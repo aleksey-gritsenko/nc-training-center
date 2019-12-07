@@ -6,9 +6,11 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ua.com.nc.nctrainingproject.models.Book;
 import ua.com.nc.nctrainingproject.models.BookFile;
 import ua.com.nc.nctrainingproject.models.BookImage;
+import ua.com.nc.nctrainingproject.models.CustomMultipartFile;
 import ua.com.nc.nctrainingproject.persistance.dao.postgre.queries.FilterCriterionQuery;
 import ua.com.nc.nctrainingproject.services.BookFileManagementService;
 import ua.com.nc.nctrainingproject.services.BookService;
@@ -104,15 +106,20 @@ public class BookController {
     // ========== FILE MANAGEMENT ==========
 
     @RequestMapping(value = "/addFile", method = RequestMethod.POST)
-    public ResponseEntity<BookFile> addBookFile(@RequestBody Book book, @RequestBody File file) throws IOException {
+    public ResponseEntity<String> addBookFile(@RequestParam(name = "bookId") int book,
+                                                @RequestParam(name = "file") MultipartFile file) throws IOException {
 
-        byte[] encodedFile = Base64.getEncoder().encode(Files.readAllBytes(file.toPath()));
-
-        BookFile bookFile = new BookFile(book.getId(), encodedFile);
+        System.out.println(file);
+        BookFile bookFile = new BookFile(book, file.getBytes());
         BookFile response = bookFileManagementService.addFile(bookFile);
-
-        return Optional.ofNullable(response).map(ResponseEntity::ok).orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
+        String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path("/files/download/")
+                .path(bookService.getBookById(book).getHeader())
+                .toUriString();
+        Sys
+        return Optional.ofNullable(fileDownloadUri).map(ResponseEntity::ok).orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
     }
+
 
     @RequestMapping(value = "/addImage", method = RequestMethod.POST)
     public ResponseEntity<?> addBookImage(@RequestParam(name = "bookId") int book,
@@ -124,17 +131,20 @@ public class BookController {
         return Optional.ofNullable(response).map(ResponseEntity::ok).orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
     }
 
-    @GetMapping(produces = MediaType.APPLICATION_PDF_VALUE, value = "/bookFile")
-    public @ResponseBody byte[] getBookFile(@RequestBody Book book) {
-        BookFile bookFile = bookFileManagementService.getBookFile((book));
-        return bookFile.getFile();
+    @RequestMapping(produces = MediaType.APPLICATION_PDF_VALUE, value = "/bookFile")
+    @ResponseBody ResponseEntity getBookFile(@RequestBody Book book) {
+        MultipartFile multipartFile = new CustomMultipartFile(bookFileManagementService.getBookFile(book).getFile());
+        System.out.println(multipartFile);
+        return Optional.ofNullable(multipartFile).map(ResponseEntity::ok).orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
     }
 
+
     @RequestMapping(produces = MediaType.IMAGE_PNG_VALUE, value = "/bookImage")
-    public @ResponseBody byte[] getBookImage(@RequestBody Book book) {
+    @ResponseBody byte[] getBookImage(@RequestBody Book book) {
         BookImage bookImage = bookFileManagementService.getBookImage((book));
         return bookImage.getImage();
     }
+
 
     @RequestMapping(value = "/updateFile", method = RequestMethod.POST)
     public ResponseEntity<BookFile> updateBookFile(@RequestBody Book book, @RequestBody File file) throws IOException {

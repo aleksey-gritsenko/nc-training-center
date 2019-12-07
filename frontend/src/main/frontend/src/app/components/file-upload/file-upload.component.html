@@ -1,5 +1,5 @@
 <div><input id="myForm" type="file" name="file" (change)="postFile($event)"></div>
 <div class="btn btn-primary">
-    <a (click)="downloadPDF()"><i>Download</i></a>
+    <a [href]="fileURL"><i>Download</i></a>
 </div>
 

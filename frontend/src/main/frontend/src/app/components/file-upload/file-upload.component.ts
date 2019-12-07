@@ -17,8 +17,9 @@ export class FileUploadComponent implements  OnInit{
     constructor(private http: HttpClient) {
     }
     ngOnInit(){
+        this.downloadPDF();
     }
-    fileExtensions = ['.txt'];
+    fileExtensions = ['.txt', '.pdf'];
     imgExtensions = ['.png'];
     fileToUpload:File;
 
@@ -33,8 +34,8 @@ export class FileUploadComponent implements  OnInit{
         let formData = new FormData();
         let name = this.fileToUpload.name;
         let index = name.lastIndexOf(".");
-        let strsubstring = name.substring(index, name.length);
-        if(this.imgExtensions.indexOf(strsubstring)!=-1)
+        let extensions = name.substring(index, name.length);
+        if(this.imgExtensions.indexOf(extensions)!=-1)
         {
             formData.append('img', this.fileToUpload);
             formData.append('bookId', this.book.id.toString());
@@ -46,7 +47,7 @@ export class FileUploadComponent implements  OnInit{
             );
 
         }
-        if(this.fileExtensions.indexOf(strsubstring)!=-1)
+        if(this.fileExtensions.indexOf(extensions)!=-1)
         {
             formData.append('file', this.fileToUpload);
             formData.append('bookId', this.book.id.toString());
@@ -56,11 +57,9 @@ export class FileUploadComponent implements  OnInit{
         }
     }
     downloadPDF(): any {
-        return this.http.post(`http://localhost:8080/book/bookFile`,this.book, {responseType:'blob'}).subscribe(
+        return this.http.post(`http://localhost:8080/book/bookFile`,this.book).subscribe(
             (res) => {
-                this.createFile(res);
-                let reader = new FileReader();
-                this.fileURL = reader.result;
+               console.log(res)
             }
         );
     }
