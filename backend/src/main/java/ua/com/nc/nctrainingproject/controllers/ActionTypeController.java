@@ -20,7 +20,7 @@ public class ActionTypeController {
 		this.actionTypeService = actionTypeService;
 	}
 
-	@RequestMapping(value = "/all", method = RequestMethod.POST)
+	@RequestMapping(value = "/all", method = RequestMethod.GET)
 	@ResponseBody
 	public List<ActionType> getAll() {
 		return actionTypeService.getAllActionTypes();
