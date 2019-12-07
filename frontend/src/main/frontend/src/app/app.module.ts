@@ -49,6 +49,7 @@ import { UserFavouriteBooksComponent } from './components/user/user-favourite-bo
 import { UserReadBooksComponent } from './components/user/user-read-books/user-read-books.component';
 import {SearchComponent} from './components/search/search.component';
 import {AddAchievmentComponent} from './components/user/add-achievment/add-achievment.component';
+import { FileUploadComponent } from './components/file-upload/file-upload.component';
 
 //import {NotificationsListComponent} from "./components/notifications-list/notifications-list.component";
 
@@ -91,7 +92,8 @@ import {AddAchievmentComponent} from './components/user/add-achievment/add-achie
         UserReadBooksComponent,
         UserBooksComponent,
         SearchComponent,
-        AddAchievmentComponent
+        AddAchievmentComponent,
+        FileUploadComponent
     ],
 
     imports: [
