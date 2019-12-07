@@ -260,18 +260,17 @@ export class BooksListComponent implements OnInit{
                     this.apiService.getGenreByBookId(book.id).subscribe(
                         genre=> book.genre  = genre.name
                     );
-                    // this.apiService.getImageByBook(book).subscribe(
-                    //     res=>{
-                    //         let reader = new FileReader();
-                    //         reader.addEventListener("load", () => {
-                    //             book.photo = reader.result;
-                    //         }, false);
-                    //         if (res) {
-                    //             reader.readAsDataURL(res);
-                    //         }
-                    //         console.log(book.photo);
-                    //     }
-                    // );
+                    this.apiService.getImageByBook(book).subscribe(
+                        res=>{
+                            let reader = new FileReader();
+                            reader.addEventListener("load", () => {
+                                book.photoURL = reader.result;
+                            }, false);
+                            if (res) {
+                                reader.readAsDataURL(res);
+                            }
+                        }
+                    );
                 });
 
             },
