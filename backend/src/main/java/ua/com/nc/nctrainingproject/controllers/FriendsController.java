@@ -22,17 +22,19 @@ public class FriendsController {
 
     @RequestMapping(value = "/send" ,method = RequestMethod.POST)
     public  ResponseEntity<?> sendRequest(@RequestParam int sender, @RequestParam int reciever){
-        if(friendsService.checkRequest(sender,reciever)){
+      /*  if(friendsService.checkRequest(sender,reciever)){
         friendsService.sendRequest(sender,reciever);
             return new ResponseEntity<>(HttpStatus.OK);
 
        }
        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
+       */
 
 
-       // friendsService.sendRequest(sender,reciever);
-       // return new ResponseEntity<>(HttpStatus.OK);
+
+        friendsService.sendRequest(sender,reciever);
+      return new ResponseEntity<>(HttpStatus.OK);
 
     }
 
