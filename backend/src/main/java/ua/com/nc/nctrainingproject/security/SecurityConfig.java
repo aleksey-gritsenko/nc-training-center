@@ -34,7 +34,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .anonymous().disable()
                 .authorizeRequests()
-                .antMatchers("/api-docs/**","/registration/**","/login/**","/announcements/**","/email/**","/change/**","/resend/**","/activate/**").permitAll();
+                .antMatchers("/api-docs/**","/registration/**","/login/**","/announcements/**","/email/**","/change/**","/resend/**","/activate/**","/test/**").permitAll();
     }
 
     @Bean
