@@ -4,36 +4,38 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ua.com.nc.nctrainingproject.models.Action;
 import ua.com.nc.nctrainingproject.models.User;
-import ua.com.nc.nctrainingproject.persistance.dao.postgre.ActionPostgreDAO;
-import ua.com.nc.nctrainingproject.persistance.dao.postgre.FriendsPostgreDAO;
-import ua.com.nc.nctrainingproject.persistance.dao.postgre.NotificationPostgreDAO;
-import ua.com.nc.nctrainingproject.persistance.dao.postgre.UserPostgreDAO;
+import ua.com.nc.nctrainingproject.persistance.dao.postgre.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class ActionService {
 
 	private final ActionPostgreDAO actionPostgreDAO;
-	private final UserPostgreDAO userPostgreDAO;
 	private final FriendsPostgreDAO friendsPostgreDAO;
 	private final NotificationPostgreDAO notificationPostgreDAO;
+	private final ActionTypePostgreDAO actionTypePostgreDAO;
 
 	@Autowired
-	public ActionService(ActionPostgreDAO actionPostgreDAO, UserPostgreDAO userPostgreDAO,
-						 FriendsPostgreDAO friendsPostgreDAO, NotificationPostgreDAO notificationPostgreDAO) {
+	public ActionService(ActionPostgreDAO actionPostgreDAO, FriendsPostgreDAO friendsPostgreDAO,
+						 NotificationPostgreDAO notificationPostgreDAO,
+						 ActionTypePostgreDAO actionTypePostgreDAO) {
 		this.actionPostgreDAO = actionPostgreDAO;
-		this.userPostgreDAO = userPostgreDAO;
 		this.friendsPostgreDAO = friendsPostgreDAO;
 		this.notificationPostgreDAO = notificationPostgreDAO;
+		this.actionTypePostgreDAO = actionTypePostgreDAO;
 	}
 
-	public Action addNewAction(int userId, int actionTypeId){
-		Action action = new Action(userId, actionTypeId);
-		createAction(action);
+	public Action addNewAction(int userId, int actionTypeId) {
+		createAction(new Action(userId, actionTypeId));
+
+		Action action = actionPostgreDAO.getActionByUserAndTypeId(userId, actionTypeId);
 
 		List<User> users = friendsPostgreDAO.getAllFriends(userId);
+
+		if (actionTypePostgreDAO.getActionTypeByActionTypeId(actionTypeId).getEntity().equals("achievement")) {
+			notificationPostgreDAO.createNotification(userId, actionTypeId);
+		}
 
 		for (User user : users) {
 			notificationPostgreDAO.createNotification(user.getId(), action.getActionId());

@@ -17,6 +17,9 @@ public class ActionQuery {
 	public static final String GET_BY_ACTION_TYPE_ID = "SELECT * FROM " + TABLE_NAME
 			+ " WHERE " + ACTION_TYPE_ID + " =(?)";
 
+	public static final String GET_BY_USER_TYPE_ID = "SELECT * FROM " + TABLE_NAME
+			+ " WHERE " + ACTION_TYPE_ID + " =(?) " + " AND " + USER_ID + "=(?)";
+
 	public static final String DELETE_BY_ACTION_ID = "DELETE FROM " + TABLE_NAME
 			+ " WHERE " + ACTION_ID + " =(?) ";
 

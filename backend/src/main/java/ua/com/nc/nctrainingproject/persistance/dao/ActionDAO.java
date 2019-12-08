@@ -12,6 +12,8 @@ public interface ActionDAO {
 
 	Action getActionByUserId(int userId);
 
+	Action getActionByUserAndTypeId(int userId, int actionTypeId);
+
 	Action getActionByActionTypeId(int actionTypeId);
 
 	void deleteActionByActionId(int actionId);
