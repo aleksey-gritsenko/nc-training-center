@@ -10,25 +10,24 @@ import {ActivatedRoute} from "@angular/router";
     styleUrls: ['./friends-list.component.css']
 })
 export class FriendsListComponent implements OnInit {
-    userFriends: User[] = [];
-    newApplications: User[] = [];
+    userFriends :User[]=[];
+    newApplications:User[]=[];
 
-    currentUser: User;
-    id: number;
+    currentUser:User;
+    id:string;
 
-    constructor(private apiService: CommonService, private storage: StorageService, private activatedRoute: ActivatedRoute) {
+    constructor(private apiService: CommonService,private storage: StorageService,private activatedRoute: ActivatedRoute) {
     }
 
     ngOnInit() {
         //this.activatedRoute.snapshot.paramMap.get('id');
         this.currentUser = this.storage.getUser();
-        this.id = +this.activatedRoute.snapshot.paramMap.get('id');
-        this.getNewApplications(this.id.toString());
-        this.getAllFriends(this.id.toString());
+        this.id = this.activatedRoute.snapshot.paramMap.get('id');
+        this.getNewApplications(this.id);
+        this.getAllFriends(this.id);
 
     }
-
-    getAllFriends(id: string) {
+    getAllFriends(id:string){
         this.apiService.getFriends(id).subscribe(
             res => {
                 this.userFriends = res;
@@ -37,8 +36,7 @@ export class FriendsListComponent implements OnInit {
                 alert("Error in getting new friends");
             })
     }
-
-    getNewApplications(id: string) {
+    getNewApplications(id:string){
         this.apiService.getNewApplications(id).subscribe(
             res => {
                 this.newApplications = res;
@@ -47,15 +45,8 @@ export class FriendsListComponent implements OnInit {
                 alert("Error in getting all friends");
             })
     }
+    addFriends(){
 
-    addFriends(friend: User) {
-        this.apiService.addFriend(friend, this.currentUser).subscribe(
-            res => {
-            },
-            err => {
-                alert("Error in add friends");
-            }
-        )
     }
 
 

@@ -71,7 +71,6 @@ public class UserService {
     }
 
     public List<User> searchUsersByUsername(String search) {
-        search = search.toLowerCase();
         return userPostgreDAO.searchUsersByUsername(search);
     }
 

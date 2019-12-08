@@ -48,10 +48,9 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import { UserFavouriteBooksComponent } from './components/user/user-favourite-books/user-favourite-books.component';
 import { UserReadBooksComponent } from './components/user/user-read-books/user-read-books.component';
 import {SearchComponent} from './components/search/search.component';
-import {AddAchievementComponent} from './components/user/add-achievment/add-achievement.component';
+import {AddAchievmentComponent} from './components/user/add-achievment/add-achievment.component';
 import { FileUploadComponent } from './components/file-upload/file-upload.component';
 import { BookImgComponent } from './components/book-img/book-img.component';
-import { UserSettingsComponent } from './components/user/user-settings/user-settings.component';
 
 //import {NotificationsListComponent} from "./components/notifications-list/notifications-list.component";
 
@@ -94,10 +93,9 @@ import { UserSettingsComponent } from './components/user/user-settings/user-sett
         UserReadBooksComponent,
         UserBooksComponent,
         SearchComponent,
-        AddAchievementComponent,
+        AddAchievmentComponent,
         FileUploadComponent,
-        BookImgComponent,
-        UserSettingsComponent
+        BookImgComponent
     ],
 
     imports: [

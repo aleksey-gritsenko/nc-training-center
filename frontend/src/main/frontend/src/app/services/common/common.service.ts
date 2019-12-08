@@ -290,9 +290,13 @@ export class CommonService {
     }
 
     makeSuggestion(userId: number):Observable<Book[]>{
+        userId = 2;
+        let params = new HttpParams().append(
+            'user', userId.toString()
+        );
         //const url = `${this.booksUrl}/suggestion?user=${userId}`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
-        const url = `${this.localhost}/book/suggestion?user=${userId}`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
-        return this.http.get<Book[]>(url);
+        const url = `${this.localhost}/book/suggestion`;
+        return this.http.get<Book[]>(url,{params:params});
 
     }
 

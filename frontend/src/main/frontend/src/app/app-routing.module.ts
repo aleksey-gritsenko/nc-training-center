@@ -20,7 +20,6 @@ import {CalendarComponent} from "./components/calendar/calendar.component";
 import {SearchComponent} from "./components/search/search.component";
 import {UserFavouriteBooksComponent} from "./components/user/user-favourite-books/user-favourite-books.component";
 import {UserReadBooksComponent} from "./components/user/user-read-books/user-read-books.component";
-import {UserSettingsComponent} from "./components/user/user-settings/user-settings.component";
 
 const routes: Routes = [
     {
@@ -130,10 +129,6 @@ const routes: Routes = [
     {
         path: 'search',
         component: SearchComponent
-    },
-    {
-        path: 'settings',
-        component: UserSettingsComponent
     },
     {
         path: 'error',
