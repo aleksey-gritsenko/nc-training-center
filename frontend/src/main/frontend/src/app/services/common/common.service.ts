@@ -75,8 +75,8 @@ export class CommonService {
     }
 
     getAnnouncements(): Observable<Announcement[]> {
-        const url = `${this.localhost}/announcements/all`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
-        //const url = `${this.announcementsUrl}/all`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
+        const url = `${this.localhost}/announcements/all`;
+        //const url = `${this.announcementsUrl}/all`;
         return this.http.get<Announcement[]>(url);
     }
 
