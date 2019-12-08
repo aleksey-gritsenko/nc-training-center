@@ -38,7 +38,7 @@ export class AuthenticationService {
     }
 
     confirmEmail(email: string, code: string) {
-        let url = `${this.siteUrl}/activate`  + '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
+        let url = `${this.siteUrl}/activate` ;
         let form = new FormData();
         form.append('email', email);
         form.append('code', code);
@@ -46,7 +46,8 @@ export class AuthenticationService {
     }
 
     resendCode(email: string) {
-        let url = `${this.siteUrl}/resend` + '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
+        let url = `${this.siteUrl}/resend` ;
+        alert(email);
         let form = new FormData().append('user', email);
         return this.http.post<boolean>(url, email);
     }
