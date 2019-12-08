@@ -29,6 +29,12 @@ export class ViewProfileComponent implements OnInit, OnChanges {
     }
 
     sendRequest() {
-        this.userService.sendRequest(this.currentUser.id, this.user.id).toPromise().then();
+        this.userService.sendRequest(this.currentUser.id, this.user.id).subscribe(
+            res => {
+            },
+            err => {
+                alert("Error in add friends");
+            }
+        );
     }
 }
