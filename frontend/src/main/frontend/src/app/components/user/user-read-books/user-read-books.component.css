@@ -3,4 +3,21 @@ h1 {
     font-size: 50px;
 }
 
+app-navigation {
+    padding-top: 67px;
+    margin-left: 70px;
+}
+
+.wrapper {
+    text-align: center;
+    position: relative;
+    top: 0;
+    height: 10vh;
+}
+
+.divider{
+    width:10px;
+    height:auto;
+    display:inline-block;
+}
 
