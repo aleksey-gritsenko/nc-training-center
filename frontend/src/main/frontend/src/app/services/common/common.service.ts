@@ -217,12 +217,12 @@ export class CommonService {
         return this.http.post<UserBook>(url, userBook);
     }
 
-    getAllUserBooks(userId: number) {
+    getAllUserBooks(userBook: UserBook): Observable<Book[]> {
         //const url = `${this.userBookUrl}/all`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
         const url = `${this.localhost}/userBook/all`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
         const params = new HttpParams()
-            .set('userId', userId.toString());
-        return this.http.get(url, {params: params});
+            .set('userId', userBook.userId.toString());
+        return this.http.get<Book[]>(url, {params: params});
     }
 
     getUserBookById(userId: number, bookId: number) {
