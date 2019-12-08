@@ -70,11 +70,15 @@
             <div class="alert alert-warning">
 
                 <div class ="name">{{newApp.email}}</div>
-
+                <div class ="id">{{newApp.id}}</div>
 
                 <div routerLink="/user/{{newApp.id}}"> {{newApp.userName}}</div>
                     <span class="letter">   <a>{{newApp.userName}}</a> </span>
             </div>
+            <button [disabled]="!(
+                this.id == this.currentUser.id)" class="btn btn-primary" (click)="addFriends(newApp)">Add
+            </button>
+
         </li>
 
 
@@ -83,6 +87,8 @@
         <li *ngFor="let friend of userFriends">
             <div class="alert alert-warning">
                 <div class ="name">{{friend.email}}</div>
+                <div class ="id">{{friend.id}}</div>
+
                 <div routerLink="/user/{{friend.id}}"> {{friend.userName}}</div>
                 <!--a  routerLink="user/:{{friend.id}}"> <span class="letter"><a>{{friend.userName}}</a></span></a-->
                 <!--div routerLink="friends/user/:{{friend.id}}" </div>-->
