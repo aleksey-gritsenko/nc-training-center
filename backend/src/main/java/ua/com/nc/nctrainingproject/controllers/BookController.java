@@ -1,6 +1,7 @@
 package ua.com.nc.nctrainingproject.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,7 @@ import ua.com.nc.nctrainingproject.persistance.dao.postgre.queries.FilterCriteri
 import ua.com.nc.nctrainingproject.services.BookFileManagementService;
 import ua.com.nc.nctrainingproject.services.BookService;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -106,42 +108,39 @@ public class BookController {
     // ========== FILE MANAGEMENT ==========
 
     @RequestMapping(value = "/addFile", method = RequestMethod.POST)
-    public ResponseEntity<String> addBookFile(@RequestParam(name = "bookId") int book,
+    public ResponseEntity<?> addBookFile(@RequestParam(name = "bookId") int book,
                                                 @RequestParam(name = "file") MultipartFile file) throws IOException {
 
-        System.out.println(file);
         BookFile bookFile = new BookFile(book, file.getBytes());
         BookFile response = bookFileManagementService.addFile(bookFile);
-        String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path("/files/download/")
-                .path(bookService.getBookById(book).getHeader())
-                .toUriString();
-        Sys
-        return Optional.ofNullable(fileDownloadUri).map(ResponseEntity::ok).orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
+        return Optional.ofNullable(response).map(ResponseEntity::ok).orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
     }
 
 
     @RequestMapping(value = "/addImage", method = RequestMethod.POST)
     public ResponseEntity<?> addBookImage(@RequestParam(name = "bookId") int book,
                                           @RequestParam(name = "img") MultipartFile file) throws IOException {
-
+git
         BookImage bookImage = new BookImage(book, file.getBytes());
         BookImage response = bookFileManagementService.addImage(bookImage);
-
         return Optional.ofNullable(response).map(ResponseEntity::ok).orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
     }
 
-    @RequestMapping(produces = MediaType.APPLICATION_PDF_VALUE, value = "/bookFile")
-    @ResponseBody ResponseEntity getBookFile(@RequestBody Book book) {
-        MultipartFile multipartFile = new CustomMultipartFile(bookFileManagementService.getBookFile(book).getFile());
-        System.out.println(multipartFile);
-        return Optional.ofNullable(multipartFile).map(ResponseEntity::ok).orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
+    @RequestMapping(produces = MediaType.APPLICATION_PDF_VALUE, value = "/bookFile", method = RequestMethod.POST)
+    public ResponseEntity<?> getBookFile(@RequestBody Book book) {
+        ByteArrayInputStream stream  = new ByteArrayInputStream(bookFileManagementService.getBookFile(book).getFile());
+        System.out.println(stream);
+        return ResponseEntity
+                .ok()
+                .contentType(MediaType.APPLICATION_PDF)
+                .body(new InputStreamResource(stream));
+       // return Optional.of(stream).map(ResponseEntity::ok).orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
     }
 
 
     @RequestMapping(produces = MediaType.IMAGE_PNG_VALUE, value = "/bookImage")
     @ResponseBody byte[] getBookImage(@RequestBody Book book) {
-        BookImage bookImage = bookFileManagementService.getBookImage((book));
+        BookImage bookImage = bookFileManagementService.getBookImage(book);
         return bookImage.getImage();
     }
 
