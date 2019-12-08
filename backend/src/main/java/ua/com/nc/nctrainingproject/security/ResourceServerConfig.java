@@ -27,6 +27,8 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
                 .antMatchers("/login/**","/test/**").access("hasAuthority('DEFAULT_AUTHORITY')")
                 .antMatchers("/announcements/publish/**").access("hasAuthority('publish announcement')")
                 .antMatchers("/review/accept/**").access("hasAuthority('publish reviews')")
+                .antMatchers("/login/**","/test/**").access("hasAuthority('DEFAULT_AUTHORITY')")
+
 
                 .and().exceptionHandling().accessDeniedHandler(new OAuth2AccessDeniedHandler());
     }
