@@ -12,7 +12,6 @@
                 <app-deactivate-account *ngSwitchCase="'Deactivate'"></app-deactivate-account>
                 <app-friends-list *ngSwitchCase="'Friends'"></app-friends-list>
                 <app-announcement-proposition *ngSwitchCase="'Publish announcements'"></app-announcement-proposition>
-
             </div>
             <div class="col-md-4">
                 <div class="card menu" >
@@ -25,11 +24,11 @@
                         <li class="list-group-item" [class.selected]="isOpen=='Friends'"
                             *ngIf="user.userRole == 'user'" (click)="open('Friends')">Friends
                         </li>
-                        <li class="list-group-item" *ngIf="isAllowedToAdd"
-                            (click)="open('Add agent')" [class.selected]="isOpen=='Add'">Add agent
+                        <li class="list-group-item" *ngIf="isAllowedToAdd" [class.selected]="isOpen=='Add agent'"
+                            (click)="open('Add agent')" >Add agent
                         </li>
-                        <li class="list-group-item" *ngIf="isAllowedToAdd"
-                            (click)="open('Add achievement')" [class.selected]="isOpen=='Add'">Add achievement
+                        <li class="list-group-item" *ngIf="isAllowedToAdd" [class.selected]="isOpen=='Add achievement'"
+                            (click)="open('Add achievement')" >Add achievement
                         </li>
                         <li class="list-group-item" [class.selected]="isOpen=='Deactivate'"
                             *ngIf="isAllowedToDeactivate" (click)="open('Deactivate')">Deactivate the account
