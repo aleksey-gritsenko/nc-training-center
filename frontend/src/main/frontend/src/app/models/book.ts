@@ -10,6 +10,6 @@ export class Book extends Entity {
     fileId:number;
     photo:number;
     photoURL:string|ArrayBuffer;
-    imageURL:string|ArrayBuffer;
+    fileURL:string|ArrayBuffer;
 }
 
