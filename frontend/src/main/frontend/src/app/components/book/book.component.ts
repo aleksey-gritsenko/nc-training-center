@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Book} from '../../models/book';
 import {CommonService} from "../../services/common/common.service";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -14,7 +14,7 @@ import {UserBook} from "../../models/userBook";
     styleUrls: ['./book.component.css']
 })
 export class BookComponent implements OnInit {
-    book: Book;
+    @Input() book: Book;
     authors: Author[] = [];
     suggestionBook:Book[] = [];
     bookId: any;
