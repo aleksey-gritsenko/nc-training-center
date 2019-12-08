@@ -62,9 +62,10 @@ public class ActionPostgreDAO implements ActionDAO {
 	}
 
 	@Override
-	public void createAction(Action action) {
-		jdbcTemplate.update(ActionQuery.CREATE_ACTION, action.getActionId(),
+	public Action createAction(Action action) {
+		jdbcTemplate.update(ActionQuery.CREATE_ACTION,
 				action.getUserId(), action.getActionTypeId());
+		return action;
 	}
 
 	@Override

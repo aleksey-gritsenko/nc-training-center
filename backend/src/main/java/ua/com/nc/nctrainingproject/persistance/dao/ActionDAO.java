@@ -16,7 +16,7 @@ public interface ActionDAO {
 
 	void deleteActionByActionId(int actionId);
 
-	void createAction(Action action);
+	Action createAction(Action action);
 
 	void updateAction(int actionId, Action action);
 }

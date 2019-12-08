@@ -25,6 +25,6 @@ public class ActionQuery {
 					ACTION_TYPE_ID + "=(?) " + " WHERE " + ACTION_ID + "=(?)";
 
 	public static final String CREATE_ACTION = "INSERT INTO " + TABLE_NAME
-			+ " (" + ACTION_ID + "," + USER_ID + "," + ACTION_TYPE_ID + ")" + " VALUES(?,?,?)";
+			+ " (" + USER_ID + "," + ACTION_TYPE_ID + ")" + " VALUES(?,?)";
 
 }
