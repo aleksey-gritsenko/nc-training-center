@@ -103,7 +103,7 @@ export class CommonService {
     }
 
    addFriend(sender: User,reciever:User): Observable<User> {
-       const url = `${this.localhost}/friends/accept`;
+       const url = `${this.localhost}/friends/accept` + '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
         //const url = `${this.localhost}/announcements/publish`;
        const paramsSender = new HttpParams()
            .set('sender', sender.id.toString()).set('reciever', reciever.id.toString());
