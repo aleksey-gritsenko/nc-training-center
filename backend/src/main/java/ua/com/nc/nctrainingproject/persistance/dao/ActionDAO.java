@@ -12,11 +12,13 @@ public interface ActionDAO {
 
 	Action getActionByUserId(int userId);
 
+	Action getActionByUserAndTypeId(int userId, int actionTypeId);
+
 	Action getActionByActionTypeId(int actionTypeId);
 
 	void deleteActionByActionId(int actionId);
 
-	void createAction(Action action);
+	Action createAction(Action action);
 
 	void updateAction(int actionId, Action action);
 }

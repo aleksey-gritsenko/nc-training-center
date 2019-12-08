@@ -16,5 +16,5 @@ public interface NotificationsDAO {
 
 	void deleteNotification(int userId);
 
-	void createNotification(Notification notification);
+	void createNotification(int userId, int actionId);
 }

@@ -47,8 +47,7 @@ public class NotificationPostgreDAO extends AbstractDAO<Notification> implements
 	}
 
 	@Override
-	public void createNotification(Notification notification) {
-		jdbcTemplate.update(NotificationQuery.CREATE_NOTIFICATION,
-				notification.getActionId(), notification.getUserId());
+	public void createNotification(int userId, int actionId) {
+		jdbcTemplate.update(NotificationQuery.CREATE_NOTIFICATION, actionId, userId);
 	}
 }

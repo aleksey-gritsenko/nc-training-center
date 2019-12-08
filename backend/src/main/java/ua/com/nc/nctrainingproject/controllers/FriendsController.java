@@ -26,8 +26,8 @@ public class FriendsController {
         friendsService.sendRequest(sender,reciever);
             return new ResponseEntity<>(HttpStatus.OK);
 
-        }
-        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+       }
+       return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
 
     }

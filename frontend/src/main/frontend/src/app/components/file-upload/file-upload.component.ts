@@ -66,10 +66,4 @@ export class FileUploadComponent implements  OnInit{
             }
         );
     }
-
-
-
-    getSantizeUrl(url : string) {
-        return this.sanitizer.bypassSecurityTrustUrl(url);
-    }
 }
