@@ -131,7 +131,7 @@
 
 
     <properties>
-        <oauth.version>2.3.3.RELEASE</oauth.version>
+        <oauth.version>2.3.6.RELEASE</oauth.version>
     </properties>
 
 
