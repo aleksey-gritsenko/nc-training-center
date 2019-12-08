@@ -19,6 +19,7 @@ export class RecoverService {
         const url = `${this.siteUrl}/email`;
         const form = new FormData();
         form.append('email', email);
+        alert(email);
         this.http.post(url, form).subscribe();
       //  location.assign('change');
     }
