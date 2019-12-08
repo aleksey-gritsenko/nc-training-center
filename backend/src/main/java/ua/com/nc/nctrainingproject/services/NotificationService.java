@@ -38,43 +38,47 @@ public class NotificationService {
 	public Notification createNotification(Notification notification) {
 		if (userPostgreDAO.getUserById(notification.getUserId()) == null &&
 				notificationPostgreDAO.getNotificationByActionID(notification.getActionId()) == null) {
-			notificationPostgreDAO.createNotification(notification);
+			notificationPostgreDAO.createNotification(notification.getUserId(), notification.getActionId());
 		}
 		return notification;
 	}
 
 	public Notification deleteNotification(Notification notification) {
-		if (userPostgreDAO.getUserById(notification.getUserId()) != null &&
-				notificationPostgreDAO.getNotificationByActionID(notification.getActionId()) != null) {
+		if (userPostgreDAO.getUserById(notification.getUserId()) != null) {
 			notificationPostgreDAO.deleteNotification(notification.getUserId());
 		}
 		return notification;
 	}
 
-	public List<String> getNotificationByActionID(int actionId) {
+	public List<Notification> getNotificationByActionID(int actionId) {
 		List<String> data = new ArrayList<>();
-		return data;
+		List<Notification> notifications= new ArrayList<>();
+		if (actionPostgreDAO.getActionById(actionId) != null) {
+			notifications = notificationPostgreDAO.getNotificationByActionID(actionId);
+		}
+		return notifications;
 	}
 
 	public List<String> getNotificationByUserID(int userId) {
-		User user = userPostgreDAO.getUserById(userId);
 		List<String> data = new ArrayList<>();
 		List<Action> actions = new ArrayList<>();
 		List<ActionType> actionTypes = new ArrayList<>();
-		List<Notification> notifications = notificationPostgreDAO.getNotificationByUserID(userId);
 
-		for (Notification notification : notifications) {
-			actions.add(actionPostgreDAO.getActionById(notification.getActionId()));
+		if (userPostgreDAO.getUserById(userId) != null) {
+			User user = userPostgreDAO.getUserById(userId);
+			List<Notification> notifications = notificationPostgreDAO.getNotificationByUserID(userId);
+
+			for (Notification notification : notifications) {
+				actions.add(actionPostgreDAO.getActionById(notification.getActionId()));
+			}
+
+			for (Action action : actions) {
+				actionTypes.add(actionTypePostgreDAO.getActionTypeByActionTypeId(action.getActionTypeId()));
+			}
+			for (ActionType actionType : actionTypes) {
+				data.add(user.getUserName() + " " + actionType.getActionName());
+			}
 		}
-
-		for (Action action : actions) {
-			actionTypes.add(actionTypePostgreDAO.getActionTypeByActionTypeId(action.getActionTypeId()));
-		}
-
-		for (ActionType actionType : actionTypes) {
-			data.add(user.getUserName() + " " + actionType.getActionName());
-		}
-
 		return data;
 	}
 

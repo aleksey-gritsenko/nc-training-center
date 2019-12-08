@@ -11,6 +11,11 @@ public class Action {
 		this.actionTypeId = actionTypeId;
 	}
 
+	public Action(int userId, int actionTypeId) {
+		this.userId = userId;
+		this.actionTypeId = actionTypeId;
+	}
+
 	public Action() {
 	}
 

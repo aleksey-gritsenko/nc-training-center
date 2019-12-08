@@ -50,6 +50,7 @@ import { UserReadBooksComponent } from './components/user/user-read-books/user-r
 import {SearchComponent} from './components/search/search.component';
 import {AddAchievmentComponent} from './components/user/add-achievment/add-achievment.component';
 import { FileUploadComponent } from './components/file-upload/file-upload.component';
+import { BookImgComponent } from './components/book-img/book-img.component';
 
 //import {NotificationsListComponent} from "./components/notifications-list/notifications-list.component";
 
@@ -93,7 +94,8 @@ import { FileUploadComponent } from './components/file-upload/file-upload.compon
         UserBooksComponent,
         SearchComponent,
         AddAchievmentComponent,
-        FileUploadComponent
+        FileUploadComponent,
+        BookImgComponent
     ],
 
     imports: [
