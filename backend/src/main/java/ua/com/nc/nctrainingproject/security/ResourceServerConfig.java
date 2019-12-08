@@ -30,6 +30,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
                 .antMatchers("/login/**","/test/**").access("hasAuthority('DEFAULT_AUTHORITY')")
 
 
+                .antMatchers("/userBook/**").access("hasAuthority('DEFAULT_AUTHORITY')")
                 .and().exceptionHandling().accessDeniedHandler(new OAuth2AccessDeniedHandler());
     }
 }

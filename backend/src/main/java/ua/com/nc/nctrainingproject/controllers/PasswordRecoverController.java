@@ -26,16 +26,16 @@ public class PasswordRecoverController {
     @ResponseBody
     public ResponseEntity<?> emailSender(@RequestParam String email) {
         System.out.println("Testing email");
-//        if (!email.equals("")) {
-//            try {
-//                if (passwordRecoverService.checkEmail(email)) {
-//                    passwordRecoverService.makeEmail(email);
-//                    return new ResponseEntity<>(HttpStatus.OK);
-//                }
-//            } catch (MessagingException ex) {
-//                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-//            }
-//        }
+        if (!email.equals("")) {
+           try {
+                if (passwordRecoverService.checkEmail(email)) {
+                    passwordRecoverService.makeEmail(email);
+                    return new ResponseEntity<>(HttpStatus.OK);
+                }
+            } catch (MessagingException ex) {
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
+        }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 

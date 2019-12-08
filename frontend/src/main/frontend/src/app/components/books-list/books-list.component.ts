@@ -38,7 +38,7 @@ export class BooksListComponent implements OnInit{
         authors: [],
         photo:0,
         fileId:0,
-        imageURL:'',
+        fileURL:'',
         photoURL:''
     };
 
@@ -249,7 +249,6 @@ export class BooksListComponent implements OnInit{
     }
 
     getBooks(): void {
-        let imgURL;
         this.apiService.getBooks().subscribe(
             res => {
                 this.books = res;
@@ -259,17 +258,6 @@ export class BooksListComponent implements OnInit{
                     );
                     this.apiService.getGenreByBookId(book.id).subscribe(
                         genre=> book.genre  = genre.name
-                    );
-                    this.apiService.getImageByBook(book).subscribe(
-                        res=>{
-                            let reader = new FileReader();
-                            reader.addEventListener("load", () => {
-                                book.photoURL = reader.result;
-                            }, false);
-                            if (res) {
-                                reader.readAsDataURL(res);
-                            }
-                        }
                     );
                 });
 
@@ -320,10 +308,6 @@ export class BooksListComponent implements OnInit{
         if (this.storage.getUser() == null) {
             this.router.navigate(['/login']);
         }
-    }
-    getSantizeUrl(url : string) {
-        let sanitizer: DomSanitizer;
-        return sanitizer.bypassSecurityTrustUrl(url);
     }
 }
 
