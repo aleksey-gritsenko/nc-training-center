@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import ua.com.nc.nctrainingproject.models.Book;
 import ua.com.nc.nctrainingproject.models.BookFile;
 import ua.com.nc.nctrainingproject.models.BookImage;
@@ -12,8 +13,9 @@ import ua.com.nc.nctrainingproject.persistance.dao.postgre.queries.FilterCriteri
 import ua.com.nc.nctrainingproject.services.BookFileManagementService;
 import ua.com.nc.nctrainingproject.services.BookService;
 
-import java.io.File;
-import java.io.IOException;
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.*;
 import java.nio.file.Files;
 import java.util.Base64;
 import java.util.List;
@@ -126,14 +128,20 @@ public class BookController {
 
     @GetMapping(produces = MediaType.APPLICATION_PDF_VALUE, value = "/bookFile")
     public @ResponseBody byte[] getBookFile(@RequestBody Book book) {
+
         BookFile bookFile = bookFileManagementService.getBookFile((book));
-        return bookFile.getFile();
+        return Base64.getDecoder().decode(bookFile.getFile());
     }
 
     @GetMapping(produces = MediaType.IMAGE_PNG_VALUE, value = "/bookImage")
-    public @ResponseBody byte[] getBookImage(@RequestBody Book book) {
+    public @ResponseBody MultipartFile getBookImage(@RequestBody Book book) throws IOException {
         BookImage bookImage = bookFileManagementService.getBookImage((book));
-        return bookImage.getImage();
+
+        byte[] decodedImage = Base64.getDecoder().decode(bookImage.getImage());
+        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(decodedImage);
+
+        BufferedImage image = ImageIO.read(byteArrayInputStream);
+        return (MultipartFile) image;
     }
 
     @RequestMapping(value = "/updateFile", method = RequestMethod.POST)
