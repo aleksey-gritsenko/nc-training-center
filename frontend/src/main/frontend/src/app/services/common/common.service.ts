@@ -25,9 +25,6 @@ export class CommonService {
     private userBookUrl: string = `${this.siteUrl}/userBook`;
     private userFriendsUrl: string = `${this.siteUrl}/friends`;
 
-    // announcements : Announcement[] = [];
-    // reviews : Review[] = [];
-
     constructor(private http: HttpClient) {
     }
 
@@ -37,14 +34,14 @@ export class CommonService {
     };
 
     getBooks(): Observable<Book[]> {
-        const url = `${this.booksUrl}/all`;
-        //const url = ${this.localhost}/book/all;
+        const url = `${this.booksUrl}/all` + '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
+        //const url = `${this.localhost}/book/all`+'?access_token='+ JSON.parse(window.sessionStorage.getItem('token')).access_token;
         return this.http.get<Book[]>(url);
     }
 
     getBooksByFilter(filter: BookFilter): Observable<Book[]> {
-        const url = `${this.booksUrl}/filter`;
-        //const url = `${this.localhost}/book/filter`;
+        const url = `${this.booksUrl}/filter` + '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
+        //const url = `${this.localhost}/book/filter`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
         console.log(filter);
         return this.http.post<Book[]>(url, filter);
     }
@@ -53,14 +50,14 @@ export class CommonService {
         //TODO get books by title
         let params = new HttpParams()
             .set('title', title);
-        const url = `${this.booksUrl}/title`;
-        //const url = `${this.localhost}/book/title`;
+        const url = `${this.booksUrl}/title`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
+        //const url = `${this.localhost}/book/title`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
         return this.http.get<Book[]>(url, {params: params});
     }
 
     getBookById(id: number): Observable<Book> {
-        //const url = `${this.booksUrl}/id?id=${id}`;
-        const url = `${this.localhost}/book/id?id=${id}`;
+        //const url = `${this.booksUrl}/id?id=${id}`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
+        const url = `${this.localhost}/book/id?id=${id}`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
         return this.http.get<Book>(url);
     }
 
@@ -70,89 +67,90 @@ export class CommonService {
     }
 
     updateBook(book: Book): Observable<Book> {
-        const url = `${this.booksUrl}/update`;
-        //const url = `${this.localhost}/book/update`;
+        const url = `${this.booksUrl}/update`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
+        //const url = `${this.localhost}/book/update`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
         return this.http.post<Book>(url, book);
     }
 
     getAnnouncements(): Observable<Announcement[]> {
-        //const url = `${this.localhost}/announcements/all`;
-        const url = `${this.announcementsUrl}/all`;
+        //const url = `${this.localhost}/announcements/all`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
+        const url = `${this.announcementsUrl}/all`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
         return this.http.get<Announcement[]>(url);
     }
 
     createAnnouncement(announcement: Announcement): Observable<Announcement> {
-        const url = `${this.announcementsUrl}/newAnnouncement`;
-        //const url = `${this.localhost}/announcements/newAnnouncement`;
+        const url = `${this.announcementsUrl}/newAnnouncement`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
+        //const url = `${this.localhost}/announcements/newAnnouncement`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
         return this.http.post<Announcement>(url, announcement);
     }
 
     getAnnouncementsUnPublish(): Observable<Announcement[]> {
-        const url = `${this.announcementsUrl}/new`;
-        //const url = `${this.localhost}/announcements/new`;
+        const url = `${this.announcementsUrl}/new`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
+        //const url = `${this.localhost}/announcements/new`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
         return this.http.get<Announcement[]>(url);
     }
 
     publishAnnouncement(announcement: Announcement): Observable<Announcement> {
-        const url = `${this.announcementsUrl}/publish`;
-        //const url = `${this.localhost}/announcements/publish`;
+        const url = `${this.announcementsUrl}/publish`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
+        //const url = `${this.localhost}/announcements/publish`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;;
         return this.http.post<Announcement>(url, announcement);
     }
+
     getFriends(id:string): Observable<User[]> {
-       // const url = `${this.userFriendsUrl}/all`;
-       const url = `${this.localhost}/friends/all`;
+       // const url = `${this.userFriendsUrl}/all`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;;
+       const url = `${this.localhost}/friends/all`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
         const params = new HttpParams()
             .set('id', id);
         return this.http.get<User[]>(url,{params:params});
     }
+
     getNewApplications(id:string): Observable<User[]> {
-       // const url = `${this.userFriendsUrl}/new`;
-
-     const url = `${this.localhost}/friends/new`;
+        //const url = `${this.userFriendsUrl}/new`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
+        const url = `${this.localhost}/friends/new`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
         const params = new HttpParams()
             .set('id', id);
         return this.http.get<User[]>(url,{params:params});
     }
-    getAuthorsByBookId(bookId: number): Observable<Author[]>{
-        const url = `${this.booksUrl}\\authors\\book`;
 
-        //const url = `${this.localhost}/book/authors/book`;
+    getAuthorsByBookId(bookId: number): Observable<Author[]>{
+        const url = `${this.booksUrl}/authors/book`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
+        //const url = `${this.localhost}/book/authors/book`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
         const params = new HttpParams()
             .set("book", bookId.toString());
         return this.http.get<Author[]>(url, {params: params});
     }
 
     getGenreByBookId(bookId: number): Observable<Genre> {
-        const url = `${this.booksUrl}/genre/book`;
-        //const url = `${this.localhost}/book/genre/book`;
+        const url = `${this.booksUrl}/genre/book`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
+        //const url = `${this.localhost}/book/genre/book`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
         const params = new HttpParams()
             .set("book", bookId.toString());
         return this.http.get<Genre>(url, {params: params});
     }
 
     getAllAuthor(): Observable<Author[]> {
-        const url = `${this.booksUrl}/authors`;
-        //const url = `${this.localhost}/book/authors`;
+        const url = `${this.booksUrl}/authors`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
+        //const url = `${this.localhost}/book/authors`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
         return this.http.get<Author[]>(url);
     }
 
     getAllGenre(): Observable<Genre[]> {
-        const url = `${this.booksUrl}/genres`;
-        //const url = `${this.localhost}/book/genres`;
+        const url = `${this.booksUrl}/genres`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
+        //const url = `${this.localhost}/book/genres`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
         return this.http.get<Genre[]>(url);
     }
 
     getReviews(id: number): Observable<Review[]> {
         let body = new HttpParams()
             .set('book', id.toString());
-        const url = `${this.reviewsUrl}/all`;
-        //const url = `${this.localhost}/review/all`;
+        const url = `${this.reviewsUrl}/all`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
+        //const url = `${this.localhost}/review/all`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
         return this.http.get<Review[]>(url, {params: body});
     }
 
     createReview(review: Review): Observable<Review> {
-        const url = `${this.reviewsUrl}`;
-        //const url = `${this.localhost}/review`;
+        const url = `${this.reviewsUrl}`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
+        //const url = `${this.localhost}/review`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
         return this.http.post<Review>(url, review);
     }
 
@@ -160,66 +158,61 @@ export class CommonService {
         const params = new HttpParams()
             .set('book', bookId.toString())
             .set('status', JSON.stringify(status));
-        const url = `${this.reviewsUrl}/accepted`;
-        //const url = `${this.localhost}/review/accepted`;
+        const url = `${this.reviewsUrl}/accepted`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
+        //const url = `${this.localhost}/review/accepted`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
         console.log(params);
         return this.http.get<Review[]>(url, {params: params});
     }
 
     acceptReview(review: Review): Observable<Review> {
-        const url = `${this.reviewsUrl}/accept`;
-        //const url = `${this.localhost}/review/accept`;
+        const url = `${this.reviewsUrl}/accept`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
+        //const url = `${this.localhost}/review/accept`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
         return this.http.post<Review>(url, review);
     }
 
     deleteReviewById(review: Review): Observable<Review> {
         const params = new HttpParams()
             .set('review', review.id.toString());
-        const url = `${this.reviewsUrl}/delete`;
-        //const url = `${this.localhost}/review/delete`;
+        const url = `${this.reviewsUrl}/delete`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
+        //const url = `${this.localhost}/review/delete`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
         console.log(params);
         return this.http.post<Review>(url, params);
     }
 
     getReviewById(reviewId: number) {
-        const url = `${this.reviewsUrl}/detail`;
-        //const url = `${this.localhost}/review/detail`;
+        const url = `${this.reviewsUrl}/detail`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
+        //const url = `${this.localhost}/review/detail`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
         const params = new HttpParams()
             .set('review', reviewId.toString());
         return this.http.get<Review>(url, {params: params});
     }
 
-
-    getAnnouncementsByFilter(): Observable<Announcement[]> {
-        return null;
-    }
-
     addBookToUser(userBook: UserBook): Observable<UserBook> {
-        //const url = `${this.userBookUrl}/add`;
-        const url = `${this.localhost}/userBook/add`;
+        //const url = `${this.userBookUrl}/add`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
+        const url = `${this.localhost}/userBook/add`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
         console.log(userBook);
         return this.http.post<UserBook>(url, userBook);
     }
 
     getAllUserBooks(userBook: UserBook): Observable<Book[]> {
-        //const url = `${this.userBookUrl}/all`;
-        const url = `${this.localhost}/userBook/all`;
+        //const url = `${this.userBookUrl}/all`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
+        const url = `${this.localhost}/userBook/all`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
         const params = new HttpParams()
             .set('userId', userBook.userId.toString());
         return this.http.get<Book[]>(url, {params: params});
     }
 
     markUserBookAsRead(userBook: UserBook): Observable<UserBook> {
-        //const url = `${this.userBookUrl}/mark_read`;
-        const url = `${this.localhost}/userBook/mark_read`;
+        //const url = `${this.userBookUrl}/mark_read`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
+        const url = `${this.localhost}/userBook/mark_read`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
         userBook.isRead = true;
         console.log(userBook);
         return this.http.post<UserBook>(url, userBook);
     }
 
     markUserBookAsFavourite(userBook: UserBook): Observable<UserBook> {
-        //const url = `${this.userBookUrl}/mark_fav`;
-        const url = `${this.localhost}/userBook/mark_fav`;
+        //const url = `${this.userBookUrl}/mark_fav`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
+        const url = `${this.localhost}/userBook/mark_fav`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
         userBook.isFavorite = true;
         console.log(userBook);
         return this.http.post<UserBook>(url, userBook);
@@ -228,56 +221,59 @@ export class CommonService {
     getAllFavouriteBooks(userBook: UserBook): Observable<Book[]> {
         const params = new HttpParams()
             .set('userId', userBook.userId.toString());
-        //const url = `${this.userBookUrl}/all/favourite`;
-        const url = `${this.localhost}/userBook/all/favourite`;
+        //const url = `${this.userBookUrl}/all/favourite`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
+        const url = `${this.localhost}/userBook/all/favourite`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
         return this.http.get<Book[]>(url, {params: params});
     }
 
     getAllReadBooks(userBook: UserBook): Observable<Book[]>{
         const params = new HttpParams()
             .set('userId',userBook.userId.toString());
-        //const url = `${this.userBookUrl}/all/read`;
-        const url = `${this.localhost}/userBook/all/read`;
+        //const url = `${this.userBookUrl}/all/read`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
+        const url = `${this.localhost}/userBook/all/read`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
         return this.http.get<Book[]>(url, {params:params});
     }
 
     removeFromFavourite(userBook: UserBook): Observable<UserBook>{
-        //const url = `${this.userBookUrl}/remove_fav`;
-        const url = `${this.localhost}/userBook/remove_fav`;
+        //const url = `${this.userBookUrl}/remove_fav`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
+        const url = `${this.localhost}/userBook/remove_fav`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
         userBook.isFavorite = false;
         console.log(userBook);
         return this.http.post<UserBook>(url, userBook);
     }
 
     removeFromRead(userBook: UserBook): Observable<UserBook>{
-        //const url = `${this.userBookUrl}/remove_read`;
-        const url = `${this.localhost}/userBook/remove_read`;
+        //const url = `${this.userBookUrl}/remove_read`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
+        const url = `${this.localhost}/userBook/remove_read`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
         userBook.isRead = false;
         console.log(userBook);
         return this.http.post<UserBook>(url, userBook);
     }
 
     deleteFromAdded(userBook: UserBook): Observable<UserBook>{
-        //const url = `${this.userBookUrl}/delete`;
-        const url = `${this.localhost}/userBook/delete`;
+        //const url = `${this.userBookUrl}/delete`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
+        const url = `${this.localhost}/userBook/delete`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
         console.log(userBook);
         return this.http.post<UserBook>(url, userBook);
     }
 
     makeSuggestion(userId: number):Observable<Book[]>{
-        //const url = `${this.booksUrl}/suggestion?user=${userId}`;
-        const url = `${this.localhost}/book/suggestion?user=${userId}`;
+        //const url = `${this.booksUrl}/suggestion?user=${userId}`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
+        const url = `${this.localhost}/book/suggestion?user=${userId}`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
         return this.http.get<Book[]>(url);
 
     }
+
     getMostRatedBooks():Observable<Book[]>{
-        //const url = `${this.booksUrl}/rate`;
-        const url = `${this.localhost}/book/rate`;
+        //const url = `${this.booksUrl}/rate`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
+        const url = `${this.localhost}/book/rate`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
         return this.http.get<Book[]>(url);
     }
 
     getImageByBook(book:Book){
-        return this.http.post(`http://localhost:8080/book/bookImage`, book,{responseType: 'blob'});
+        //const url = `${this.booksUrl}/bookImage`+'?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
+        const url = `${this.localhost}/book/bookImage`+'?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
+        return this.http.post(url, book,{responseType: 'blob'});
     }
 
 
