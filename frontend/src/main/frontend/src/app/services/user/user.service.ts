@@ -27,7 +27,8 @@ export class UserService {
 
     // Personal methods
     updateProfile(user: User) {
-        let url = `${this.siteUrl}/user/update`;
+        let url = `${this.siteUrl}/user/update` +
+            '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
         let form = new FormData();
 
         form.append('login', user.userName);
@@ -38,7 +39,8 @@ export class UserService {
     }
 
     searchUser(id: string) {
-        const url = `${this.siteUrl}/user/` + id;
+        const url = `${this.siteUrl}/user/`+ id + '?access_token=' +
+            JSON.parse(window.sessionStorage.getItem('token')).access_token;
         return this.http.get<User>(url);
     }
 
@@ -158,7 +160,8 @@ export class UserService {
     }
 
     createAdmin(admin: User): Observable<User> {
-        let url = this.siteUrl + "/user/create/admin";
+        let url = this.siteUrl + "/user/create/admin"+
+            '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
         console.log(url);
         return this.http.post<User>(url, admin);
     }
@@ -168,13 +171,15 @@ export class UserService {
     // }
 
     deactivateAccount(id: string) {
-        let url = `${this.siteUrl}/user/${id}/deactivate`;
+        let url = `${this.siteUrl}/user/${id}/deactivate`+
+            '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
 
         return this.http.get(url);
     }
 
     searchByUsername(username: string) {
-        let url = `${this.siteUrl}/user/search/${username}`;
+        let url = `${this.siteUrl}/user/search/${username}`+
+            '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
 
         return this.http.get<userSearch[]>(url);
     }

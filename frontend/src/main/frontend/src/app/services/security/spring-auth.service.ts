@@ -6,7 +6,12 @@ import {HttpClient, HttpParams} from "@angular/common/http";
 })
 export class SpringAuthService {
 
+    private siteUrl: string = 'https://nc-group1-2019-project.herokuapp.com';
+    // if you want to test your code on localhost - change siteUrl to localhost where this is needed
+    private localhost: string = 'http://localhost:8080/';
+
   constructor(private http: HttpClient) { }
+
     authentificate(username: string, password: string) {
         const body = new HttpParams()
             .set('username', username)
@@ -15,7 +20,7 @@ export class SpringAuthService {
         const headers = {
             'Authorization': 'Basic ' + btoa('bookNet:bookNet-secret'),
             'Content-type': 'application/x-www-form-urlencoded'
-        }
-        return this.http.post('http://localhost:8080/' + 'oauth/token', body.toString(), {headers});
+        };
+        return this.http.post(this.localhost + 'oauth/token', body.toString(), {headers});
     }
 }

@@ -34,8 +34,8 @@ export class CommonService {
     };
 
     getBooks(): Observable<Book[]> {
-        const url = `${this.booksUrl}/all` + '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
-        //const url = `${this.localhost}/book/all`+'?access_token='+ JSON.parse(window.sessionStorage.getItem('token')).access_token;
+        const url = `${this.booksUrl}/all`;
+        //const url = `${this.localhost}/book/all`;
         return this.http.get<Book[]>(url);
     }
 
@@ -62,8 +62,9 @@ export class CommonService {
     }
 
     createBook(book: Book): Observable<Book> {
+        const url = `${this.booksUrl}`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
         console.log(book);
-        return this.http.post<Book>(this.booksUrl, book);
+        return this.http.post<Book>(url, book);
     }
 
     updateBook(book: Book): Observable<Book> {
@@ -76,6 +77,10 @@ export class CommonService {
         //const url = `${this.localhost}/announcements/all`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
         const url = `${this.announcementsUrl}/all`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
         return this.http.get<Announcement[]>(url);
+    }
+
+    getAnnouncementsByFilter(): Observable<Announcement[]> {
+        return null;
     }
 
     createAnnouncement(announcement: Announcement): Observable<Announcement> {
