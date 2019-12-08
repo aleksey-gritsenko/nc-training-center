@@ -7,6 +7,8 @@ import ua.com.nc.nctrainingproject.models.Achivement;
 import ua.com.nc.nctrainingproject.services.AchivementService;
 import ua.com.nc.nctrainingproject.services.ActionTypeService;
 
+import java.util.List;
+
 @CrossOrigin
 @Controller
 @RequestMapping("/achievement")
@@ -27,5 +29,11 @@ public class AchievementController {
         achivementService.createAchevement(achievementName,action,genre,count,entity
         );
         return a;
+    }
+    @RequestMapping(value = "/all", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Achivement> getAl(){
+
+        return achivementService.getAllAchievements();
     }
 }

@@ -26,5 +26,13 @@ public class ActionQuery {
 
 	public static final String CREATE_ACTION = "INSERT INTO " + TABLE_NAME
 			+ " (" + ACTION_ID + "," + USER_ID + "," + ACTION_TYPE_ID + ")" + " VALUES(?,?,?)";
+	public static final String CONDITION_BOOK ="";
+    public static final String CONDITION_ALL ="";
+
+    public static final String ACTION_TYPE="";
+	public static final String ENTITY_TYPE="";
+	public static final String GENRE_TYPE="";
+
+
 
 }
