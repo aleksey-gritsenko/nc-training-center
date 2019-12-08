@@ -209,12 +209,21 @@ export class CommonService {
         return this.http.post<UserBook>(url, userBook);
     }
 
-    getAllUserBooks(userBook: UserBook): Observable<Book[]> {
+    getAllUserBooks(userId: number) {
         //const url = `${this.userBookUrl}/all`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
         const url = `${this.localhost}/userBook/all`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
         const params = new HttpParams()
-            .set('userId', userBook.userId.toString());
-        return this.http.get<Book[]>(url, {params: params});
+            .set('userId', userId.toString());
+        return this.http.get(url, {params: params});
+    }
+
+    getUserBookById(userId: number, bookId: number) {
+        //const url = `${this.userBookUrl}/getById`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
+        const url = `${this.localhost}/userBook/getById`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
+        let form = new FormData();
+        form.append("userId",userId.toString());
+        form.append("bookId",bookId.toString());
+        return this.http.post<UserBook>(url, form);
     }
 
     markUserBookAsRead(userBook: UserBook): Observable<UserBook> {

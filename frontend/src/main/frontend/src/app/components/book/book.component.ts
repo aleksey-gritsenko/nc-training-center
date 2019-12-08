@@ -123,10 +123,10 @@ export class BookComponent implements OnInit {
 
     addBookToUser(bookId:number){
         this.checkPresentUser();
-
         let userBook:UserBook = new UserBook();
         userBook.userId = this.storage.getUser().id;
         userBook.bookId = bookId;
+       // this.userBook = this.apiService.getUserBookById(this.storage.getUser().id, bookId);
         this.userAddedBook = false;
 
         this.apiService.addBookToUser(userBook).subscribe(
