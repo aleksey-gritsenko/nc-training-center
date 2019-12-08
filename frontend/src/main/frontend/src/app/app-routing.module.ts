@@ -123,7 +123,7 @@ const routes: Routes = [
         component: UserProfileComponent
     },
     {
-        path: 'activate',
+        path: 'verify',
         component: ConfirmEmailComponent
     },
     {
