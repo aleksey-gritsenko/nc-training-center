@@ -11,6 +11,6 @@
                 <h4>Email: {{user.email}}</h4>
             </div>
         </div>
-        <button *ngIf="!isTheSameUser" class="btn btn-primary pull-right" type="button">Add friend</button>
+        <button *ngIf="!isTheSameUser && currentUser.userRole == 'user'" class="btn btn-primary pull-right" type="button">Add friend</button>
     </div>
 </div>

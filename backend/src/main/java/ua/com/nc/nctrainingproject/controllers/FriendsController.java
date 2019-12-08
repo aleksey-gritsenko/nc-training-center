@@ -38,12 +38,12 @@ public class FriendsController {
     }
 
     @RequestMapping(value = "all"  ,method = RequestMethod.GET)
-    public List<User> allfFriends(int id){
+    public List<User> allFriends(@RequestParam int id){
         return friendsService.getAllFriends(id);
 
     }
     @RequestMapping(value = "new"  ,method = RequestMethod.GET)
-    public List<User> allNewFriends(int id){
+    public List<User> allNewFriends(@RequestParam int id){
         return friendsService.getAllNewRequests(id);
 
     }

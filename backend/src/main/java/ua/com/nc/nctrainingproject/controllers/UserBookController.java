@@ -35,14 +35,14 @@ public class UserBookController {
 	}
 
 	@RequestMapping(value = "/all/favourite", method = RequestMethod.GET)
-	public ResponseEntity<?> getAllFavouriteBooks(@RequestBody UserBook userBook) {
-		List<Book> response = userBookService.getAllFavouriteBooks(userBook);
+	public ResponseEntity<?> getAllFavouriteBooks(@RequestParam(name = "userId") int userId) {
+		List<Book> response = userBookService.getAllFavouriteBooks(userId);
 		return Optional.ofNullable(response).map(ResponseEntity::ok).orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
 	}
 
 	@RequestMapping(value = "/all/read", method = RequestMethod.GET)
-	public ResponseEntity<?> getAllReadBooks(@RequestBody UserBook userBook) {
-		List<Book> response = userBookService.getAllReadBooks(userBook);
+	public ResponseEntity<?> getAllReadBooks(@RequestParam(name = "userId") int userId) {
+		List<Book> response = userBookService.getAllReadBooks(userId);
 		return Optional.ofNullable(response).map(ResponseEntity::ok).orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
 	}
 

@@ -14,7 +14,6 @@ import java.util.Optional;
 public class AuthorizationController {
     private final AuthorizationService authorizationService;
 
-
     @Autowired
     public AuthorizationController(AuthorizationService authorizationService) {
         this.authorizationService = authorizationService;
@@ -24,7 +23,7 @@ public class AuthorizationController {
     public ResponseEntity<?> login(@RequestParam(name = "login") String login,
                                    @RequestParam(name = "password") String password) {
         User response = authorizationService.auth(login, password);
-        return Optional.ofNullable(response).map(ResponseEntity::ok).orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
+        return Optional.ofNullable(response).map(ResponseEntity::ok).orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)

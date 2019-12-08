@@ -49,6 +49,14 @@ public class GenrePostgreDAO {
 			return null;
 		}
 	}
-	
+
+	public List<String> getAllGenresName(){
+		try {
+			return jdbcTemplate.queryForList(GenreQuery.GET_ALL_GENRES_NAME, String.class);
+		}
+		catch(IncorrectResultSizeDataAccessException e){
+			return null;
+		}
+	}
 	//public Integer getGenreByBook
 }

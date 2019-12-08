@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {CommonService} from '../common/common.service';
 import {User} from "../../models/user";
 import {Book} from "../../models/book";
@@ -9,25 +9,26 @@ import {Chat} from "../../models/chat";
 import {Message} from "../../models/message";
 import {BookFilter} from "../../models/bookfilter";
 import {Observable} from "rxjs";
+import {userSearch} from "../../models/userSearch";
 
 @Injectable({
     providedIn: 'root'
 })
 export class UserService {
 
-    // private userUlr = '/user';
-    // private usersUlr = '/users/:login';
     user: User;
     friend: User;
     book: Book;
-    siteUrl: string = 'https://nc-group1-2019-project.herokuapp.com';
+    //siteUrl: string = 'https://nc-group1-2019-project.herokuapp.com';
+    siteUrl: string = 'http://localhost:8080';
 
     constructor(private http: HttpClient, private commonService: CommonService) {
     }
 
     // Personal methods
     updateProfile(user: User) {
-        let url = `${this.siteUrl}/user/update`;
+        let url = `${this.siteUrl}/user/update` +
+            '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
         let form = new FormData();
 
         form.append('login', user.userName);
@@ -38,7 +39,8 @@ export class UserService {
     }
 
     searchUser(id: string) {
-        const url = `${this.siteUrl}/user/` + id;
+        const url = `${this.siteUrl}/user/`+ id + '?access_token=' +
+            JSON.parse(window.sessionStorage.getItem('token')).access_token;
         return this.http.get<User>(url);
     }
 
@@ -158,7 +160,8 @@ export class UserService {
     }
 
     createAdmin(admin: User): Observable<User> {
-        let url = this.siteUrl + "/user/create/admin";
+        let url = this.siteUrl + "/user/create/admin"+
+            '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
         console.log(url);
         return this.http.post<User>(url, admin);
     }
@@ -166,4 +169,24 @@ export class UserService {
     // createModerator(): Observable<User> {
     //
     // }
+
+    deactivateAccount(id: string) {
+        let url = `${this.siteUrl}/user/${id}/deactivate`+
+            '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
+
+        return this.http.get(url);
+    }
+
+    searchByUsername(username: string) {
+        let url = `${this.siteUrl}/user/search/${username}`+
+            '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
+
+        return this.http.get<userSearch[]>(url);
+    }
+
+    getAll() {
+        let url = `${this.siteUrl}/user/get/all`;
+
+        return this.http.get<userSearch[]>(url);
+    }
 }

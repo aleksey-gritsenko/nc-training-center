@@ -1,34 +1,15 @@
-<style>
 
-    .form {
-
-        padding: 130px 130px;
-        position: relative;
-    }
-
-</style>
 <div class="navigation">
     <app-navigation></app-navigation>
     <router-outlet></router-outlet>
 </div>
 <div>
-    <!--<form class="form">
 
-        <div class="form-group col-md-6">
-            <label for="inputDescription">Description</label>
-            <input type="text" name="description" class="form-control" id="inputDescription" placeholder="Description" [(ngModel)]="model.description">
-        </div>
-        <div class="form-group">
-            <label for="inputDate">Date of ivent</label>
-            <input type="text" class="form-control" id="inputDate" placeholder="01/01/2000" name="date" [(ngModel)]="model.announcementDate">
-        </div>
-
-        <button class="btn btn-primary" type="submit" (click)="createAnnouncement()">Save</button>
-    </form>
-    </div>
-    -->
 
     <form class="form">
+        <div class = "header">
+            <h2>Create new announcement</h2>
+        </div>
         <div class="form-row">
 
             <div class="form-group col-md-6">
@@ -44,8 +25,9 @@
         </div>
 
 
-            <button [disabled]="!(this.model.announcementDate.length > 0
-                && this.model.description.length > 0)" class="btn btn-primary" (click)="createAnnouncement()">Save
+
+            <button [disabled]="!(
+                this.model.description.length > 0)" class="btn btn-primary" (click)="createAnnouncement()">Save
         </button>
     </form>
     <!--<div>

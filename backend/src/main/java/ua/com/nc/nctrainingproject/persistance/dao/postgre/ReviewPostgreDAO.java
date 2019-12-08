@@ -2,6 +2,8 @@ package ua.com.nc.nctrainingproject.persistance.dao.postgre;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
 import ua.com.nc.nctrainingproject.models.Review;
 import ua.com.nc.nctrainingproject.persistance.dao.AbstractDAO;
@@ -37,28 +39,31 @@ public class ReviewPostgreDAO extends AbstractDAO<Review> {
 	}
 
 	public void createReview(Review review) {
-		jdbcTemplate.update(ReviewQuery.CREATE_REVIEW,
-				review.getUserId(),
-				review.getBookId(),
-				review.getText(),
-				review.getReviewDate(),
-				review.getGrade(),
-				review.getStatus());
+		 jdbcTemplate.update(ReviewQuery.CREATE_REVIEW, review.getUserId(), review.getBookId(),
+				review.getText(),review.getReviewDate(),review.getGrade(),review.getStatus());
 	}
 
 	public void acceptReview(Review review){
-		 jdbcTemplate.update(ReviewQuery.ACCEPT_REVIEW,
-				 review.getStatus(),
-				 review.getAdminId(),
-				 review.getReviewId());
+		jdbcTemplate.update(ReviewQuery.ACCEPT_REVIEW,
+				review.getStatus(),
+				review.getAdminId(),
+				review.getReviewId());
 	}
 
 	public void deleteReviewById(int reviewId){
-		 jdbcTemplate.update(ReviewQuery.DELETE_REVIEW_BY_ID, reviewId);
+		jdbcTemplate.update(ReviewQuery.DELETE_REVIEW_BY_ID, reviewId);
 	}
 
 	public Review getReviewById(int reviewId){
 		return super.getEntityById(ReviewQuery.GET_REVIEW_BY_ID, new ReviewRowMapper(), reviewId);
+	}
+
+	public List<Review> getAllReview(){
+		try {
+			return jdbcTemplate.query(ReviewQuery.GET_ALL_REVIEW, new ReviewRowMapper());
+		} catch (EmptyResultDataAccessException e) {
+			return null;
+		}
 	}
 }
 

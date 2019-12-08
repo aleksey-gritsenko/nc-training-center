@@ -1,3 +1,4 @@
+/*
 import * as Stomp from 'stompjs';
 import * as SockJS from 'sockjs-client';
 
@@ -15,7 +16,7 @@ export class WebSocketAPI {
         this.stompClient = Stomp.over(ws);
     }
 
-    /*
+    /!*
     _connect() {
         console.log("Initialize WebSocket Connection");
         let ws = new SockJS(this.webSocketEndPoint);
@@ -28,7 +29,7 @@ export class WebSocketAPI {
             //_this.stompClient.reconnect_delay = 2000;
         }, this.errorCallBack);
     };
-    */
+    *!/
 
     _disconnect() {
         if (this.stompClient !== null) {
@@ -51,3 +52,4 @@ export class WebSocketAPI {
     //     return message.body;
     // }
 }
+*/

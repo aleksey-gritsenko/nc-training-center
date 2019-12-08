@@ -16,8 +16,8 @@ public class NotificationQuery {
 	public static final String GET_BY_USER_ACTION_ID = "SELECT * FROM " + TABLE_NAME
 			+ " WHERE " + ACTION_ID + " =(?) AND " + USER_ID + " =(?)";
 
-	public static final String DELETE_BY_USER_ACTION_ID = "DELETE FROM " + TABLE_NAME
-			+ " WHERE " + ACTION_ID + " =(?) " + " AND " + USER_ID + " =(?)";
+	public static final String DELETE_BY_USER_ID = "DELETE FROM " + TABLE_NAME
+			+ " WHERE " + USER_ID + " =(?)";
 
 	public static final String CREATE_NOTIFICATION = "INSERT INTO " + TABLE_NAME
 			+ " (" + ACTION_ID + "," + USER_ID + ")" + " VALUES(?,?)";

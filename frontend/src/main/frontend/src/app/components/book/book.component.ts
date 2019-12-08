@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {Book} from '../../models/book';
 import {CommonService} from "../../services/common/common.service";
 import {ActivatedRoute, Router} from "@angular/router";
-import {Genre} from "../../models/genre";
 import {Author} from "../../models/author";
 import {FormControl, FormGroup} from "@angular/forms";
 import {BookFilter} from "../../models/bookfilter";
@@ -15,19 +14,21 @@ import {UserBook} from "../../models/userBook";
     styleUrls: ['./book.component.css']
 })
 export class BookComponent implements OnInit {
-    book: Book = new Book();
+    book: Book;
     authors: Author[] = [];
-    updatedBook: FormGroup;
     suggestionBook:Book[] = [];
     bookId: any;
 
+    //TODO check with model UserBook, not with boolean
     userAddedBook: boolean = true;
     userAddedToRead: boolean = true;
     userAddedToFav: boolean = true;
 
     userBook:UserBook = new UserBook();
 
-    constructor(private apiService: CommonService, private route: ActivatedRoute, private router: Router,
+    constructor(private apiService: CommonService,
+                private route: ActivatedRoute,
+                private router: Router,
                 private storage: StorageService) {
     }
 
@@ -79,6 +80,15 @@ export class BookComponent implements OnInit {
                         authors.forEach(author=>this.book.authors.push(author));
                     }
                 );
+                this.apiService.getImageByBook(this.book).subscribe(
+                    img=>{ let reader = new FileReader();
+                        reader.addEventListener("load", () => {
+                            this.book.photoURL = reader.result;
+                        }, false);
+                        if (img) {
+                            reader.readAsDataURL(img);
+                        }}
+                )
             },
             err => {
                 alert("Error in get book by id")
@@ -87,12 +97,9 @@ export class BookComponent implements OnInit {
     }
 
     makeSuggestion() {
-        let authors = JSON.parse(localStorage.getItem('authors'));
-        let genres = JSON.parse(localStorage.getItem('genres'));
 
-        let suggestionFilter: BookFilter = new BookFilter();
-        suggestionFilter.genre = genres;
-        suggestionFilter.author = authors;
+        let suggestionFilter: BookFilter = this.storage.getFilter();
+        console.log(suggestionFilter);
 
         if (this.storage.getUser() != null) {
             this.apiService.makeSuggestion(this.storage.getUser().id).subscribe(
@@ -115,9 +122,8 @@ export class BookComponent implements OnInit {
     }
 
     addBookToUser(bookId:number){
-        if (this.storage.getUser() == null) {
-            this.router.navigate(['/login']);
-        }
+        this.checkPresentUser();
+
         let userBook:UserBook = new UserBook();
         userBook.userId = this.storage.getUser().id;
         userBook.bookId = bookId;
@@ -134,9 +140,8 @@ export class BookComponent implements OnInit {
     }
 
     deleteBookFromUser(bookId:number){
-        if (this.storage.getUser() == null) {
-            this.router.navigate(['/login']);
-        }
+        this.checkPresentUser();
+
         let userBook:UserBook = new UserBook();
         userBook.userId = this.storage.getUser().id;
         userBook.bookId = bookId;
@@ -153,9 +158,7 @@ export class BookComponent implements OnInit {
     }
 
     addBookToFavourite(bookId: number){
-        if (this.storage.getUser() == null) {
-            this.router.navigate(['/login']);
-        }
+        this.checkPresentUser();
 
         let userBook:UserBook = new UserBook();
         userBook.userId = this.storage.getUser().id;
@@ -174,9 +177,7 @@ export class BookComponent implements OnInit {
     }
 
     addBookToRead(bookId: number){
-        if (this.storage.getUser() == null) {
-            this.router.navigate(['/login']);
-        }
+        this.checkPresentUser();
 
         let userBook:UserBook = new UserBook();
         userBook.userId = this.storage.getUser().id;
@@ -195,9 +196,7 @@ export class BookComponent implements OnInit {
     }
 
     removeBookFromFav(bookId: number){
-        if (this.storage.getUser() == null) {
-            this.router.navigate(['/login']);
-        }
+        this.checkPresentUser();
 
         let userBook:UserBook = new UserBook();
         userBook.userId = this.storage.getUser().id;
@@ -216,9 +215,7 @@ export class BookComponent implements OnInit {
     }
 
     removeBookFromRead(bookId: number){
-        if (this.storage.getUser() == null) {
-            this.router.navigate(['/login']);
-        }
+        this.checkPresentUser();
 
         let userBook:UserBook = new UserBook();
         userBook.userId = this.storage.getUser().id;
@@ -240,6 +237,12 @@ export class BookComponent implements OnInit {
         this.router.navigate(['books/book', bookId]);
         this.suggestionBook = [];
         this.ngOnInit();
+    }
+
+    checkPresentUser(){
+        if (this.storage.getUser() == null) {
+            this.router.navigate(['/login']);
+        }
     }
 }
 

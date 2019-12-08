@@ -6,7 +6,7 @@ import {Router} from "@angular/router";
 @Component({
   selector: 'app-confirm-email',
   templateUrl: './confirm-email.component.html',
-  styleUrls: ['../../../resources/styles/Authorization.css']
+  styleUrls: ['../../../resources/styles/Authorization.css', './confirm-email.component.css']
 })
 export class ConfirmEmailComponent implements OnInit {
   code: string = '';
@@ -21,25 +21,28 @@ export class ConfirmEmailComponent implements OnInit {
   }
 
   confirm() {
-    this.authenticationService.confirmEmail(this.email, this.code)
-        .toPromise().then(user => {
-        this.storageService.setUser(user);
-        this.router.navigateByUrl('/')
-    },
-        error => {
-          this.message = 'error';
-        });
+      if (this.email.length != 0 && this.code.length != 0) {
+          this.authenticationService.confirmEmail(this.email, this.code)
+              .toPromise().then(user => {
+                  this.router.navigateByUrl('/')
+              },
+              error => {
+                  this.message = 'error';
+              });
+      }
   }
 
   resend() {
-        this.authenticationService.resendCode(this.email).toPromise()
-            .then(
-                result => {
-                   this.message = 'resend';
-                },
-                error => {
-                    this.message = 'error';
-                });
+      if (this.email.length != 0) {
+          this.authenticationService.resendCode(this.email).toPromise()
+              .then(
+                  result => {
+                      this.message = 'send';
+                  },
+                  error => {
+                      this.message = 'error';
+                  });
+      }
   }
 
 }
