@@ -6,7 +6,8 @@ import {HttpClient} from '@angular/common/http';
 })
 export class ChangePasswordService {
 
-    private siteUrl: string = 'https://nc-group1-2019-project.herokuapp.com';
+   // private siteUrl: string = 'https://nc-group1-2019-project.herokuapp.com';
+    private siteUrl: string = 'http://localhost:8080';
 
     constructor(private http: HttpClient) {
     }
