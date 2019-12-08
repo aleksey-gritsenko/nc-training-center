@@ -1,1 +1,10 @@
-<p>activities-list works!</p>
+<li class="nav-item">
+    <a  class="dropdown nav-link"  id="userMenuLabel"  data-toggle="dropdown"   href="javascript:void(0)">
+            My activities
+    </a>
+    <div aria-labelledby="userMenuLabel"  class="dropdown-menu dropdown-menu-right">
+        <div *ngFor="let achievement of achievements.description"><a class="dropdown-item">{{achievement}}</a></div>
+        <a href="javascript:void(0)"></a>
+
+    </div>
+</li>
