@@ -38,7 +38,7 @@ export class BooksListComponent implements OnInit{
         authors: [],
         photo:0,
         fileId:0,
-        imageURL:'',
+        fileURL:'',
         photoURL:''
     };
 

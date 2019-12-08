@@ -1,8 +1,9 @@
 import {Component, Input, OnInit,Directive} from '@angular/core';
 import {FormGroup} from "@angular/forms";
-import {HttpClient, HttpParams} from "@angular/common/http";
+import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {Book} from "../../models/book";
 import * as FileSaver from 'file-saver';
+import {DomSanitizer} from "@angular/platform-browser";
 
 
 @Component({
@@ -14,16 +15,14 @@ export class FileUploadComponent implements  OnInit{
     form: FormGroup;
 
     @Input() book:Book;
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient,private sanitizer: DomSanitizer) {
     }
     ngOnInit(){
-        this.downloadPDF();
+
     }
     fileExtensions = ['.txt', '.pdf'];
     imgExtensions = ['.png'];
     fileToUpload:File;
-
-    fileURL:any;
     receivedImageData: any;
     base64Data: any;
     convertedImage: any;
@@ -57,22 +56,20 @@ export class FileUploadComponent implements  OnInit{
         }
     }
     downloadPDF(): any {
-        return this.http.post(`http://localhost:8080/book/bookFile`,this.book).subscribe(
+        return this.http.post(`http://localhost:8080/book/bookFile`,this.book, {responseType:'blob' as 'text'}).subscribe(
             (res) => {
-               console.log(res)
+                console.log(res);
+                let blob = new Blob([res], { type: 'application/pdf' });
+                this.book.fileURL  = URL.createObjectURL(blob);
+                var file = new File([blob], this.book.header,{ type: blob.type });
+                FileSaver.saveAs(file);
             }
         );
     }
 
-    createFile(file:Blob){
-        let reader = new FileReader();
-        reader.addEventListener("load", () => {
-            this.fileURL = reader.result;
-            console.log(this.fileURL);
-        }, false);
-        if (file) {
-            FileSaver.saveAs(file);
-        }
-    }
 
+
+    getSantizeUrl(url : string) {
+        return this.sanitizer.bypassSecurityTrustUrl(url);
+    }
 }
