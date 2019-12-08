@@ -34,4 +34,7 @@ public class UserBooksQuery {
 
 	public static final String DELETE_BOOK_FROM_ADDED = "DELETE FROM  " + TABLE_NAME + " WHERE " + USER_ID +
 			" =(?)" + " AND " + BOOK_ID + " =(?)";
+
+	public static final String GET_USER_BOOK_BY_USER_AND_BOOK_ID = "SELECT * FROM " + TABLE_NAME + " WHERE " +
+			USER_ID + "= (?)" + " AND " + BOOK_ID + "=(?)";
 }
