@@ -48,8 +48,6 @@ public class AuthorizationController {
         System.out.println(userSettings.getNotifyAboutAchievement());
         System.out.println(userSettings.getSubscribeOnFriendReview());
         System.out.println(userSettings.getSubscribeOnFriends());
-
-
     }
 
 }

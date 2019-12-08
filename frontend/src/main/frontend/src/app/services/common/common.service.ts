@@ -102,6 +102,14 @@ export class CommonService {
         return this.http.post<Announcement>(url, announcement);
     }
 
+   addFriend(sender: User,reciever:User): Observable<User> {
+       const url = `${this.localhost}/friends/accept` + '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
+        //const url = `${this.localhost}/announcements/publish`;
+       const paramsSender = new HttpParams()
+           .set('sender', sender.id.toString()).set('reciever', reciever.id.toString());
+
+        return this.http.post<User>(url, paramsSender);
+    }
     getFriends(id:string): Observable<User[]> {
        //const url = `${this.userFriendsUrl}/all`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;;
         const url = `${this.localhost}/friends/all`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
