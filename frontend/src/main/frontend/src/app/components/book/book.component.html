@@ -49,7 +49,7 @@
                 </div>
             </div>
         </form>
-        <div class="center">
+        <div class="row">
             <button  *ngIf="userAddedBook" id="addBook" class="btn btn-primary" (click)="addBookToUser(book.id)">Add book</button>
             <button  *ngIf="!userAddedBook" id="removeBook" class="btn btn-primary" (click)="deleteBookFromUser(book.id)">Remove book</button>
             <button  *ngIf="userAddedToFav" id="addFav"  class="btn btn-primary"  (click)="addBookToFavourite(book.id)">Add to favourite</button>
@@ -57,12 +57,11 @@
             <button  *ngIf="userAddedToRead" id="addRead" class="btn btn-primary"   (click)="addBookToRead(book.id)">Add to read</button>
             <button  *ngIf="!userAddedToRead" id="removeRead" class="btn btn-primary" (click)="removeBookFromRead(book.id)">Remove from read</button>
         </div>
-        <div>
-            <app-reviews-list [book]="book"></app-reviews-list>
-        </div>
+    </div>
+    <div class="row">
+        <app-reviews-list [book]="book"></app-reviews-list>
     </div>
     <div>
-
         <div class="row">
             <div *ngFor="let bookOfSuggestions of suggestionBook |  slice:0:3" class="col-3 col-lg-4  col-md-6">
                 <div class="card card-profile">

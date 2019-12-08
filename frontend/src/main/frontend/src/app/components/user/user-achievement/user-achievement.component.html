@@ -1,0 +1,12 @@
+<div class="card">
+    <div class="card-header card-header-primary">
+        <h4 class="card-title">Achievement</h4>
+    </div>
+    <div class="card-body">
+        <div *ngFor="let achievement of achievements">
+            <span>{{user.userName}} </span><span>{{achievement.action}} </span><span>{{achievement.count}} </span>
+            <span>{{achievement.entity}} </span><span>{{achievement.genre_id}}</span>
+        </div>
+        <span>{{user.userName}}</span><span>add </span><span>5 </span><span>books </span><span></span>
+    </div>
+</div>

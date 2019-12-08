@@ -26,4 +26,9 @@ export class AchievementService {
         let url = `${this.siteUrl}/achievement/create`;
         return this.http.post(url, model);
     }
+
+    getUserAchievement(userId:number){
+        let url = `${this.siteUrl}/achievement/all`;
+        return this.http.post<Achievement[]>(url, userId);
+    }
 }

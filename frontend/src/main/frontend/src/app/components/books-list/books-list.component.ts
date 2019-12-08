@@ -69,7 +69,11 @@ export class BooksListComponent implements OnInit{
             this.getUsersBookList();
             this.getAllReadBooks();
             this.getAllFavouriteBooks();
+            if( this.storage.getUser().userRole=='moderator') {
+                this.addBookVisible = true;
+            }
         }
+
         this.getBooks();
         this.addBookVisible = false;
         this.getAllAuthor();
@@ -232,7 +236,6 @@ export class BooksListComponent implements OnInit{
                     )
                 })
             },
-            error => alert("error in filter")
         );
 
     }
@@ -263,7 +266,7 @@ export class BooksListComponent implements OnInit{
 
             },
             err => {
-                alert("Error in get all reviews")
+                this.router.navigateByUrl('/error');
             }
         );
     }
@@ -282,7 +285,7 @@ export class BooksListComponent implements OnInit{
                     console.log(newCreatedBook);
                 },
                 err => {
-                    alert("Error in create book");
+                    this.router.navigateByUrl('/error');
                 });
 
     }
