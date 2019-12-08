@@ -24,7 +24,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
                 anonymous().disable()
                 .authorizeRequests()
                // .antMatchers().access("hasAuthority('DEFAULT_AUTHORITY')")
-                .antMatchers("/login/**","/friends/accept").access("hasAuthority('DEFAULT_AUTHORITY')")
+                .antMatchers("/login/**","/friends/accept/").access("hasAuthority('DEFAULT_AUTHORITY')")
                 .antMatchers("/announcements/publish/**").access("hasAuthority('publish announcement')")
                 .antMatchers("/review/accept/**").access("hasAuthority('publish reviews')")
                 .antMatchers("/login/**","/test/**").access("hasAuthority('DEFAULT_AUTHORITY')")
