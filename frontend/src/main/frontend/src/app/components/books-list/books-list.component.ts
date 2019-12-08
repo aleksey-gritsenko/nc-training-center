@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {CommonService} from '../../services/common/common.service';
 import {Book} from '../../models/book'
 import {ActivatedRoute, Router} from '@angular/router';
@@ -24,9 +24,9 @@ export class BooksListComponent implements OnInit{
     books: Book[] = [];
 
     userBooks : UserBook[] = [];
-    @Input() userBookList: Book[] = [];
-    @Input() userFavBookList: Book[] = [];
-    @Input() userReadBookList: Book[] = [];
+    userBookList: Book[] = [];
+    userFavBookList: Book[] = [];
+    userReadBookList: Book[] = [];
     book: Book;
 
     model : Book = {
@@ -69,11 +69,7 @@ export class BooksListComponent implements OnInit{
             this.getUsersBookList();
             this.getAllReadBooks();
             this.getAllFavouriteBooks();
-            if( this.storage.getUser().userRole=='moderator') {
-                this.addBookVisible = true;
-            }
         }
-
         this.getBooks();
         this.addBookVisible = false;
         this.getAllAuthor();
@@ -236,6 +232,7 @@ export class BooksListComponent implements OnInit{
                     )
                 })
             },
+            error => alert("error in filter")
         );
 
     }
@@ -266,7 +263,7 @@ export class BooksListComponent implements OnInit{
 
             },
             err => {
-                this.router.navigateByUrl('/error');
+                alert("Error in get all reviews")
             }
         );
     }
@@ -285,7 +282,7 @@ export class BooksListComponent implements OnInit{
                     console.log(newCreatedBook);
                 },
                 err => {
-                    this.router.navigateByUrl('/error');
+                    alert("Error in create book");
                 });
 
     }

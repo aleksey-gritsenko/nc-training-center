@@ -3,7 +3,6 @@ import {StorageService} from "../../../services/storage/storage.service";
 import {AuthenticationService} from "../../../services/authentification/authentication.service";
 import {Router} from "@angular/router";
 
-
 @Component({
   selector: 'app-confirm-email',
   templateUrl: './confirm-email.component.html',
@@ -35,7 +34,8 @@ export class ConfirmEmailComponent implements OnInit {
 
   resend() {
       if (this.email.length != 0) {
-          this.authenticationService.resendCode(this.email).subscribe(
+          this.authenticationService.resendCode(this.email).toPromise()
+              .then(
                   result => {
                       this.message = 'send';
                   },
@@ -44,4 +44,5 @@ export class ConfirmEmailComponent implements OnInit {
                   });
       }
   }
+
 }

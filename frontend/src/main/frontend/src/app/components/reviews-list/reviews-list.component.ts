@@ -103,7 +103,7 @@ export class ReviewsListComponent implements OnInit{
                     this.notAcceptedReviews.push(res);
                 },
                 err => {
-                    this.router.navigateByUrl('/error');
+                    alert("Error in creating new review");
                 }
             );
 

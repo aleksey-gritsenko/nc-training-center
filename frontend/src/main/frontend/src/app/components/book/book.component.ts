@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Book} from '../../models/book';
 import {CommonService} from "../../services/common/common.service";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -7,8 +7,6 @@ import {FormControl, FormGroup} from "@angular/forms";
 import {BookFilter} from "../../models/bookfilter";
 import {StorageService} from "../../services/storage/storage.service";
 import {UserBook} from "../../models/userBook";
-import {User} from "../../models/user";
-import {UserService} from "../../services/user/user.service";
 
 @Component({
     selector: 'app-book',
@@ -16,7 +14,7 @@ import {UserService} from "../../services/user/user.service";
     styleUrls: ['./book.component.css']
 })
 export class BookComponent implements OnInit {
-    @Input() book: Book;
+    book: Book;
     authors: Author[] = [];
     suggestionBook:Book[] = [];
     bookId: any;
@@ -61,11 +59,9 @@ export class BookComponent implements OnInit {
         );
     }
 
-
+    //TODO
     checkAdmin(){
-        if( this.storage.getUser().userRole=='moderator') {
-            this.bookForm.enable();
-        }
+        this.bookForm.disable();
     }
 
 
@@ -95,7 +91,7 @@ export class BookComponent implements OnInit {
                 )
             },
             err => {
-                this.router.navigateByUrl('/error');
+                alert("Error in get book by id")
             }
         );
     }
@@ -103,6 +99,8 @@ export class BookComponent implements OnInit {
     makeSuggestion() {
 
         let suggestionFilter: BookFilter = this.storage.getFilter();
+        console.log(suggestionFilter);
+
         if (this.storage.getUser() != null) {
             this.apiService.makeSuggestion(this.storage.getUser().id).subscribe(
                 books=>{this.suggestionBook=books||[];}
@@ -119,10 +117,8 @@ export class BookComponent implements OnInit {
                 this.suggestionBook = this.suggestionBook.filter(
                     (thing, i, arr) => arr.findIndex(t => t.id === thing.id) === i
                 );
-                console.log(this.suggestionBook)
             }
         );
-        console.log(this.suggestionBook);
     }
 
     addBookToUser(bookId:number){

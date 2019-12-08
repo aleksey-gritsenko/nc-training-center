@@ -48,11 +48,14 @@ export class LoginComponent implements OnInit {
                                 this.storageService.setUser(user);
                                 this.router.navigate([this.returnUrl]);
                             }
+                        },
+                        error => {
+                            if (error.status == 404) this.isError = true;
+                            this.model.password = '';
                         });
             },
             error1 => {
-                this.isError = true;
-                this.model.password = '';
+                alert('error authentification');
             }
         );
 

@@ -34,7 +34,7 @@ export class SearchComponent implements OnInit, OnDestroy {
                     this.search = param.search;
                     this.userService.searchByUsername(this.search).toPromise().then(
                         res => {
-                            this.userModel = res.slice(0,5);
+                            this.userModel = res.slice(0,4);
                         },
                         () => {
                             this.userModel = null;

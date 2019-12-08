@@ -30,5 +30,4 @@ public class ActionQuery {
 	public static final String CREATE_ACTION = "INSERT INTO " + TABLE_NAME
 			+ " (" + USER_ID + "," + ACTION_TYPE_ID + ")" + " VALUES(?,?)";
 
-
 }
