@@ -61,7 +61,7 @@ export class BookComponent implements OnInit {
 
     //TODO
     checkAdmin(){
-        this.bookForm.enable();
+        this.bookForm.disable();
     }
 
 
