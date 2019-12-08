@@ -13,9 +13,14 @@ import {AnnouncementComponent} from "./components/announcement/announcement.comp
 import {AnnouncementListComponent} from "./components/announcement-list/announcement-list.component";
 import {AnnouncementPropositionComponent} from "./components/announcement-proposition/announcement-proposition.component";
 import {ReviewComponent} from "./components/review/review.component";
-import {UserBooksComponent} from "./components/user-books/user-books.component";
+import {UserBooksComponent} from "./components/user/user-books/user-books.component";
 import {ConfirmEmailComponent} from "./components/authorization/confirm-email/confirm-email.component";
+import {FriendsListComponent} from "./components/friends-list/friends-list.component";
 import {CalendarComponent} from "./components/calendar/calendar.component";
+import {SearchComponent} from "./components/search/search.component";
+import {UserFavouriteBooksComponent} from "./components/user/user-favourite-books/user-favourite-books.component";
+import {UserReadBooksComponent} from "./components/user/user-read-books/user-read-books.component";
+import {UserSettingsComponent} from "./components/user/user-settings/user-settings.component";
 
 const routes: Routes = [
     {
@@ -34,7 +39,10 @@ const routes: Routes = [
         path: 'announcementpublish',
         component: AnnouncementPropositionComponent
     },
-
+    {
+        path: 'friends',
+        component: FriendsListComponent
+    },
     {
         path: 'change',
         component: ChangePasswordComponent
@@ -58,6 +66,14 @@ const routes: Routes = [
     {
         path: 'books',
         component: BooksListComponent
+    },
+    {
+        path: 'user/:id/books',
+        component: BooksListComponent
+    },
+    {
+        path: 'user/:id/books/book/:bookId',
+        component: BookComponent
     },
     {
         path: 'books/:bookId/announcement',
@@ -88,12 +104,36 @@ const routes: Routes = [
         component: BookComponent
     },
     {
+        path: 'userBooks/read',
+        component: UserReadBooksComponent
+    },
+    {
+        path: 'userBooks/read/book/:bookId',
+        component: BookComponent
+    },
+    {
+        path: 'userBooks/favourite',
+        component: UserFavouriteBooksComponent
+    },
+    {
+        path: 'userBooks/favourite/book/:bookId',
+        component: BookComponent
+    },
+    {
         path: 'user/:id',
         component: UserProfileComponent
     },
     {
         path: 'verify',
         component: ConfirmEmailComponent
+    },
+    {
+        path: 'search',
+        component: SearchComponent
+    },
+    {
+        path: 'settings',
+        component: UserSettingsComponent
     },
     {
         path: 'error',

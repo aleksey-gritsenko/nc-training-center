@@ -9,9 +9,9 @@ public class BookFileManagementQuery {
     public static final String GET_BOOK_IMAGES = "SELECT * FROM " + BOOK_IMAGES_TABLE;
     public static final String GET_BOOK_FILES = "SELECT * FROM " + BOOK_FILES_TABLE;
 
-    public static final String GET_BOOK_FILE = "SELECT " + FILE + " FROM " + BOOK_FILES_TABLE + " WHERE " +
+    public static final String GET_BOOK_FILE = "SELECT * FROM " + BOOK_FILES_TABLE + " WHERE " +
             BOOK_ID + "=(?)";
-    public static final String GET_BOOK_IMAGE = "SELECT " + FILE + " FROM " + BOOK_IMAGES_TABLE + " WHERE " +
+    public static final String GET_BOOK_IMAGE = "SELECT * FROM " + BOOK_IMAGES_TABLE + " WHERE " +
             BOOK_ID + "=(?)";
 
     public static final String INSERT_BOOK_IMAGE = "INSERT INTO " + BOOK_IMAGES_TABLE + " (" + BOOK_ID + ", " + FILE

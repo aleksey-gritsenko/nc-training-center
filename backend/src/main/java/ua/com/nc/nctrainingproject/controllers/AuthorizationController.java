@@ -5,6 +5,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ua.com.nc.nctrainingproject.models.User;
+import ua.com.nc.nctrainingproject.models.UserSettings;
+import ua.com.nc.nctrainingproject.persistance.dao.postgre.UserSettingsPostgreDAO;
 import ua.com.nc.nctrainingproject.services.AuthorizationService;
 
 import java.util.Optional;
@@ -13,7 +15,6 @@ import java.util.Optional;
 @CrossOrigin
 public class AuthorizationController {
     private final AuthorizationService authorizationService;
-
 
     @Autowired
     public AuthorizationController(AuthorizationService authorizationService) {
@@ -34,4 +35,19 @@ public class AuthorizationController {
         User response = authorizationService.register(login, password, email);
         return Optional.ofNullable(response).map(ResponseEntity::ok).orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
     }
+
+    @Autowired
+    UserSettingsPostgreDAO userSettingsPostgreDAO;
+
+    @RequestMapping(value = "/test", method = RequestMethod.GET)
+    public void test() {
+        UserSettings userSettings = userSettingsPostgreDAO.getSettingsListById(5);
+        System.out.println(userSettings.getAchievements());
+        System.out.println(userSettings.getNotifyAboutNewFriends());
+        System.out.println(userSettings.getBookNotification());
+        System.out.println(userSettings.getNotifyAboutAchievement());
+        System.out.println(userSettings.getSubscribeOnFriendReview());
+        System.out.println(userSettings.getSubscribeOnFriends());
+    }
+
 }

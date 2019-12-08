@@ -52,5 +52,18 @@ public class  UserQuery {
 
 	public static final String DEACTIVATE_ACCOUNT = "UPDATE " + TABLE_NAME + " SET " + ACTIVATED + " =(?) " +
 			"WHERE " + ID + " =(?)";
+
+	public static final String SEARCH_USERS_BY_USERNAME = "SELECT * FROM " + TABLE_NAME + " WHERE LOWER(" + USERNAME +
+            ") LIKE (?)";
+
+	public static final String GET_ALL_ADMINS = "SELECT * FROM " + TABLE_NAME + " WHERE " + ROLE + "='admin'";
+
+	public static final String GET_ALL_MODERATORS = "SELECT * FROM " + TABLE_NAME + " WHERE " + ROLE + "='moderator'";
+
+	public static final String GET_ADMIN_BY_ACTIVATED = "SELECT * FROM " + TABLE_NAME + " WHERE " + STATUS + "='true'" +
+			" AND " + STATUS + " ='admin'";
+
+	public static final String GET_MODERATORS_BY_ACTIVATED = "SELECT * FROM " + TABLE_NAME + " WHERE " + STATUS + "='true'" +
+			" AND " + STATUS + " ='moderator'";
 }
 

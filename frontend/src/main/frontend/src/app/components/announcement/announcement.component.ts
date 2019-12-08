@@ -23,17 +23,20 @@ export class AnnouncementComponent implements OnInit {
         announcementDate: new Date(),
         bookID: 0,
         ownerId: 0,
-        admin_id:0,
+        admin_id: 0,
         status: 'UNPUBLISHED'
     };
     currentUser: User;
     id: any;
+    currentDate : Date;
+
 
     constructor(private http: HttpClient, private route: ActivatedRoute,
-                private storage: StorageService,private apiService :CommonService) {
+                private storage: StorageService, private apiService: CommonService) {
     }
 
     ngOnInit() {
+        this.currentDate = new Date();
         this.model
         this.id
             = parseInt(this.route.snapshot.paramMap.get('id'));
@@ -41,27 +44,31 @@ export class AnnouncementComponent implements OnInit {
         //this.model
         //this.id = parseInt(this.route.snapshot.paramMap.get('id'));
         //this.storage
-        this.role = 'user';
         this.currentUser = this.storage.getUser();
+        this.currentDate = new Date()
+    }
+
+    compareDate(date: Date): boolean {
+        return date > this.currentDate;
     }
 
     createAnnouncement(): void {
         let url = `${this.siteUrl}/announcements/proposeAnnouncement`;
         this.model.bookID = this.id;
-        if(this.currentUser.userRole == 'admin'){
+        if (this.currentUser.userRole == 'admin') {
 
             this.model.status = 'PUBLISHED';
-           this.model.admin_id = this.currentUser.id;
+            this.model.admin_id = this.currentUser.id;
         }
         this.model.ownerId = this.currentUser.id;
-      // this.model.ownerId = this.storage.getUser().id;
+        // this.model.ownerId = this.storage.getUser().id;
 
-        this.apiService.createAnnouncement(this.model) .subscribe(
+        this.apiService.createAnnouncement(this.model).subscribe(
             res => {
                 //location.reload();
             },
-                err => {
-                    alert(JSON.parse(JSON.stringify(err)).message);
+            err => {
+                alert(JSON.parse(JSON.stringify(err)).message);
             }
         );
     }

@@ -5,3 +5,7 @@
 .select:hover {
     color: white;
 }
+
+.navbar {
+    padding-bottom: 0 !important;
+}

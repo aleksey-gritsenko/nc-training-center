@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import ua.com.nc.nctrainingproject.models.Review;
 import ua.com.nc.nctrainingproject.persistance.dao.postgre.ReviewPostgreDAO;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -17,7 +18,9 @@ public class ReviewService {
 	}
 
 	public Review createReview(Review review)  {
+		review.setReviewDate(new Date());
 		reviewPostgreDAO.createReview(review);
+		review.setReviewId(getAllReview().get(getAllReview().size()-1).getId());
 		return review;
 	}
 
@@ -26,12 +29,19 @@ public class ReviewService {
 	}
 
 	public void acceptReview(Review review){
-		reviewPostgreDAO.acceptReview(review);
+		if(getReviewById(review.getReviewId())!=null) {
+			review.setStatus(true);
+			reviewPostgreDAO.acceptReview(review);
+		}
 	}
 
-	public List<Review> getAcceptedReview(boolean status, int bookId){
-		return reviewPostgreDAO.getAcceptedReviewsOfBook(status, bookId);
+	public List<Review> getAcceptedReview(int bookId){
+		return reviewPostgreDAO.getAcceptedReviewsOfBook(true, bookId);
 	}
+	public List<Review> getNotAcceptedReview(int bookId){
+		return reviewPostgreDAO.getAcceptedReviewsOfBook(false, bookId);
+	}
+
 
 	public void deleteReviewById(int reviewId){
 		if (reviewPostgreDAO.getReviewById(reviewId)!=null) {
@@ -44,5 +54,9 @@ public class ReviewService {
 			return reviewPostgreDAO.getReviewById(reviewId);
 		}
 		return null;
+	}
+
+	public List<Review> getAllReview(){
+		return reviewPostgreDAO.getAllReview();
 	}
 }

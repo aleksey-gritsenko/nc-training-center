@@ -30,17 +30,17 @@ public class FilterCriterionQuery {
 	public String makeQuery() {
 
 	String	q = BookQuery.GET_BOOKS_FILTRATION +
-			makeAuthorConditions() + makeGenresConditions() + makeHeaderCondition();
-		q=q.trim();
-	  if(q.endsWith("OR")) {
+			makeConditions(author,BookQuery.CONDITION_AUTHOR) + makeConditions(genre,BookQuery.CONDITIONS_GENRES) + makeHeaderCondition();
 
-		q=q.substring(0, q.length() - 2);	}
-		return q;
+		return checkStr(q);
 	}
-	public static String replaceLast(String text, String regex, String replacement) {
-		return text.replaceFirst("(?s)"+regex+"(?!.*?"+regex+")", replacement);
+	private String checkStr(String string){
+		string=string.trim();
+		if(string.endsWith("OR")) string = string.substring(0, string.length() - 2);
+		return string;
 
 	}
+
 
 
 	public Object[] makeArrayArgs() {
@@ -65,6 +65,15 @@ public class FilterCriterionQuery {
 				headers.stream()).toArray();
 
 		return args;
+	}
+	private String makeConditions(ArrayList<String> arg,String condition){
+		String conditionString =" ";
+		if (arg.size() != 0) {
+			conditionString =
+					arg.stream().map((i) -> condition + " OR ")
+							.reduce((g, n) -> g + n).get();
+		}
+		return conditionString;
 	}
 
 	private String makeGenresConditions() {

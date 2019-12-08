@@ -21,6 +21,10 @@ public class ActionTypeService {
 		return actionTypePostgreDAO.getAllActionTypes();
 	}
 
+	public List<String> getAllActionTypesNames() {
+		return actionTypePostgreDAO.getAllActionTypesNames();
+	}
+
 	public ActionType getActionTypeByActionTypeId(int actionTypeId) {
 		return actionTypePostgreDAO.getActionTypeByActionTypeId(actionTypeId);
 	}
@@ -35,15 +39,17 @@ public class ActionTypeService {
 		}
 	}
 
-	public void createActionType(ActionType actionType) {
-		if (actionTypePostgreDAO.getActionTypeByActionTypeId(actionType.getActionTypeId()) != null) {
+	public ActionType createActionType(ActionType actionType) {
+		if (actionTypePostgreDAO.getActionTypeByActionTypeId(actionType.getActionTypeId()) == null) {
 			actionTypePostgreDAO.createActionType(actionType);
 		}
+		return actionType;
 	}
 
-	public void updateActionTypeById(int actionTypeId, ActionType actionType) {
+	public ActionType updateActionTypeById(int actionTypeId, ActionType actionType) {
 		if (actionTypePostgreDAO.getActionTypeByActionTypeId(actionTypeId) != null) {
 			actionTypePostgreDAO.updateActionTypeById(actionTypeId, actionType);
 		}
+		return actionType;
 	}
 }

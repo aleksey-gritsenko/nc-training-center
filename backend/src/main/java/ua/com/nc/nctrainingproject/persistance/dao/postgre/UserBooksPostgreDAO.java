@@ -7,6 +7,7 @@ import ua.com.nc.nctrainingproject.models.UserBook;
 import ua.com.nc.nctrainingproject.persistance.dao.AbstractDAO;
 import ua.com.nc.nctrainingproject.persistance.dao.postgre.queries.UserBooksQuery;
 import ua.com.nc.nctrainingproject.persistance.mappers.BookRowMapper;
+import ua.com.nc.nctrainingproject.persistance.mappers.UserBookRowMapper;
 
 import javax.sql.DataSource;
 import java.util.ArrayList;
@@ -36,15 +37,6 @@ public class UserBooksPostgreDAO extends AbstractDAO {
 		return books;
 	}
 
-	public List<Book> getUserBookList(int userId) {
-		List<Book> books = new ArrayList<>();
-
-		for (int id : jdbcTemplate.queryForList(UserBooksQuery.GET_ALL_USER_BOOKS_ID, Integer.class, userId)) {
-			books.add(bookPostgreDAO.getBookById(id));
-		}
-		return books;
-	}
-
 	public List<Book> getAllFavouriteBooks(int userId) {
 		List<Book> books = new ArrayList<>();
 
@@ -61,6 +53,15 @@ public class UserBooksPostgreDAO extends AbstractDAO {
 			books.add(bookPostgreDAO.getBookById(id));
 		}
 		return books;
+	}
+
+	public UserBook getUserBookByBookUserId(int userId, int bookId) {
+		List<UserBook> userBookList = jdbcTemplate.query(UserBooksQuery.GET_USER_BOOK_BY_USER_AND_BOOK_ID,
+				new UserBookRowMapper(), userId, bookId);
+		if (userBookList.size() == 0) {
+			return null;
+		}
+		return userBookList.get(0);
 	}
 
 	public void markBookAsRead(int userId, int bookId) {

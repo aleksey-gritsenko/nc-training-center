@@ -5,11 +5,11 @@ import java.io.InputStream;
 
 public class BookImage extends Entity  {
     private int bookId;
-    private InputStream image;
+    private byte[] image;
 
     public BookImage(){}
 
-    public BookImage(int bookId, InputStream image) {
+    public BookImage(int bookId, byte[] image) {
         this.bookId = bookId;
         this.image = image;
     }
@@ -22,11 +22,11 @@ public class BookImage extends Entity  {
         this.bookId = bookId;
     }
 
-    public InputStream getImage() {
+    public byte[] getImage() {
         return image;
     }
 
-    public void setImage(InputStream image) {
+    public void setImage(byte[] image) {
         this.image = image;
     }
 }

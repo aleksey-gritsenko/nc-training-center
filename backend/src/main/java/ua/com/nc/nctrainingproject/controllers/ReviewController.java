@@ -22,6 +22,7 @@ public class ReviewController {
 
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<?> addReview(@RequestBody  Review review) {
+		System.out.println(review);
 		Review response =  reviewService.createReview(review);
 		return Optional.ofNullable(response).map(ResponseEntity::ok).orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
 	}
@@ -38,14 +39,19 @@ public class ReviewController {
 	}
 
 	@RequestMapping(value = "/accepted", method = RequestMethod.GET)
-	public ResponseEntity<?>  getAcceptedReviews(@RequestParam(name = "book") int bookId,
-										 @RequestParam(name = "status") boolean status) {
-		return ResponseEntity.ok(reviewService.getAcceptedReview(status,bookId));
+	public ResponseEntity<?>  getAcceptedReviews(@RequestParam(name = "book") int bookId){
+		return ResponseEntity.ok(reviewService.getAcceptedReview(bookId));
+	}
+
+	@RequestMapping(value = "/notaccepted", method = RequestMethod.GET)
+	public ResponseEntity<?>  getNotAcceptedReviews(@RequestParam(name = "book") int bookId) {
+		return ResponseEntity.ok(reviewService.getNotAcceptedReview(bookId));
 	}
 
 
 	@RequestMapping(value = "/accept")
 	public void acceptReview(@RequestBody Review review) {
+		System.out.println(review);
 		reviewService.acceptReview(review);
 	}
 

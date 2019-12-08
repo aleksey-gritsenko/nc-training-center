@@ -7,8 +7,8 @@ import {User} from "../../models/user";
     providedIn: 'root'
 })
 export class AuthenticationService {
-    private siteUrl: string = 'https://nc-group1-2019-project.herokuapp.com';
-    //private siteUrl: string = 'http://localhost:8080';
+  //  private siteUrl: string = 'https://nc-group1-2019-project.herokuapp.com';
+    private siteUrl: string = 'http://localhost:8080';
 
     constructor(private http: HttpClient,
                 private storageService: StorageService) {
@@ -19,10 +19,11 @@ export class AuthenticationService {
         form.append('login', username);
         form.append('password', password);
 
-        return this.http.post<User>(`${this.siteUrl}/login`, form);
+        return this.http.post<User>(`${this.siteUrl}/login` + '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token, form);
     }
 
     logout() {
+        window.sessionStorage.removeItem('token');
         this.storageService.setUser(null);
     }
 
@@ -37,7 +38,7 @@ export class AuthenticationService {
     }
 
     confirmEmail(email: string, code: string) {
-        let url = `${this.siteUrl}/activate`;
+        let url = `${this.siteUrl}/activate`  + '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
         let form = new FormData();
         form.append('email', email);
         form.append('code', code);
@@ -45,8 +46,9 @@ export class AuthenticationService {
     }
 
     resendCode(email: string) {
-        let url = `${this.siteUrl}/resend`;
-        let form = new FormData().append('user', email);
-        return this.http.post<boolean>(url, email);
+        let url = `${this.siteUrl}/email`;
+        let form = new FormData();
+        form.append('email', email);
+        return this.http.post(url, form);
     }
 }

@@ -86,4 +86,8 @@ public class BookService {
 		return suggestionBooks;
 	}
 
+	public List<String> getAllGenresName(){
+		return genrePostgreDAO.getAllGenresName();
+	}
+
 }

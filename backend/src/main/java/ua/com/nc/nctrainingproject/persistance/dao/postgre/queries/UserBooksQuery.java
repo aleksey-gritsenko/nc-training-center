@@ -8,14 +8,6 @@ public class UserBooksQuery {
 	public static final String IS_READ = "is_read";
 	public static final String IS_FAVOURITE = "is_favorite";
 
-	private static final String BOOKS = "books";
-	private static final String HEADER = "header";
-	private static final String OVERVIEW = "overview";
-	private static final String PHOTO = "photo_id";
-	private static final String FILE = "file";
-	private static final String STATUS = "status";
-	private static final String GENRE_ID = "genre_id";
-
 	private static final String GET_ALL = "SELECT * FROM " + TABLE_NAME;
 
 	public static final String GET_ALL_USER_BOOKS_ID = "SELECT " + BOOK_ID + " FROM " + TABLE_NAME + " WHERE "
@@ -42,4 +34,7 @@ public class UserBooksQuery {
 
 	public static final String DELETE_BOOK_FROM_ADDED = "DELETE FROM  " + TABLE_NAME + " WHERE " + USER_ID +
 			" =(?)" + " AND " + BOOK_ID + " =(?)";
+
+	public static final String GET_USER_BOOK_BY_USER_AND_BOOK_ID = "SELECT * FROM " + TABLE_NAME + " WHERE " +
+			USER_ID + "= (?)" + " AND " + BOOK_ID + "=(?)";
 }

@@ -26,7 +26,8 @@ public class PasswordRecoverController {
     @ResponseBody
     public ResponseEntity<?> emailSender(@RequestParam String email) {
         if (!email.equals("")) {
-            try {
+           try {
+
                 if (passwordRecoverService.checkEmail(email)) {
                     passwordRecoverService.makeEmail(email);
                     return new ResponseEntity<>(HttpStatus.OK);
@@ -42,7 +43,9 @@ public class PasswordRecoverController {
     @ResponseBody
     public ResponseEntity<?> passwordRecoverUser(@RequestParam String recoverCode,
                                                  @RequestParam String newPassword) {
+        System.out.println("IN THE CHANGE CONTROLLER!!!");
         if (!recoverCode.equals("") && !newPassword.equals("")) {
+            System.out.println("Good params!!");
             if (passwordRecoverService.passwordRecover(recoverCode, newPassword)) {
                 return new ResponseEntity<>(HttpStatus.OK);
             }
@@ -53,6 +56,8 @@ public class PasswordRecoverController {
     @RequestMapping("/resend")
     public ResponseEntity<?> resend(String user) {
         try {
+            System.out.println("In the controller user");
+            System.out.println(user);
 
             passwordRecoverService.reSend(user);
             return new ResponseEntity<>(HttpStatus.OK);

@@ -1,0 +1,36 @@
+
+.form {
+
+    padding: 130px 130px;
+    position: relative;
+}
+
+.header-h1 h1 {
+    position: relative;
+    padding-bottom: .5rem;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    text-align: center;
+    color: #00838f;
+}
+.header-h1 h1::before {
+    content: "";
+    position: relative;
+    border-bottom: 2px solid #00838f;
+    bottom: .25rem;
+    left: 50%;
+    width: 30%;
+    transform: translateX(-50%);
+
+}
+.header-h1-left h1 {
+    text-align: left;
+}
+.header-h1-left h1::before,
+.header-h1-left h1::after {
+    left: 0;
+    transform: translateX(0);
+}
+.header{
+    margin-top: 50px;
+}
