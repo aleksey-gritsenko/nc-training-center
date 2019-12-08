@@ -25,9 +25,9 @@ public class PasswordRecoverController {
     @RequestMapping("/email")
     @ResponseBody
     public ResponseEntity<?> emailSender(@RequestParam String email) {
-        System.out.println("Testing email");
         if (!email.equals("")) {
-            try {
+           try {
+
                 if (passwordRecoverService.checkEmail(email)) {
                     passwordRecoverService.makeEmail(email);
                     return new ResponseEntity<>(HttpStatus.OK);
