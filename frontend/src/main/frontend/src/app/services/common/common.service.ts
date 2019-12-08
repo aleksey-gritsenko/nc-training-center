@@ -102,7 +102,7 @@ export class CommonService {
        const url = `${this.localhost}/friends/accept`;
         //const url = `${this.localhost}/announcements/publish`;
        const paramsSender = new HttpParams()
-           .set('sender', sender.toString()).set('reciever', reciever.toString());
+           .set('sender', sender.id.toString()).set('reciever', reciever.id.toString());
 
         return this.http.post<User>(url, paramsSender);
     }

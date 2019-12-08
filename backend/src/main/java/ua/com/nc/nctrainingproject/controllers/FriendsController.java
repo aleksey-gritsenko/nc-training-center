@@ -33,7 +33,7 @@ public class FriendsController {
     }
 
     @RequestMapping(value = "/accept",method = RequestMethod.POST)
-    public void acceptRequest(@RequestParam int sender,@RequestParam int reciever){
+    public void acceptRequest(@RequestParam int sender, @RequestParam int reciever){
         friendsService.aceptRequest(sender,reciever);
     }
 
