@@ -45,8 +45,8 @@ export class FriendsListComponent implements OnInit {
                 alert("Error in getting all friends");
             })
     }
-    addFriends(){
-
+    addFriends(friend:User){
+this.apiService.addFriend(friend,this.currentUser)
     }
 
 
