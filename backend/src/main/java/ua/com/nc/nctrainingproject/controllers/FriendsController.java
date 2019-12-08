@@ -30,6 +30,10 @@ public class FriendsController {
        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
 
+
+       // friendsService.sendRequest(sender,reciever);
+       // return new ResponseEntity<>(HttpStatus.OK);
+
     }
 
     @RequestMapping(value = "/accept",method = RequestMethod.POST)
