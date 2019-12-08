@@ -189,4 +189,13 @@ export class UserService {
 
         return this.http.get<userSearch[]>(url);
     }
+
+    sendRequest(sender: number, receiver: number) {
+        let url = `${this.siteUrl}/friends/send`;
+        let form = new FormData();
+        form.append('sender', sender.toString());
+        form.append('receiver', receiver.toString());
+
+        return this.http.post(url, form);
+    }
 }
