@@ -48,7 +48,7 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import { UserFavouriteBooksComponent } from './components/user/user-favourite-books/user-favourite-books.component';
 import { UserReadBooksComponent } from './components/user/user-read-books/user-read-books.component';
 import {SearchComponent} from './components/search/search.component';
-import {AddAchievmentComponent} from './components/user/add-achievment/add-achievment.component';
+import {AddAchievementComponent} from './components/user/add-achievment/add-achievement.component';
 import { FileUploadComponent } from './components/file-upload/file-upload.component';
 import { BookImgComponent } from './components/book-img/book-img.component';
 import { UserSettingsComponent } from './components/user/user-settings/user-settings.component';
@@ -94,7 +94,7 @@ import { UserSettingsComponent } from './components/user/user-settings/user-sett
         UserReadBooksComponent,
         UserBooksComponent,
         SearchComponent,
-        AddAchievmentComponent,
+        AddAchievementComponent,
         FileUploadComponent,
         BookImgComponent,
         UserSettingsComponent

@@ -35,9 +35,13 @@ public class ReviewService {
 		}
 	}
 
-	public List<Review> getAcceptedReview(boolean status, int bookId){
-		return reviewPostgreDAO.getAcceptedReviewsOfBook(status, bookId);
+	public List<Review> getAcceptedReview(int bookId){
+		return reviewPostgreDAO.getAcceptedReviewsOfBook(true, bookId);
 	}
+	public List<Review> getNotAcceptedReview(int bookId){
+		return reviewPostgreDAO.getAcceptedReviewsOfBook(false, bookId);
+	}
+
 
 	public void deleteReviewById(int reviewId){
 		if (reviewPostgreDAO.getReviewById(reviewId)!=null) {

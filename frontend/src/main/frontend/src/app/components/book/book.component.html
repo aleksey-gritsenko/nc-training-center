@@ -41,14 +41,6 @@
                             <textarea required rows="10" formControlName="overview" type="text" class="form-control" [(ngModel)]="book.overview" id="overview"></textarea>
                         </td>
                     </tr>
-                    <tr>
-                        <td>
-                            <label for="file" class="bmd-label-floating">File</label>
-                        </td>
-                        <td>
-                            <input required formControlName="file" type="number" class="form-control" [(ngModel)]="book.file" id="file">
-                        </td>
-                    </tr>
                 </table>
                 <div><app-file-upload [book]="book"></app-file-upload></div>
                 <button [disabled]="!bookForm.valid" class="btn btn-default" (click)="updateBook()">Save changes</button>

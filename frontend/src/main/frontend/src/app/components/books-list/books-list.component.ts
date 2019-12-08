@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {CommonService} from '../../services/common/common.service';
 import {Book} from '../../models/book'
 import {ActivatedRoute, Router} from '@angular/router';
@@ -24,9 +24,9 @@ export class BooksListComponent implements OnInit{
     books: Book[] = [];
 
     userBooks : UserBook[] = [];
-    userBookList: Book[] = [];
-    userFavBookList: Book[] = [];
-    userReadBookList: Book[] = [];
+    @Input() userBookList: Book[] = [];
+    @Input() userFavBookList: Book[] = [];
+    @Input() userReadBookList: Book[] = [];
     book: Book;
 
     model : Book = {
