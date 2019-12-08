@@ -7,7 +7,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ua.com.nc.nctrainingproject.models.Book;
 import ua.com.nc.nctrainingproject.models.BookFile;
 import ua.com.nc.nctrainingproject.models.BookImage;
@@ -15,10 +14,12 @@ import ua.com.nc.nctrainingproject.models.CustomMultipartFile;
 import ua.com.nc.nctrainingproject.persistance.dao.postgre.queries.FilterCriterionQuery;
 import ua.com.nc.nctrainingproject.services.BookFileManagementService;
 import ua.com.nc.nctrainingproject.services.BookService;
-
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.*;
 import java.nio.file.Files;
 import java.util.Base64;
 import java.util.List;
@@ -120,11 +121,12 @@ public class BookController {
     @RequestMapping(value = "/addImage", method = RequestMethod.POST)
     public ResponseEntity<?> addBookImage(@RequestParam(name = "bookId") int book,
                                           @RequestParam(name = "img") MultipartFile file) throws IOException {
-git
+
         BookImage bookImage = new BookImage(book, file.getBytes());
         BookImage response = bookFileManagementService.addImage(bookImage);
         return Optional.ofNullable(response).map(ResponseEntity::ok).orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
     }
+
 
     @RequestMapping(produces = MediaType.APPLICATION_PDF_VALUE, value = "/bookFile", method = RequestMethod.POST)
     public ResponseEntity<?> getBookFile(@RequestBody Book book) {
@@ -134,7 +136,6 @@ git
                 .ok()
                 .contentType(MediaType.APPLICATION_PDF)
                 .body(new InputStreamResource(stream));
-       // return Optional.of(stream).map(ResponseEntity::ok).orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
     }
 
 
@@ -143,6 +144,8 @@ git
         BookImage bookImage = bookFileManagementService.getBookImage(book);
         return bookImage.getImage();
     }
+
+
 
 
     @RequestMapping(value = "/updateFile", method = RequestMethod.POST)

@@ -51,6 +51,7 @@ public class PasswordRecoverService {
     }
 
     public void makeEmail(String email) throws MessagingException {
+        System.out.println(email);
         MimeMessage message = sender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);
         helper.setTo(email);

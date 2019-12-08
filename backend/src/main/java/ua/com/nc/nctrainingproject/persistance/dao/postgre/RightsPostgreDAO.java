@@ -15,6 +15,7 @@ public class RightsPostgreDAO {
     }
 
     public String getDescriptionByRightId(int rightId) {
+
        return jdbcTemplate.queryForObject(RightsQuery.GET_DESCRIPTION_BY_RIGHT_ID, new Object[]{rightId}, String.class);
     }
 }

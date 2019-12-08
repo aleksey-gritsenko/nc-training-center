@@ -38,7 +38,7 @@ export class FileUploadComponent implements  OnInit{
         {
             formData.append('img', this.fileToUpload);
             formData.append('bookId', this.book.id.toString());
-            this.http.post(`http://localhost:8080/book/addImage`,formData).subscribe(res => {console.log(res);
+            this.http.post(`http://localhost:8080/book/addImage`+'?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token,formData).subscribe(res => {console.log(res);
                     this.receivedImageData = res;
                     this.base64Data = this.receivedImageData.pic;
                     this.convertedImage = 'data:image/png;base64,' + this.base64Data;},
@@ -50,13 +50,13 @@ export class FileUploadComponent implements  OnInit{
         {
             formData.append('file', this.fileToUpload);
             formData.append('bookId', this.book.id.toString());
-            this.http.post(`http://localhost:8080/book/addFile`,formData).subscribe((file) => {
+            this.http.post(`http://localhost:8080/book/addFile`+'?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token,formData).subscribe((file) => {
                 console.log(file);
             });
         }
     }
     downloadPDF(): any {
-        return this.http.post(`http://localhost:8080/book/bookFile`,this.book, {responseType:'blob' as 'text'}).subscribe(
+        return this.http.post(`http://localhost:8080/book/bookFile` +'?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token,this.book, {responseType:'blob' as 'text'}).subscribe(
             (res) => {
                 console.log(res);
                 let blob = new Blob([res], { type: 'application/pdf' });

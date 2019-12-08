@@ -1,6 +1,6 @@
 package ua.com.nc.nctrainingproject.persistance.dao.postgre;
 
-import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import ua.com.nc.nctrainingproject.models.Notification;
 import ua.com.nc.nctrainingproject.persistance.dao.AbstractDAO;
@@ -14,38 +14,26 @@ import java.util.List;
 @Repository
 public class NotificationPostgreDAO extends AbstractDAO<Notification> implements NotificationsDAO {
 
+	@Autowired
 	public NotificationPostgreDAO(DataSource dataSource) {
 		super(dataSource);
 	}
 
 	@Override
-	public Notification getNotificationByUserID(int userId) {
-		List<Notification> notifications = jdbcTemplate.query(NotificationQuery.GET_BY_USER_ID,
-				new NotificationRowMapper(), userId);
-		if (notifications.size() == 0) {
-			return null;
-		}
-		return notifications.get(0);
+	public List<Notification> getNotificationByUserID(int userId) {
+		return jdbcTemplate.query(NotificationQuery.GET_BY_USER_ID, new NotificationRowMapper(), userId);
 	}
 
 	@Override
-	public Notification getNotificationByActionID(int actionId) {
-		List<Notification> notifications = jdbcTemplate.query(NotificationQuery.GET_BY_ACTION_ID,
+	public List<Notification> getNotificationByActionID(int actionId) {
+		return jdbcTemplate.query(NotificationQuery.GET_BY_ACTION_ID,
 				new NotificationRowMapper(), actionId);
-		if (notifications.size() == 0) {
-			return null;
-		}
-		return notifications.get(0);
 	}
 
 	@Override
-	public Notification getNotificationByUserActionID(int userId, int actionId) {
-		List<Notification> notifications = jdbcTemplate.query(NotificationQuery.GET_BY_USER_ACTION_ID,
+	public List<Notification> getNotificationByUserActionID(int userId, int actionId) {
+		return jdbcTemplate.query(NotificationQuery.GET_BY_USER_ACTION_ID,
 				new NotificationRowMapper(), actionId, userId);
-		if (notifications.size() == 0) {
-			return null;
-		}
-		return notifications.get(0);
 	}
 
 	@Override
@@ -54,9 +42,8 @@ public class NotificationPostgreDAO extends AbstractDAO<Notification> implements
 	}
 
 	@Override
-	public void deleteNotification(int actionId, int userId) {
-		jdbcTemplate.update(NotificationQuery.DELETE_BY_USER_ACTION_ID,
-				actionId, userId);
+	public void deleteNotification(int userId) {
+		jdbcTemplate.update(NotificationQuery.DELETE_BY_USER_ID, userId);
 	}
 
 	@Override

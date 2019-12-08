@@ -53,18 +53,18 @@ public class ActionController {
 		return action;
 	}
 
-	@RequestMapping(value = "/get/{actionId}", method = RequestMethod.POST)
+	@RequestMapping(value = "/get/{actionId}", method = RequestMethod.GET)
 	@ResponseBody
 	public Action getActionById(@PathVariable(name = "actionId") int actionId) {
 		return actionService.getActionById(actionId);
 	}
 
-	@RequestMapping(value = "/get/{actionTypeId}", method = RequestMethod.POST)
+	@RequestMapping(value = "/get/{actionTypeId}", method = RequestMethod.GET)
 	public Action getActionByTypeId(@PathVariable(name = "actionTypeId") int actionTypeId) {
 		return actionService.getActionByActionTypeId(actionTypeId);
 	}
 
-	@RequestMapping(value = "/get/{userId}", method = RequestMethod.POST)
+	@RequestMapping(value = "/get/{userId}", method = RequestMethod.GET)
 	@ResponseBody
 	public Action getActionByUserId(@PathVariable(name = "userId") int userId) {
 		return actionService.getActionByUserId(userId);

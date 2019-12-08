@@ -25,16 +25,17 @@ public class PasswordRecoverController {
     @RequestMapping("/email")
     @ResponseBody
     public ResponseEntity<?> emailSender(@RequestParam String email) {
-        if (!email.equals("")) {
-            try {
-                if (passwordRecoverService.checkEmail(email)) {
-                    passwordRecoverService.makeEmail(email);
-                    return new ResponseEntity<>(HttpStatus.OK);
-                }
-            } catch (MessagingException ex) {
-                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-            }
-        }
+        System.out.println("Testing email");
+//        if (!email.equals("")) {
+//            try {
+//                if (passwordRecoverService.checkEmail(email)) {
+//                    passwordRecoverService.makeEmail(email);
+//                    return new ResponseEntity<>(HttpStatus.OK);
+//                }
+//            } catch (MessagingException ex) {
+//                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+//            }
+//        }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
