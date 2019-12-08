@@ -16,7 +16,7 @@ export class ActivitiesListComponent implements OnInit {
     private localhost: string = 'http://localhost:8080';
     private siteUrl: string = 'https://nc-group1-2019-project.herokuapp.com';
 
-    achievements:Achievement = new Achievement();
+    activities:string[]=[];
 
     constructor(private storage: StorageService,
                 private http: HttpClient,
@@ -27,8 +27,8 @@ export class ActivitiesListComponent implements OnInit {
        if(this.storage.getUser()!=null){
            this.getAllActivitiesByUserId(this.storage.getUser().id).subscribe(
                res=>{
-                   this.achievements.description.push(...res||[]);
-                   console.log(this.achievements.description)
+                   this.activities.push(...res||[]);
+                   console.log(this.activities)
                }
            )
        }
