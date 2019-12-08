@@ -27,4 +27,14 @@ export class ViewProfileComponent implements OnInit, OnChanges {
         this.user = changes.user.currentValue;
         this.isTheSameUser = this.user.id == this.currentUser.id;
     }
+
+    sendRequest() {
+        this.userService.sendRequest(this.currentUser.id, this.user.id).subscribe(
+            res => {
+            },
+            err => {
+                alert("Error in add friends");
+            }
+        );
+    }
 }

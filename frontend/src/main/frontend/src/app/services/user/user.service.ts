@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {CommonService} from '../common/common.service';
 import {User} from "../../models/user";
 import {Book} from "../../models/book";
@@ -188,5 +188,17 @@ export class UserService {
         let url = `${this.siteUrl}/user/get/all`;
 
         return this.http.get<userSearch[]>(url);
+    }
+
+    sendRequest(sender: number, receiver: number): Observable<User> {
+        let url = `${this.siteUrl}/friends/send`;
+        let form = new FormData();
+        //form.append('sender', sender.toString());
+       // form.append('receiver', receiver.toString());
+        const params = new HttpParams()
+            .set('sender', sender.toString()).set('reciever',receiver.toString());
+
+
+        return this.http.post<User>(url, params);
     }
 }

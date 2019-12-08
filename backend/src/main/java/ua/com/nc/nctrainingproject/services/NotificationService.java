@@ -24,7 +24,7 @@ public class NotificationService {
 
 	@Autowired
 	public NotificationService(NotificationPostgreDAO notificationPostgreDAO, UserPostgreDAO userPostgreDAO,
-							   ActionTypePostgreDAO actionTypePostgreDAO, ActionPostgreDAO actionPostgreDAO ) {
+							   ActionTypePostgreDAO actionTypePostgreDAO, ActionPostgreDAO actionPostgreDAO) {
 		this.notificationPostgreDAO = notificationPostgreDAO;
 		this.userPostgreDAO = userPostgreDAO;
 		this.actionPostgreDAO = actionPostgreDAO;
@@ -52,7 +52,7 @@ public class NotificationService {
 
 	public List<Notification> getNotificationByActionID(int actionId) {
 		List<String> data = new ArrayList<>();
-		List<Notification> notifications= new ArrayList<>();
+		List<Notification> notifications = new ArrayList<>();
 		if (actionPostgreDAO.getActionById(actionId) != null) {
 			notifications = notificationPostgreDAO.getNotificationByActionID(actionId);
 		}
@@ -76,7 +76,11 @@ public class NotificationService {
 				actionTypes.add(actionTypePostgreDAO.getActionTypeByActionTypeId(action.getActionTypeId()));
 			}
 			for (ActionType actionType : actionTypes) {
-				data.add(user.getUserName() + " " + actionType.getActionName());
+				if (user.getId() == userId && actionType.getEntity().equals("achievement")) {
+					data.add("You " + actionType.getActionName());
+				} else {
+					data.add(user.getUserName() + " " + actionType.getActionName());
+				}
 			}
 		}
 		return data;
