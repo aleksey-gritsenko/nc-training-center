@@ -7,6 +7,7 @@
             <div class="col-md-8" [ngSwitch]="isOpen">
                 <app-view-profile [user]="user" *ngSwitchCase="'View'"></app-view-profile>
                 <app-edit-profile [user]="user" *ngSwitchCase="'Edit'"></app-edit-profile>
+                <app-user-achievement [user]="user" *ngSwitchCase="'Achievement'"></app-user-achievement>
                 <app-add-admin *ngSwitchCase="'Add agent'"></app-add-admin>
                 <app-add-achievment *ngSwitchCase="'Add achievement'"></app-add-achievment>
                 <app-deactivate-account *ngSwitchCase="'Deactivate'"></app-deactivate-account>
@@ -23,6 +24,9 @@
                         </li>
                         <li class="list-group-item" [class.selected]="isOpen=='Friends'"
                             *ngIf="user.userRole == 'user'" (click)="open('Friends')">Friends
+                        </li>
+                        <li class="list-group-item" [class.selected]="isOpen=='Achievement'"
+                            *ngIf="user.userRole == 'user'" (click)="open('Achievement')">Achievement
                         </li>
                         <li class="list-group-item" *ngIf="isAllowedToAdd" [class.selected]="isOpen=='Add agent'"
                             (click)="open('Add agent')" >Add agent
