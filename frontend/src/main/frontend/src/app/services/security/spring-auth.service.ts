@@ -21,6 +21,6 @@ export class SpringAuthService {
             'Authorization': 'Basic ' + btoa('bookNet:bookNet-secret'),
             'Content-type': 'application/x-www-form-urlencoded'
         };
-        return this.http.post(this.siteUrl + 'oauth/token', body.toString(), {headers});
+        return this.http.post(this.siteUrl + '/oauth/token', body.toString(), {headers});
     }
 }
