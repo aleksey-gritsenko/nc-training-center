@@ -61,7 +61,9 @@ export class BookComponent implements OnInit {
 
     //TODO
     checkAdmin() {
-        this.bookForm.disable();
+        if( this.storage.getUser().userRole=='moderator') {
+            this.bookForm.enable();
+        }
     }
 
 
@@ -93,7 +95,7 @@ export class BookComponent implements OnInit {
                 )
             },
             err => {
-                alert("Error in get book by id")
+                this.router.navigateByUrl('/error');
             }
         );
     }

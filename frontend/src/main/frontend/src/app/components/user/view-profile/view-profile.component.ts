@@ -12,7 +12,7 @@ import {StorageService} from "../../../services/storage/storage.service";
 export class ViewProfileComponent implements OnInit, OnChanges {
     @Input() user: User;
     currentUser: User;
-    isTheSameUser: boolean;
+    isAbleToAddToFriend: boolean;
 
     constructor(private userService: UserService,
                 private router: Router,
@@ -25,7 +25,7 @@ export class ViewProfileComponent implements OnInit, OnChanges {
 
     ngOnChanges(changes: SimpleChanges): void {
         this.user = changes.user.currentValue;
-        this.isTheSameUser = this.user.id == this.currentUser.id;
+        this.isAbleToAddToFriend = this.user.id != this.currentUser.id; //TODO Add function for checking friends
     }
 
     sendRequest() {

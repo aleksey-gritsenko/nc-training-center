@@ -1,0 +1,16 @@
+<app-navigation></app-navigation>
+
+<div style="padding-top: 67px; margin-left: 70px"></div>
+
+<div>
+    <div>
+        <button (click) = "sendData()">Submit</button>
+    </div>
+    <div *ngFor = "let el of data;">
+        <div class="card-body row">{{el.user.userName}}</div>
+        <div *ngFor = "let right of rightTypes;">
+            <div>{{right}}: <button (click)="changeRightStatus(el,right)">{{hasRight(el,right)}}</button></div>
+
+        </div>
+    </div>
+</div>

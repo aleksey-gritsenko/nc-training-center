@@ -23,7 +23,7 @@ export class AnnouncementListComponent implements OnInit {
     }
 
     public getAllAnnouncement() {
-        let url = 'http://localhost:8080//announcements';
+        //let url = 'http://localhost:8080//announcements';
         let url2 = `${this.siteUrl}/all`;
         this.apiService.getAnnouncements().subscribe(
             res => {
