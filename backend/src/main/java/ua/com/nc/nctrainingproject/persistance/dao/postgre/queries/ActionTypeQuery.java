@@ -29,6 +29,8 @@ public class ActionTypeQuery {
 			"UPDATE " + TABLE_NAME + " SET " + ACTION_NAME + "=(?)" +
 					" SET " + ENTITY + "=(?) " +
 					" WHERE " + ACTION_TYPE_ID + "=(?)";
+	public static final String GET_BY_ACTION_NAME_GENRE = GET_ALL_ACTION_TYPES
+			+ " WHERE " + ACTION_NAME + " =(?)" +" AND ";
 
 }
 

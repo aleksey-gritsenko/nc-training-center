@@ -49,7 +49,15 @@ public class ActionTypePostgreDAO implements ActionTypeDAO {
 		}
 		return actionTypeList.get(0);
 	}
+	public ActionType getActionTypeByNameGenre(String name,String genre) {
+		List<ActionType> actionTypeList = jdbcTemplate.query(ActionTypeQuery.GET_BY_ACTION_NAME,
+				new ActionTypeRowMapper(), name);
 
+		if (actionTypeList.size() == 0) {
+			return null;
+		}
+		return actionTypeList.get(0);
+	}
 	@Override
 	public void deleteByActionTypeId(int actionTypeId) {
 		jdbcTemplate.update(ActionTypeQuery.DELETE_BY_ACTION_TYPE_ID, actionTypeId);
