@@ -7,8 +7,8 @@ import {User} from "../../models/user";
     providedIn: 'root'
 })
 export class AuthenticationService {
-  //  private siteUrl: string = 'https://nc-group1-2019-project.herokuapp.com';
-    private siteUrl: string = 'http://localhost:8080';
+   private siteUrl: string = 'https://nc-group1-2019-project.herokuapp.com';
+    // private siteUrl: string = 'http://localhost:8080';
 
     constructor(private http: HttpClient,
                 private storageService: StorageService) {
@@ -50,5 +50,10 @@ export class AuthenticationService {
         let form = new FormData();
         form.append('email', email);
         return this.http.post(url, form);
+    }
+
+    checkPasswordForRegexp(password: string): boolean {
+        let regexp = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!^%#*?&])[A-Za-z\\d@$#!%^*?&]{8,}$');
+        return regexp.test(password);
     }
 }

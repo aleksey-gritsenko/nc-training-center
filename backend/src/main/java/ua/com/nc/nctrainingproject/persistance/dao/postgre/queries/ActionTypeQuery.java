@@ -5,6 +5,7 @@ public class ActionTypeQuery {
 	public static final String ACTION_TYPE_ID = "action_type_id";
 	public static final String ACTION_NAME = "name";
 	public static final String ENTITY = "entity";
+	public static final String GENRE_ID = "genre_id";
 
 	public static final String GET_ALL_ACTION_TYPES = "SELECT * FROM " + TABLE_NAME;
 
@@ -15,7 +16,8 @@ public class ActionTypeQuery {
 
 	public static final String GET_BY_ACTION_NAME = GET_ALL_ACTION_TYPES
 			+ " WHERE " + ACTION_NAME + " =(?)";
-
+	public static final String GET_BY_ACTION_NAME_GENRE = GET_ALL_ACTION_TYPES
+			+ " WHERE " + ACTION_NAME + " =(?) " +" AND "+ GENRE_ID + " =(?) ";
 	public static final String GET_BY_ENTITY = GET_ALL_ACTION_TYPES
 			+ " WHERE " + ENTITY + " =(?)";
 
@@ -23,14 +25,15 @@ public class ActionTypeQuery {
 			+ " WHERE " + ACTION_TYPE_ID + " =(?) ";
 
 	public static final String CREATE_ACTION_TYPE = "INSERT INTO " + TABLE_NAME
-			+ " (" + ACTION_TYPE_ID + ", " + ACTION_NAME + ", " + ENTITY + ")" + " VALUES(?,?,?)";
+			+ " (" + ACTION_TYPE_ID + ", " + ACTION_NAME + ", " + ENTITY + "," + GENRE_ID + ")" + " VALUES(?,?,?,?)";
 
 	public static final String UPDATE_ACTION_TYPE_BY_ID =
-			"UPDATE " + TABLE_NAME + " SET " + ACTION_NAME + "=(?)" +
-					" SET " + ENTITY + "=(?) " +
-					" WHERE " + ACTION_TYPE_ID + "=(?)";
-	public static final String GET_BY_ACTION_NAME_GENRE = GET_ALL_ACTION_TYPES
-			+ " WHERE " + ACTION_NAME + " =(?)" +" AND ";
+
+			"UPDATE " + TABLE_NAME + " SET " + ACTION_NAME + " =(?)" +
+					" SET " + ENTITY + " =(?) " +
+					" SET "+ GENRE_ID + " =(?)" +
+
+					" WHERE " + ACTION_TYPE_ID + " =(?)";
 
 }
 
