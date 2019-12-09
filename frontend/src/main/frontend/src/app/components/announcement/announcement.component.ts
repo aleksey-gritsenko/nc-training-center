@@ -14,7 +14,7 @@ import {CommonService} from "../../services/common/common.service";
 })
 export class AnnouncementComponent implements OnInit {
 
-    private siteUrl: string = 'https://nc-group1-2019-project.herokuapp.com';
+    private siteUrl: string = 'https://nc-group1-2019.herokuapp.com';
 
     role: String;
     model: Announcement = {

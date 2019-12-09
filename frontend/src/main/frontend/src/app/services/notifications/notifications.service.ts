@@ -4,7 +4,7 @@ import {Injectable} from '@angular/core';
     providedIn: 'root'
 })
 export class NotificationsService {
-    siteUrl: string = 'https://nc-group1-2019-project.herokuapp.com';
+    siteUrl: string = 'https://nc-group1-2019.herokuapp.com';
     //siteUrl: string = 'http://localhost:8080';
 
     constructor() {

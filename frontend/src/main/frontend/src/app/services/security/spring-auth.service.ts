@@ -6,7 +6,7 @@ import {HttpClient, HttpParams} from "@angular/common/http";
 })
 export class SpringAuthService {
 
-    private siteUrl: string = 'https://nc-group1-2019-project.herokuapp.com';
+    private siteUrl: string = 'https://nc-group1-2019.herokuapp.com';
     // if you want to test your code on localhost - change siteUrl to localhost where this is needed
     //private localhost: string = 'http://localhost:8080/';
 

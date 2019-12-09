@@ -13,7 +13,7 @@ import {AdminRightsDto} from "../../models/admin-rights-dto";
     providedIn: 'root'
 })
 export class AdminService {
-    private siteUrl: string = 'https://nc-group1-2019-project.herokuapp.com';
+    private siteUrl: string = 'https://nc-group1-2019.herokuapp.com';
 // if you want to test your code on localhost - change siteUrl to localhost where this is needed
     private localhost: string = 'http://localhost:8080';
     private adminRightsUrl: string = `${this.siteUrl}/admin-rights`;

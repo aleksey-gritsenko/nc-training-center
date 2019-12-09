@@ -11,7 +11,7 @@ import {Book} from "../../models/book";
 })
 export class AnnouncementListComponent implements OnInit {
 
-    private siteUrl: string = 'https://nc-group1-2019-project.herokuapp.com';
+    private siteUrl: string = 'https://nc-group1-2019.herokuapp.com';
 
     announcements: Announcement[] = [];
      book:Book;
