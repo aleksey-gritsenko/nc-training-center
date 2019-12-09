@@ -1,4 +1,6 @@
 import {Component, OnInit} from '@angular/core';
+import {CommonService} from "../../services/common/common.service";
+import {Book} from "../../models/book";
 //import {WebSocketAPI} from "../../websocket/webSocketAPI";
 
 @Component({
@@ -8,10 +10,16 @@ import {Component, OnInit} from '@angular/core';
 })
 export class LandingComponent implements OnInit {
     //private webSocketAPI: WebSocketAPI;
+    books: Book[] = [];
 
- /*   constructor() {
-        this.webSocketAPI = new WebSocketAPI();
-    }*/
+    constructor(private commonService: CommonService) {
+        // this.webSocketAPI = new WebSocketAPI();
+        commonService.getBooks().toPromise().then(
+            books => {
+                this.books = books;
+            }
+        )
+    }
 
     ngOnInit() {
     }

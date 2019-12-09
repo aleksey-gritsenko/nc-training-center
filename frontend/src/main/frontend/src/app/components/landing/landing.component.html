@@ -2,14 +2,35 @@
 <div class="wrapper ">
     <app-navigation></app-navigation>
     <app-sidebar></app-sidebar>
-    <div style="padding-top: 67px; margin-left: 270px">
-        <a routerLink="/user/8">Admin link </a>
-        <a routerLink="/user/4">User link </a>
-        <a routerLink="/user/17">Super link </a>
-        <a routerLink="/user/16">Moderator link</a>
-<!--        <div>
-            <button type="button" (click)="send()">Send test</button>
-        </div>-->
+    <div style="padding-top: 67px; margin-left: 260px">
+        <div class="col-md-12">
+            <div>
+                <div class="row">
+                    <div *ngFor="let book of books" class="col-lg-4  col-md-6">
+                        <div class="card card-profile">
+                            <div class="card-body">
+                                <div class="card-title">
+                                    <h3><a [routerLink]="['book', book.id]"> {{book.header}}</a></h3>
+                                </div>
+                                <div class="card-description">
+                                    <app-book-img [book]="book"></app-book-img>
+                                    <div>Overview: {{book.overview}}</div>
+                                    <div>Status: {{book.status}}</div>
+                                    <div>
+                                        <div>Authors:</div>
+                                        <div *ngFor="let author of book.authors ">
+                                            <div>{{author.name}}</div>
+                                        </div>
+                                    </div>
+                                    <div *ngIf="book.genre">Genre: {{book.genre}}</div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 </body>

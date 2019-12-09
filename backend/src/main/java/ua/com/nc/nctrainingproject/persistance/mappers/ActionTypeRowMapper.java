@@ -14,7 +14,7 @@ public class ActionTypeRowMapper implements RowMapper<ActionType> {
 		actionType.setActionTypeId(resultSet.getInt(ActionTypeQuery.ACTION_TYPE_ID));
 		actionType.setActionName(resultSet.getString(ActionTypeQuery.ACTION_NAME));
 		actionType.setEntity(resultSet.getString(ActionTypeQuery.ENTITY));
-
+		actionType.setGenreId(resultSet.getInt(ActionTypeQuery.GENRE_ID));
 		return actionType;
 	}
 }

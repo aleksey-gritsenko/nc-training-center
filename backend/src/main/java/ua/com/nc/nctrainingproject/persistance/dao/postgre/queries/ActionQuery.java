@@ -30,5 +30,6 @@ public class ActionQuery {
 	public static final String CREATE_ACTION = "INSERT INTO " + TABLE_NAME
 			+ " (" + USER_ID + "," + ACTION_TYPE_ID + ")" + " VALUES(?,?)";
 
-
+	public static final String GET_ALL_BY_USER_ID_BY_ACTION_TYPE_ID = "SELECT * FROM " + TABLE_NAME +
+				" WHERE " + USER_ID + " =(?) AND " + ACTION_TYPE_ID + " =(?)";
 }

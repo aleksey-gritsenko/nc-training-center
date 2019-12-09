@@ -7,7 +7,7 @@
             <div class="row">
                 <div class="col-md">
                     <label class="bmd-label-floating" for="Name">Name</label>
-                    <input class="form-control" type="text" id="Name" name="Name" autocomplete="off" [(ngModel)]="model.name">
+                    <input class="form-control" type="text" id="Name" name="Name" autocomplete="off" [(ngModel)]="model.achievementName">
                 </div>
             </div>
             <div class="row">
@@ -39,7 +39,7 @@
                 <div class="col-md-6" *ngIf="model.entity == 'book'">
                     <div class="form-group">
                         <label class="bmd-label-floating" for="genre">Genre</label>
-                        <select id="genre" name="genre" class="custom-select" [(ngModel)]="model.genre_id">
+                        <select id="genre" name="genre" class="custom-select" [(ngModel)]="model.genre">
                             <option *ngFor="let genre of genreList">{{genre}}</option>
                         </select>
                     </div>

@@ -4,15 +4,15 @@ import java.util.List;
 
 public class AdminRightsDto {
     private User user;
-    private List<Boolean> rights;
+    private List<String> rights;
 
     public AdminRightsDto(){}
-    public AdminRightsDto(User user, List<Boolean> rights){
+    public AdminRightsDto(User user, List<String> rights){
         this.rights = rights;
         this.user = user;
     }
 
-    public List<Boolean> getRights() {
+    public List<String> getRights() {
         return rights;
     }
 
@@ -20,7 +20,7 @@ public class AdminRightsDto {
         return user;
     }
 
-    public void setRights(List<Boolean> rights) {
+    public void setRights(List<String> rights) {
         this.rights = rights;
     }
 

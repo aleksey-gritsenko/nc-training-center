@@ -96,7 +96,7 @@ public class BookController {
         return ResponseEntity.ok(bookService.getGenreByBookId(bookId));
     }
 
-    @RequestMapping(value = "/suggestion", method = RequestMethod.GET)
+    @RequestMapping(value = "/suggestion", method = RequestMethod.POST)
     @ResponseBody
     public ResponseEntity<?> makeSuggestion(@RequestParam(name = "user") int userId) {
         return ResponseEntity.ok(bookService.makeSuggestion(userId));
@@ -110,18 +110,15 @@ public class BookController {
 
     @RequestMapping(value = "/addFile", method = RequestMethod.POST)
     public ResponseEntity<?> addBookFile(@RequestParam(name = "bookId") int book,
-                                                @RequestParam(name = "file") MultipartFile file) throws IOException {
-
+                                         @RequestParam(name = "file") MultipartFile file) throws IOException {
         BookFile bookFile = new BookFile(book, file.getBytes());
         BookFile response = bookFileManagementService.addFile(bookFile);
         return Optional.ofNullable(response).map(ResponseEntity::ok).orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
     }
 
-
     @RequestMapping(value = "/addImage", method = RequestMethod.POST)
     public ResponseEntity<?> addBookImage(@RequestParam(name = "bookId") int book,
                                           @RequestParam(name = "img") MultipartFile file) throws IOException {
-
         BookImage bookImage = new BookImage(book, file.getBytes());
         BookImage response = bookFileManagementService.addImage(bookImage);
         return Optional.ofNullable(response).map(ResponseEntity::ok).orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
@@ -138,34 +135,27 @@ public class BookController {
                 .body(new InputStreamResource(stream));
     }
 
-
     @RequestMapping(produces = MediaType.IMAGE_PNG_VALUE, value = "/bookImage")
     @ResponseBody byte[] getBookImage(@RequestBody Book book) {
         BookImage bookImage = bookFileManagementService.getBookImage(book);
         return bookImage.getImage();
     }
 
-
-
-
     @RequestMapping(value = "/updateFile", method = RequestMethod.POST)
-    public ResponseEntity<BookFile> updateBookFile(@RequestBody Book book, @RequestBody File file) throws IOException {
-        byte[] encodedFile = Base64.getEncoder().encode(Files.readAllBytes(file.toPath()));
-
+    public ResponseEntity<BookFile> updateBookFile(@RequestBody Book book,
+                                                   @RequestParam(name = "file") MultipartFile file) throws IOException {
         BookFile bookFile = bookFileManagementService.getBookFile(book);
-        bookFile.setFile(encodedFile);
+        bookFile.setFile(file.getBytes());
 
         BookFile response = bookFileManagementService.updateFile(bookFile);
         return Optional.ofNullable(response).map(ResponseEntity::ok).orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
     }
 
     @RequestMapping(value = "/updateImage", method = RequestMethod.POST)
-    public ResponseEntity<BookImage> updateBookImage(@RequestBody Book book, @RequestBody File file) throws IOException{
-
-        byte[] encodedImage = Base64.getEncoder().encode(Files.readAllBytes(file.toPath()));
-
+    public ResponseEntity<BookImage> updateBookImage(@RequestBody Book book,
+                                                     @RequestParam(name = "img") MultipartFile file) throws IOException{
         BookImage bookImage = bookFileManagementService.getBookImage(book);
-        bookImage.setImage(encodedImage);
+        bookImage.setImage(file.getBytes());
 
         BookImage response = bookFileManagementService.updateImage(bookImage);
         return Optional.ofNullable(response).map(ResponseEntity::ok).orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));

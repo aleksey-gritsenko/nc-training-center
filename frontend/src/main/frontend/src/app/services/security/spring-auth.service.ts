@@ -8,7 +8,7 @@ export class SpringAuthService {
 
     private siteUrl: string = 'https://nc-group1-2019-project.herokuapp.com';
     // if you want to test your code on localhost - change siteUrl to localhost where this is needed
-    private localhost: string = 'http://localhost:8080/';
+    //private localhost: string = 'http://localhost:8080/';
 
   constructor(private http: HttpClient) { }
 
@@ -21,6 +21,6 @@ export class SpringAuthService {
             'Authorization': 'Basic ' + btoa('bookNet:bookNet-secret'),
             'Content-type': 'application/x-www-form-urlencoded'
         };
-        return this.http.post(this.localhost + 'oauth/token', body.toString(), {headers});
+        return this.http.post(this.siteUrl + '/oauth/token', body.toString(), {headers});
     }
 }

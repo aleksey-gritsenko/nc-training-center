@@ -27,6 +27,11 @@ public class ActionPostgreDAO implements ActionDAO {
 	}
 
 	@Override
+	public List<Action> getAllActionsByUserIdAndActionTypeId(int userId, int actionTypeId) {
+		return jdbcTemplate.query(ActionQuery.GET_ALL_BY_USER_ID_BY_ACTION_TYPE_ID, new ActionRowMapper(), userId, actionTypeId);
+	}
+
+	@Override
 	public Action getActionById(int actionId) {
 		List<Action> actionList = jdbcTemplate.query(ActionQuery.GET_BY_ACTION_ID,
 				new ActionRowMapper(), actionId);
@@ -83,4 +88,6 @@ public class ActionPostgreDAO implements ActionDAO {
 		jdbcTemplate.update(ActionQuery.UPDATE_ACTION_BY_ID, action.getUserId(),
 				action.getActionTypeId(), actionId);
 	}
+
+
 }
