@@ -34,12 +34,12 @@ export class SearchComponent implements OnInit, OnDestroy {
                     this.search = param.search;
                     this.userService.searchByUsername(this.search).toPromise().then(
                         res => {
-                            this.userModel = res.slice(0,5);
+                            this.userModel = res;
                         },
                         () => {
                             this.userModel = null;
                         });
-                } else this.search = null;
+                } else this.search = null; //TODO Should return all users
             })
     }
 
