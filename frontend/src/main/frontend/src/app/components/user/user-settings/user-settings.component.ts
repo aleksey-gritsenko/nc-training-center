@@ -8,7 +8,7 @@ import {UserSettings} from "../../../models/user-settings";
     styleUrls: ['./user-settings.component.css']
 })
 export class UserSettingsComponent implements OnInit {
-    private siteUrl: string = 'https://nc-group1-2019-project.herokuapp.com';
+    private siteUrl: string = 'https://nc-group1-2019.herokuapp.com';
 
     items = ["Apple iPhone 7", "Huawei Mate 9", "Samsung Galaxy S7", "Motorola Moto Z"];
 

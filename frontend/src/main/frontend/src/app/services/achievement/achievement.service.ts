@@ -7,7 +7,7 @@ import {User} from "../../models/user";
     providedIn: 'root'
 })
 export class AchievementService {
-    siteUrl: string = 'https://nc-group1-2019-project.herokuapp.com';
+    siteUrl: string = 'https://nc-group1-2019.herokuapp.com';
     // siteUrl: string = 'http://localhost:8080';
 
     constructor(private http: HttpClient) {

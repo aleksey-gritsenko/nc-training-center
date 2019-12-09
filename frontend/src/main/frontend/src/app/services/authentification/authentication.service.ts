@@ -7,7 +7,7 @@ import {User} from "../../models/user";
     providedIn: 'root'
 })
 export class AuthenticationService {
-   private siteUrl: string = 'https://nc-group1-2019-project.herokuapp.com';
+   private siteUrl: string = 'https://nc-group1-2019.herokuapp.com';
     // private siteUrl: string = 'http://localhost:8080';
 
     constructor(private http: HttpClient,

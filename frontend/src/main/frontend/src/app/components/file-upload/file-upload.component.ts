@@ -34,7 +34,7 @@ export class FileUploadComponent implements OnInit {
     base64Data: any;
     convertedImage: any;
     image: any;
-    private siteUrl: string = 'https://nc-group1-2019-project.herokuapp.com';
+    private siteUrl: string = 'https://nc-group1-2019.herokuapp.com';
 
     // private localhost: string = 'http://localhost:8080';
 

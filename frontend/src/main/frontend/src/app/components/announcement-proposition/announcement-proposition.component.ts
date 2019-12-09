@@ -13,7 +13,7 @@ import {CommonService} from "../../services/common/common.service";
 })
 export class AnnouncementPropositionComponent implements OnInit {
 
-    private siteUrl: string = 'https://nc-group1-2019-project.herokuapp.com';
+    private siteUrl: string = 'https://nc-group1-2019.herokuapp.com';
 
     announcements: Announcement[] = [];
     currentUser: User;
