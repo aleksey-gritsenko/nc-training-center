@@ -32,7 +32,6 @@
     "date-fns": "^2.8.1",
     "file-saver": "^2.0.2",
     "flatpickr": "^4.6.3",
-    "stompjs": "^2.3.3",
     "tslib": "^1.10.0",
     "zone.js": "~0.9.1"
   },
