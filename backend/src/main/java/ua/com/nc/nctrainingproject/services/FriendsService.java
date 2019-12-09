@@ -35,13 +35,10 @@ public class FriendsService {
     }
 
     public boolean checkRequest(int sender,int reciever) {
-        if(sender != reciever
-                && friendsPostgreDAO.getSender(sender, reciever)== null
 
-                && friendsPostgreDAO.getReciever(sender, reciever)== null){
-            return true;
-        }
-        return false;
+        return  sender != reciever
+                & friendsPostgreDAO.getSender(sender, reciever).size() == 0
+                & friendsPostgreDAO.getReciever(sender, reciever).size() == 0;
     }
 
 }
