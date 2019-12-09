@@ -96,7 +96,7 @@ public class BookController {
         return ResponseEntity.ok(bookService.getGenreByBookId(bookId));
     }
 
-    @RequestMapping(value = "/suggestion", method = RequestMethod.GET)
+    @RequestMapping(value = "/suggestion", method = RequestMethod.POST)
     @ResponseBody
     public ResponseEntity<?> makeSuggestion(@RequestParam(name = "user") int userId) {
         return ResponseEntity.ok(bookService.makeSuggestion(userId));
