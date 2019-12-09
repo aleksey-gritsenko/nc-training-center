@@ -3,9 +3,11 @@ package ua.com.nc.nctrainingproject.persistance.dao.postgre;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import ua.com.nc.nctrainingproject.models.Achievement;
 import ua.com.nc.nctrainingproject.models.AchivementDto;
 import ua.com.nc.nctrainingproject.persistance.dao.postgre.queries.AchivementQuery;
-import ua.com.nc.nctrainingproject.persistance.mappers.AchivementRowMapper;
+import ua.com.nc.nctrainingproject.persistance.mappers.AchievementRowMapper;
+import ua.com.nc.nctrainingproject.persistance.mappers.AchivementDtoRowMapper;
 
 import javax.sql.DataSource;
 import java.util.List;
@@ -31,8 +33,11 @@ public class AchivementPostgreDAO {
 
         jdbcTemplate.update(AchivementQuery.CREATE_ACHIEVEMENT,achievementName,action_id,genre_id,count,entity);
     }
-    public List<AchivementDto> getAllAchievements(){
-        return jdbcTemplate.query(AchivementQuery.GET_ALL_ACHIEVEMENT_DTO,new AchivementRowMapper());
+    public void createPair(int userId, int achievementId){
+        jdbcTemplate.update(AchivementQuery.CREATE_PAIR,userId,achievementId);
+    }
+    public List<AchivementDto> getAllAchievementDto(){
+        return jdbcTemplate.query(AchivementQuery.GET_ALL_ACHIEVEMENT_DTO,new AchivementDtoRowMapper());
     }
 
     public List<Integer> getAllAchievementsByUserId(int id){
@@ -41,5 +46,9 @@ public class AchivementPostgreDAO {
 
     public AchivementDto getAchievementById(int id){
         return jdbcTemplate.queryForObject(AchivementQuery.GET_ACHIEVEMENT_DTO_BY_ID, AchivementDto.class, id);
+    }
+
+    public List<Achievement> getAllAchievements(){
+        return jdbcTemplate.query(AchivementQuery.GET_ALL, new AchievementRowMapper());
     }
 }
