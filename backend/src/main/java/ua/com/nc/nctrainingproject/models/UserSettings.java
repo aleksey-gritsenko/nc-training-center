@@ -62,5 +62,15 @@ public class UserSettings {
         this.notifyAboutAchievement = notifyAboutAchievement;
     }
 
-
+    @Override
+    public String toString() {
+        return "UserSettings{" +
+                "subscribeOnFriends=" + subscribeOnFriends +
+                ", achievements=" + achievements +
+                ", bookNotification=" + bookNotification +
+                ", subscribeOnFriendReview=" + subscribeOnFriendReview +
+                ", notifyAboutNewFriends=" + notifyAboutNewFriends +
+                ", notifyAboutAchievement=" + notifyAboutAchievement +
+                '}';
+    }
 }
