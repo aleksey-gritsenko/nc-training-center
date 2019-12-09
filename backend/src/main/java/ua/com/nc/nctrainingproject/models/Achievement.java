@@ -1,6 +1,6 @@
 package ua.com.nc.nctrainingproject.models;
 
-public class Achivement extends Entity {
+public class Achievement extends Entity {
 
     private String achievementName;
 
@@ -12,25 +12,25 @@ public class Achivement extends Entity {
         this.achievementName = achievementName;
     }
 
-    private String action;
-    private String genre;
+    private int action_type_id;
+    private int genre_id;
     private int count;
     private String entity;
 
-    public String getAction() {
-        return action;
+    public int getAction_type_id() {
+        return action_type_id;
     }
 
-    public void setAction(String action) {
-        this.action = action;
+    public void setAction_type_id(int action_type_id) {
+        this.action_type_id = action_type_id;
     }
 
-    public String getGenre() {
-        return genre;
+    public int getGenre_id() {
+        return genre_id;
     }
 
-    public void setGenre(String genre) {
-        this.genre = genre;
+    public void setGenre_id(int genre_id) {
+        this.genre_id = genre_id;
     }
 
     public int getCount() {
@@ -49,13 +49,13 @@ public class Achivement extends Entity {
         this.entity = entity;
     }
 
-    public Achivement() {
+    public Achievement() {
     }
 
-    public Achivement(String achievementName, String action, String genre, int count, String entity) {
+    public Achievement(String achievementName, int action_type_id, int genre_id, int count, String entity) {
         this.achievementName = achievementName;
-        this.action = action;
-        this.genre = genre;
+        this.action_type_id = action_type_id;
+        this.genre_id = genre_id;
         this.count = count;
         this.entity = entity;
     }

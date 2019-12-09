@@ -4,11 +4,13 @@ public class ActionType {
 	private int actionTypeId;
 	private String actionName;
 	private String entity;
+	private int genreId;
 
-	public ActionType(int actionTypeId, String actionName, String entity) {
+	public ActionType(int actionTypeId, String actionName, String entity, int genreId) {
 		this.actionTypeId = actionTypeId;
 		this.actionName = actionName;
 		this.entity = entity;
+		this.genreId = genreId;
 	}
 
 	public ActionType(String actionName, String entity) {
@@ -41,6 +43,14 @@ public class ActionType {
 
 	public void setEntity(String entity) {
 		this.entity = entity;
+	}
+
+	public void setGenreId(int genreId) {
+		this.genreId = genreId;
+	}
+
+	public int getGenreId() {
+		return genreId;
 	}
 
 	@Override

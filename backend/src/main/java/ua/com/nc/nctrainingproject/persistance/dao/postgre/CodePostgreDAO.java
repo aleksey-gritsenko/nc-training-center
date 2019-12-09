@@ -39,19 +39,7 @@ public class CodePostgreDAO implements CodeRecoverDAO {
 
 
     }
-/*
-    public List<Book> filterBooks(FilterCriterionQuery filterCriterionQuery) {
-        String query = filterCriterionQuery.makeQuery();
-        Object[] args = filterCriterionQuery.makeArrayArgsStream();
-        List<Book> books = jdbcTemplate.query(query, args, new BookRowMapper());
-        for (Book book : books) {
-            book.setAuthors(authorBookPostgreDAO.getAuthorsByBookId(book.getId()));
-        }
-        return books;
-    }
 
-
- */
     public RecoverCode getCodeByEmail (String email) {
 
           List<RecoverCode> codeList  = jdbcTemplate.query(CodeRecoverQuery.GET_CODE_BY_EMAIL, new CodeRowMapper(), email);

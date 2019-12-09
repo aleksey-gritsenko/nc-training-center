@@ -21,11 +21,17 @@ import {SearchComponent} from "./components/search/search.component";
 import {UserFavouriteBooksComponent} from "./components/user/user-favourite-books/user-favourite-books.component";
 import {UserReadBooksComponent} from "./components/user/user-read-books/user-read-books.component";
 import {UserSettingsComponent} from "./components/user/user-settings/user-settings.component";
+import {AdminRightsComponent} from "./components/admin-rights/admin-rights.component";
+
 
 const routes: Routes = [
     {
         path: 'recover',
         component: RecoverComponent
+    },
+    {
+        path: 'admin-rights',
+        component: AdminRightsComponent
     },
     {
         path: 'announcement',

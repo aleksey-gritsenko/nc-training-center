@@ -263,7 +263,7 @@ export class BooksListComponent implements OnInit{
 
             },
             err => {
-                alert("Error in get all reviews")
+                this.router.navigateByUrl('/error');
             }
         );
     }
@@ -282,7 +282,7 @@ export class BooksListComponent implements OnInit{
                     console.log(newCreatedBook);
                 },
                 err => {
-                    alert("Error in create book");
+                    this.router.navigateByUrl('/error');
                 });
 
     }

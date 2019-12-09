@@ -2,10 +2,10 @@ package ua.com.nc.nctrainingproject.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ua.com.nc.nctrainingproject.models.Achivement;
+import ua.com.nc.nctrainingproject.models.AchivementDto;
 import ua.com.nc.nctrainingproject.persistance.dao.postgre.AchivementPostgreDAO;
-import ua.com.nc.nctrainingproject.persistance.dao.postgre.ActionPostgreDAO;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -16,13 +16,21 @@ public class AchivementService {
     public AchivementService(AchivementPostgreDAO achivementPostgreDAO) {
         this.achivementPostgreDAO = achivementPostgreDAO;
     }
-    public void createAchevement(String achievementName,String action,String genre,int count,String entity){
+    public void createAchevementDto(String achievementName,String action,String genre,int count,String entity){
        achivementPostgreDAO.createAchievement(achievementName,action,genre,count,entity);
     }
-    public List<Achivement> getAllAchievements(){
+    public List<AchivementDto> getAllAchievementDtos(){
         return achivementPostgreDAO.getAllAchievements();
     }
-    private List<Achivement> achivements;
+    private List<AchivementDto> achivementDtos;
 
+    public List<AchivementDto> getAllAchievementDtosForUser(int userId){
+        List<Integer> achievementIds = achivementPostgreDAO.getAllAchievementsByUserId(userId);
+        List<AchivementDto> result = new ArrayList<>();
+        for (Integer i : achievementIds){
+            result.add(achivementPostgreDAO.getAchievementById(i.intValue()));
 
+        }
+        return result;
+    }
 }
