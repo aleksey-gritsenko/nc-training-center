@@ -57,9 +57,9 @@
             <button  *ngIf="userAddedToRead" id="addRead" class="btn btn-primary"   (click)="addBookToRead(book.id)">Add to read</button>
             <button  *ngIf="!userAddedToRead" id="removeRead" class="btn btn-primary" (click)="removeBookFromRead(book.id)">Remove from read</button>
         </div>
-        <div>
-            <app-reviews-list [book]="book"></app-reviews-list>
-        </div>
+    </div>
+    <div>
+        <app-reviews-list [book]="book"></app-reviews-list>
     </div>
     <div>
         <div class="row">
