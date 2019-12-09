@@ -9,14 +9,19 @@ import { AdminRightsDto} from '../../models/admin-rights-dto';
 })
 export class AdminRightsComponent implements OnInit {
     data: AdminRightsDto[] = [];
+    rightTypes: string[] = [];
   constructor(private service: AdminService) { }
 
   ngOnInit() {
         this.service.getAllRights().subscribe(
             res => {
-                for(var el of res){
-                    this.data.push(el);
-                }
+                this.data = res;
+            },
+            err => {console.log(err);}
+        );
+        this.service.getAllRightTypes().subscribe(
+            res => {
+                this.rightTypes = res;
             },
             err => {console.log(err);}
         );
@@ -24,5 +29,18 @@ export class AdminRightsComponent implements OnInit {
 
     sendData():void{
         this.service.setAllRights(this.data);
+    }
+
+    hasRight(dto:AdminRightsDto, right:string): boolean{
+        return (dto.rights.indexOf(right) != -1);
+    }
+
+    changeRightStatus(dto:AdminRightsDto, right:string):void{
+        if(dto.rights.indexOf(right) != -1){
+            dto.rights.splice(dto.rights.indexOf(right),1);
+        }
+        else{
+            dto.rights.push(right);
+        }
     }
 }

@@ -16,7 +16,7 @@ export class AdminService {
 private siteUrl: string = 'https://nc-group1-2019-project.herokuapp.com';
 // if you want to test your code on localhost - change siteUrl to localhost where this is needed
 private localhost: string = 'http://localhost:8080';
-private adminRightsUrl: string = `${this.siteUrl}/adminrights`;
+private adminRightsUrl: string = `${this.localhost}/admin-rights`;
     constructor(
         private commonService: CommonService,
         private managingService: ManagingService,
@@ -27,12 +27,21 @@ private adminRightsUrl: string = `${this.siteUrl}/adminrights`;
 
     //#region Services Methods
     getAllRights():Observable<AdminRightsDto[]>{
-        const url = '${this.adminRightsUrl}//get';
+        const url = `${this.adminRightsUrl}/get`;
         return this.http.get<AdminRightsDto[]>(url);
     }
+
+    getAllRightTypes(): Observable<string[]>{
+        const url = `${this.adminRightsUrl}/get-all-descriptions`;
+        return this.http.get<string[]>(url);
+    }
+
     setAllRights(rights: AdminRightsDto[]):void{
-        const url = '${this.adminRightsUrl}//set';
-        this.http.post(url,rights);
+        const url = `${this.adminRightsUrl}/set`;
+        this.http.post(url,rights).subscribe(res=>{
+            console.log(res);
+        },
+        err=>{console.log(err)});
     }
     // Managing service
     createModerator() {
