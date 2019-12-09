@@ -4,6 +4,7 @@ import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {Book} from "../../models/book";
 import * as FileSaver from 'file-saver';
 import {DomSanitizer} from "@angular/platform-browser";
+import {StorageService} from "../../services/storage/storage.service";
 
 
 @Component({
@@ -15,11 +16,14 @@ export class FileUploadComponent implements  OnInit{
     form: FormGroup;
 
     @Input() book:Book;
-    constructor(private http: HttpClient,private sanitizer: DomSanitizer) {
+    constructor(private http: HttpClient,private sanitizer: DomSanitizer,private storage: StorageService) {
     }
     ngOnInit(){
-
+        if( this.storage.getUser().userRole=='moderator') {
+            this.fileUploadVisible = true;
+        }
     }
+    fileUploadVisible:boolean = false;
     fileExtensions = ['.txt', '.pdf'];
     imgExtensions = ['.png'];
     fileToUpload:File;

@@ -53,6 +53,7 @@ import { FileUploadComponent } from './components/file-upload/file-upload.compon
 import { BookImgComponent } from './components/book-img/book-img.component';
 import { UserSettingsComponent } from './components/user/user-settings/user-settings.component';
 import {AdminRightsComponent} from "./components/admin-rights/admin-rights.component";
+import { UserAchievementComponent } from './components/user/user-achievement/user-achievement.component';
 
 
 //import {NotificationsListComponent} from "./components/notifications-list/notifications-list.component";
@@ -100,7 +101,8 @@ import {AdminRightsComponent} from "./components/admin-rights/admin-rights.compo
         AddAchievementComponent,
         FileUploadComponent,
         BookImgComponent,
-        UserSettingsComponent
+        UserSettingsComponent,
+        UserAchievementComponent
     ],
 
     imports: [

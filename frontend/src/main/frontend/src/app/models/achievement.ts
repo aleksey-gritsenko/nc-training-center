@@ -5,7 +5,7 @@ export class Achievement {
     genre_id: string;
     action: string;
     description:string[]=[];
-
+    genreName:string;
 
     constructor() {
         this.name='';
