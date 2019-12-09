@@ -23,11 +23,9 @@ public class AchievementController {
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     @ResponseBody
     public AchivementDto createAchievement
-            (@RequestParam String achievementName, @RequestParam String action, @RequestParam String genre, @RequestParam int count, @RequestParam String entity){
-      AchivementDto a =new AchivementDto(achievementName,action,genre,count,entity);
+            (@RequestParam AchivementDto a){
 
-        achivementService.createAchevementDto(achievementName,action,genre,count,entity
-        );
+        achivementService.createAchevementDto(a);
         return a;
     }
     @RequestMapping(value = "/all", method = RequestMethod.GET)

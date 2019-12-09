@@ -1,13 +1,13 @@
 package ua.com.nc.nctrainingproject.persistance.dao.postgre.queries;
 
 public class AchivementQuery {
-    public static final String TABLE_NAME = "achievement";
+    public static final String TABLE_NAME = "achievment";
     public static final String ACHIEVEMENT_ID = "achievement_id";
 
     public static final String SECOND_TABLE_NAME = "user_achievement";
     public static final String USER_ID = "user_id";
 
-    public static final String ACHIEVEMENT_NAME = "achievement_name";
+    public static final String ACHIEVEMENT_NAME = "achievment_name";
     public static final String ACTION = "action_type_id";
     public static final String GENRE_ID = "genre_id";
     public static final String COUNT = "count";
