@@ -12,25 +12,25 @@ public class Achievement extends Entity {
         this.achievementName = achievementName;
     }
 
-    private int action_type_id;
-    private int genre_id;
+    private int actionTypeId;
+    private int genreId;
     private int count;
     private String entity;
 
-    public int getAction_type_id() {
-        return action_type_id;
+    public int getActionTypeId() {
+        return actionTypeId;
     }
 
-    public void setAction_type_id(int action_type_id) {
-        this.action_type_id = action_type_id;
+    public void setActionTypeId(int actionTypeId) {
+        this.actionTypeId = actionTypeId;
     }
 
-    public int getGenre_id() {
-        return genre_id;
+    public int getGenreId() {
+        return genreId;
     }
 
-    public void setGenre_id(int genre_id) {
-        this.genre_id = genre_id;
+    public void setGenreId(int genreId) {
+        this.genreId = genreId;
     }
 
     public int getCount() {
@@ -52,10 +52,10 @@ public class Achievement extends Entity {
     public Achievement() {
     }
 
-    public Achievement(String achievementName, int action_type_id, int genre_id, int count, String entity) {
+    public Achievement(String achievementName, int actionTypeId, int genreId, int count, String entity) {
         this.achievementName = achievementName;
-        this.action_type_id = action_type_id;
-        this.genre_id = genre_id;
+        this.actionTypeId = actionTypeId;
+        this.genreId = genreId;
         this.count = count;
         this.entity = entity;
     }

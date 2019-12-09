@@ -2,8 +2,11 @@ package ua.com.nc.nctrainingproject.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ua.com.nc.nctrainingproject.models.Achievement;
 import ua.com.nc.nctrainingproject.models.AchivementDto;
+import ua.com.nc.nctrainingproject.models.User;
 import ua.com.nc.nctrainingproject.persistance.dao.postgre.AchivementPostgreDAO;
+import ua.com.nc.nctrainingproject.persistance.dao.postgre.ActionPostgreDAO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,17 +14,21 @@ import java.util.List;
 @Service
 public class AchivementService {
     private final AchivementPostgreDAO achivementPostgreDAO;
+    private final ActionPostgreDAO actionPostgreDAO;
+
+
 
     @Autowired
-    public AchivementService(AchivementPostgreDAO achivementPostgreDAO) {
+    public AchivementService(AchivementPostgreDAO achivementPostgreDAO, ActionPostgreDAO actionPostgreDAO) {
         this.achivementPostgreDAO = achivementPostgreDAO;
+        this.actionPostgreDAO = actionPostgreDAO;
     }
     public void createAchevementDto(AchivementDto achivementDto){
        achivementPostgreDAO.createAchievement(achivementDto.getAchievementName(),achivementDto.getAction(),achivementDto.getGenre(),achivementDto.getCount()
                ,achivementDto.getEntity());
     }
     public List<AchivementDto> getAllAchievementDtos(){
-        return achivementPostgreDAO.getAllAchievements();
+        return achivementPostgreDAO.getAllAchievementDto();
     }
     private List<AchivementDto> achivementDtos;
 
@@ -34,4 +41,22 @@ public class AchivementService {
         }
         return result;
     }
+
+    //TODO make this method Sheduled
+    public void assignAchievements(){
+        //TODO get cur user from session
+        User currentUser = new User();
+
+        List<Achievement> achievements = achivementPostgreDAO.getAllAchievements();
+
+        for (Achievement achievement: achievements){
+            if (actionPostgreDAO.getAllActionsByUserIdAndActionTypeId(currentUser.getId(),achievement.getActionTypeId())
+                    .size() >= achievement.getCount() && !(achivementPostgreDAO.getAllAchievementsByUserId(currentUser.getId()).contains((achievement.getId())))){
+                achivementPostgreDAO.createPair(currentUser.getId(),achievement.getGenreId());
+            }
+
+        }
+
+    }
+
 }

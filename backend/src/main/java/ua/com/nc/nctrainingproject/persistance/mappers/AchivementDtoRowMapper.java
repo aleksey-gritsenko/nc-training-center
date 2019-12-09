@@ -9,7 +9,7 @@ import ua.com.nc.nctrainingproject.persistance.dao.postgre.queries.GenreQuery;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class AchivementRowMapper implements RowMapper<AchivementDto> {
+public class AchivementDtoRowMapper implements RowMapper<AchivementDto> {
     @Override
     public AchivementDto mapRow(ResultSet resultSet, int i) throws SQLException {
         AchivementDto achivementDto = new AchivementDto();
