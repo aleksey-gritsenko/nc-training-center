@@ -1,0 +1,65 @@
+<div class="card">
+    <div class="card-header card-header-primary">
+        <h4 class="card-title">Create achievement</h4>
+    </div>
+    <div class="card-body">
+        <form>
+            <div class="row">
+                <div class="col-md">
+                    <label class="bmd-label-floating" for="Name">Name</label>
+                    <input class="form-control" type="text" id="Name" name="Name" autocomplete="off" [(ngModel)]="model.name">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md">
+                    <label class="bmd-label-floating" for="entity">Entity</label>
+                    <select class="custom-select" name="entity" id="entity" [(ngModel)]="model.entity" (click)="chooseActionsByEntity()">
+                        <option>announcement</option>
+                        <option>book</option>
+                        <option>review</option>
+                        <option>user</option>
+                    </select>
+                </div>
+                <div class="col-md">
+                    <div class="form-group">
+                        <label class="bmd-label-floating" for="count">Count</label>
+                        <input autocomplete="off" id="count" class="form-control" name="count" type="number" min="0" max="1000" [(ngModel)]="model.count">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="Action">Action</label>
+                        <select class="custom-select" name="Action" id="Action" [(ngModel)]="model.action">
+                            <option *ngFor="let action of certainActionList">{{action['actionName']}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6" *ngIf="model.entity == 'book'">
+                    <div class="form-group">
+                        <label class="bmd-label-floating" for="genre">Genre</label>
+                        <select id="genre" name="genre" class="custom-select" [(ngModel)]="model.genre_id">
+                            <option *ngFor="let genre of genreList">{{genre}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div [ngSwitch]="addStatus">
+                <div class="alert alert-success text-center" role="alert" *ngSwitchCase="'success'">
+                    Success! The achievement has been created
+                </div>
+                <div class="alert alert-danger text-center" role="alert" *ngSwitchCase="'download-error'">
+                    Error during downloading! Connection to the server has been canceled
+                </div>
+                <div class="alert alert-danger text-center" role="alert" *ngSwitchCase="'error'">
+                    Something went wrong! Please try again!
+                </div>
+                <div class="alert alert-warning text-center" role="alert" *ngSwitchCase="'warning'">
+                    Warning! Fill in all the fields!
+                </div>
+            </div>
+            <button class="btn btn-primary pull-right" type="button" (click)="createAchievement()">Create achievement</button>
+        </form>
+    </div>
+</div>

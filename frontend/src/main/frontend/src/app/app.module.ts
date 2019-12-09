@@ -48,8 +48,13 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import { UserFavouriteBooksComponent } from './components/user/user-favourite-books/user-favourite-books.component';
 import { UserReadBooksComponent } from './components/user/user-read-books/user-read-books.component';
 import {SearchComponent} from './components/search/search.component';
-import {AddAchievmentComponent} from './components/user/add-achievment/add-achievment.component';
+import {AddAchievementComponent} from './components/user/add-achievment/add-achievement.component';
 import { FileUploadComponent } from './components/file-upload/file-upload.component';
+import { BookImgComponent } from './components/book-img/book-img.component';
+import { UserSettingsComponent } from './components/user/user-settings/user-settings.component';
+import {AdminRightsComponent} from "./components/admin-rights/admin-rights.component";
+import { UserAchievementComponent } from './components/user/user-achievement/user-achievement.component';
+
 
 //import {NotificationsListComponent} from "./components/notifications-list/notifications-list.component";
 
@@ -65,6 +70,7 @@ import { FileUploadComponent } from './components/file-upload/file-upload.compon
         AnnouncementListComponent,
         BooksListComponent,
         ReviewsListComponent,
+        AdminRightsComponent,
        // NotificationsListComponent,
         BookOverviewPropositionComponent,
         BookReviewPropositionComponent,
@@ -92,8 +98,11 @@ import { FileUploadComponent } from './components/file-upload/file-upload.compon
         UserReadBooksComponent,
         UserBooksComponent,
         SearchComponent,
-        AddAchievmentComponent,
-        FileUploadComponent
+        AddAchievementComponent,
+        FileUploadComponent,
+        BookImgComponent,
+        UserSettingsComponent,
+        UserAchievementComponent
     ],
 
     imports: [

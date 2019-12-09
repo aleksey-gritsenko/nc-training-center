@@ -27,6 +27,7 @@ public class PasswordRecoverController {
     public ResponseEntity<?> emailSender(@RequestParam String email) {
         if (!email.trim().isEmpty()) {
             try {
+
                 if (passwordRecoverService.checkEmail(email)) {
                     passwordRecoverService.makeEmail(email);
                     return new ResponseEntity<>(HttpStatus.OK);
@@ -43,6 +44,7 @@ public class PasswordRecoverController {
     public ResponseEntity<?> passwordRecoverUser(@RequestParam String recoverCode,
                                                  @RequestParam String newPassword) {
         if (!recoverCode.trim().isEmpty() && !newPassword.trim().isEmpty()) {
+
             if (passwordRecoverService.passwordRecover(recoverCode, newPassword)) {
                 return new ResponseEntity<>(HttpStatus.OK);
             }

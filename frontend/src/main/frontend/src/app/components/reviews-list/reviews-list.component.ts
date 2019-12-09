@@ -66,7 +66,7 @@ export class ReviewsListComponent implements OnInit{
     }
 
     getNotAcceptedReviews(): void{
-        this.commonService.getAcceptedReviews(this.book.id, false).subscribe(
+        this.commonService.getNotAcceptedReviews(this.book.id, false).subscribe(
             res => {
                 this.notAcceptedReviews = res;
                 this.notAcceptedReviews.forEach(
@@ -103,7 +103,7 @@ export class ReviewsListComponent implements OnInit{
                     this.notAcceptedReviews.push(res);
                 },
                 err => {
-                    alert("Error in creating new review");
+                    this.router.navigateByUrl('/error');
                 }
             );
 

@@ -28,6 +28,13 @@ public class UserBookController {
 		return Optional.ofNullable(response).map(ResponseEntity::ok).orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
 	}
 
+	@RequestMapping(value = "/getById", method = RequestMethod.POST)
+	public ResponseEntity<?> getUserBookById(@RequestBody UserBook userBook) {
+		UserBook response = userBookService.getUserBookByBookUserId(userBook);
+		return Optional.ofNullable(response).map(ResponseEntity::ok).orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
+	}
+
+
 	@RequestMapping(value = "/all", method = RequestMethod.GET)
 	public ResponseEntity<?> getAllUsersBooks(@RequestParam(name = "userId") int userId) {
 		List<Book> response = userBookService.getAllUserBooks(userId);

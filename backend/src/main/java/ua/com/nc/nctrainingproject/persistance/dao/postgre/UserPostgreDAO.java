@@ -63,6 +63,7 @@ public class UserPostgreDAO extends AbstractDAO<User> {
     }
 
     public void updatePassword(String password, String email) {
+        System.out.println("Trying to update password");
         jdbcTemplate.update(UserQuery.UPDATE_PASSWORD_BY_EMAIL, password, email);
     }
 

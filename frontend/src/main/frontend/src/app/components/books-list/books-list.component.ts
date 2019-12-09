@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {CommonService} from '../../services/common/common.service';
 import {Book} from '../../models/book'
 import {ActivatedRoute, Router} from '@angular/router';
@@ -24,9 +24,9 @@ export class BooksListComponent implements OnInit{
     books: Book[] = [];
 
     userBooks : UserBook[] = [];
-    userBookList: Book[] = [];
-    userFavBookList: Book[] = [];
-    userReadBookList: Book[] = [];
+    @Input() userBookList: Book[] = [];
+    @Input() userFavBookList: Book[] = [];
+    @Input() userReadBookList: Book[] = [];
     book: Book;
 
     model : Book = {
@@ -38,7 +38,7 @@ export class BooksListComponent implements OnInit{
         authors: [],
         photo:0,
         fileId:0,
-        imageURL:'',
+        fileURL:'',
         photoURL:''
     };
 
@@ -249,7 +249,6 @@ export class BooksListComponent implements OnInit{
     }
 
     getBooks(): void {
-        let imgURL;
         this.apiService.getBooks().subscribe(
             res => {
                 this.books = res;
@@ -260,22 +259,11 @@ export class BooksListComponent implements OnInit{
                     this.apiService.getGenreByBookId(book.id).subscribe(
                         genre=> book.genre  = genre.name
                     );
-                    this.apiService.getImageByBook(book).subscribe(
-                        res=>{
-                            let reader = new FileReader();
-                            reader.addEventListener("load", () => {
-                                book.photoURL = reader.result;
-                            }, false);
-                            if (res) {
-                                reader.readAsDataURL(res);
-                            }
-                        }
-                    );
                 });
 
             },
             err => {
-                alert("Error in get all reviews")
+                this.router.navigateByUrl('/error');
             }
         );
     }
@@ -294,7 +282,7 @@ export class BooksListComponent implements OnInit{
                     console.log(newCreatedBook);
                 },
                 err => {
-                    alert("Error in create book");
+                    this.router.navigateByUrl('/error');
                 });
 
     }
@@ -320,10 +308,6 @@ export class BooksListComponent implements OnInit{
         if (this.storage.getUser() == null) {
             this.router.navigate(['/login']);
         }
-    }
-    getSantizeUrl(url : string) {
-        let sanitizer: DomSanitizer;
-        return sanitizer.bypassSecurityTrustUrl(url);
     }
 }
 

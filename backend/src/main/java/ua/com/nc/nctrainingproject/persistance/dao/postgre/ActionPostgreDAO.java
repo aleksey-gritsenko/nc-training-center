@@ -15,12 +15,10 @@ import java.util.List;
 public class ActionPostgreDAO implements ActionDAO {
 
 	private final JdbcTemplate jdbcTemplate;
-	private final ActionTypePostgreDAO actionTypePostgreDAO;
 
 	@Autowired
-	public ActionPostgreDAO(DataSource dataSource, ActionTypePostgreDAO actionTypePostgreDAO) {
+	public ActionPostgreDAO(DataSource dataSource) {
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
-		this.actionTypePostgreDAO =actionTypePostgreDAO;
 	}
 
 	@Override
@@ -49,6 +47,16 @@ public class ActionPostgreDAO implements ActionDAO {
 	}
 
 	@Override
+	public Action getActionByUserAndTypeId(int userId, int actionTypeId) {
+		List<Action> actionList = jdbcTemplate.query(ActionQuery.GET_BY_USER_TYPE_ID,
+				new ActionRowMapper(), actionTypeId, userId);
+		if (actionList.size() == 0) {
+			return null;
+		}
+		return actionList.get(actionList.size()-1);
+	}
+
+	@Override
 	public Action getActionByActionTypeId(int actionTypeId) {
 		List<Action> actionList = jdbcTemplate.query(ActionQuery.GET_BY_ACTION_TYPE_ID,
 				new ActionRowMapper(), actionTypeId);
@@ -64,9 +72,10 @@ public class ActionPostgreDAO implements ActionDAO {
 	}
 
 	@Override
-	public void createAction(Action action) {
-		jdbcTemplate.update(ActionQuery.CREATE_ACTION, action.getActionId(),
+	public Action createAction(Action action) {
+		jdbcTemplate.update(ActionQuery.CREATE_ACTION,
 				action.getUserId(), action.getActionTypeId());
+		return action;
 	}
 
 	@Override

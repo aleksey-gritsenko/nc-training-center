@@ -1,20 +1,20 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {AddAchievmentComponent} from './add-achievment.component';
+import {AddAchievementComponent} from './add-achievement.component';
 
-describe('AddAchievmentComponent', () => {
-  let component: AddAchievmentComponent;
-  let fixture: ComponentFixture<AddAchievmentComponent>;
+describe('AddAchievementComponent', () => {
+  let component: AddAchievementComponent;
+  let fixture: ComponentFixture<AddAchievementComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AddAchievmentComponent ]
+      declarations: [ AddAchievementComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AddAchievmentComponent);
+    fixture = TestBed.createComponent(AddAchievementComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

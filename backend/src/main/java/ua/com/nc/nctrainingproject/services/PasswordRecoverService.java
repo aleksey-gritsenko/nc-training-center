@@ -3,9 +3,9 @@ package ua.com.nc.nctrainingproject.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import ua.com.nc.nctrainingproject.models.RecoverCode;
-import ua.com.nc.nctrainingproject.models.User;
 import ua.com.nc.nctrainingproject.persistance.dao.postgre.CodePostgreDAO;
 import ua.com.nc.nctrainingproject.persistance.dao.postgre.UserPostgreDAO;
 import ua.com.nc.nctrainingproject.persistance.dao.postgre.queries.CodeRecoverQuery;
@@ -22,12 +22,14 @@ public class PasswordRecoverService {
     private final UserPostgreDAO userPostgreDAO;
     private final CodePostgreDAO codePostgreDAO;
     private final JavaMailSender sender;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    public PasswordRecoverService(JavaMailSender sender, CodePostgreDAO codePostgreDAO, UserPostgreDAO userPostgreDAO) {
+    public PasswordRecoverService(JavaMailSender sender, CodePostgreDAO codePostgreDAO, UserPostgreDAO userPostgreDAO, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.sender = sender;
         this.codePostgreDAO = codePostgreDAO;
         this.userPostgreDAO = userPostgreDAO;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
 
@@ -51,6 +53,7 @@ public class PasswordRecoverService {
     }
 
     public void makeEmail(String email) throws MessagingException {
+        System.out.println(email);
         MimeMessage message = sender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);
         helper.setTo(email);
@@ -95,10 +98,11 @@ public class PasswordRecoverService {
     }
 
     public boolean passwordRecover(String code, String newPassword) {
-
+        System.out.println(code);
         RecoverCode codeDB = getCode(code);
         if (codeDB != null) {
-            userPostgreDAO.updatePassword(newPassword, codeDB.getEmail());
+            System.out.println("In the password recover with code db!!!");
+            userPostgreDAO.updatePassword(bCryptPasswordEncoder.encode(newPassword), codeDB.getEmail());
             deleteCode(code);
             return true;
         }

@@ -17,7 +17,7 @@
                                 <h3><a  [routerLink]="['book', book.id]"> {{book.header}}</a></h3>
                             </div>
                             <div class="card-description">
-                                <div *ngIf="book.photoURL"><img [src]="getSantizeUrl(book.photoURL)" width="200" height="200" alt=""></div>
+                                <app-book-img [book]="book"></app-book-img>
                                 <div>Overview: {{book.overview}}</div>
                                 <div>Status: {{book.status}}</div>
                                 <div>

@@ -6,6 +6,7 @@ import ua.com.nc.nctrainingproject.models.Achivement;
 import ua.com.nc.nctrainingproject.persistance.dao.postgre.AchivementPostgreDAO;
 import ua.com.nc.nctrainingproject.persistance.dao.postgre.ActionPostgreDAO;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -24,5 +25,13 @@ public class AchivementService {
     }
     private List<Achivement> achivements;
 
+    public List<Achivement> getAllAchievementsForUser(int userId){
+        List<Integer> achievementIds = achivementPostgreDAO.getAllAchievementsByUserId(userId);
+        List<Achivement> result = new ArrayList<>();
+        for (Integer i : achievementIds){
+            result.add(achivementPostgreDAO.getAchievementById(i.intValue()));
 
+        }
+        return result;
+    }
 }
