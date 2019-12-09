@@ -1,7 +1,5 @@
 package ua.com.nc.nctrainingproject.models;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
-
 public class UserSettings {
     private Boolean subscribeOnFriends;
     private Boolean achievements;

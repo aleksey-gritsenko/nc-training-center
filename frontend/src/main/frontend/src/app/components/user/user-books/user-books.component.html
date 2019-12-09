@@ -4,13 +4,13 @@
 <div class="content row">
     <div class="col-9">
         <div class="text-muted">
-            <h1>My Books List</h1>
+            <h1 id="myText">My Books List</h1>
             <input class="form-control col-3" type="text" [(ngModel)]="curBookList.searchTitle" placeholder="Search..."
                    name="header">
             <button class="btn btn-primary" (click)="curBookList.searchByTitle()">Search</button>
         </div>
         <div>
-            <div id="wrapper">
+            <div id="btnwrapper">
                 <button class="btn btn-primary" (click)="router.navigate(['/userBooks'])">All Books</button>
                 <div class="divider"></div>
                 <button class="btn btn-primary" (click)="router.navigate(['/userBooks/read'])">My Read Books</button>
@@ -25,8 +25,8 @@
         </div>
         <div>
             <div class="row">
-                <div style="text-align: center; font-size: 30px"><h2 *ngIf="curBookList.emptyReadList">You do not have
-                    any read books yet</h2></div>
+                <div style="text-align: center; font-size: 30px"><h2 *ngIf="curBookList.emptyReadList">Since you do not have
+                    any read books, we suggest you most rated books</h2></div>
                 <div *ngFor="let readBook of curBookList.userReadBookList" class="col-lg-4  col-md-6">
                     <app-book [book]="readBook"></app-book>
                 </div>
@@ -53,26 +53,7 @@
                             </div>
                             <div *ngIf="book.genre">Genre: {{book.genre}}</div>
                         </div>
-                        <div class="center">
-                            <button *ngIf="!curBook.userAddedBook" id="addBook" class="btn btn-primary"
-                                    (click)="this.curBook.addBookToUser(book.id)">Add book
-                            </button>
-                            <button *ngIf="curBook.userAddedBook" id="removeBook" class="btn btn-primary"
-                                    (click)="this.curBook.deleteBookFromUser(book.id)">Remove book
-                            </button>
-                            <button *ngIf="!curBook.userAddedToFav" id="addFav" class="btn btn-primary"
-                                    (click)="this.curBook.addBookToFavourite(book.id)">Add to favourite
-                            </button>
-                            <button *ngIf="curBook.userAddedToFav" id="removeFav" class="btn btn-primary"
-                                    (click)="this.curBook.removeBookFromFav(book.id)">Remove from favourite
-                            </button>
-                            <button *ngIf="!curBook.userAddedToRead" id="addRead" class="btn btn-primary"
-                                    (click)="this.curBook.addBookToRead(book.id)">Add to read
-                            </button>
-                            <button *ngIf="curBook.userAddedToRead" id="removeRead" class="btn btn-primary"
-                                    (click)="this.curBook.removeBookFromRead(book.id)">Remove from read
-                            </button>
-                        </div>
+
                     </div>
                 </div>
             </div>

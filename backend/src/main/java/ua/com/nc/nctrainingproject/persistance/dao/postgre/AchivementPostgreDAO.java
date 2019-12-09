@@ -33,7 +33,14 @@ public class AchivementPostgreDAO {
         jdbcTemplate.update(AchivementQuery.CREATE_ACHIEVEMENT,achievementName,action_id,genre_id,count,entity);
     }
     public List<Achivement> getAllAchievements(){
-        return jdbcTemplate.query(AchivementQuery.GET_ALL_ACHEVEMENTS,new AchivementRowMapper());
+        return jdbcTemplate.query(AchivementQuery.GET_ALL_ACHIEVEMENTS,new AchivementRowMapper());
     }
 
+    public List<Integer> getAllAchievementsByUserId(int id){
+        return jdbcTemplate.queryForList(AchivementQuery.GET_ALL_ACHIEVEMENT_ID_BY_USER_ID, Integer.class, id);
+    }
+
+    public Achivement getAchievementById(int id){
+        return jdbcTemplate.queryForObject(AchivementQuery.GET_ACHIEVEMENT_BY_ID,Achivement.class, id);
+    }
 }
