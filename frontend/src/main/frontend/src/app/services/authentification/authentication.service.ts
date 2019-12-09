@@ -51,4 +51,9 @@ export class AuthenticationService {
         form.append('email', email);
         return this.http.post(url, form);
     }
+
+    checkPasswordForRegexp(password: string): boolean {
+        let regexp = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!^%#*?&])[A-Za-z\\d@$#!%^*?&]{8,}$');
+        return regexp.test(password);
+    }
 }

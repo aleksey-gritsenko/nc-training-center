@@ -14,7 +14,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
     repeatPassword: string = '';
     editStatus: string;
 
-    @Input() private user: User;
+    @Input() private user: User; //TODO Try to fix edit password
 
     private updatedUser: User = new User();
     private subscription: Subscription;
@@ -34,7 +34,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
 
     update(): void {
         if (this.userService.equals(this.updatedUser, this.user)) return;
-        this.userService.updateProfile(this.updatedUser)
+        this.subscription = this.userService.updateProfile(this.updatedUser)
             .subscribe(
                 user => {
                     this.editStatus = 'success';
@@ -52,6 +52,6 @@ export class EditProfileComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy(): void {
-        // this.subscription.unsubscribe();
+        if (this.subscription) this.subscription.unsubscribe();
     }
 }

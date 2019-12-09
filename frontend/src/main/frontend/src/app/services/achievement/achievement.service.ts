@@ -23,7 +23,7 @@ export class AchievementService {
         return this.http.get<string[]>(url);
     }
 
-    createAchievement(model: Achievement) {
+    createAchievement(model: Achievement) { //TODO Connect service to controller for adding achievements
         let url = `${this.siteUrl}/achievement/create`;
         return this.http.post(url, model);
     }
