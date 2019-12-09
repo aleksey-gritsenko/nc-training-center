@@ -56,12 +56,12 @@ export class FileUploadComponent implements  OnInit{
         }
     }
     downloadPDF(): any {
-        return this.http.post(`http://localhost:8080/book/bookFile` +'?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token,this.book, {responseType:'blob' as 'text'}).subscribe(
+        return this.http.post(`http://localhost:8080/book/bookFile`,this.book, {responseType:'blob' as 'text'}).subscribe(
             (res) => {
                 console.log(res);
                 let blob = new Blob([res], { type: 'application/pdf' });
                 this.book.fileURL  = URL.createObjectURL(blob);
-                var file = new File([blob], this.book.header,{ type: blob.type });
+                let file = new File([blob], this.book.header,{ type: blob.type });
                 FileSaver.saveAs(file);
             }
         );

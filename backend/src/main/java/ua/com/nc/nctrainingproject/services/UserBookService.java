@@ -28,6 +28,10 @@ public class UserBookService {
 		return null;
 	}
 
+	public UserBook getUserBookByBookUserId(UserBook userBook){
+		return userBooksPostgreDAO.getUserBookByBookUserId(userBook.getUserId(), userBook.getBookId());
+	}
+
 	public List<Book> getAllUserBooks(int userId){
 		return userBooksPostgreDAO.getAllUserBooks(userId);
 	}
