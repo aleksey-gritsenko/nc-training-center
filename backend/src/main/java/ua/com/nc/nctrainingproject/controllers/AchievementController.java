@@ -38,7 +38,7 @@ public class AchievementController {
         return achivementService.getAllAchievements();
     }
 
-    @RequestMapping(value = "/all", method = RequestMethod.GET)
+    @RequestMapping(value = "/all-for-user", method = RequestMethod.GET)
     @ResponseBody
     public List<Achivement> getAllForUser(@RequestBody User user){
         //TODO check if user model got from from front has id
