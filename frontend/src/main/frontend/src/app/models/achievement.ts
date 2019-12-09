@@ -1,20 +1,20 @@
 export class Achievement {
-    name: string;
+    achievementName: string;
     count: number;
     entity: string;
-    genre_id: string;
+    genre: string;
     action: string;
     description:string[]=[];
     genreName:string;
 
     constructor() {
-        this.name='';
+        this.achievementName='';
         this.entity='';
-        this.genre_id='';
+        this.genre='';
         this.action='';
     }
 
     isComplete(): boolean {
-        return this.name.length>0 && this.count>0 && this.action.length>0 && ((this.entity=='book' && this.genre_id.length>0) || (this.entity!='book' && this.entity!=''));
+        return this.achievementName.length>0 && this.count>0 && this.action.length>0 && ((this.entity=='book' && this.genre.length>0) || (this.entity!='book' && this.entity!=''));
     }
 }
