@@ -52,6 +52,8 @@ import {AddAchievementComponent} from './components/user/add-achievment/add-achi
 import { FileUploadComponent } from './components/file-upload/file-upload.component';
 import { BookImgComponent } from './components/book-img/book-img.component';
 import { UserSettingsComponent } from './components/user/user-settings/user-settings.component';
+import {AdminRightsComponent} from "./components/admin-rights/admin-rights.component";
+
 
 //import {NotificationsListComponent} from "./components/notifications-list/notifications-list.component";
 
@@ -67,6 +69,7 @@ import { UserSettingsComponent } from './components/user/user-settings/user-sett
         AnnouncementListComponent,
         BooksListComponent,
         ReviewsListComponent,
+        AdminRightsComponent,
        // NotificationsListComponent,
         BookOverviewPropositionComponent,
         BookReviewPropositionComponent,

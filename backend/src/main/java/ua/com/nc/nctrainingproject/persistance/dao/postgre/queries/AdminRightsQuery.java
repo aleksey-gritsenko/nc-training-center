@@ -10,7 +10,7 @@ public class AdminRightsQuery {
             " WHERE "+ RIGHT_ID + " =(?);";
     public static final String GET_RIGHT_ID_BY_ADMIN_ID= "SELECT " + RIGHT_ID + " FROM " + TABLE_NAME +
             " WHERE "+ ADMIN_ID + " =(?);";
-    public static final String DELETE_BY_ADMIN_ID = "DELETE FROM" + TABLE_NAME + " WHERE" + ADMIN_ID + " =(?);";
+    public static final String DELETE_BY_ADMIN_ID = "DELETE FROM " + TABLE_NAME + " WHERE " + ADMIN_ID + " =(?);";
     public static final String CREATE_PAIR = "INSERT INTO " + TABLE_NAME
             + " (" + ADMIN_ID + "," + RIGHT_ID  + ")" + " VALUES(?,?)";
 

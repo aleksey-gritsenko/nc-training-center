@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import ua.com.nc.nctrainingproject.models.Achivement;
+import ua.com.nc.nctrainingproject.models.User;
 import ua.com.nc.nctrainingproject.services.AchivementService;
 import ua.com.nc.nctrainingproject.services.ActionTypeService;
 
@@ -32,8 +33,15 @@ public class AchievementController {
     }
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     @ResponseBody
-    public List<Achivement> getAl(){
+    public List<Achivement> getAll(){
 
         return achivementService.getAllAchievements();
+    }
+
+    @RequestMapping(value = "/all", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Achivement> getAllForUser(@RequestBody User user){
+        //TODO check if user model got from from front has id
+        return achivementService.getAllAchievementsForUser(user.getId());
     }
 }
