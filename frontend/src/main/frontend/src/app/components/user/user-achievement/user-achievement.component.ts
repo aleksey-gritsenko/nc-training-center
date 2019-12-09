@@ -26,7 +26,7 @@ export class UserAchievementComponent implements OnInit {
         this.achievementService.getUserAchievement(this.user).subscribe(
             res=>{this.achievements = res;
             this.achievements.forEach(achievement=>this.allGenres.forEach(
-                genre=>achievement.genreName=genre.id.toString()==achievement.genre_id?genre.name:""));
+                genre=>achievement.genreName=genre.id.toString()==achievement.genre?genre.name:""));
             console.log(this.achievements)}
         );
     }
