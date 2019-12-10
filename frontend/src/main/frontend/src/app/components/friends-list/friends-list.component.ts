@@ -23,8 +23,8 @@ export class FriendsListComponent implements OnInit {
         //this.activatedRoute.snapshot.paramMap.get('id');
         this.currentUser = this.storage.getUser();
         this.id = +this.activatedRoute.snapshot.paramMap.get('id');
-        this.getNewApplications(this.id.toString());
-        this.getAllFriends(this.id.toString());
+       // this.getNewApplications(this.id.toString());
+        //this.getAllFriends(this.id.toString());
 
     }
 

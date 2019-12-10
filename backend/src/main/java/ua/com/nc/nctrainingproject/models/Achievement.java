@@ -4,6 +4,10 @@ public class Achievement extends Entity {
 
     private String achievementName;
 
+    private int actionTypeId;
+    private int genreId;
+    private int count;
+    private String entity;
     public String getAchievementName() {
         return achievementName;
     }
@@ -12,10 +16,6 @@ public class Achievement extends Entity {
         this.achievementName = achievementName;
     }
 
-    private int actionTypeId;
-    private int genreId;
-    private int count;
-    private String entity;
 
     public int getActionTypeId() {
         return actionTypeId;

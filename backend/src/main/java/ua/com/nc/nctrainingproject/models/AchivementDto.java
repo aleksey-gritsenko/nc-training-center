@@ -3,6 +3,11 @@ package ua.com.nc.nctrainingproject.models;
 public class AchivementDto extends Entity {
 
     private String achievementName;
+    private String action;
+    private String genre;
+    private int count;
+    private String entity;
+
 
     public String getAchievementName() {
         return achievementName;
@@ -12,10 +17,6 @@ public class AchivementDto extends Entity {
         this.achievementName = achievementName;
     }
 
-    private String action;
-    private String genre;
-    private int count;
-    private String entity;
 
     public String getAction() {
         return action;

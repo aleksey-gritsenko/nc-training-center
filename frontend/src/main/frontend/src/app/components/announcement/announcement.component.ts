@@ -28,15 +28,18 @@ export class AnnouncementComponent implements OnInit {
     };
     currentUser: User;
     id: any;
-    currentDate : Date;
-
+    currentDate: Date;
+    formatted_date;
 
     constructor(private http: HttpClient, private route: ActivatedRoute,
                 private storage: StorageService, private apiService: CommonService) {
     }
 
     ngOnInit() {
+
         this.currentDate = new Date();
+        this.formatted_date =  this.currentDate.getFullYear() + "-" + ( this.currentDate.getMonth() + 1)
+            + "-" +  this.currentDate.getDate()
         this.model
         this.id
             = parseInt(this.route.snapshot.paramMap.get('id'));
@@ -62,8 +65,9 @@ export class AnnouncementComponent implements OnInit {
         }
         this.model.ownerId = this.currentUser.id;
         // this.model.ownerId = this.storage.getUser().id;
-
-        this.apiService.createAnnouncement(this.model).subscribe(
+        console.log(this.formatted_date);
+        console.log(this.model.announcementDate);
+        this.apiService.createAnnouncement(this.model).subscribe (
             res => {
                 //location.reload();
             },
