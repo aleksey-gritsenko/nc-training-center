@@ -7,7 +7,7 @@ import ua.com.nc.nctrainingproject.models.User;
 import ua.com.nc.nctrainingproject.persistance.dao.postgre.ActionPostgreDAO;
 import ua.com.nc.nctrainingproject.persistance.dao.postgre.ActionTypePostgreDAO;
 import ua.com.nc.nctrainingproject.persistance.dao.postgre.FriendsPostgreDAO;
-import ua.com.nc.nctrainingproject.persistance.dao.postgre.NotificationPostgreDAO;
+import ua.com.nc.nctrainingproject.persistance.dao.postgre.ActivityPostgreDAO;
 
 import java.util.List;
 
@@ -16,16 +16,16 @@ public class ActionService {
 
 	private final ActionPostgreDAO actionPostgreDAO;
 	private final FriendsPostgreDAO friendsPostgreDAO;
-	private final NotificationPostgreDAO notificationPostgreDAO;
+	private final ActivityPostgreDAO activityPostgreDAO;
 	private final ActionTypePostgreDAO actionTypePostgreDAO;
 
 	@Autowired
 	public ActionService(ActionPostgreDAO actionPostgreDAO, FriendsPostgreDAO friendsPostgreDAO,
-						 NotificationPostgreDAO notificationPostgreDAO,
+						 ActivityPostgreDAO activityPostgreDAO,
 						 ActionTypePostgreDAO actionTypePostgreDAO) {
 		this.actionPostgreDAO = actionPostgreDAO;
 		this.friendsPostgreDAO = friendsPostgreDAO;
-		this.notificationPostgreDAO = notificationPostgreDAO;
+		this.activityPostgreDAO = activityPostgreDAO;
 		this.actionTypePostgreDAO = actionTypePostgreDAO;
 	}
 
@@ -37,11 +37,11 @@ public class ActionService {
 		List<User> users = friendsPostgreDAO.getAllFriends(userId);
 
 		if (actionTypePostgreDAO.getActionTypeByActionTypeId(actionTypeId).getEntity().equals("achievement")) {
-			notificationPostgreDAO.createNotification(userId, actionTypeId);
+			activityPostgreDAO.createActivity(userId, actionTypeId);
 		}
 
 		for (User user : users) {
-			notificationPostgreDAO.createNotification(user.getId(), action.getActionId());
+			activityPostgreDAO.createActivity(user.getId(), action.getActionId());
 		}
 		return action;
 	}
