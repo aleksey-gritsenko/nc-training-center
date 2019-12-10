@@ -11,8 +11,8 @@
     <ul class="list-rectangle">
         <li *ngFor="let announcement of announcements">
             <!--div class="alert alert-warning"-->
-                <div>Description: {{announcement.description}}</div>
-                <div>Date: {{announcement.announcementDate}}</div>
+                <div> {{announcement.description}}</div>
+                <div> {{announcement.announcementDate}}</div>
             <!--/div-->
             <div class="btn-default btn">
             <a [routerLink]="['/books/book',announcement.bookID]">More about book</a>

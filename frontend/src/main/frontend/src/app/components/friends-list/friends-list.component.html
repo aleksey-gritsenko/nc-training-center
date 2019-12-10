@@ -4,7 +4,7 @@
 
         <mat-button-toggle value="all">
             <i class="material-icons">favorite</i> Friends </mat-button-toggle>
-        <mat-button-toggle value="new"><i class="material-icons md-48">face</i> New commers </mat-button-toggle>
+        <mat-button-toggle value="new"><i class="material-icons md-48">face</i> Newcommers </mat-button-toggle>
     </mat-button-toggle-group>
 
 
@@ -15,17 +15,17 @@
     <ng-template ngSwitchCase="new">
 
         <li *ngFor="let newApp of newApplications">
-            <div class="alert alert-warning">
+            <div class="alert alert-primary">
 
                 <div class ="name">{{newApp.email}}</div>
                 <div routerLink="/user/{{newApp.id}}"> {{newApp.userName}}</div>
                     <!--span class="letter">   <a>{{newApp.userName}}</a> </span-->
-            </div>
 
-            <button [disabled]="!(
-                this.id == this.currentUser.id)" class="btn btn-primary" (click)="addFriends(newApp)">Add
+
+                <button  [disabled]="!(
+                this.id == this.currentUser.id)" class="btn btn-primary" (click)="addFriends(newApp)"><i class="material-icons">add</i>
             </button>
-
+            </div>
         </li>
 
 
