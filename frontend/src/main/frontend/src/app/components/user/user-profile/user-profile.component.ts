@@ -59,14 +59,14 @@ export class UserProfileComponent implements OnInit, OnDestroy {
         this.isOpen = tab;
     }
 
-     getUserInfo(id: string) {
+    getUserInfo(id: string) {
         this.user = new User();
         this.userService.searchUser(id).toPromise().then(
             user => {
-            if (!this.isCurrUserAnAdmin && user.userRole != 'user') this.router.navigateByUrl('/error');
-            this.user = user;
-            this.isAllowedToDeactivate = this.isAllowedToChange = this.currentUser.userRole == 'super' && user.userRole != 'user' || (this.currentUser.userRole == 'admin' && user.userRole == 'moderator');
-        },
+                if (!this.isCurrUserAnAdmin && user.userRole != 'user') this.router.navigateByUrl('/error');
+                this.user = user;
+                this.isAllowedToDeactivate = this.isAllowedToChange = this.currentUser.userRole == 'super' && user.userRole != 'user' || (this.currentUser.userRole == 'admin' && user.userRole == 'moderator');
+            },
             error => {
                 this.router.navigateByUrl('/error');
             });

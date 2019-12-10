@@ -10,7 +10,6 @@ import ua.com.nc.nctrainingproject.persistance.dao.postgre.queries.FilterCriteri
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class BookService {
@@ -20,6 +19,7 @@ public class BookService {
 	private final AuthorPostgreDAO authorPostgreDAO;
 	private final AuthorBookPostgreDAO authorBookPostgreDAO;
 	private final UserBooksPostgreDAO userBooksPostgreDAO;
+
 	@Autowired
 	public BookService(BookPostgreDAO bookPostgreDAO, FilterCriterionQuery filterCriterionQuery, GenrePostgreDAO genrePostgreDAO, AuthorPostgreDAO authorPostgreDAO, AuthorBookPostgreDAO authorBookPostgreDAO, UserBooksPostgreDAO userBooksPostgreDAO) {
 		this.bookPostgreDAO = bookPostgreDAO;
@@ -63,11 +63,26 @@ public class BookService {
 		return bookPostgreDAO.filterBooks(filterCriterionQuery);
 	}
 
-	public List<Author> getAllAuthors() {return authorPostgreDAO.getAllAuthors();}
-	public List<Author> getAuthorsByBookId(int bookId){return authorBookPostgreDAO.getAuthorsByBookId(bookId);}
-	public List<Genre> getAllGenres() {return genrePostgreDAO.getAllGenres();}
-	public Genre getGenreByBookId(int bookId)  {return bookPostgreDAO.getGenreByBookId(bookId);}
-	public List<Book> getMostRatedBooks(){ return bookPostgreDAO.getMostRatedBooks(); }
+	public List<Author> getAllAuthors() {
+		return authorPostgreDAO.getAllAuthors();
+	}
+
+	public List<Author> getAuthorsByBookId(int bookId) {
+		return authorBookPostgreDAO.getAuthorsByBookId(bookId);
+	}
+
+	public List<Genre> getAllGenres() {
+		return genrePostgreDAO.getAllGenres();
+	}
+
+	public Genre getGenreByBookId(int bookId) {
+		return bookPostgreDAO.getGenreByBookId(bookId);
+	}
+
+	public List<Book> getMostRatedBooks() {
+		return bookPostgreDAO.getMostRatedBooks();
+	}
+
 	public List<Book> makeSuggestion(int userId) {
 		ArrayList<String> suggestionAuthors = new ArrayList<>();
 		ArrayList<String> suggestionGenre = new ArrayList<>();
@@ -86,7 +101,7 @@ public class BookService {
 		return suggestionBooks;
 	}
 
-	public List<String> getAllGenresName(){
+	public List<String> getAllGenresName() {
 		return genrePostgreDAO.getAllGenresName();
 	}
 

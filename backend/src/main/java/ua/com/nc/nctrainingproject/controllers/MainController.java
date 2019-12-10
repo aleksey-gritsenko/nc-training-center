@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class MainController {
 
 	// In this way Spring serves Angular contents
-    @RequestMapping("")
-    public String gui() {
-        return "forward:/index.html";
-    }
+	@RequestMapping("")
+	public String gui() {
+		return "forward:/index.html";
+	}
 
 }

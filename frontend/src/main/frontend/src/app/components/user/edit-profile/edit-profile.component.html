@@ -29,24 +29,25 @@
                 <div class="col-md">
                     <div class="form-group">
                         <label class="bmd-label-floating">Repeat Password</label>
-                        <input class="form-control" name="repeat-password" type="password" [(ngModel)]="repeatPassword">
+                        <input [(ngModel)]="repeatPassword" class="form-control" name="repeat-password" type="password">
                     </div>
                 </div>
             </div>
             <div [ngSwitch]="editStatus">
-                <div class="alert alert-success text-center" role="alert" *ngSwitchCase="'success'">
+                <div *ngSwitchCase="'success'" class="alert alert-success text-center" role="alert">
                     Success! The user has been changed
                 </div>
-                <div class="alert alert-warning text-center" role="alert" *ngSwitchCase="'password'">
+                <div *ngSwitchCase="'password'" class="alert alert-warning text-center" role="alert">
                     The password should contain at least 8 characters, 1 upper letter and 1 number
                 </div>
-                <div class="alert alert-danger text-center" role="alert" *ngSwitchCase="'error'">
+                <div *ngSwitchCase="'error'" class="alert alert-danger text-center" role="alert">
                     This email is already exist! Try again!
                 </div>
             </div>
-            <button class="btn btn-primary pull-right" type="button"
-                    [disabled]="userService.equals(user, updatedUser) || (user.userPassword != updatedUser.userPassword && updatedUser.userPassword != repeatPassword)"
-                    (click)="update()">Update Profile</button>
+            <button (click)="update()" [disabled]="userService.equals(user, updatedUser) || (user.userPassword != updatedUser.userPassword && updatedUser.userPassword != repeatPassword)"
+                    class="btn btn-primary pull-right"
+                    type="button">Update Profile
+            </button>
         </form>
     </div>
 </div>

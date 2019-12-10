@@ -22,7 +22,7 @@ export class DeactivateAccountComponent implements OnInit {
         this.userService.deactivateAccount(this.route.snapshot.paramMap.get('id')).toPromise()
             .then(
                 () => {
-                   this.status = 'success';
+                    this.status = 'success';
                 },
                 () => {
                     this.status = 'error';

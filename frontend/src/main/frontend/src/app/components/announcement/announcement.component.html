@@ -1,4 +1,3 @@
-
 <div class="navigation">
     <app-navigation></app-navigation>
     <router-outlet></router-outlet>
@@ -7,27 +6,26 @@
 
 
     <form class="form">
-        <div class = "header">
+        <div class="header">
             <h2>Create new announcement</h2>
         </div>
         <div class="form-row">
 
             <div class="form-group col-md-6">
                 <label for="inputDescription">Description</label>
-                <input type="text" name="description" class="form-control" id="inputDescription"
-                       placeholder="Description" [(ngModel)]="model.description">
+                <input [(ngModel)]="model.description" class="form-control" id="inputDescription" name="description"
+                       placeholder="Description" type="text">
             </div>
         </div>
         <div class="form-group">
             <label for="inputDate">Date of ivent</label>
-            <input  class="form-control" id="inputDate" type="date"  name="date"
-                   [(ngModel)]="model.announcementDate">
+            <input [(ngModel)]="model.announcementDate" class="form-control" id="inputDate" name="date"
+                   type="date">
         </div>
 
 
-
-            <button [disabled]="!(
-                this.model.description.length > 0)" class="btn btn-primary" (click)="createAnnouncement()">Save
+        <button (click)="createAnnouncement()" [disabled]="!(
+                this.model.description.length > 0)" class="btn btn-primary">Save
         </button>
     </form>
     <!--<div>

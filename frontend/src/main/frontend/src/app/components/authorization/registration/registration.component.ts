@@ -22,6 +22,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
 
     subscription: Subscription;
     isError: boolean;
+    confirmPassword: string = '';
 
     constructor(private http: HttpClient,
                 private router: Router,
@@ -29,8 +30,6 @@ export class RegistrationComponent implements OnInit, OnDestroy {
                 private authenticationService: AuthenticationService,
                 private springAuth: SpringAuthService) {
     }
-
-    confirmPassword: string = '';
 
     ngOnInit() {
     }

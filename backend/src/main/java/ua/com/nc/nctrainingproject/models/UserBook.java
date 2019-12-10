@@ -12,7 +12,8 @@ public class UserBook {
 		this.isRead = isRead;
 		this.isFavorite = isFavorite;
 	}
-	public UserBook(int userId, int bookId){
+
+	public UserBook(int userId, int bookId) {
 		this.userId = userId;
 		this.bookId = bookId;
 		this.isRead = false;
@@ -27,28 +28,28 @@ public class UserBook {
 		return userId;
 	}
 
-	public int getBookId() {
-		return bookId;
-	}
-
-	public boolean getRead() {
-		return isRead;
-	}
-
-	public boolean getFavorite() {
-		return isFavorite;
-	}
-
 	public void setUserId(int userId) {
 		this.userId = userId;
+	}
+
+	public int getBookId() {
+		return bookId;
 	}
 
 	public void setBookId(int bookId) {
 		this.bookId = bookId;
 	}
 
+	public boolean getRead() {
+		return isRead;
+	}
+
 	public void setRead(boolean read) {
 		isRead = read;
+	}
+
+	public boolean getFavorite() {
+		return isFavorite;
 	}
 
 	public void setFavorite(boolean favorite) {

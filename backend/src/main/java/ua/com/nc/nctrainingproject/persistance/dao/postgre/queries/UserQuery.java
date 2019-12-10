@@ -1,6 +1,6 @@
 package ua.com.nc.nctrainingproject.persistance.dao.postgre.queries;
 
-public class  UserQuery {
+public class UserQuery {
 
 	public static final String TABLE_NAME = "users";
 	public static final String ID = "user_id";
@@ -54,7 +54,7 @@ public class  UserQuery {
 			"WHERE " + ID + " =(?)";
 
 	public static final String SEARCH_USERS_BY_USERNAME = "SELECT * FROM " + TABLE_NAME + " WHERE LOWER(" + USERNAME +
-            ") LIKE (?)";
+			") LIKE (?)";
 
 	public static final String GET_ALL_ADMINS = "SELECT * FROM " + TABLE_NAME + " WHERE " + ROLE + "='admin'";
 

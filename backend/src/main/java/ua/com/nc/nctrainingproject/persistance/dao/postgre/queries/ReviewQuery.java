@@ -13,18 +13,18 @@ public class ReviewQuery {
 
 	public static final String GET_REVIEWS_OF_BOOK = "SELECT * FROM " + TABLE_NAME + " WHERE " + BOOK_ID + " =(?)";
 	public static final String CREATE_REVIEW = "INSERT INTO " + TABLE_NAME +
-			" (" + USER_ID + "," + BOOK_ID + "," + TEXT + "," + REVIEW_DATE + "," + GRADE  + "," + STATUS +  " )"
+			" (" + USER_ID + "," + BOOK_ID + "," + TEXT + "," + REVIEW_DATE + "," + GRADE + "," + STATUS + " )"
 			+ " VALUES(?,?,?,?,?,?)";
 	public static final String ACCEPT_REVIEW = "UPDATE " + TABLE_NAME +
 			" SET " + STATUS + " =(?), " + ADMIN_ID + " =(?)  WHERE " + REVIEW_ID + " =(?)";
 
 	public static final String GET_ACCEPTED_REVIEWS_OF_BOOK = "SELECT * FROM " + TABLE_NAME +
-			" WHERE " +  STATUS + "=(?) AND " + BOOK_ID + " =(?)";
+			" WHERE " + STATUS + "=(?) AND " + BOOK_ID + " =(?)";
 
 	public static final String DELETE_REVIEW_BY_ID = "DELETE FROM " + TABLE_NAME + " WHERE " + REVIEW_ID + " =(?)";
 
 	public static final String GET_REVIEW_BY_ID = "SELECT * FROM " + TABLE_NAME + " WHERE " + REVIEW_ID + " =(?)";
 
-	public static final String GET_ALL_REVIEW  = "SELECT * FROM " + TABLE_NAME;
+	public static final String GET_ALL_REVIEW = "SELECT * FROM " + TABLE_NAME;
 }
 

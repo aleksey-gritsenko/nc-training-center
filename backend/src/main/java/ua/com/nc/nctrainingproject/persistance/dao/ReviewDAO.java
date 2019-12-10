@@ -8,6 +8,7 @@ public interface ReviewDAO {
 	List<Review> getReviewsOfBook(int book_id);
 
 	void createReview(Review review);
+
 	boolean acceptReview(boolean status, int reviewId);
 }
 

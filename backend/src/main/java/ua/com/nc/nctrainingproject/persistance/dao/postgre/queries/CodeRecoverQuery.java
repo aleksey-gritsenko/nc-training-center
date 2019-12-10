@@ -27,6 +27,6 @@ public class CodeRecoverQuery {
 			+ TABLE_NAME + " WHERE 1=1";
 
 	public static final String DELETE_ALL_HOUR = "DELETE FROM recovercode WHERE generate_date < now() - interval '1 hour'";
-	public static final String CHECK_DB = "SELECT COUNT(*) FROM "+TABLE_NAME;
+	public static final String CHECK_DB = "SELECT COUNT(*) FROM " + TABLE_NAME;
 
 }

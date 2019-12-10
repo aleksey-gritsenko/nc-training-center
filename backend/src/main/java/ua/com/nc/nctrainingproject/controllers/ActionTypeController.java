@@ -28,44 +28,4 @@ public class ActionTypeController {
 		List<ActionType> response = actionTypeService.getAllActionTypes();
 		return Optional.ofNullable(response).map(ResponseEntity::ok).orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
 	}
-
-	@RequestMapping(value = "/allNames", method = RequestMethod.GET)
-	public @ResponseBody
-	ResponseEntity<?> getAllActionTypeNames() {
-		List<String> response = actionTypeService.getAllActionTypesNames();
-		return Optional.ofNullable(response).map(ResponseEntity::ok).orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
-	}
-
-	@RequestMapping(value = "/create", method = RequestMethod.POST)
-	public ResponseEntity<?> createActionType(@RequestBody ActionType actionType) {
-		ActionType response = actionTypeService.createActionType(actionType);
-		return Optional.ofNullable(response).map(ResponseEntity::ok).orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
-	}
-
-	@RequestMapping(value = "/delete", method = RequestMethod.POST)
-	@ResponseBody
-	public void deleteActionType(@RequestParam(name = "actionTypeId") int actionTypeId) {
-		actionTypeService.deleteByActionTypeId(actionTypeId);
-	}
-
-	@RequestMapping(value = "/update", method = RequestMethod.POST)
-	@ResponseBody
-	public ResponseEntity<?> updateActionType(@RequestBody ActionType actionType) {
-		ActionType response = actionTypeService.updateActionTypeById(actionType.getActionTypeId(), actionType);
-		return Optional.ofNullable(response).map(ResponseEntity::ok).orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
-	}
-
-	@RequestMapping(value = "/get/{actionTypeId}", method = RequestMethod.GET)
-	@ResponseBody
-	public ResponseEntity<?> getByActionTypeId(@PathVariable(name = "actionTypeId") int actionTypeId) {
-		ActionType response = actionTypeService.getActionTypeByActionTypeId(actionTypeId);
-		return Optional.ofNullable(response).map(ResponseEntity::ok).orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
-	}
-
-	@RequestMapping(value = "/get/{name}", method = RequestMethod.GET)
-	@ResponseBody
-	public ResponseEntity<?> getByActionTypeId(@PathVariable(name = "name") String name) {
-		ActionType response = actionTypeService.getActionTypeByName(name);
-		return Optional.ofNullable(response).map(ResponseEntity::ok).orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
-	}
 }

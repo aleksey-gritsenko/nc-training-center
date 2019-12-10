@@ -13,50 +13,50 @@ import java.util.List;
 
 @Service
 public class AchivementService {
-    private final AchivementPostgreDAO achivementPostgreDAO;
-    private final ActionPostgreDAO actionPostgreDAO;
+	private final AchivementPostgreDAO achivementPostgreDAO;
+	private final ActionPostgreDAO actionPostgreDAO;
+	private List<AchivementDto> achivementDtos;
 
+	@Autowired
+	public AchivementService(AchivementPostgreDAO achivementPostgreDAO, ActionPostgreDAO actionPostgreDAO) {
+		this.achivementPostgreDAO = achivementPostgreDAO;
+		this.actionPostgreDAO = actionPostgreDAO;
+	}
 
+	public void createAchevementDto(AchivementDto achivementDto) {
+		achivementPostgreDAO.createAchievement(achivementDto.getAchievementName(), achivementDto.getAction(), achivementDto.getGenre(), achivementDto.getCount()
+				, achivementDto.getEntity());
+	}
 
-    @Autowired
-    public AchivementService(AchivementPostgreDAO achivementPostgreDAO, ActionPostgreDAO actionPostgreDAO) {
-        this.achivementPostgreDAO = achivementPostgreDAO;
-        this.actionPostgreDAO = actionPostgreDAO;
-    }
-    public void createAchevementDto(AchivementDto achivementDto){
-       achivementPostgreDAO.createAchievement(achivementDto.getAchievementName(),achivementDto.getAction(),achivementDto.getGenre(),achivementDto.getCount()
-               ,achivementDto.getEntity());
-    }
-    public List<AchivementDto> getAllAchievementDtos(){
-        return achivementPostgreDAO.getAllAchievementDto();
-    }
-    private List<AchivementDto> achivementDtos;
+	public List<AchivementDto> getAllAchievementDtos() {
+		return achivementPostgreDAO.getAllAchievementDto();
+	}
 
-    public List<AchivementDto> getAllAchievementDtosForUser(int userId){
-        List<Integer> achievementIds = achivementPostgreDAO.getAllAchievementsByUserId(userId);
-        List<AchivementDto> result = new ArrayList<>();
-        for (Integer i : achievementIds){
-            result.add(achivementPostgreDAO.getAchievementById(i.intValue()));
+	public List<AchivementDto> getAllAchievementDtosForUser(int userId) {
+		List<Integer> achievementIds = achivementPostgreDAO.getAllAchievementsByUserId(userId);
+		List<AchivementDto> result = new ArrayList<>();
+		for (Integer i : achievementIds) {
+			result.add(achivementPostgreDAO.getAchievementById(i.intValue()));
 
-        }
-        return result;
-    }
+		}
+		return result;
+	}
 
-    //TODO make this method Sheduled
-    public void assignAchievements(){
-        //TODO get cur user from session
-        User currentUser = new User();
+	//TODO make this method Sheduled
+	public void assignAchievements() {
+		//TODO get cur user from session
+		User currentUser = new User();
 
-        List<Achievement> achievements = achivementPostgreDAO.getAllAchievements();
+		List<Achievement> achievements = achivementPostgreDAO.getAllAchievements();
 
-        for (Achievement achievement: achievements){
-            if (actionPostgreDAO.getAllActionsByUserIdAndActionTypeId(currentUser.getId(),achievement.getActionTypeId())
-                    .size() >= achievement.getCount() && !(achivementPostgreDAO.getAllAchievementsByUserId(currentUser.getId()).contains((achievement.getId())))){
-                achivementPostgreDAO.createPair(currentUser.getId(),achievement.getGenreId());
-            }
+		for (Achievement achievement : achievements) {
+			if (actionPostgreDAO.getAllActionsByUserIdAndActionTypeId(currentUser.getId(), achievement.getActionTypeId())
+					.size() >= achievement.getCount() && !(achivementPostgreDAO.getAllAchievementsByUserId(currentUser.getId()).contains((achievement.getId())))) {
+				achivementPostgreDAO.createPair(currentUser.getId(), achievement.getGenreId());
+			}
 
-        }
+		}
 
-    }
+	}
 
 }

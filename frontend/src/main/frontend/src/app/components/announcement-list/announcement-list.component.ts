@@ -11,10 +11,10 @@ import {Book} from "../../models/book";
 })
 export class AnnouncementListComponent implements OnInit {
 
+    announcements: Announcement[] = [];
+    book: Book;
     private siteUrl: string = 'https://nc-group1-2019.herokuapp.com';
 
-    announcements: Announcement[] = [];
-     book:Book;
     constructor(private http: HttpClient, private apiService: CommonService) {
     }
 
@@ -37,8 +37,8 @@ export class AnnouncementListComponent implements OnInit {
 
     public getMoreInfo(announcement: Announcement) {
         this.apiService.getBookById(announcement.bookID).subscribe(
-            res=>{
-                this.book =res;
+            res => {
+                this.book = res;
             }
         );
 

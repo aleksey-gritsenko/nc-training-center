@@ -3,59 +3,79 @@
 
 <div class="container">
     <div *ngIf="book" class="row">
-        <form class="card" [formGroup]="bookForm">
+        <form [formGroup]="bookForm" class="card">
             <div class="card-header">
-                <input required formControlName="header" class="form-control" [(ngModel)]="book.header" placeholder="name"/>
+                <input [(ngModel)]="book.header" class="form-control" formControlName="header" placeholder="name"
+                       required/>
             </div>
             <div class="card-body">
                 <table class="table">
                     <tr>
                         <td *ngIf="authors">
-                            <label for="authors" class="bmd-label-floating">Authors:</label>
+                            <label class="bmd-label-floating" for="authors">Authors:</label>
                         </td>
                         <td *ngFor="let author of authors" class="row">
-                            <input required formControlName="author" id="authors" class="form-control" type="text" [(ngModel)]="author.name">
+                            <input [(ngModel)]="author.name" class="form-control" formControlName="author" id="authors" required
+                                   type="text">
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <label for="status" class="bmd-label-floating">Status:</label>
+                            <label class="bmd-label-floating" for="status">Status:</label>
                         </td>
                         <td>
-                            <input required  formControlName="status" class="form-control" type="text" [(ngModel)]="book.status" id="status">
+                            <input [(ngModel)]="book.status" class="form-control" formControlName="status" id="status"
+                                   required type="text">
                         </td>
                     </tr>
                     <tr *ngIf="book.genre">
                         <td>
-                            <label  for="genre" class="bmd-label-floating">Genre</label>
+                            <label class="bmd-label-floating" for="genre">Genre</label>
                         </td>
                         <td>
-                            <input required formControlName="genre" class="form-control" type="text" [(ngModel)]="book.genre" id="genre">
+                            <input [(ngModel)]="book.genre" class="form-control" formControlName="genre" id="genre"
+                                   required type="text">
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <label for="overview" class="bmd-label-floating">Overview</label>
+                            <label class="bmd-label-floating" for="overview">Overview</label>
                         </td>
                         <td>
-                            <textarea required rows="10" formControlName="overview" type="text" class="form-control" [(ngModel)]="book.overview" id="overview"></textarea>
+                            <textarea [(ngModel)]="book.overview" class="form-control" formControlName="overview" id="overview" required
+                                      rows="10" type="text"></textarea>
                         </td>
                     </tr>
                 </table>
-                <div><app-file-upload [book]="book"></app-file-upload></div>
-                <button [disabled]="!bookForm.valid" class="btn btn-default" (click)="updateBook()">Save changes</button>
+                <div>
+                    <app-file-upload [book]="book"></app-file-upload>
+                </div>
+                <button (click)="updateBook()" [disabled]="!bookForm.valid" class="btn btn-default">Save changes
+                </button>
                 <div class="btn-default btn">
                     <a [routerLink]="['/books',book.id,'announcement']">Create announcement</a>
                 </div>
             </div>
         </form>
         <div>
-            <button  *ngIf="userAddedBook" id="addBook" class="btn btn-primary" (click)="addBookToUser(book.id)">Add book</button>
-            <button  *ngIf="!userAddedBook" id="removeBook" class="btn btn-primary" (click)="deleteBookFromUser(book.id)">Remove book</button>
-            <button  *ngIf="userAddedToFav" id="addFav"  class="btn btn-primary"  (click)="addBookToFavourite(book.id)">Add to favourite</button>
-            <button  *ngIf="!userAddedToFav" id="removeFav" class="btn btn-primary" (click)="removeBookFromFav(book.id)">Remove from favourite</button>
-            <button  *ngIf="userAddedToRead" id="addRead" class="btn btn-primary"   (click)="addBookToRead(book.id)">Add to read</button>
-            <button  *ngIf="!userAddedToRead" id="removeRead" class="btn btn-primary" (click)="removeBookFromRead(book.id)">Remove from read</button>
+            <button (click)="addBookToUser(book.id)" *ngIf="userAddedBook" class="btn btn-primary" id="addBook">Add
+                book
+            </button>
+            <button (click)="deleteBookFromUser(book.id)" *ngIf="!userAddedBook" class="btn btn-primary"
+                    id="removeBook">Remove book
+            </button>
+            <button (click)="addBookToFavourite(book.id)" *ngIf="userAddedToFav" class="btn btn-primary" id="addFav">Add
+                to favourite
+            </button>
+            <button (click)="removeBookFromFav(book.id)" *ngIf="!userAddedToFav" class="btn btn-primary" id="removeFav">
+                Remove from favourite
+            </button>
+            <button (click)="addBookToRead(book.id)" *ngIf="userAddedToRead" class="btn btn-primary" id="addRead">Add to
+                read
+            </button>
+            <button (click)="removeBookFromRead(book.id)" *ngIf="!userAddedToRead" class="btn btn-primary"
+                    id="removeRead">Remove from read
+            </button>
         </div>
     </div>
     <div>

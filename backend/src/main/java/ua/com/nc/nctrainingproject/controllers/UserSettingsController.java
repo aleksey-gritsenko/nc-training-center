@@ -14,19 +14,19 @@ import ua.com.nc.nctrainingproject.services.UserSettingsService;
 @CrossOrigin
 @RequestMapping
 public class UserSettingsController {
-    private final UserSettingsService userSettingsService;
+	private final UserSettingsService userSettingsService;
 
-    @Autowired
-    public UserSettingsController(UserSettingsService userSettingsService) {
-        this.userSettingsService = userSettingsService;
-    }
+	@Autowired
+	public UserSettingsController(UserSettingsService userSettingsService) {
+		this.userSettingsService = userSettingsService;
+	}
 
-    @RequestMapping(value = "/getSettings", method = RequestMethod.POST)
-    public ResponseEntity<?> getUserSettings(String userId) {
-        System.out.println(userId);
-        UserSettings response = userSettingsService.getUserSettings(Integer.valueOf(userId));
-        System.out.println(response.toString());
-        return response==null ? new ResponseEntity<>(HttpStatus.BAD_REQUEST) : ResponseEntity.ok(response);
-    }
+	@RequestMapping(value = "/getSettings", method = RequestMethod.POST)
+	public ResponseEntity<?> getUserSettings(String userId) {
+		System.out.println(userId);
+		UserSettings response = userSettingsService.getUserSettings(Integer.valueOf(userId));
+		System.out.println(response.toString());
+		return response == null ? new ResponseEntity<>(HttpStatus.BAD_REQUEST) : ResponseEntity.ok(response);
+	}
 
 }

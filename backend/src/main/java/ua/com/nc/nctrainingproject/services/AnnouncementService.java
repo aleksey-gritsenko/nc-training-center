@@ -5,8 +5,6 @@ import org.springframework.stereotype.Service;
 import ua.com.nc.nctrainingproject.models.Announcement;
 import ua.com.nc.nctrainingproject.persistance.dao.postgre.AnnouncementPostgreDAO;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Service

@@ -4,7 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ua.com.nc.nctrainingproject.models.Action;
 import ua.com.nc.nctrainingproject.models.User;
-import ua.com.nc.nctrainingproject.persistance.dao.postgre.*;
+import ua.com.nc.nctrainingproject.persistance.dao.postgre.ActionPostgreDAO;
+import ua.com.nc.nctrainingproject.persistance.dao.postgre.ActionTypePostgreDAO;
+import ua.com.nc.nctrainingproject.persistance.dao.postgre.FriendsPostgreDAO;
+import ua.com.nc.nctrainingproject.persistance.dao.postgre.NotificationPostgreDAO;
 
 import java.util.List;
 

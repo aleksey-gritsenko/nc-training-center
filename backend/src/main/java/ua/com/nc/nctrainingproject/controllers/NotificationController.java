@@ -58,7 +58,7 @@ public class NotificationController {
 	public ResponseEntity<?> getNotificationByUserId(@RequestBody Notification notification) {
 		return ResponseEntity.ok(notificationService.
 				getNotificationByUserActionID(
-				notification.getUserId(),
-				notification.getActionId()));
+						notification.getUserId(),
+						notification.getActionId()));
 	}
 }

@@ -4,10 +4,10 @@
 <div class="content">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-8" [ngSwitch]="isOpen">
-                <app-view-profile [user]="user" *ngSwitchCase="'View'"></app-view-profile>
-                <app-edit-profile [user]="user" *ngSwitchCase="'Edit'"></app-edit-profile>
-                <app-user-achievement [user]="user" *ngSwitchCase="'Achievement'"></app-user-achievement>
+            <div [ngSwitch]="isOpen" class="col-md-8">
+                <app-view-profile *ngSwitchCase="'View'" [user]="user"></app-view-profile>
+                <app-edit-profile *ngSwitchCase="'Edit'" [user]="user"></app-edit-profile>
+                <app-user-achievement *ngSwitchCase="'Achievement'" [user]="user"></app-user-achievement>
                 <app-add-admin *ngSwitchCase="'Add agent'"></app-add-admin>
                 <app-add-achievment *ngSwitchCase="'Add achievement'"></app-add-achievment>
                 <app-deactivate-account *ngSwitchCase="'Deactivate'"></app-deactivate-account>
@@ -15,30 +15,31 @@
                 <app-announcement-proposition *ngSwitchCase="'Publish announcements'"></app-announcement-proposition>
             </div>
             <div class="col-md-4">
-                <div class="card menu" >
+                <div class="card menu">
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item" (click)="open('View')" [class.selected]="isOpen=='View'">About me
+                        <li (click)="open('View')" [class.selected]="isOpen=='View'" class="list-group-item">About me
                         </li>
-                        <li class="list-group-item" *ngIf="isAllowedToChange" (click)="open('Edit')"
-                            [class.selected]="isOpen=='Edit'">Edit profile
+                        <li (click)="open('Edit')" *ngIf="isAllowedToChange" [class.selected]="isOpen=='Edit'"
+                            class="list-group-item">Edit profile
                         </li>
-                        <li class="list-group-item" [class.selected]="isOpen=='Friends'"
-                            *ngIf="user.userRole == 'user'" (click)="open('Friends')">Friends
+                        <li (click)="open('Friends')" *ngIf="user.userRole == 'user'"
+                            [class.selected]="isOpen=='Friends'" class="list-group-item">Friends
                         </li>
-                        <li class="list-group-item" [class.selected]="isOpen=='Achievement'"
-                            *ngIf="user.userRole == 'user'" (click)="open('Achievement')">Achievement
+                        <li (click)="open('Achievement')" *ngIf="user.userRole == 'user'"
+                            [class.selected]="isOpen=='Achievement'" class="list-group-item">Achievement
                         </li>
-                        <li class="list-group-item" *ngIf="isAllowedToAdd" [class.selected]="isOpen=='Add agent'"
-                            (click)="open('Add agent')" >Add agent
+                        <li (click)="open('Add agent')" *ngIf="isAllowedToAdd" [class.selected]="isOpen=='Add agent'"
+                            class="list-group-item">Add agent
                         </li>
-                        <li class="list-group-item" *ngIf="isAllowedToAdd" [class.selected]="isOpen=='Add achievement'"
-                            (click)="open('Add achievement')" >Add achievement
+                        <li (click)="open('Add achievement')" *ngIf="isAllowedToAdd" [class.selected]="isOpen=='Add achievement'"
+                            class="list-group-item">Add achievement
                         </li>
-                        <li class="list-group-item" [class.selected]="isOpen=='Deactivate'"
-                            *ngIf="isAllowedToDeactivate" (click)="open('Deactivate')">Deactivate the account
+                        <li (click)="open('Deactivate')" *ngIf="isAllowedToDeactivate"
+                            [class.selected]="isOpen=='Deactivate'" class="list-group-item">Deactivate the account
                         </li>
-                        <li class="list-group-item" [class.selected]="isOpen=='Publish announcements'"
-                            *ngIf="user.userRole =='moderator'" (click)="open('Publish announcements')">Publish announcements
+                        <li (click)="open('Publish announcements')" *ngIf="user.userRole =='moderator'"
+                            [class.selected]="isOpen=='Publish announcements'" class="list-group-item">Publish
+                            announcements
                         </li>
                     </ul>
                 </div>

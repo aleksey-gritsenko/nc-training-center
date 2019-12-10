@@ -6,8 +6,10 @@
         <div class="collapse navbar-collapse justify-content-end">
             <form class="navbar-form">
                 <div class="input-group no-border">
-                    <input autocomplete="off" type="text" [(ngModel)]="searchString" class="form-control" name="search-field" placeholder="Search...">
-                    <button type="button" class="btn btn-default btn-round btn-just-icon" (click)="clear()" routerLink="/search" [queryParams]="{search: searchString}">
+                    <input [(ngModel)]="searchString" autocomplete="off" class="form-control" name="search-field"
+                           placeholder="Search..." type="text">
+                    <button (click)="clear()" [queryParams]="{search: searchString}" class="btn btn-default btn-round btn-just-icon"
+                            routerLink="/search" type="button">
                         <i class="material-icons">search</i>
                         <!--<div class="ripple-container"></div>-->
                     </button>
@@ -16,15 +18,15 @@
             <ul class="navbar-nav">
                 <app-activities-list *ngIf="user"></app-activities-list>
                 <li class="nav-item">
-                    <a *ngIf="user" class="dropdown nav-link" data-toggle="dropdown" id="userMenuLabel"
-                                    href="javascript:void(0)">
+                    <a *ngIf="user" class="dropdown nav-link" data-toggle="dropdown" href="javascript:void(0)"
+                                    id="userMenuLabel">
                         <i class="material-icons">person</i>
                         <p class="d-lg-none d-md-block">
                             Account
                         </p>
                     </a>
                     <a *ngIf="!user" class="login" routerLink="/login">
-                        <button type="button" class="btn btn-outline-primary">Login</button>
+                        <button class="btn btn-outline-primary" type="button">Login</button>
                     </a>
                     <div *ngIf="user" aria-labelledby="userMenuLabel" class="dropdown-menu dropdown-menu-right">
                         <a class="dropdown-item" routerLink="/user/{{user.id}}">My profile</a>

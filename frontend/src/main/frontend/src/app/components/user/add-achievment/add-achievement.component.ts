@@ -10,11 +10,10 @@ import {AchievementService} from "../../../services/achievement/achievement.serv
 export class AddAchievementComponent implements OnInit {
 
     model: Achievement = new Achievement();
-    private actionList: Object[] = [];
     certainActionList: Object[];
-    genreList: string[] =[];
-
+    genreList: string[] = [];
     addStatus: string;
+    private actionList: Object[] = [];
 
     constructor(private achievementService: AchievementService) {
         this.achievementService.getActions().toPromise().then(

@@ -7,13 +7,15 @@
             <div class="row">
                 <div class="col-md">
                     <label class="bmd-label-floating" for="Name">Name</label>
-                    <input class="form-control" type="text" id="Name" name="Name" autocomplete="off" [(ngModel)]="model.achievementName">
+                    <input [(ngModel)]="model.achievementName" autocomplete="off" class="form-control" id="Name" name="Name"
+                           type="text">
                 </div>
             </div>
             <div class="row">
                 <div class="col-md">
                     <label class="bmd-label-floating" for="entity">Entity</label>
-                    <select class="custom-select" name="entity" id="entity" [(ngModel)]="model.entity" (click)="chooseActionsByEntity()">
+                    <select (click)="chooseActionsByEntity()" [(ngModel)]="model.entity" class="custom-select" id="entity"
+                            name="entity">
                         <option>announcement</option>
                         <option>book</option>
                         <option>review</option>
@@ -23,7 +25,8 @@
                 <div class="col-md">
                     <div class="form-group">
                         <label class="bmd-label-floating" for="count">Count</label>
-                        <input autocomplete="off" id="count" class="form-control" name="count" type="number" min="0" max="1000" [(ngModel)]="model.count">
+                        <input [(ngModel)]="model.count" autocomplete="off" class="form-control" id="count" max="1000" min="0"
+                               name="count" type="number">
                     </div>
                 </div>
             </div>
@@ -31,35 +34,36 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="Action">Action</label>
-                        <select class="custom-select" name="Action" id="Action" [(ngModel)]="model.action">
+                        <select [(ngModel)]="model.action" class="custom-select" id="Action" name="Action">
                             <option *ngFor="let action of certainActionList">{{action['actionName']}}</option>
                         </select>
                     </div>
                 </div>
-                <div class="col-md-6" *ngIf="model.entity == 'book'">
+                <div *ngIf="model.entity == 'book'" class="col-md-6">
                     <div class="form-group">
                         <label class="bmd-label-floating" for="genre">Genre</label>
-                        <select id="genre" name="genre" class="custom-select" [(ngModel)]="model.genre">
+                        <select [(ngModel)]="model.genre" class="custom-select" id="genre" name="genre">
                             <option *ngFor="let genre of genreList">{{genre}}</option>
                         </select>
                     </div>
                 </div>
             </div>
             <div [ngSwitch]="addStatus">
-                <div class="alert alert-success text-center" role="alert" *ngSwitchCase="'success'">
+                <div *ngSwitchCase="'success'" class="alert alert-success text-center" role="alert">
                     Success! The achievement has been created
                 </div>
-                <div class="alert alert-danger text-center" role="alert" *ngSwitchCase="'download-error'">
+                <div *ngSwitchCase="'download-error'" class="alert alert-danger text-center" role="alert">
                     Error during downloading! Connection to the server has been canceled
                 </div>
-                <div class="alert alert-danger text-center" role="alert" *ngSwitchCase="'error'">
+                <div *ngSwitchCase="'error'" class="alert alert-danger text-center" role="alert">
                     Something went wrong! Please try again!
                 </div>
-                <div class="alert alert-warning text-center" role="alert" *ngSwitchCase="'warning'">
+                <div *ngSwitchCase="'warning'" class="alert alert-warning text-center" role="alert">
                     Warning! Fill in all the fields!
                 </div>
             </div>
-            <button class="btn btn-primary pull-right" type="button" (click)="createAchievement()">Create achievement</button>
+            <button (click)="createAchievement()" class="btn btn-primary pull-right" type="button">Create achievement
+            </button>
         </form>
     </div>
 </div>

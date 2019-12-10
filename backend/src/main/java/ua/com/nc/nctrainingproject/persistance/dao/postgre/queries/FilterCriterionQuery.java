@@ -2,7 +2,7 @@ package ua.com.nc.nctrainingproject.persistance.dao.postgre.queries;
 
 import org.springframework.stereotype.Component;
 
-import java.util.*;
+import java.util.ArrayList;
 import java.util.stream.Stream;
 
 @Component
@@ -10,7 +10,12 @@ public class FilterCriterionQuery {
 	private ArrayList<String> genre;
 	private String header;
 	private ArrayList<String> author;
+	private Object[] args;
 
+	public FilterCriterionQuery() {
+		genre = new ArrayList<>();
+		author = new ArrayList<>();
+	}
 
 	public Object[] getArgs() {
 		return args;
@@ -20,27 +25,20 @@ public class FilterCriterionQuery {
 		this.args = args;
 	}
 
-	private Object[] args;
-
-	public FilterCriterionQuery() {
-		genre = new ArrayList<>();
-		author = new ArrayList<>();
-	}
-
 	public String makeQuery() {
 
-	String	q = BookQuery.GET_BOOKS_FILTRATION +
-			makeConditions(author,BookQuery.CONDITION_AUTHOR) + makeConditions(genre,BookQuery.CONDITIONS_GENRES) + makeHeaderCondition();
+		String q = BookQuery.GET_BOOKS_FILTRATION +
+				makeConditions(author, BookQuery.CONDITION_AUTHOR) + makeConditions(genre, BookQuery.CONDITIONS_GENRES) + makeHeaderCondition();
 
 		return checkStr(q);
 	}
-	private String checkStr(String string){
-		string=string.trim();
-		if(string.endsWith("OR")) string = string.substring(0, string.length() - 2);
+
+	private String checkStr(String string) {
+		string = string.trim();
+		if (string.endsWith("OR")) string = string.substring(0, string.length() - 2);
 		return string;
 
 	}
-
 
 
 	public Object[] makeArrayArgs() {
@@ -57,7 +55,7 @@ public class FilterCriterionQuery {
 
 	public Object[] makeArrayArgsStream() {
 		ArrayList<String> headers = new ArrayList<>();
-		if(header.length() !=0 && !header.equals("")) {
+		if (header.length() != 0 && !header.equals("")) {
 
 			headers.add(header);
 		}
@@ -66,8 +64,9 @@ public class FilterCriterionQuery {
 
 		return args;
 	}
-	private String makeConditions(ArrayList<String> arg,String condition){
-		String conditionString =" ";
+
+	private String makeConditions(ArrayList<String> arg, String condition) {
+		String conditionString = " ";
 		if (arg.size() != 0) {
 			conditionString =
 					arg.stream().map((i) -> condition + " OR ")
@@ -98,9 +97,10 @@ public class FilterCriterionQuery {
 	}
 
 	private String makeHeaderCondition() {
-		if(header != null && !header.equals("") && header.length() !=0){
-			header = header+ "%";
-		return BookQuery.CONDITIONS_NAME;}
+		if (header != null && !header.equals("") && header.length() != 0) {
+			header = header + "%";
+			return BookQuery.CONDITIONS_NAME;
+		}
 		return " ";
 	}
 

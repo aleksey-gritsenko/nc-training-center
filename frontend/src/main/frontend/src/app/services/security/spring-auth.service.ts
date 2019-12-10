@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from "@angular/common/http";
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class SpringAuthService {
 
@@ -10,7 +10,8 @@ export class SpringAuthService {
     // if you want to test your code on localhost - change siteUrl to localhost where this is needed
     //private localhost: string = 'http://localhost:8080/';
 
-  constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient) {
+    }
 
     authentificate(username: string, password: string) {
         const body = new HttpParams()

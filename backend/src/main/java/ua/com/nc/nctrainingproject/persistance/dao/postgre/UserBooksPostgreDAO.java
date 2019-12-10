@@ -6,7 +6,6 @@ import ua.com.nc.nctrainingproject.models.Book;
 import ua.com.nc.nctrainingproject.models.UserBook;
 import ua.com.nc.nctrainingproject.persistance.dao.AbstractDAO;
 import ua.com.nc.nctrainingproject.persistance.dao.postgre.queries.UserBooksQuery;
-import ua.com.nc.nctrainingproject.persistance.mappers.BookRowMapper;
 import ua.com.nc.nctrainingproject.persistance.mappers.UserBookRowMapper;
 
 import javax.sql.DataSource;

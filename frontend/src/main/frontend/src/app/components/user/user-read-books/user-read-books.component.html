@@ -5,21 +5,22 @@
     <div class="col-9">
         <div class="text-muted">
             <h1 id="myText">My Books List</h1>
-            <input class="form-control col-3" type="text" [(ngModel)]="curBookList.searchTitle" placeholder="Search..."
-                   name="header">
-            <button class="btn btn-primary" (click)="curBookList.searchByTitle()">Search</button>
+            <input [(ngModel)]="curBookList.searchTitle" class="form-control col-3" name="header" placeholder="Search..."
+                   type="text">
+            <button (click)="curBookList.searchByTitle()" class="btn btn-primary">Search</button>
         </div>
         <div>
             <div id="btnwrapper">
-                <button class="btn btn-primary" (click)="router.navigate(['/userBooks'])">All Books</button>
+                <button (click)="router.navigate(['/userBooks'])" class="btn btn-primary">All Books</button>
                 <div class="divider"></div>
-                <button class="btn btn-primary" (click)="curBookList.getAllReadBooks()">My Read Books</button>
+                <button (click)="curBookList.getAllReadBooks()" class="btn btn-primary">My Read Books</button>
                 <div class="divider"></div>
-                <button class="btn btn-primary" (click)="router.navigate(['/userBooks/favourite'])">My Favourite Books
+                <button (click)="router.navigate(['/userBooks/favourite'])" class="btn btn-primary">My Favourite Books
                 </button>
             </div>
             <div class="row">
-                <div style="text-align: center; font-size: 30px"><h2 *ngIf="curBookList.emptyReadList">Since you do not have
+                <div style="text-align: center; font-size: 30px"><h2 *ngIf="curBookList.emptyReadList">Since you do not
+                    have
                     any read books, we suggest you most rated books</h2></div>
                 <div *ngFor="let readBook of curBookList.userReadBookList" class="col-lg-4  col-md-6">
                     <div class="card card-profile">
@@ -74,17 +75,17 @@
         <form action="">
             <div class="card-body bmd-form-group row">
                 <div class="input-group no-border">
-                    <input class="form-control" type="text" [(ngModel)]="curBookList.bookFilter.header"
-                           placeholder="Search..." name="header">
-                    <button type="submit" (click)="curBookList.searchByFilter()"
-                            class="btn btn-default btn-round btn-just-icon">
+                    <input [(ngModel)]="curBookList.bookFilter.header" class="form-control" name="header"
+                           placeholder="Search..." type="text">
+                    <button (click)="curBookList.searchByFilter()" class="btn btn-default btn-round btn-just-icon"
+                            type="submit">
                         <i class="material-icons">search</i>
                         <div class="ripple-container"></div>
                     </button>
 
                 </div>
-                <button class="btn btn-primary" (click)="curBookList.searchByFilter()">Search by filter</button>
-                <button class="btn btn-primary" (click)="curBookList.resetFiler()">Reset filter</button>
+                <button (click)="curBookList.searchByFilter()" class="btn btn-primary">Search by filter</button>
+                <button (click)="curBookList.resetFiler()" class="btn btn-primary">Reset filter</button>
             </div>
 
             <div class="row">
@@ -95,13 +96,13 @@
                         </div>
                         <div class="card-body row">
                             <div *ngFor="let character of curBookList.fillArray()">
-                                <h3 class="font-weight-bold btn-link border-bottom"
-                                    (click)="curBookList.filterAuthor(character)">{{character}}</h3>
+                                <h3 (click)="curBookList.filterAuthor(character)"
+                                    class="font-weight-bold btn-link border-bottom">{{character}}</h3>
                             </div>
                             <div *ngFor="let author of curBookList.filterAuthors;" class="col-6">
                                 <label class="form-check-label">
-                                    <input class="form-check-input" type="checkbox" [(ngModel)]="author.selected"
-                                           name="{{author.name}}">{{author.name}}
+                                    <input [(ngModel)]="author.selected" class="form-check-input" name="{{author.name}}"
+                                           type="checkbox">{{author.name}}
                                     <span class="form-check-sign"><span class="check"></span></span>
                                 </label>
                             </div>
@@ -117,13 +118,13 @@
                         </div>
                         <div class="card-body row">
                             <div *ngFor="let character of curBookList.fillArray()">
-                                <h3 class="font-weight-bold btn-link  border-bottom"
-                                    (click)="curBookList.filterGenre(character)">{{character}}</h3>
+                                <h3 (click)="curBookList.filterGenre(character)"
+                                    class="font-weight-bold btn-link  border-bottom">{{character}}</h3>
                             </div>
                             <div *ngFor="let genre of curBookList.filterGenres;" class="col-6">
                                 <label class="form-check-label">
-                                    <input class="form-check-input" type="checkbox" [(ngModel)]="genre.selected"
-                                           name="{{genre.name}}">{{genre.name}}
+                                    <input [(ngModel)]="genre.selected" class="form-check-input" name="{{genre.name}}"
+                                           type="checkbox">{{genre.name}}
                                     <span class="form-check-sign"><span class="check"></span></span>
                                 </label>
                             </div>

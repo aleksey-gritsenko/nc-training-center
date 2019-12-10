@@ -6,7 +6,7 @@
     <artifactId>frontend</artifactId>
 
     <name>frontend</name>
-    <description>The netcracker frontend project</description>
+    <description>The Netcracker frontend project</description>
 
     <parent>
         <groupId>ua.com.nc</groupId>

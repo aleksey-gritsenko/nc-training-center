@@ -18,34 +18,34 @@ import javax.annotation.Resource;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    @Resource(name = "userAuthService")
-    private UserDetailsService userDetailsService;
+	@Resource(name = "userAuthService")
+	private UserDetailsService userDetailsService;
 
 
-    @Autowired
-    public void globalUserDetails(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService)
-                .passwordEncoder(encoder());
-    }
+	@Autowired
+	public void globalUserDetails(AuthenticationManagerBuilder auth) throws Exception {
+		auth.userDetailsService(userDetailsService)
+				.passwordEncoder(encoder());
+	}
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http
-                .csrf().disable()
-                .anonymous().disable()
-                .authorizeRequests()
-                .antMatchers("/api-docs/**","/registration/**","/login/**","/announcements/**","/email/**","/change/**","/resend/**","/activate/**","/book/**","/test/**").permitAll();
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+		http
+				.csrf().disable()
+				.anonymous().disable()
+				.authorizeRequests()
+				.antMatchers("/api-docs/**", "/registration/**", "/login/**", "/announcements/**", "/email/**", "/change/**", "/resend/**", "/activate/**", "/book/**", "/test/**").permitAll();
 
-    }
+	}
 
-    @Bean
-    public BCryptPasswordEncoder encoder(){
-        return new BCryptPasswordEncoder();
-    }
+	@Bean
+	public BCryptPasswordEncoder encoder() {
+		return new BCryptPasswordEncoder();
+	}
 
-    @Bean
-    @Override
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
-    }
+	@Bean
+	@Override
+	public AuthenticationManager authenticationManagerBean() throws Exception {
+		return super.authenticationManagerBean();
+	}
 }

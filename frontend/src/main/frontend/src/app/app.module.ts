@@ -2,12 +2,12 @@ import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CalendarModule, DateAdapter } from 'angular-calendar';
-import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
-import { CommonModule } from '@angular/common';
-import { FlatpickrModule } from 'angularx-flatpickr';
-import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {CalendarModule, DateAdapter} from 'angular-calendar';
+import {adapterFactory} from 'angular-calendar/date-adapters/date-fns';
+import {CommonModule} from '@angular/common';
+import {FlatpickrModule} from 'angularx-flatpickr';
+import {NgbModalModule} from '@ng-bootstrap/ng-bootstrap';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {NavigationComponent} from './components/navigation/navigation.component';
@@ -45,15 +45,15 @@ import {TruncateTextPipe} from './components/pipe/truncate-text.pipe';
 import {UserBooksComponent} from './components/user/user-books/user-books.component';
 import {ConfirmEmailComponent} from './components/authorization/confirm-email/confirm-email.component';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
-import { UserFavouriteBooksComponent } from './components/user/user-favourite-books/user-favourite-books.component';
-import { UserReadBooksComponent } from './components/user/user-read-books/user-read-books.component';
+import {UserFavouriteBooksComponent} from './components/user/user-favourite-books/user-favourite-books.component';
+import {UserReadBooksComponent} from './components/user/user-read-books/user-read-books.component';
 import {SearchComponent} from './components/search/search.component';
 import {AddAchievementComponent} from './components/user/add-achievment/add-achievement.component';
-import { FileUploadComponent } from './components/file-upload/file-upload.component';
-import { BookImgComponent } from './components/book-img/book-img.component';
-import { UserSettingsComponent } from './components/user/user-settings/user-settings.component';
+import {FileUploadComponent} from './components/file-upload/file-upload.component';
+import {BookImgComponent} from './components/book-img/book-img.component';
+import {UserSettingsComponent} from './components/user/user-settings/user-settings.component';
 import {AdminRightsComponent} from "./components/admin-rights/admin-rights.component";
-import { UserAchievementComponent } from './components/user/user-achievement/user-achievement.component';
+import {UserAchievementComponent} from './components/user/user-achievement/user-achievement.component';
 
 
 //import {NotificationsListComponent} from "./components/notifications-list/notifications-list.component";
@@ -71,7 +71,7 @@ import { UserAchievementComponent } from './components/user/user-achievement/use
         BooksListComponent,
         ReviewsListComponent,
         AdminRightsComponent,
-       // NotificationsListComponent,
+        // NotificationsListComponent,
         BookOverviewPropositionComponent,
         BookReviewPropositionComponent,
         AnnouncementPropositionComponent,
@@ -119,7 +119,8 @@ import { UserAchievementComponent } from './components/user/user-achievement/use
         BrowserAnimationsModule,
         CalendarModule.forRoot({
             provide: DateAdapter,
-             useFactory: adapterFactory})
+            useFactory: adapterFactory
+        })
     ],
 
     providers: [AuthenticationService],

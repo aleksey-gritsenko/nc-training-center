@@ -1,5 +1,5 @@
 import {ActivatedRoute} from "@angular/router";
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Announcement} from '../../models/announcement';
 import {HttpClient} from "@angular/common/http";
 import {StorageService} from "../../services/storage/storage.service";
@@ -14,8 +14,6 @@ import {CommonService} from "../../services/common/common.service";
 })
 export class AnnouncementComponent implements OnInit {
 
-    private siteUrl: string = 'https://nc-group1-2019.herokuapp.com';
-
     role: String;
     model: Announcement = {
         id: 0,
@@ -28,8 +26,8 @@ export class AnnouncementComponent implements OnInit {
     };
     currentUser: User;
     id: any;
-    currentDate : Date;
-
+    currentDate: Date;
+    private siteUrl: string = 'https://nc-group1-2019.herokuapp.com';
 
     constructor(private http: HttpClient, private route: ActivatedRoute,
                 private storage: StorageService, private apiService: CommonService) {

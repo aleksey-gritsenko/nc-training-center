@@ -25,13 +25,6 @@ export class BookComponent implements OnInit {
     userAddedToFav: boolean = true;
 
     userBook: UserBook = new UserBook();
-
-    constructor(private apiService: CommonService,
-                private route: ActivatedRoute,
-                private router: Router,
-                private storage: StorageService) {
-    }
-
     bookForm = new FormGroup({
         header: new FormControl(''),
         genre: new FormControl(''),
@@ -40,6 +33,12 @@ export class BookComponent implements OnInit {
         file: new FormControl(''),
         author: new FormControl('')
     });
+
+    constructor(private apiService: CommonService,
+                private route: ActivatedRoute,
+                private router: Router,
+                private storage: StorageService) {
+    }
 
     ngOnInit() {
         this.bookForm.disable();
@@ -61,7 +60,7 @@ export class BookComponent implements OnInit {
 
     //TODO
     checkAdmin() {
-        if( this.storage.getUser().userRole=='moderator') {
+        if (this.storage.getUser().userRole == 'moderator') {
             this.bookForm.enable();
         }
     }
