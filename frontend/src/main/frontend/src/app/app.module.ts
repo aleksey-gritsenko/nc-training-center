@@ -19,18 +19,13 @@ import {UserProfileComponent} from './components/user/user-profile/user-profile.
 import {AnnouncementListComponent} from './components/announcement-list/announcement-list.component';
 import {BooksListComponent} from './components/books-list/books-list.component';
 import {ReviewsListComponent} from './components/reviews-list/reviews-list.component';
-import {BookOverviewPropositionComponent} from './components/book-overview-proposition/book-overview-proposition.component';
 import {BookReviewPropositionComponent} from './components/book-review-proposition/book-review-proposition.component';
 import {AnnouncementPropositionComponent} from './components/announcement-proposition/announcement-proposition.component';
 import {BookComponent} from './components/book/book.component';
 import {ReviewComponent} from './components/review/review.component';
 import {AnnouncementComponent} from './components/announcement/announcement.component';
-import {ActivityComponent} from './components/activity/activity.component';
 import {ActivitiesListComponent} from './components/activities-list/activities-list.component';
 import {FriendsListComponent} from './components/friends-list/friends-list.component';
-import {ModeratorsListComponent} from './components/moderators-list/moderators-list.component';
-import {AdminsListComponent} from './components/admins-list/admins-list.component';
-import {ChatComponent} from './components/chat/chat.component';
 import {CalendarComponent} from './components/calendar/calendar.component';
 import {SidebarComponent} from './components/sidebar/sidebar.component';
 import {AuthenticationService} from './services/authentification/authentication.service';
@@ -55,9 +50,6 @@ import {UserSettingsComponent} from './components/user/user-settings/user-settin
 import {AdminRightsComponent} from "./components/admin-rights/admin-rights.component";
 import {UserAchievementComponent} from './components/user/user-achievement/user-achievement.component';
 
-
-//import {NotificationsListComponent} from "./components/notifications-list/notifications-list.component";
-
 @NgModule({
     declarations: [
         AppComponent,
@@ -71,19 +63,13 @@ import {UserAchievementComponent} from './components/user/user-achievement/user-
         BooksListComponent,
         ReviewsListComponent,
         AdminRightsComponent,
-        // NotificationsListComponent,
-        BookOverviewPropositionComponent,
         BookReviewPropositionComponent,
         AnnouncementPropositionComponent,
         BookComponent,
         ReviewComponent,
         AnnouncementComponent,
-        ActivityComponent,
         ActivitiesListComponent,
         FriendsListComponent,
-        ModeratorsListComponent,
-        AdminsListComponent,
-        ChatComponent,
         CalendarComponent,
         SidebarComponent,
         RecoverComponent,
