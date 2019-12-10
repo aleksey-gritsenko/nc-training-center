@@ -18,9 +18,12 @@ public class AchivementQuery {
                     +" VALUES (?,?,?,?,?)";
 
 
-
+    public static final String GET_ALL = "SELECT * FROM " + TABLE_NAME;
     public static final String GET_ALL_ACHIEVEMENT_ID_BY_USER_ID = "SELECT " + ACHIEVEMENT_ID +
             " FROM " + SECOND_TABLE_NAME + " WHERE " + USER_ID + " =(?)";
+    public static final String CREATE_PAIR = "INSERT INTO "+ SECOND_TABLE_NAME + " ( "+ USER_ID+" , "+ACHIEVEMENT_ID+" ) "
+            +" VALUES (?,?)";
+
 
     public static final String GET_ACHIEVEMENT_DTO_BY_ID=
             "SELECT "+ACHIEVEMENT_ID +" , "+ ACHIEVEMENT_NAME+" , " +ActionTypeQuery.ACTION_NAME + " , "+GenreQuery.GENRE_NAME +" , "+COUNT+" , " +TABLE_NAME+"."+ ENTITY+

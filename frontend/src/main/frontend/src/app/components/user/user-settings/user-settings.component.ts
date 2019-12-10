@@ -1,6 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {User} from "../../../models/user";
 import {UserSettings} from "../../../models/user-settings";
 
 @Component({
@@ -9,7 +8,7 @@ import {UserSettings} from "../../../models/user-settings";
     styleUrls: ['./user-settings.component.css']
 })
 export class UserSettingsComponent implements OnInit {
-    private localhost: string = 'http://localhost:8080';
+    private siteUrl: string = 'https://nc-group1-2019.herokuapp.com';
 
     items = ["Apple iPhone 7", "Huawei Mate 9", "Samsung Galaxy S7", "Motorola Moto Z"];
 
@@ -29,7 +28,7 @@ export class UserSettingsComponent implements OnInit {
     ngOnInit() {
         let form = new FormData();
         form.append('userId', '5');
-        this.http.post<UserSettings>(this.localhost + '/getSettings' + '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token, form).subscribe(
+        this.http.post<UserSettings>(this.siteUrl + '/getSettings' + '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token, form).subscribe(
             settings => {
                 this.settingsData[0].value = settings.subscribeOnFriends;
                 this.settingsData[1].value = settings.achievements;

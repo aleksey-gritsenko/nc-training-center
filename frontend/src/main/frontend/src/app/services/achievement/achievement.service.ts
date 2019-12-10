@@ -7,8 +7,8 @@ import {User} from "../../models/user";
     providedIn: 'root'
 })
 export class AchievementService {
-    // siteUrl: string = 'https://nc-group1-2019-project.herokuapp.com';
-    siteUrl: string = 'http://localhost:8080';
+    siteUrl: string = 'https://nc-group1-2019.herokuapp.com';
+    // siteUrl: string = 'http://localhost:8080';
 
     constructor(private http: HttpClient) {
     }
@@ -23,7 +23,7 @@ export class AchievementService {
         return this.http.get<string[]>(url);
     }
 
-    createAchievement(model: Achievement) { //TODO Connect service to controller for adding achievements
+    createAchievement(model: Achievement) {
         let url = `${this.siteUrl}/achievement/create`;
         return this.http.post(url, model);
     }

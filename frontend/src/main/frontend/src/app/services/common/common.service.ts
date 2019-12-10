@@ -15,7 +15,7 @@ import {User} from "../../models/user";
 })
 export class CommonService {
 
-    private siteUrl: string = 'https://nc-group1-2019-project.herokuapp.com';
+    private siteUrl: string = 'https://nc-group1-2019.herokuapp.com';
     // if you want to test your code on localhost - change siteUrl to localhost where this is needed
     private localhost: string = 'http://localhost:8080';
 
@@ -34,8 +34,8 @@ export class CommonService {
     };
 
     getBooks(): Observable<Book[]> {
-        //const url = `${this.booksUrl}/all`;
-        const url = `${this.localhost}/book/all`;
+        const url = `${this.booksUrl}/all`;
+        //const url = `${this.localhost}/book/all`;
         return this.http.get<Book[]>(url);
     }
 
@@ -102,17 +102,17 @@ export class CommonService {
         return this.http.post<Announcement>(url, announcement);
     }
 
-   addFriend(sender: User,reciever:User): Observable<User> {
-       const url = `${this.localhost}/friends/accept` + '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
+    addFriend(sender: User,reciever:User): Observable<User> {
+        const url = `${this.siteUrl}/friends/accept` + '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
         //const url = `${this.localhost}/announcements/publish`;
-       const paramsSender = new HttpParams()
-           .set('sender', sender.id.toString()).set('reciever', reciever.id.toString());
+        const paramsSender = new HttpParams()
+            .set('sender', sender.id.toString()).set('reciever', reciever.id.toString());
 
         return this.http.post<User>(url, paramsSender);
     }
     getFriends(id:string): Observable<User[]> {
-       const url = `${this.userFriendsUrl}/all`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;;
-       //const url = `${this.localhost}/friends/all`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
+        const url = `${this.userFriendsUrl}/all`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;;
+        //const url = `${this.localhost}/friends/all`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
         const params = new HttpParams()
             .set('id', id);
         return this.http.get<User[]>(url,{params:params});

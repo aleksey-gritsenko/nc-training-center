@@ -15,7 +15,7 @@ public class AchievementQueryBuilder {
         this.achivementPostgreDAO = achivementPostgreDAO;
     }
     private void getAllAchievements(){
-        achivementDtos = achivementPostgreDAO.getAllAchievements();
+        achivementDtos = achivementPostgreDAO.getAllAchievementDto();
     }
 
 }

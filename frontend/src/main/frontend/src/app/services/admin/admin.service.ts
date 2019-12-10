@@ -13,10 +13,11 @@ import {AdminRightsDto} from "../../models/admin-rights-dto";
     providedIn: 'root'
 })
 export class AdminService {
-private siteUrl: string = 'https://nc-group1-2019-project.herokuapp.com';
+    private siteUrl: string = 'https://nc-group1-2019.herokuapp.com';
 // if you want to test your code on localhost - change siteUrl to localhost where this is needed
-private localhost: string = 'http://localhost:8080';
-private adminRightsUrl: string = `${this.siteUrl}/admin-rights`;
+    private localhost: string = 'http://localhost:8080';
+    private adminRightsUrl: string = `${this.siteUrl}/admin-rights`;
+
     constructor(
         private commonService: CommonService,
         private managingService: ManagingService,
@@ -26,23 +27,26 @@ private adminRightsUrl: string = `${this.siteUrl}/admin-rights`;
     }
 
     //#region Services Methods
-    getAllRights():Observable<AdminRightsDto[]>{
+    getAllRights(): Observable<AdminRightsDto[]> {
         const url = `${this.adminRightsUrl}/get`;
         return this.http.get<AdminRightsDto[]>(url);
     }
 
-    getAllRightTypes(): Observable<string[]>{
+    getAllRightTypes(): Observable<string[]> {
         const url = `${this.adminRightsUrl}/get-all-descriptions`;
         return this.http.get<string[]>(url);
     }
 
-    setAllRights(rights: AdminRightsDto[]):void{
+    setAllRights(rights: AdminRightsDto[]): void {
         const url = `${this.adminRightsUrl}/set`;
-        this.http.post(url,rights).subscribe(res=>{
-            console.log(res);
-        },
-        err=>{console.log(err)});
+        this.http.post(url, rights).subscribe(res => {
+                console.log(res);
+            },
+            err => {
+                console.log(err)
+            });
     }
+
     // Managing service
     createModerator() {
         this.managingService.createModerator();

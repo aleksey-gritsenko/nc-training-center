@@ -8,6 +8,8 @@ public interface ActionDAO {
 
 	List<Action> getAllActions();
 
+	List<Action> getAllActionsByUserIdAndActionTypeId(int userId, int actionTypeId);
+
 	Action getActionById(int actionId);
 
 	Action getActionByUserId(int userId);
