@@ -16,7 +16,8 @@
     margin-bottom: .25rem;
     padding: .325rem .825rem .325rem 1.325rem;
     color: #fff;
-    background: #A9A9A9;
+    background: Purple;
+    opacity: .9;
 }
 
 .list-rectangle > li:last-child {
@@ -30,5 +31,5 @@
     top: 0;
     bottom: 0;
     width: 0.5rem;
-    background: #808080;
+    background: DarkGrey;
 }
