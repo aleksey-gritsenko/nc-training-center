@@ -39,8 +39,8 @@ export class CommonService {
     }
 
     getBooksByFilter(filter: BookFilter): Observable<Book[]> {
-        const url = `${this.booksUrl}/filter`;
-        //const url = `${this.localhost}/book/filter`;
+        //const url = `${this.booksUrl}/filter`;
+        const url = `${this.localhost}/book/filter`;
         console.log(filter);
         return this.http.post<Book[]>(url, filter);
     }
@@ -138,8 +138,8 @@ export class CommonService {
     }
 
     getGenreByBookId(bookId: number): Observable<Genre> {
-        const url = `${this.booksUrl}/genre/book`;
-        //const url = `${this.localhost}/book/genre/book`;
+       // const url = `${this.booksUrl}/genre/book`;
+        const url = `${this.localhost}/book/genre/book`;
         const params = new HttpParams()
             .set("book", bookId.toString());
         return this.http.get<Genre>(url, {params: params});
