@@ -7,15 +7,13 @@
             <div class="row">
                 <div class="col-md">
                     <label class="bmd-label-floating" for="Name">Name</label>
-                    <input [(ngModel)]="model.achievementName" autocomplete="off" class="form-control" id="Name" name="Name"
-                           type="text">
+                    <input class="form-control" type="text" id="Name" name="Name" autocomplete="off" [(ngModel)]="model.achievementName">
                 </div>
             </div>
             <div class="row">
                 <div class="col-md">
                     <label class="bmd-label-floating" for="entity">Entity</label>
-                    <select (click)="chooseActionsByEntity()" [(ngModel)]="model.entity" class="custom-select" id="entity"
-                            name="entity">
+                    <select class="custom-select" name="entity" id="entity" [(ngModel)]="model.entity" (ngModelChange)="chooseActionsByEntity()">
                         <option>announcement</option>
                         <option>book</option>
                         <option>review</option>
@@ -25,8 +23,7 @@
                 <div class="col-md">
                     <div class="form-group">
                         <label class="bmd-label-floating" for="count">Count</label>
-                        <input [(ngModel)]="model.count" autocomplete="off" class="form-control" id="count" max="1000" min="0"
-                               name="count" type="number">
+                        <input autocomplete="off" id="count" class="form-control" name="count" type="number" min="0" max="1000" [(ngModel)]="model.count">
                     </div>
                 </div>
             </div>
@@ -34,36 +31,35 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="Action">Action</label>
-                        <select [(ngModel)]="model.action" class="custom-select" id="Action" name="Action">
-                            <option *ngFor="let action of certainActionList">{{action['actionName']}}</option>
+                        <select class="custom-select" name="Action" id="Action" [(ngModel)]="model.actionTypeId">
+                            <option *ngFor="let action of certainActionList" [value]="action.actionTypeId">{{action.actionName}}</option>
                         </select>
                     </div>
                 </div>
-                <div *ngIf="model.entity == 'book'" class="col-md-6">
+                <div class="col-md-6" *ngIf="model.entity == 'book'">
                     <div class="form-group">
                         <label class="bmd-label-floating" for="genre">Genre</label>
-                        <select [(ngModel)]="model.genre" class="custom-select" id="genre" name="genre">
-                            <option *ngFor="let genre of genreList">{{genre}}</option>
+                        <select id="genre" name="genre" class="custom-select" [(ngModel)]="model.genreId">
+                            <option *ngFor="let genre of genreList" [value]="genre.id">{{genre.name}}</option>
                         </select>
                     </div>
                 </div>
             </div>
             <div [ngSwitch]="addStatus">
-                <div *ngSwitchCase="'success'" class="alert alert-success text-center" role="alert">
+                <div class="alert alert-success text-center" role="alert" *ngSwitchCase="'success'">
                     Success! The achievement has been created
                 </div>
-                <div *ngSwitchCase="'download-error'" class="alert alert-danger text-center" role="alert">
+                <div class="alert alert-danger text-center" role="alert" *ngSwitchCase="'download-error'">
                     Error during downloading! Connection to the server has been canceled
                 </div>
-                <div *ngSwitchCase="'error'" class="alert alert-danger text-center" role="alert">
+                <div class="alert alert-danger text-center" role="alert" *ngSwitchCase="'error'">
                     Something went wrong! Please try again!
                 </div>
-                <div *ngSwitchCase="'warning'" class="alert alert-warning text-center" role="alert">
+                <div class="alert alert-warning text-center" role="alert" *ngSwitchCase="'warning'">
                     Warning! Fill in all the fields!
                 </div>
             </div>
-            <button (click)="createAchievement()" class="btn btn-primary pull-right" type="button">Create achievement
-            </button>
+            <button class="btn btn-primary pull-right" type="button" (click)="createAchievement()">Create achievement</button>
         </form>
     </div>
 </div>

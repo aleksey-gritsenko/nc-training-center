@@ -1,22 +1,35 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Achievement} from "../../../models/achievement";
 import {AchievementService} from "../../../services/achievement/achievement.service";
+import {Subscription} from "rxjs";
+import {Genre} from "../../../models/genre";
+import {CommonService} from "../../../services/common/common.service";
+import {Action} from "../../../models/action";
 
 @Component({
     selector: 'app-add-achievment',
     templateUrl: './add-achievement.component.html',
     styleUrls: ['./add-achievement.component.css']
 })
-export class AddAchievementComponent implements OnInit {
+export class AddAchievementComponent implements OnInit, OnDestroy {
+    actionSubscription: Subscription;
+    genresSubscription: Subscription;
+    creationSubscription: Subscription;
 
     model: Achievement = new Achievement();
-    certainActionList: Object[];
-    genreList: string[] = [];
-    addStatus: string;
-    private actionList: Object[] = [];
 
-    constructor(private achievementService: AchievementService) {
-        this.achievementService.getActions().toPromise().then(
+    actionList: Action[] = [];
+    certainActionList: Action[];
+    genreList: Genre[] = [];
+
+    addStatus: string;
+
+    constructor(private achievementService: AchievementService,
+                private commonService: CommonService) {
+    }
+
+    ngOnInit() {
+        this.actionSubscription = this.achievementService.getActions().subscribe(
             actions => {
                 this.actionList = actions;
             },
@@ -24,9 +37,8 @@ export class AddAchievementComponent implements OnInit {
                 this.addStatus = 'download-error';
             }
         );
-        this.achievementService.getGenres().toPromise().then(
+        this.genresSubscription = this.commonService.getAllGenre().subscribe(
             genres => {
-                // console.log(genres);
                 this.genreList = genres;
             },
             () => {
@@ -35,29 +47,41 @@ export class AddAchievementComponent implements OnInit {
         )
     }
 
-    ngOnInit() {
+    ngOnDestroy(): void {
+        if (this.genresSubscription) {
+            this.genresSubscription.unsubscribe();
+        }
+        if (this.actionSubscription) {
+            this.actionSubscription.unsubscribe();
+        }
+        if (this.creationSubscription) {
+            this.creationSubscription.unsubscribe();
+        }
     }
 
     chooseActionsByEntity() {
         this.certainActionList = [];
-        let _this = this;
-        this.actionList.forEach(function (value) {
-            if (value['entity'] == _this.model.entity) {
-                _this.certainActionList.push(value);
-                _this.model.action = _this.certainActionList[0]['actionName'];
+        this.actionList.forEach(value => {
+            if (value.entity == this.model.entity) {
+                this.certainActionList.push(value);
             }
-        })
+        });
+        this.model.actionTypeId = this.certainActionList[0].actionTypeId;
     }
 
     createAchievement() {
-        if (!this.model.isComplete()) this.addStatus = 'warning';
-        else this.achievementService.createAchievement(this.model).toPromise().then(
-            () => {
-                this.addStatus = 'success';
-            },
-            () => {
-                this.addStatus = 'error';
-            }
-        );
+        if (!this.model.isComplete()) {
+            this.addStatus = 'warning';
+        }
+        else {
+            this.creationSubscription = this.achievementService.createAchievement(this.model).subscribe(
+                () => {
+                    this.addStatus = 'success';
+                },
+                () => {
+                    this.addStatus = 'error';
+                }
+            );
+        }
     }
 }

@@ -50,6 +50,7 @@ import {UserSettingsComponent} from './components/user/user-settings/user-settin
 import {AdminRightsComponent} from "./components/admin-rights/admin-rights.component";
 import {UserAchievementComponent} from './components/user/user-achievement/user-achievement.component';
 import {AddBookComponent} from './components/add-book/add-book.component';
+import {UserMenuComponent} from './components/user/user-menu/user-menu.component';
 
 import {HashLocationStrategy, LocationStrategy} from "@angular/common";
 
@@ -92,6 +93,7 @@ import {HashLocationStrategy, LocationStrategy} from "@angular/common";
         BookImgComponent,
         UserSettingsComponent,
         UserAchievementComponent,
+        UserMenuComponent,
         AddBookComponent
     ],
 
