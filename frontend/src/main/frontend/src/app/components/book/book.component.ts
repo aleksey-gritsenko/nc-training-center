@@ -19,6 +19,10 @@ export class BookComponent implements OnInit {
     suggestionBook: Book[] = [];
     bookId: any;
 
+    addAnnouncementVisible: boolean = false;
+    updateBookVisible: boolean = false;
+
+
     //TODO check with model UserBook, not with boolean
     userAddedBook: boolean = true;
     userAddedToRead: boolean = true;
@@ -45,6 +49,7 @@ export class BookComponent implements OnInit {
         this.bookId = parseInt(this.route.snapshot.paramMap.get('bookId'));
         this.getBook(this.bookId);
         this.checkAdmin();
+        this.checkUser();
         this.makeSuggestion();
     }
 
@@ -58,10 +63,17 @@ export class BookComponent implements OnInit {
         );
     }
 
-    //TODO
+
+    checkUser(){
+        if (this.storage.getUser()!=null) {
+            this.addAnnouncementVisible = true;
+        }
+    }
+
     checkAdmin() {
         if (this.storage.getUser().userRole == 'moderator') {
             this.bookForm.enable();
+            this.updateBookVisible = true;
         }
     }
 

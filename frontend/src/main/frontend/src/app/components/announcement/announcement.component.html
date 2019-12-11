@@ -1,3 +1,7 @@
+
+<!--div class="navigation" xmlns:date="http://www.w3.org/1999/xhtml" xmlns:date="http://www.w3.org/1999/xhtml"
+     xmlns:date="http://www.w3.org/1999/xhtml"-->
+
 <div class="navigation">
     <app-navigation></app-navigation>
     <router-outlet></router-outlet>
@@ -19,13 +23,16 @@
         </div>
         <div class="form-group">
             <label for="inputDate">Date of ivent</label>
-            <input [(ngModel)]="model.announcementDate" class="form-control" id="inputDate" name="date"
-                   type="date">
+            <input  class="form-control" id="inputDate" type="date"  name="date"
+                    [ngModel]="model.announcementDate | date: 'yyyy-MM-dd'" (ngModelChange)="model.announcementDate = $event">
+
         </div>
 
 
-        <button (click)="createAnnouncement()" [disabled]="!(
-                this.model.description.length > 0)" class="btn btn-primary">Save
+
+            <button [disabled]="!( this.model.announcementDate > this.formatted_date &&
+                this.model.description.length > 0)" class="btn btn-primary" (click)="createAnnouncement()">Save
+
         </button>
     </form>
     <!--<div>

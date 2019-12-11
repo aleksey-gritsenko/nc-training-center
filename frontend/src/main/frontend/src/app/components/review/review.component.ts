@@ -47,4 +47,8 @@ export class ReviewComponent implements OnInit {
     fillArray(grade: number) {
         return Array.from({length: grade}, (v, i) => i)
     }
+
+    back() {
+        this.commonService.back();
+    }
 }

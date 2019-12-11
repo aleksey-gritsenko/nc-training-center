@@ -4,12 +4,24 @@
 <div class="container">
     <div *ngIf="book" class="row">
         <form [formGroup]="bookForm" class="card">
-            <div class="card-header">
-                <input [(ngModel)]="book.header" class="form-control" formControlName="header" placeholder="name"
-                       required/>
-            </div>
             <div class="card-body">
+                <div class="justify-content-center row">
+                    <h2>{{book.header}}</h2>
+                </div>
                 <table class="table">
+                    <tr>
+                        <td rowspan="5">
+                            <div class="justify-content-center row">
+                                <app-book-img [book]="book"></app-book-img>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input [(ngModel)]="book.header" class="form-control" formControlName="header" placeholder="name"
+                                       required/>
+                        </td>
+                    </tr>
                     <tr>
                         <td *ngIf="authors">
                             <label class="bmd-label-floating" for="authors">Authors:</label>
@@ -38,10 +50,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>
-                            <label class="bmd-label-floating" for="overview">Overview</label>
-                        </td>
-                        <td>
+                        <td colspan="3">
                             <textarea [(ngModel)]="book.overview" class="form-control" formControlName="overview" id="overview" required
                                       rows="10" type="text"></textarea>
                         </td>
@@ -50,10 +59,10 @@
                 <div>
                     <app-file-upload [book]="book"></app-file-upload>
                 </div>
-                <button (click)="updateBook()" [disabled]="!bookForm.valid" class="btn btn-default">Save changes
+                <button *ngIf="updateBookVisible" (click)="updateBook()" [disabled]="!bookForm.valid" class="btn btn-default">Save changes
                 </button>
-                <div class="btn-default btn">
-                    <a [routerLink]="['/books',book.id,'announcement']">Create announcement</a>
+                <div *ngIf = "addAnnouncementVisible" class="btn-default btn">
+                    <a   [routerLink]="['/books',book.id,'announcement']">Create announcement</a>
                 </div>
             </div>
         </form>

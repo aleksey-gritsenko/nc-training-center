@@ -2,6 +2,7 @@ package ua.com.nc.nctrainingproject.models;
 
 public class Achievement extends Entity {
 
+
 	private String achievementName;
 	private int actionTypeId;
 	private int genreId;

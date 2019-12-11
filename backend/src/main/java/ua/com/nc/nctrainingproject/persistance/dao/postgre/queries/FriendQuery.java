@@ -7,7 +7,11 @@ public class FriendQuery {
 	public static final String REQUEST_STATUS = "request_status";
 	public static final String SEND_REQUEST = "INSERT INTO " + TABLE_NAME + " ( " + SENDER_ID + " , " + RECIEVER_ID + " , " + REQUEST_STATUS + " ) " + " VALUES(?,?,?) ;";
 
-	public static final String ACCEPT_REQUEST = "UPDATE " + TABLE_NAME + " SET " + REQUEST_STATUS + " =(?)" + " WHERE " + SENDER_ID + " =(?)" + " AND " + RECIEVER_ID + " =(?);";
+	public static final String ACCEPT_REQUEST = "UPDATE " + TABLE_NAME + " SET " + REQUEST_STATUS + " =(?)" +
+			" WHERE " + SENDER_ID + " =(?)" + " AND " + RECIEVER_ID + " =(?);";
+
+	public static final String REJECT_REQUEST = "DELETE FROM " +
+			TABLE_NAME + " WHERE " + SENDER_ID + " =(?)" + " AND " + RECIEVER_ID + " =(?);";
 
 	public static final String GET_ALL_FRIENDS = "SELECT "
 			+ UserQuery.ID + " , " + UserQuery.USERNAME + " , " + UserQuery.USER_PASSWORD + " , " + UserQuery.EMAIL + " , " + UserQuery.ROLE +
@@ -31,11 +35,14 @@ public class FriendQuery {
 	public static final String GET_SENDER = "SELECT "
 			+ UserQuery.ID + " , " + UserQuery.USERNAME + " , " + UserQuery.USER_PASSWORD + " , " + UserQuery.EMAIL + " , " +
 			UserQuery.ROLE + " , " + UserQuery.VERIFIED + " , " + UserQuery.ACTIVATED + "  FROM " + TABLE_NAME + " join " + UserQuery.TABLE_NAME +
-			" on " + SENDER_ID + " = " + UserQuery.ID + " WHERE " + SENDER_ID + " =(?)" + " AND " + RECIEVER_ID + " =(?)";
+			" on " + SENDER_ID + " = " + UserQuery.ID + " WHERE " + SENDER_ID + " =(?)" + " AND " + SENDER_ID + " =(?)";
 	public static final String GET_RECIEVER = "SELECT "
 			+ UserQuery.ID + " , " + UserQuery.USERNAME + " , " + UserQuery.VERIFIED + " , " + UserQuery.USER_PASSWORD + " , " + UserQuery.EMAIL + " , " +
 			UserQuery.ROLE + " , " + UserQuery.ACTIVATED + "  FROM " + TABLE_NAME + " join " + UserQuery.TABLE_NAME +
-			" on " + RECIEVER_ID + " = " + UserQuery.ID + " WHERE " + SENDER_ID + " =(?)" + " AND " + RECIEVER_ID + " =(?)";
+			" on " + RECIEVER_ID + " = " + UserQuery.ID + " WHERE " + RECIEVER_ID + " =(?)" + " AND " + RECIEVER_ID + " =(?)";
 
+	public static final String GET_COUNT_OF_APPLICATIONS = "SELECT COUNT(*) FROM " + TABLE_NAME +" WHERE ("+
+			SENDER_ID + " =(?)" + " AND " + RECIEVER_ID + " =(?)"+ ") OR ("+
+			SENDER_ID + " =(?)" + " AND " + RECIEVER_ID + " =(?)" +" ) ";
 
 }

@@ -35,7 +35,12 @@ public class FilterCriterionQuery {
 
 	private String checkStr(String string) {
 		string = string.trim();
-		if (string.endsWith("OR")) string = string.substring(0, string.length() - 2);
+		if (string.endsWith("OR")) {
+			string = string.substring(0, string.length() - 2);
+		}
+		if (string.endsWith("AND")){
+			string = string.substring(0, string.length() - 3);
+		}
 		return string;
 
 	}
@@ -55,7 +60,7 @@ public class FilterCriterionQuery {
 
 	public Object[] makeArrayArgsStream() {
 		ArrayList<String> headers = new ArrayList<>();
-		if (header.length() != 0 && !header.equals("")) {
+		if (header.length() != 0) {
 
 			headers.add(header);
 		}
@@ -71,7 +76,10 @@ public class FilterCriterionQuery {
 			conditionString =
 					arg.stream().map((i) -> condition + " OR ")
 							.reduce((g, n) -> g + n).get();
+			conditionString = checkStr(conditionString);
+			conditionString = conditionString + " AND ";
 		}
+
 		return conditionString;
 	}
 

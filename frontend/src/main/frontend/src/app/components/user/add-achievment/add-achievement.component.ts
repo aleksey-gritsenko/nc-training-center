@@ -70,19 +70,18 @@ export class AddAchievementComponent implements OnInit, OnDestroy {
     }
 
     createAchievement() {
-        // if (!this.model.isComplete()) {
-        //     this.addStatus = 'warning';
-        // }
-        // else {
-        //     this.creationSubscription = this.achievementService.createAchievement(this.model).subscribe(
-        //         () => {
-        //             this.addStatus = 'success';
-        //         },
-        //         () => {
-        //             this.addStatus = 'error';
-        //         }
-        //     );
-        // }
-        console.log(this.model);
+        if (!this.model.isComplete()) {
+            this.addStatus = 'warning';
+        }
+        else {
+            this.creationSubscription = this.achievementService.createAchievement(this.model).subscribe(
+                () => {
+                    this.addStatus = 'success';
+                },
+                () => {
+                    this.addStatus = 'error';
+                }
+            );
+        }
     }
 }
