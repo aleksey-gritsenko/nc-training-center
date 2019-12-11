@@ -3,6 +3,7 @@ package ua.com.nc.nctrainingproject.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import ua.com.nc.nctrainingproject.models.Achievement;
 import ua.com.nc.nctrainingproject.models.AchivementDto;
 import ua.com.nc.nctrainingproject.models.User;
 import ua.com.nc.nctrainingproject.services.AchivementService;
@@ -23,10 +24,10 @@ public class AchievementController {
 
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	@ResponseBody
-	public AchivementDto createAchievement
-			(@RequestBody AchivementDto a) {
+	public Achievement createAchievement
+			(@RequestBody Achievement a) {
 
-		achivementService.createAchevementDto(a); //TODO Entered service, but something wrong
+		achivementService.createAchevement(a); //TODO Entered service, but something wrong
 		return a;
 	}
 
