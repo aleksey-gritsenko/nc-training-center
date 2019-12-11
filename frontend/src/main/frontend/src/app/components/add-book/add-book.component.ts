@@ -53,20 +53,15 @@ export class AddBookComponent implements OnInit {
 
     createBook(): void {
         const book = this.createdBook.controls;
-        console.log(this.createdBook);
-
         this.model.header = book.header.value;
         this.model.overview = book.overview.value;
         this.model.genre = book.genre.value;
         this.model.status = book.status.value;
         this.model.authors = book.authors.value;
 
-        console.log(this.model);
-
-
         this.apiService.createBook(this.model)
             .subscribe(res => {
-                   // console.log(newCreatedBook);
+                   console.log(this.createdBook);
                 },
                 err => {
                     this.router.navigateByUrl('/error');
