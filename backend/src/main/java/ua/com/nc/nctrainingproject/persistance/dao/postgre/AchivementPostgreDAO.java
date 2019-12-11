@@ -28,11 +28,11 @@ public class AchivementPostgreDAO {
 
 	}
 
-	public void createAchievement(String achievementName, String action, String genre, int count, String entity) {
-		int genre_id = genrePostgreDAO.getIdByGenre(genre);
-		int action_id = actionTypePostgreDAO.getActionTypeByNameGenre(action, genre_id).getActionTypeId();
+	public void createAchievement(String achievementName, int action, int genre, int count, String entity) {
+		//int genre_id = genrePostgreDAO.getIdByGenre(genre);
+		//int action_id = actionTypePostgreDAO.getActionTypeByNameGenre(action, genre_id).getActionTypeId();
 
-		jdbcTemplate.update(AchivementQuery.CREATE_ACHIEVEMENT, achievementName, action_id, genre_id, count, entity);
+		jdbcTemplate.update(AchivementQuery.CREATE_ACHIEVEMENT, achievementName, action, genre, count, entity);
 	}
 
 	public void createPair(int userId, int achievementId) {

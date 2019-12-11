@@ -23,9 +23,9 @@ public class AchivementService {
 		this.actionPostgreDAO = actionPostgreDAO;
 	}
 
-	public void createAchevementDto(AchivementDto achivementDto) {
-		achivementPostgreDAO.createAchievement(achivementDto.getAchievementName(), achivementDto.getAction(), achivementDto.getGenre(), achivementDto.getCount()
-				, achivementDto.getEntity());
+	public void createAchevement(Achievement achivement) {
+		achivementPostgreDAO.createAchievement(achivement.getAchievementName(), achivement.getActionTypeId(), achivement.getGenreId(), achivement.getCount()
+				, achivement.getEntity());
 	}
 
 	public List<AchivementDto> getAllAchievementDtos() {

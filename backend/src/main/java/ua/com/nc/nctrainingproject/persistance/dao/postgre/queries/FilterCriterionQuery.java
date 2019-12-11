@@ -106,7 +106,7 @@ public class FilterCriterionQuery {
 
 	private String makeHeaderCondition() {
 		if (header != null && !header.equals("") && header.length() != 0) {
-			header = header + "%";
+			header = "%"+header + "%";
 			return BookQuery.CONDITIONS_NAME;
 		}
 		return " ";
