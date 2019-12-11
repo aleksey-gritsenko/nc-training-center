@@ -1,84 +1,39 @@
 <app-navigation></app-navigation>
 <div style="padding-top: 67px; margin-left: 70px"></div>
 
-<div class="content row">
+<div class="row">
     <div class="col-9">
-        <div class="text-muted">
-            <h1>Books</h1>
-            <input [(ngModel)]="searchTitle" class="form-control col-3" name="header" placeholder="Search..."
-                   type="text">
-            <button (click)="searchByTitle()" class="btn btn-primary">Search</button>
+        <div  class="justify-content-center row text-muted content">
+            <h1 >Books</h1>
         </div>
         <div>
-            <div class="row">
-                <div *ngFor="let book of books" class="col-lg-4  col-md-6">
+            <div class="ml-5">
+                <a *ngIf="addBookVisible" [routerLink]="['addBook']" class="btn btn-primary btn-default">Add book</a>
+            </div>
+            <div class="row justify-content-center" >
+                <div *ngFor="let book of books" class="col-lg-4 align-items-stretch align-items-center  row">
                     <div class="card card-profile">
                         <div class="card-body">
                             <div class="card-title">
-                                <h3><a [routerLink]="['book', book.id]"> {{book.header}}</a></h3>
+                                <h2><a [routerLink]="['book', book.id]"> {{book.header}}</a></h2>
                             </div>
                             <div class="card-description">
                                 <app-book-img [book]="book"></app-book-img>
-                                <div>Overview: {{book.overview}}</div>
-                                <div>Status: {{book.status}}</div>
+                                <h3>Status: {{book.status}}</h3>
                                 <div>
-                                    <div>Authors:</div>
+                                    <h3>Authors:</h3>
                                     <div *ngFor="let author of book.authors ">
-                                        <div>{{author.name}}</div>
+                                        <h3>{{author.name}}</h3>
                                     </div>
                                 </div>
-                                <div *ngIf="book.genre">Genre: {{book.genre}}</div>
+                                <h3 *ngIf="book.genre">Genre: {{book.genre}}</h3>
+                                <div>Overview: {{book.overview | truncateText:250}}</div>
                             </div>
 
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div>
-            <button (click)="addBookVisible=!addBookVisible" class="btn btn-primary btn-default">Add book</button>
-
-            <form #createdBook="ngForm" *ngIf="addBookVisible" action="">
-                <table class="table">
-                    <tr>
-                        <td><label for="header">Header</label></td>
-                        <td><input #header="ngModel" [(ngModel)]="model.header" class="form-control" id="header"
-                                   name="header" required type="text"></td>
-                    </tr>
-                    <tr>
-                        <td><label for="status">Status</label></td>
-                        <td><input #status="ngModel" [(ngModel)]="model.status" class="form-control" id="status"
-                                   name="status" required type="text"></td>
-                    </tr>
-                    <tr>
-                        <td><label for="overview">Overview</label></td>
-                        <td><textarea #overview="ngModel" [(ngModel)]="model.overview" class="form-control" id="overview"
-                                      name="overview" required rows="5"
-                                      type="text"></textarea></td>
-                    </tr>
-                    <tr>
-                        <td><label for="genre">Genre</label></td>
-                        <td><input #genre="ngModel" [(ngModel)]="model.genre" class="form-control" id="genre" name="genre"
-                                   required type="text"></td>
-                    </tr>
-
-                    <tr>
-                        <td><label for="authors">Authors(split - ',')</label></td>
-                        <td><textarea #authors="ngModel" [(ngModel)]="createdAuthors" class="form-control" id="authors"
-                                      name="authors" required
-                                      rows="5" type="text"></textarea></td>
-                    </tr>
-                </table>
-                <div *ngIf="authors.errors && (authors.dirty || authors.touched)&&header.errors && (header.dirty || header.touched)
-                            && genre.errors && (genre.dirty || genre.touched) && status.errors && (status.dirty || status.touched) &&
-                            overview.errors && (overview.dirty || overview.touched) " class="form-control-feedback">
-                    <div>Check field</div>
-                </div>
-
-                <button (click)="createBook();" [disabled]="!createdBook.valid" class="btn btn-default btn-primary">
-                    Submit
-                </button>
-            </form>
         </div>
     </div>
 

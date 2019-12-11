@@ -2,7 +2,6 @@
     <div><h1>Reviews</h1></div>
     <div>
         <button (click)="addReviewVisible=!addReviewVisible" class="btn btn-default">Add review</button>
-
         <form *ngIf="addReviewVisible" [formGroup]="createdReviewForm" action="">
             <table class="table">
                 <tr>
@@ -45,7 +44,7 @@
                 </div>
             </div>
         </div>
-        <div>
+        <div *ngIf="notAcceptedReviewVisible">
             <div>Not accepted reviews</div>
             <div *ngFor="let review of notAcceptedReviews" class="card">
                 <div class="card-header card-header-primary">User: {{review.username}}</div>

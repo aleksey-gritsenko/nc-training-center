@@ -21,7 +21,7 @@ export class ReviewsListComponent implements OnInit {
     addReviewVisible: boolean;
 
     createdReview: Review = new Review();
-
+    notAcceptedReviewVisible:boolean = false;
     createdReviewForm = this.formBuilder.group({
         grade: [5, Validators.required],
         text: ['', Validators.required]
@@ -41,11 +41,17 @@ export class ReviewsListComponent implements OnInit {
         this.ngOnChanges();
     }
 
+    checkAdmin(){
+        if (this.storage.getUser().userRole == 'moderator') {
+            this.notAcceptedReviewVisible = true;
+        }
+    }
 
     ngOnChanges() {
         if (this.book != null) {
             this.getAcceptedReviews();
             this.getNotAcceptedReviews();
+            this.checkAdmin();
         }
     }
 

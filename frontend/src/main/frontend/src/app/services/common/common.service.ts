@@ -9,6 +9,7 @@ import {Genre} from "../../models/genre";
 import {Author} from "../../models/author";
 import {UserBook} from "../../models/userBook";
 import {User} from "../../models/user";
+import {Location} from '@angular/common';
 
 @Injectable({
     providedIn: 'root'
@@ -28,7 +29,7 @@ export class CommonService {
     private userBookUrl: string = `${this.siteUrl}/userBook`;
     private userFriendsUrl: string = `${this.siteUrl}/friends`;
 
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient,private location: Location) {
     }
 
     getBooks(): Observable<Book[]> {
@@ -309,6 +310,10 @@ export class CommonService {
         const url = `${this.booksUrl}/bookImage`;
         //const url = `${this.localhost}/book/bookImage`;
         return this.http.post(url, book, {responseType: 'blob'});
+    }
+
+    back() {
+        this.location.back();
     }
 
 
