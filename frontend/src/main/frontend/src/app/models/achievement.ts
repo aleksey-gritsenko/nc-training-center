@@ -4,8 +4,6 @@ export class Achievement {
     entity: string;
     genre: string;
     action: string;
-    description: string[] = [];
-    genreName: string;
 
     constructor() {
         this.achievementName = '';

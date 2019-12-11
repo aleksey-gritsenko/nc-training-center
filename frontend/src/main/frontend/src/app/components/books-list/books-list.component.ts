@@ -156,10 +156,11 @@ export class BooksListComponent implements OnInit {
         this.apiService.getAllAuthor().subscribe(
             res => {
                 this.authors = res;
+                console.log(res);
                 this.authors.forEach(author => {
                     this.selectedAuthors.push({name: author.name, selected: false});
                 });
-                console.log(this.authors);
+
             },
             err => {
                 alert("error in get all author")
@@ -172,9 +173,9 @@ export class BooksListComponent implements OnInit {
             res => {
                 this.genres = res;
                 this.genres.forEach(genre => {
-                    this.selectedGenres.push({name: genre.name, selected: false})
+                    this.selectedGenres.push({name: genre.name, selected: false});
+                    console.log(this.selectedGenres);
                 });
-                console.log(this.genres);
             },
             err => {
                 alert("error in get all genre")
