@@ -10,19 +10,19 @@
                         <div class="card card-profile">
                             <div class="card-body">
                                 <div class="card-title">
-                                    <h3><a [routerLink]="['book', book.id]"> {{book.header}}</a></h3>
+                                    <h2><a [routerLink]="['books/book', book.id]"> {{book.header}}</a></h2>
                                 </div>
                                 <div class="card-description">
                                     <app-book-img [book]="book"></app-book-img>
-                                    <div>Overview: {{book.overview}}</div>
-                                    <div>Status: {{book.status}}</div>
+                                    <h3>Status: {{book.status}}</h3>
                                     <div>
-                                        <div>Authors:</div>
+                                        <h3 *ngIf="book.authors">Authors:</h3>
                                         <div *ngFor="let author of book.authors ">
-                                            <div>{{author.name}}</div>
+                                            <h3>{{author.name}}</h3>
                                         </div>
                                     </div>
-                                    <div *ngIf="book.genre">Genre: {{book.genre}}</div>
+                                    <h3 *ngIf="book.genre">Genre: {{book.genre}}</h3>
+                                    <div>Overview: {{book.overview | truncateText:250}}</div>
                                 </div>
 
                             </div>

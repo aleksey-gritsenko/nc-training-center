@@ -23,12 +23,11 @@ export class BookComponent implements OnInit {
     updateBookVisible: boolean = false;
 
 
-    //TODO check with model UserBook, not with boolean
     userAddedBook: boolean = true;
     userAddedToRead: boolean = true;
     userAddedToFav: boolean = true;
 
-    userBook: UserBook = new UserBook();
+
     bookForm = new FormGroup({
         header: new FormControl(''),
         genre: new FormControl(''),
@@ -146,8 +145,6 @@ export class BookComponent implements OnInit {
         this.apiService.getUserBookById(this.storage.getUser().id, bookId).subscribe(
             res => {
                 userBook = res;
-            }, error => {
-                console.log("Error occured")
             }
         );
         this.userAddedBook = false;

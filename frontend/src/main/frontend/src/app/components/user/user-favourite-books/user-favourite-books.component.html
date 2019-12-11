@@ -27,7 +27,7 @@
                                 <app-book-img [book]="favBook"></app-book-img>
                                 <h3>Status: {{favBook.status}}</h3>
                                 <div>
-                                    <h3>Authors:</h3>
+                                    <h3 *ngIf="favBook.authors">Authors:</h3>
                                     <div *ngFor="let author of favBook.authors ">
                                         <h3>{{author.name}}</h3>
                                     </div>
