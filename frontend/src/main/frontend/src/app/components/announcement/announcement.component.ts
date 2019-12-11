@@ -65,8 +65,7 @@ export class AnnouncementComponent implements OnInit {
         }
         this.model.ownerId = this.currentUser.id;
         // this.model.ownerId = this.storage.getUser().id;
-        console.log(this.formatted_date);
-        console.log(this.model.announcementDate);
+
         this.apiService.createAnnouncement(this.model).subscribe (
             res => {
                 //location.reload();
