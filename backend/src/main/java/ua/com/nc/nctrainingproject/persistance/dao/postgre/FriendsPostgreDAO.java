@@ -26,6 +26,9 @@ public class FriendsPostgreDAO {
 	public void acceptRequest(int sender, int reciever) {
 		jdbcTemplate.update(FriendQuery.ACCEPT_REQUEST, true, sender, reciever);
 	}
+	public void rejectRequest(int sender, int reciever){
+		jdbcTemplate.update(FriendQuery.REJECT_REQUEST,sender,reciever);
+	}
 
 	public List<User> getAllFriends(int user) {
 		return jdbcTemplate.query(FriendQuery.GET_ALL_FRIENDS, new UserRowMapper(), true, user, true, user);
@@ -43,5 +46,9 @@ public class FriendsPostgreDAO {
 	public List<User> getSender(int sender, int reciever) {
 		return jdbcTemplate.query(FriendQuery.GET_SENDER, new UserRowMapper(), sender, reciever
 		);
+	}
+	public int getCountApplications(int sender, int reciever){
+		return  this.jdbcTemplate.queryForObject(
+				FriendQuery.GET_COUNT_OF_APPLICATIONS, new Object[] { sender,reciever ,reciever,sender}, Integer.class);
 	}
 }

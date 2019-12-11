@@ -49,7 +49,16 @@ export class FriendsListComponent implements OnInit {
     }
 
     addFriends(friend: User) {
-        this.apiService.addFriend(friend, this.currentUser).subscribe(
+        this.apiService.acceptRequest(friend, this.currentUser).subscribe(
+            res => {
+            },
+            err => {
+                alert("Error in add friends");
+            }
+        )
+    }
+    rejectFriends(friend: User) {
+        this.apiService.rejectRequest(friend, this.currentUser).subscribe(
             res => {
             },
             err => {

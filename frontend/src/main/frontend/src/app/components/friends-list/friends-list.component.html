@@ -22,7 +22,10 @@
 
                 <div *ngIf="this.id == this.currentUser.id">
                     <button  class="btn btn-primary" (click)="addFriends(newApp)"><i
-                        class="material-icons " style= "font-size:30px;color:whitesmoke" >add</i>
+                        class="material-icons " style= "font-size:30px;color:whitesmoke" >done</i>
+                    </button>
+                    <button  class="btn btn-primary" (click)="rejectFriends(newApp)"><i
+                        class="material-icons " style= "font-size:30px;color:whitesmoke" >clear</i>
                     </button>
                 </div>
 
