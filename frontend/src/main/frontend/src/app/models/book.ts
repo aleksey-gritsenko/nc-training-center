@@ -7,7 +7,6 @@ export class Book extends Entity {
     status: string;
     genre: string;
     authors: Array<Author> = [];
-    fileId: number;
     photo: number;
     photoURL: string | ArrayBuffer;
     fileURL: string | ArrayBuffer;

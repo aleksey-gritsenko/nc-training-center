@@ -5,9 +5,6 @@
     <div class="col-9">
         <div class="text-muted">
             <h1 id="myText">My Books List</h1>
-            <input [(ngModel)]="curBookList.searchTitle" class="form-control col-3" name="header" placeholder="Search..."
-                   type="text">
-            <button (click)="curBookList.searchByTitle()" class="btn btn-primary">Search</button>
         </div>
         <div>
             <div id="btnwrapper">
@@ -47,15 +44,15 @@
                         </div>
                         <div class="card-description">
                             <app-book-img [book]="book"></app-book-img>
-                            <div>Overview: {{book.overview}}</div>
-                            <div>Status: {{book.status}}</div>
+                            <h3>Status: {{book.status}}</h3>
                             <div>
-                                <div>Authors:</div>
+                                <h3>Authors:</h3>
                                 <div *ngFor="let author of book.authors ">
-                                    <div>{{author.name}}</div>
+                                    <h3>{{author.name}}</h3>
                                 </div>
                             </div>
-                            <div *ngIf="book.genre">Genre: {{book.genre}}</div>
+                            <h3 *ngIf="book.genre">Genre: {{book.genre}}</h3>
+                            <div>Overview: {{book.overview | truncateText:250}}</div>
                         </div>
 
                     </div>

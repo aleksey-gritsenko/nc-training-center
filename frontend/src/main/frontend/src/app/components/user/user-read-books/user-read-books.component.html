@@ -5,13 +5,10 @@
     <div class="col-9">
         <div class="text-muted">
             <h1 id="myText">My Books List</h1>
-            <input [(ngModel)]="curBookList.searchTitle" class="form-control col-3" name="header" placeholder="Search..."
-                   type="text">
-            <button (click)="curBookList.searchByTitle()" class="btn btn-primary">Search</button>
         </div>
         <div>
             <div id="btnwrapper">
-                <button (click)="router.navigate(['/userBooks'])" class="btn btn-primary">All Books</button>
+                <button (click)="router.navigate(['/userBooks'])" class="btn btn-primary">My All Books</button>
                 <div class="divider"></div>
                 <button (click)="curBookList.getAllReadBooks()" class="btn btn-primary">My Read Books</button>
                 <div class="divider"></div>
@@ -54,15 +51,16 @@
                             <h3><a [routerLink]="['book', book.id]"> {{book.header}}</a></h3>
                         </div>
                         <div class="card-description">
-                            <div>Overview: {{book.overview}}</div>
-                            <div>Status: {{book.status}}</div>
+                            <app-book-img [book]="book"></app-book-img>
+                            <h3>Status: {{book.status}}</h3>
                             <div>
-                                <div>Authors:</div>
+                                <h3>Authors:</h3>
                                 <div *ngFor="let author of book.authors ">
-                                    <div>{{author.name}}</div>
+                                    <h3>{{author.name}}</h3>
                                 </div>
                             </div>
-                            <div *ngIf="book.genre">Genre: {{book.genre}}</div>
+                            <h3 *ngIf="book.genre">Genre: {{book.genre}}</h3>
+                            <div>Overview: {{book.overview | truncateText:250}}</div>
                         </div>
                     </div>
                 </div>
