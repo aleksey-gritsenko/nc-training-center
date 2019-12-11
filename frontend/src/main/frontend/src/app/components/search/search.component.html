@@ -8,7 +8,7 @@
         <div *ngIf="userModel" class="user-search card">
             <div class="card-header-primary">Users</div>
             <div class="card-body">
-                <div class="row justify-content-between">
+                <div class="row justify-content-around">
                     <div *ngFor="let user of userModel" class="col-md-3 users-list mx-1 my-1">
                         <div routerLink="/user/{{user.id}}">
                             <a>{{user.userName}}</a>

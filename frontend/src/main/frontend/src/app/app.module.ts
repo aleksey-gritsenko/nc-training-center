@@ -2,12 +2,12 @@ import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {CalendarModule, DateAdapter} from 'angular-calendar';
-import {adapterFactory} from 'angular-calendar/date-adapters/date-fns';
-import {CommonModule} from '@angular/common';
-import {FlatpickrModule} from 'angularx-flatpickr';
-import {NgbModalModule} from '@ng-bootstrap/ng-bootstrap';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { CommonModule } from '@angular/common';
+import { FlatpickrModule } from 'angularx-flatpickr';
+import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {NavigationComponent} from './components/navigation/navigation.component';
@@ -49,6 +49,7 @@ import {BookImgComponent} from './components/book-img/book-img.component';
 import {UserSettingsComponent} from './components/user/user-settings/user-settings.component';
 import {AdminRightsComponent} from "./components/admin-rights/admin-rights.component";
 import {UserAchievementComponent} from './components/user/user-achievement/user-achievement.component';
+import { UserMenuComponent } from './components/user/user-menu/user-menu.component';
 
 @NgModule({
     declarations: [
@@ -88,7 +89,8 @@ import {UserAchievementComponent} from './components/user/user-achievement/user-
         FileUploadComponent,
         BookImgComponent,
         UserSettingsComponent,
-        UserAchievementComponent
+        UserAchievementComponent,
+        UserMenuComponent
     ],
 
     imports: [

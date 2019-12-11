@@ -16,12 +16,12 @@ export class AchievementService {
 
     getActions() {
         let url = `${this.siteUrl}/actiontype/all`;
-        return this.http.get<{ actionTypeId: string, actionName: string, entity: string }[]>(url);
+        return this.http.get<any[]>(url);
     }
 
     getGenres() {
-        let url = `${this.siteUrl}/book/genresName`;
-        return this.http.get<string[]>(url);
+        let url = `${this.siteUrl}/book/genres`;
+        return this.http.get<any[]>(url);
     }
 
     createAchievement(model: Achievement) {

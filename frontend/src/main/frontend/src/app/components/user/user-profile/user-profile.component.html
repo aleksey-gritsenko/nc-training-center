@@ -15,34 +15,7 @@
                 <app-announcement-proposition *ngSwitchCase="'Publish announcements'"></app-announcement-proposition>
             </div>
             <div class="col-md-4">
-                <div class="card menu">
-                    <ul class="list-group list-group-flush">
-                        <li (click)="open('View')" [class.selected]="isOpen=='View'" class="list-group-item">About me
-                        </li>
-                        <li (click)="open('Edit')" *ngIf="isAllowedToChange" [class.selected]="isOpen=='Edit'"
-                            class="list-group-item">Edit profile
-                        </li>
-                        <li (click)="open('Friends')" *ngIf="user.userRole == 'user'"
-                            [class.selected]="isOpen=='Friends'" class="list-group-item">Friends
-                        </li>
-                        <li (click)="open('Achievement')" *ngIf="user.userRole == 'user'"
-                            [class.selected]="isOpen=='Achievement'" class="list-group-item">Achievement
-                        </li>
-                        <li (click)="open('Add agent')" *ngIf="isAllowedToAdd" [class.selected]="isOpen=='Add agent'"
-                            class="list-group-item">Add agent
-                        </li>
-                        <li (click)="open('Add achievement')" *ngIf="isAllowedToAdd" [class.selected]="isOpen=='Add achievement'"
-                            class="list-group-item">Add achievement
-                        </li>
-                        <li (click)="open('Deactivate')" *ngIf="isAllowedToDeactivate"
-                            [class.selected]="isOpen=='Deactivate'" class="list-group-item">Deactivate the account
-                        </li>
-                        <li (click)="open('Publish announcements')" *ngIf="user.userRole =='moderator'"
-                            [class.selected]="isOpen=='Publish announcements'" class="list-group-item">Publish
-                            announcements
-                        </li>
-                    </ul>
-                </div>
+                <app-user-menu [user]="user" [currentUser]="currentUser" (toOpen)="open($event)"></app-user-menu>
             </div>
         </div>
     </div>
