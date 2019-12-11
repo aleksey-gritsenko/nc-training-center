@@ -66,7 +66,7 @@ export class AddBookComponent implements OnInit {
 
         this.apiService.createBook(this.model)
             .subscribe(res => {
-                    console.log(newCreatedBook);
+                   // console.log(newCreatedBook);
                 },
                 err => {
                     this.router.navigateByUrl('/error');
