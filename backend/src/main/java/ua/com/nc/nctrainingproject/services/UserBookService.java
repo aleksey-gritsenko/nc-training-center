@@ -19,20 +19,20 @@ public class UserBookService {
 	public UserBook addBookToUser(UserBook userBook) {
 		List<Book> books = this.getAllUserBooks(userBook.getUserId());
 		if (books.stream()
-				.filter(book->book.getId() == userBook.getBookId())
+				.filter(book -> book.getId() == userBook.getBookId())
 				.findFirst()
-				.orElse(null)==null){
+				.orElse(null) == null) {
 			userBooksPostgreDAO.addBookToUser(userBook);
 			return userBook;
 		}
 		return null;
 	}
 
-	public UserBook getUserBookByBookUserId(UserBook userBook){
+	public UserBook getUserBookByBookUserId(UserBook userBook) {
 		return userBooksPostgreDAO.getUserBookByBookUserId(userBook.getUserId(), userBook.getBookId());
 	}
 
-	public List<Book> getAllUserBooks(int userId){
+	public List<Book> getAllUserBooks(int userId) {
 		return userBooksPostgreDAO.getAllUserBooks(userId);
 	}
 

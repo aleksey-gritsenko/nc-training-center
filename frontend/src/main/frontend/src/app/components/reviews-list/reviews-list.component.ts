@@ -1,4 +1,4 @@
-import {Component, DoCheck, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Review} from '../../models/review'
 import {CommonService} from '../../services/common/common.service'
@@ -13,7 +13,7 @@ import {FormBuilder, Validators} from "@angular/forms";
     templateUrl: './reviews-list.component.html',
     styleUrls: ['./reviews-list.component.css']
 })
-export class ReviewsListComponent implements OnInit{
+export class ReviewsListComponent implements OnInit {
     public Editor = ClassicEditor;
     acceptedReviews: Review[] = [];
     notAcceptedReviews: Review[] = [];
@@ -21,20 +21,19 @@ export class ReviewsListComponent implements OnInit{
     addReviewVisible: boolean;
 
     createdReview: Review = new Review();
-
+    notAcceptedReviewVisible:boolean = false;
     createdReviewForm = this.formBuilder.group({
-        grade: [5,Validators.required],
+        grade: [5, Validators.required],
         text: ['', Validators.required]
     });
 
     constructor(private commonService: CommonService,
                 private route: ActivatedRoute,
                 private router: Router,
-                private  userService:UserService,
+                private  userService: UserService,
                 private storage: StorageService,
-                private formBuilder:FormBuilder){
+                private formBuilder: FormBuilder) {
     }
-
 
 
     ngOnInit() {
@@ -42,13 +41,20 @@ export class ReviewsListComponent implements OnInit{
         this.ngOnChanges();
     }
 
-
-    ngOnChanges() {
-        if(this.book!=null){
-            this.getAcceptedReviews();
-            this.getNotAcceptedReviews();
+    checkAdmin(){
+        if (this.storage.getUser().userRole == 'moderator') {
+            this.notAcceptedReviewVisible = true;
         }
     }
+
+    ngOnChanges() {
+        if (this.book != null) {
+            this.getAcceptedReviews();
+            this.getNotAcceptedReviews();
+            this.checkAdmin();
+        }
+    }
+
     getAcceptedReviews(): void {
         this.commonService.getAcceptedReviews(this.book.id, true).subscribe(
             res => {
@@ -56,7 +62,7 @@ export class ReviewsListComponent implements OnInit{
                 this.acceptedReviews.forEach(
                     review => {
                         this.userService.searchUser(review.userId.toString()).subscribe(
-                            res=>{
+                            res => {
                                 review.username = res.userName;
                             });
                     }
@@ -65,14 +71,14 @@ export class ReviewsListComponent implements OnInit{
         );
     }
 
-    getNotAcceptedReviews(): void{
+    getNotAcceptedReviews(): void {
         this.commonService.getNotAcceptedReviews(this.book.id, false).subscribe(
             res => {
                 this.notAcceptedReviews = res;
                 this.notAcceptedReviews.forEach(
                     review => {
                         this.userService.searchUser(review.userId.toString()).subscribe(
-                            res=>{
+                            res => {
                                 review.username = res.userName;
                             });
                     }
@@ -81,15 +87,17 @@ export class ReviewsListComponent implements OnInit{
         )
     }
 
-    acceptReview(review:Review):void{
+    acceptReview(review: Review): void {
         this.checkUser();
-        review.adminId=this.storage.getUser().id;
+        review.adminId = this.storage.getUser().id;
         this.commonService.acceptReview(review).subscribe(
-            res=>{this.acceptedReviews.push(review);
+            res => {
+                this.acceptedReviews.push(review);
                 this.notAcceptedReviews.splice(this.notAcceptedReviews.indexOf(review));
             }
         );
     }
+
     createReview(): void {
         this.checkUser();
         const newCreatedReview: Review = Object.assign({}, this.createdReview);
@@ -98,7 +106,9 @@ export class ReviewsListComponent implements OnInit{
         this.commonService.createReview(newCreatedReview)
             .subscribe(res => {
                     this.userService.searchUser(res.userId.toString()).subscribe(
-                        user=>{res.username = user.userName;}
+                        user => {
+                            res.username = user.userName;
+                        }
                     );
                     this.notAcceptedReviews.push(res);
                 },
@@ -109,19 +119,20 @@ export class ReviewsListComponent implements OnInit{
 
     }
 
-    deleteReviewById(review:Review){
+    deleteReviewById(review: Review) {
         this.commonService.deleteReviewById(review).subscribe(
-            res=>{this.notAcceptedReviews.splice(this.notAcceptedReviews.indexOf(review),1)}
+            res => {
+                this.notAcceptedReviews.splice(this.notAcceptedReviews.indexOf(review), 1)
+            }
         );
     }
 
-    fillArray(grade:number){
-        return Array.from({ length: grade }, (v, i) => i)
+    fillArray(grade: number) {
+        return Array.from({length: grade}, (v, i) => i)
     }
 
-    checkUser(){
-        if(this.storage.getUser()==null)
-        {
+    checkUser() {
+        if (this.storage.getUser() == null) {
             this.router.navigate(['/login']);
         }
     }

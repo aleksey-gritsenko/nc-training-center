@@ -10,19 +10,21 @@ import {CommonService} from "../../services/common/common.service";
 })
 export class BookImgComponent implements OnInit {
 
-    @Input() book:Book;
+    @Input() book: Book;
+
     constructor(private apiService: CommonService,
-                private sanitizer: DomSanitizer) { }
+                private sanitizer: DomSanitizer) {
+    }
 
     ngOnInit() {
-        if(this.book!=null) {
+        if (this.book != null) {
             this.getImgByBook();
         }
     }
 
-    getImgByBook(){
+    getImgByBook() {
         this.apiService.getImageByBook(this.book).subscribe(
-            res=>{
+            res => {
                 let reader = new FileReader();
                 reader.addEventListener("load", () => {
                     this.book.photoURL = reader.result;
@@ -33,7 +35,8 @@ export class BookImgComponent implements OnInit {
             }
         );
     }
-    getSantizeUrl(url : string) {
+
+    getSantizeUrl(url: string) {
         return this.sanitizer.bypassSecurityTrustUrl(url);
     }
 }

@@ -8,16 +8,15 @@ import {BookFilter} from "../../models/bookfilter";
 })
 export class StorageService {
     public currentUser: Observable<User>;
-    private currentUserSubject: BehaviorSubject<User>;
-
     public currentFilter: Observable<BookFilter>;
+    private currentUserSubject: BehaviorSubject<User>;
     private currentFilterSubject: BehaviorSubject<BookFilter>;
 
     constructor() {
-        this.currentUserSubject = new BehaviorSubject<User>(null);
+        this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(sessionStorage.getItem('user')));
         this.currentUser = this.currentUserSubject.asObservable();
 
-        this.currentFilterSubject = new BehaviorSubject<BookFilter>({id:0,header:"", author : [], genre: []});
+        this.currentFilterSubject = new BehaviorSubject<BookFilter>({id: 0, header: "", author: [], genre: []});
         this.currentFilter = this.currentFilterSubject.asObservable();
     }
 
@@ -29,10 +28,11 @@ export class StorageService {
         this.currentUserSubject.next(value);
     }
 
-    setFilter(value: BookFilter){
+    setFilter(value: BookFilter) {
         this.currentFilterSubject.next(value);
     }
-    getFilter(){
+
+    getFilter() {
         return this.currentFilterSubject.getValue();
     }
 }

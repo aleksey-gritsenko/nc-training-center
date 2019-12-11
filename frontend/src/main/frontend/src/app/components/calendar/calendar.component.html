@@ -2,27 +2,27 @@
     <div class="col-md-4">
         <div class="btn-group">
             <div
-                class="btn btn-primary"
-                mwlCalendarPreviousView
-                [view]="view"
-                [(viewDate)]="viewDate"
-                (viewDateChange)="closeOpenMonthViewDay()"
+                    (viewDateChange)="closeOpenMonthViewDay()"
+                    [(viewDate)]="viewDate"
+                    [view]="view"
+                    class="btn btn-primary"
+                    mwlCalendarPreviousView
             >
                 Previous
             </div>
             <div
-                class="btn btn-outline-secondary"
-                mwlCalendarToday
-                [(viewDate)]="viewDate"
+                    [(viewDate)]="viewDate"
+                    class="btn btn-outline-secondary"
+                    mwlCalendarToday
             >
                 Today
             </div>
             <div
-                class="btn btn-primary"
-                mwlCalendarNextView
-                [view]="view"
-                [(viewDate)]="viewDate"
-                (viewDateChange)="closeOpenMonthViewDay()"
+                    (viewDateChange)="closeOpenMonthViewDay()"
+                    [(viewDate)]="viewDate"
+                    [view]="view"
+                    class="btn btn-primary"
+                    mwlCalendarNextView
             >
                 Next
             </div>
@@ -33,24 +33,24 @@
     </div>
 
 </div>
-<br />
+<br/>
 <div [ngSwitch]="view">
     <mwl-calendar-month-view
-        *ngSwitchCase="CalendarView.Month"
-        [viewDate]="viewDate"
-        [events]="events"
-        [refresh]="refresh"
-        [activeDayIsOpen]="activeDayIsOpen"
-        (dayClicked)="dayClicked($event.day)"
-        (eventTimesChanged)="eventTimesChanged($event)"
+            (dayClicked)="dayClicked($event.day)"
+            (eventTimesChanged)="eventTimesChanged($event)"
+            *ngSwitchCase="CalendarView.Month"
+            [activeDayIsOpen]="activeDayIsOpen"
+            [events]="events"
+            [refresh]="refresh"
+            [viewDate]="viewDate"
     >
     </mwl-calendar-month-view>
     <mwl-calendar-week-view
-        *ngSwitchCase="CalendarView.Week"
-        [viewDate]="viewDate"
-        [events]="events"
-        [refresh]="refresh"
-        (eventTimesChanged)="eventTimesChanged($event)"
+            (eventTimesChanged)="eventTimesChanged($event)"
+            *ngSwitchCase="CalendarView.Week"
+            [events]="events"
+            [refresh]="refresh"
+            [viewDate]="viewDate"
     >
     </mwl-calendar-week-view>
 </div>

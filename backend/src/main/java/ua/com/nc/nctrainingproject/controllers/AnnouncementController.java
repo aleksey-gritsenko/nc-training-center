@@ -5,10 +5,6 @@ import org.springframework.web.bind.annotation.*;
 import ua.com.nc.nctrainingproject.models.Announcement;
 import ua.com.nc.nctrainingproject.services.AnnouncementService;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import java.util.List;
 
 @RestController
@@ -44,13 +40,13 @@ public class AnnouncementController {
 	}
 
 	@RequestMapping(value = "/newAnnouncement", method = RequestMethod.POST)
-	public Announcement createAnnouncement(@RequestBody Announcement announcement){
+	public Announcement createAnnouncement(@RequestBody Announcement announcement) {
 		announcementService.createAnnouncement(announcement);
 		return announcement;
 	}
 
 	@RequestMapping(value = "/proposeAnnouncement", method = RequestMethod.POST)
-	public Announcement proposeAnnouncement(@RequestBody Announcement announcement){
+	public Announcement proposeAnnouncement(@RequestBody Announcement announcement) {
 		announcementService.proposeAnnouncement(announcement);
 		System.out.println(announcement.toString());
 
@@ -66,8 +62,8 @@ public class AnnouncementController {
 
 	@RequestMapping(value = "/publish", method = RequestMethod.POST)
 	public void publishAnnouncement(@RequestBody Announcement announcement) {
-		System.out.println("ann "+announcement.toString());
-		System.out.println("id "+announcement.getId());
+		System.out.println("ann " + announcement.toString());
+		System.out.println("id " + announcement.getId());
 		announcementService.publishAnnouncement(announcement);
 	}
 
@@ -77,7 +73,7 @@ public class AnnouncementController {
 	}
 
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
-	public Announcement updateAnnouncement(@RequestBody Announcement announcement){
+	public Announcement updateAnnouncement(@RequestBody Announcement announcement) {
 		announcementService.updateAnnouncement(announcement);
 		return announcement;
 	}

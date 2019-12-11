@@ -25,7 +25,7 @@ public class AuthorizationService {
 			User user = userPostgreDAO.getUserByUserName(login);
 
 			if (user != null && user.isActivated()) {
-				if (bCryptPasswordEncoder.matches(password,user.getUserPassword())) {
+				if (bCryptPasswordEncoder.matches(password, user.getUserPassword())) {
 					return user;
 				}
 			}
@@ -36,7 +36,7 @@ public class AuthorizationService {
 	public User register(String login, String password, String email) {
 		if (!login.isEmpty() && !password.isEmpty() && !email.isEmpty()) {
 			if (userPostgreDAO.getUserByUserName(login) == null && userPostgreDAO.getUserByEmail(email) == null) {
-				User user = new User(login,bCryptPasswordEncoder.encode(password), email);
+				User user = new User(login, bCryptPasswordEncoder.encode(password), email);
 				user.setUserRole("user");
 
 				userPostgreDAO.createUser(user);

@@ -21,13 +21,14 @@ export class SearchComponent implements OnInit, OnDestroy {
 
     constructor(private route: ActivatedRoute,
                 private userService: UserService,
-                private storageService: StorageService) {}
+                private storageService: StorageService) {
+    }
 
     ngOnInit() {
         this.userSubscription = this.storageService.currentUser.subscribe(
             user => {
-            this.currUser = user;
-        });
+                this.currUser = user;
+            });
         this.routSubscription = this.route.queryParams.subscribe(
             param => {
                 if (param.search.length > 0) {

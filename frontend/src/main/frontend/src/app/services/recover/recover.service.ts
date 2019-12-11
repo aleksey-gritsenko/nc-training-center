@@ -21,6 +21,6 @@ export class RecoverService {
         form.append('email', email);
         alert(email);
         this.http.post(url, form).subscribe();
-      //  location.assign('change');
+        //  location.assign('change');
     }
 }

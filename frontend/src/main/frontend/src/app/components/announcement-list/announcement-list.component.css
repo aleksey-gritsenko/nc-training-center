@@ -1,25 +1,30 @@
-.announcement{
+.announcement {
 
     padding: 130px 130px;
     position: relative;
-}.list-rectangle {
-     list-style: none;
-     margin: 0;
-     padding: 0;
- }
-.list-rectangle>li {
+}
+
+.list-rectangle {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.list-rectangle > li {
     position: relative;
     display: block;
     margin-bottom: .25rem;
     padding: .325rem .825rem .325rem 1.325rem;
     color: #fff;
-    background: Purple	;
+    background: Purple;
     opacity: .9;
 }
-.list-rectangle>li:last-child {
+
+.list-rectangle > li:last-child {
     margin-bottom: 0;
 }
-.list-rectangle>li::before {
+
+.list-rectangle > li::before {
     content: "";
     position: absolute;
     left: 0;

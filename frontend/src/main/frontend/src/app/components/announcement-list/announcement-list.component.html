@@ -1,11 +1,7 @@
-
-
-<div class = "navigation">
+<div class="navigation">
     <app-navigation></app-navigation>
     <router-outlet></router-outlet>
 </div>
-
-
 
 
 <div class="announcement">
@@ -14,8 +10,8 @@
 
         <li *ngFor="let announcement of announcements">
             <!--div class="alert alert-warning"-->
-                <div> {{announcement.description}}</div>
-                <div> {{announcement.announcementDate}}</div>
+            <div> {{announcement.description}}</div>
+            <div> {{announcement.announcementDate}}</div>
 
             <!--/div-->
             <div class="btn-default btn">

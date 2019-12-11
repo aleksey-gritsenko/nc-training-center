@@ -8,7 +8,6 @@ import {Genre} from "../../models/genre";
 import {Author} from "../../models/author";
 import {UserBook} from "../../models/userBook";
 import {StorageService} from "../../services/storage/storage.service";
-import {DomSanitizer} from "@angular/platform-browser";
 
 @Component({
     selector: 'app-books-list',
@@ -16,44 +15,33 @@ import {DomSanitizer} from "@angular/platform-browser";
     styleUrls: ['./books-list.component.css']
 })
 
-export class BooksListComponent implements OnInit{
-    createdAuthors: string;
-    searchTitle:string;
+export class BooksListComponent implements OnInit {
+
+    searchTitle: string;
     genres: Genre[] = [];
     authors: Author[] = [];
     books: Book[] = [];
 
-    userBooks : UserBook[] = [];
+    userBooks: UserBook[] = [];
     @Input() userBookList: Book[] = [];
     @Input() userFavBookList: Book[] = [];
     @Input() userReadBookList: Book[] = [];
     book: Book;
 
-    model : Book = {
-        id :0,
-        header: '',
-        overview: '',
-        status: '',
-        genre: '',
-        authors: [],
-        photo:0,
-        fileId:0,
-        fileURL:'',
-        photoURL:''
-    };
+
 
     bookFilter: BookFilter = new BookFilter();
-    addBookVisible: boolean;
+    addBookVisible: boolean = false;
 
     emptyBookList: boolean = false;
     emptyFavList: boolean = false;
     emptyReadList: boolean = false;
 
-    selectedAuthors: SelectedItem[] =[];
+    selectedAuthors: SelectedItem[] = [];
     selectedGenres: SelectedItem[] = [];
-    filterGenres:SelectedItem[]=[];
-    filterAuthors:SelectedItem[]=[];
-    historyFilter:BookFilter;
+    filterGenres: SelectedItem[] = [];
+    filterAuthors: SelectedItem[] = [];
+    historyFilter: BookFilter;
 
     userId: any;
 
@@ -65,19 +53,27 @@ export class BooksListComponent implements OnInit{
     }
 
     ngOnInit() {
-        if(this.storage.getUser()!=null) {
-            this.getUsersBookList();
-            this.getAllReadBooks();
-            this.getAllFavouriteBooks();
-        }
+        this.checkUser();
         this.getBooks();
-        this.addBookVisible = false;
         this.getAllAuthor();
         this.getAllGenre();
         this.historyFilter = this.storage.getFilter();
     }
 
-    getUsersBookList(){
+    checkUser(){
+        if (this.storage.getUser() != null) {
+            this.getUsersBookList();
+            this.getAllReadBooks();
+            this.getAllFavouriteBooks();
+            this.checkModerator();
+        }
+    }
+    checkModerator(){
+        if(this.storage.getUser().userRole=='moderator'){
+            this.addBookVisible = true;
+        }
+    }
+    getUsersBookList() {
         this.checkPresentUser();
         let userBook: UserBook = new UserBook();
         userBook.userId = this.storage.getUser().id;
@@ -88,8 +84,10 @@ export class BooksListComponent implements OnInit{
                 if (this.userBookList.length == 0) {
                     this.emptyBookList = true;
                     this.apiService.getMostRatedBooks().subscribe(
-                        bookList => {this.userBookList = bookList;
-                            console.log(this.userBookList)}
+                        bookList => {
+                            this.userBookList = bookList;
+                            console.log(this.userBookList)
+                        }
                     );
                 }
             },
@@ -102,7 +100,7 @@ export class BooksListComponent implements OnInit{
 
     }
 
-    getAllFavouriteBooks(){
+    getAllFavouriteBooks() {
         this.checkPresentUser();
 
         let userBook: UserBook = new UserBook();
@@ -114,8 +112,10 @@ export class BooksListComponent implements OnInit{
                 if (this.userFavBookList.length == 0) {
                     this.emptyFavList = true;
                     this.apiService.getMostRatedBooks().subscribe(
-                        favList => {this.userFavBookList = favList;
-                            console.log(this.userFavBookList)}
+                        favList => {
+                            this.userFavBookList = favList;
+                            console.log(this.userFavBookList)
+                        }
                     );
                 }
             },
@@ -126,7 +126,7 @@ export class BooksListComponent implements OnInit{
         );
     }
 
-    getAllReadBooks(){
+    getAllReadBooks() {
         this.checkPresentUser();
 
         let userBook: UserBook = new UserBook();
@@ -137,8 +137,10 @@ export class BooksListComponent implements OnInit{
                 if (this.userReadBookList.length == 0) {
                     this.emptyReadList = true;
                     this.apiService.getMostRatedBooks().subscribe(
-                        readList => {this.userReadBookList = readList;
-                            console.log(this.userReadBookList)}
+                        readList => {
+                            this.userReadBookList = readList;
+                            console.log(this.userReadBookList)
+                        }
                     );
                 }
             },
@@ -180,8 +182,9 @@ export class BooksListComponent implements OnInit{
         );
 
     }
-    searchByTitle(){
-        if(this.searchTitle!="") {
+
+    searchByTitle() {
+        if (this.searchTitle != "") {
             this.bookFilter.header = this.searchTitle;
             this.apiService.getBooksByFilter(this.bookFilter).subscribe(
                 res => {
@@ -199,6 +202,7 @@ export class BooksListComponent implements OnInit{
             )
         }
     }
+
     searchByFilter() {
         this.bookFilter.author = [];
         this.bookFilter.genre = [];
@@ -215,20 +219,20 @@ export class BooksListComponent implements OnInit{
             this.bookFilter.author.push(author.name);
         });
 
-        this.historyFilter.genre.push(...(this.bookFilter.genre||[]));
-        this.historyFilter.author.push(...(this.bookFilter.author||[]));
+        this.historyFilter.genre.push(...(this.bookFilter.genre || []));
+        this.historyFilter.author.push(...(this.bookFilter.author || []));
         this.storage.setFilter(this.historyFilter);
 
         this.books = [];
         this.apiService.getBooksByFilter(this.bookFilter).subscribe(
             res => {
                 this.books = res;
-                this.books.forEach(book=>{
+                this.books.forEach(book => {
                     this.apiService.getAuthorsByBookId(book.id).subscribe(
                         authors => book.authors = authors
                     );
                     this.apiService.getGenreByBookId(book.id).subscribe(
-                        genre=> book.genre  = genre.name
+                        genre => book.genre = genre.name
                     )
                 })
             },
@@ -252,12 +256,12 @@ export class BooksListComponent implements OnInit{
         this.apiService.getBooks().subscribe(
             res => {
                 this.books = res;
-                this.books.forEach(book=>{
+                this.books.forEach(book => {
                     this.apiService.getAuthorsByBookId(book.id).subscribe(
                         authors => book.authors = authors
                     );
                     this.apiService.getGenreByBookId(book.id).subscribe(
-                        genre=> book.genre  = genre.name
+                        genre => book.genre = genre.name
                     );
                 });
 
@@ -268,43 +272,19 @@ export class BooksListComponent implements OnInit{
         );
     }
 
-    createBook(): void {
-        this.createdAuthors.split(',').forEach(name=>{
-            let author = new Author();
-            author.name = name;
-            this.model.authors.push(author);
-        });
-        const newCreatedBook: Book = Object.assign({}, this.model);
-        newCreatedBook.authors = this.model.authors;
-        this.apiService.createBook(newCreatedBook)
-            .subscribe(res => {
-                    this.books.push(res);
-                    console.log(newCreatedBook);
-                },
-                err => {
-                    this.router.navigateByUrl('/error');
-                });
-
-    }
-    createBookFromChange(){
-
-    }
-
-
-
-    fillArray():string[]{
+    fillArray(): string[] {
         return "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
     }
 
-    filterGenre(char:string){
-        this.filterGenres = this.selectedGenres.filter(genre=>genre.name.charAt(0).toUpperCase()==char);
+    filterGenre(char: string) {
+        this.filterGenres = this.selectedGenres.filter(genre => genre.name.charAt(0).toUpperCase() == char);
     }
 
-    filterAuthor(char:string){
-        this.filterAuthors = this.selectedAuthors.filter(author=>author.name.charAt(0).toUpperCase()==char);
+    filterAuthor(char: string) {
+        this.filterAuthors = this.selectedAuthors.filter(author => author.name.charAt(0).toUpperCase() == char);
     }
 
-    checkPresentUser(){
+    checkPresentUser() {
         if (this.storage.getUser() == null) {
             this.router.navigate(['/login']);
         }

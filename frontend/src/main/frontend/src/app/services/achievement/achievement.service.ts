@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpParams} from "@angular/common/http";
+import {HttpClient} from "@angular/common/http";
 import {Achievement} from "../../models/achievement";
 import {User} from "../../models/user";
 
@@ -8,6 +8,7 @@ import {User} from "../../models/user";
 })
 export class AchievementService {
     siteUrl: string = 'https://nc-group1-2019.herokuapp.com';
+
     // siteUrl: string = 'http://localhost:8080';
 
     constructor(private http: HttpClient) {
@@ -15,7 +16,7 @@ export class AchievementService {
 
     getActions() {
         let url = `${this.siteUrl}/actiontype/all`;
-        return this.http.get<{actionTypeId: string, actionName: string, entity: string}[]>(url);
+        return this.http.get<{ actionTypeId: string, actionName: string, entity: string }[]>(url);
     }
 
     getGenres() {
@@ -28,7 +29,7 @@ export class AchievementService {
         return this.http.post(url, model);
     }
 
-    getUserAchievement(user:User){
+    getUserAchievement(user: User) {
 
         let url = `${this.siteUrl}/achievement/all`;
         return this.http.post<Achievement[]>(url, user);

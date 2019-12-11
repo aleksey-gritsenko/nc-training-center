@@ -1,6 +1,6 @@
-import {Component, Input, OnInit, Directive} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {FormGroup} from "@angular/forms";
-import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
+import {HttpClient} from "@angular/common/http";
 import {Book} from "../../models/book";
 import * as FileSaver from 'file-saver';
 import {DomSanitizer} from "@angular/platform-browser";
@@ -16,16 +16,6 @@ export class FileUploadComponent implements OnInit {
     form: FormGroup;
 
     @Input() book: Book;
-
-    constructor(private http: HttpClient, private sanitizer: DomSanitizer, private storage: StorageService) {
-    }
-
-    ngOnInit() {
-        if (this.storage.getUser().userRole == 'moderator') {
-            this.fileUploadVisible = true;
-        }
-    }
-
     fileUploadVisible: boolean = false;
     fileExtensions = ['.txt', '.pdf'];
     imgExtensions = ['.png'];
@@ -35,6 +25,15 @@ export class FileUploadComponent implements OnInit {
     convertedImage: any;
     image: any;
     private siteUrl: string = 'https://nc-group1-2019.herokuapp.com';
+
+    constructor(private http: HttpClient, private sanitizer: DomSanitizer, private storage: StorageService) {
+    }
+
+    ngOnInit() {
+        if (this.storage.getUser().userRole == 'moderator') {
+            this.fileUploadVisible = true;
+        }
+    }
 
     // private localhost: string = 'http://localhost:8080';
 

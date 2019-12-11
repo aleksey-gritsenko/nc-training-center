@@ -14,10 +14,11 @@ import {UserService} from "../../services/user/user.service";
 export class ReviewComponent implements OnInit {
     // do we need only one review?
     @Input() review: Review;
-    @Input() book:Book;
-    user:User = new User();
+    @Input() book: Book;
+    user: User = new User();
+
     constructor(private commonService: CommonService, private route: ActivatedRoute,
-                private  userService:UserService) {
+                private  userService: UserService) {
     }
 
     ngOnInit() {
@@ -32,15 +33,22 @@ export class ReviewComponent implements OnInit {
                 this.review = new Review();
                 this.review = review;
                 this.commonService.getBookById(review.bookId).subscribe(
-                    book=>{this.book=book});
+                    book => {
+                        this.book = book
+                    });
                 this.userService.searchUser(review.userId.toString()).subscribe(
-                    user=>this.user=user
+                    user => this.user = user
                 );
 
             }
         );
     }
-    fillArray(grade:number){
-        return Array.from({ length: grade }, (v, i) => i)
+
+    fillArray(grade: number) {
+        return Array.from({length: grade}, (v, i) => i)
+    }
+
+    back() {
+        this.commonService.back();
     }
 }

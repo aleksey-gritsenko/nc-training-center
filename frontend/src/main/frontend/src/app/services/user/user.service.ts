@@ -20,6 +20,7 @@ export class UserService {
     friend: User;
     book: Book;
     siteUrl: string = 'https://nc-group1-2019.herokuapp.com';
+
     // siteUrl: string = 'http://localhost:8080';
 
     constructor(private http: HttpClient, private commonService: CommonService) {
@@ -39,7 +40,7 @@ export class UserService {
     }
 
     searchUser(id: string) {
-        const url = `${this.siteUrl}/user/`+ id + '?access_token=' +
+        const url = `${this.siteUrl}/user/` + id + '?access_token=' +
             JSON.parse(window.sessionStorage.getItem('token')).access_token;
         return this.http.get<User>(url);
     }
@@ -160,7 +161,7 @@ export class UserService {
     }
 
     createAdmin(admin: User): Observable<User> {
-        let url = this.siteUrl + "/user/create/admin"+
+        let url = this.siteUrl + "/user/create/admin" +
             '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
         console.log(url);
         return this.http.post<User>(url, admin);
@@ -171,14 +172,14 @@ export class UserService {
     // }
 
     deactivateAccount(id: string) {
-        let url = `${this.siteUrl}/user/${id}/deactivate`+
+        let url = `${this.siteUrl}/user/${id}/deactivate` +
             '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
 
         return this.http.get(url);
     }
 
     searchByUsername(username: string) {
-        let url = `${this.siteUrl}/user/search/${username}`+
+        let url = `${this.siteUrl}/user/search/${username}` +
             '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
 
         return this.http.get<userSearch[]>(url);
@@ -194,9 +195,9 @@ export class UserService {
         let url = `${this.siteUrl}/friends/send`;
         let form = new FormData();
         //form.append('sender', sender.toString());
-       // form.append('receiver', receiver.toString());
+        // form.append('receiver', receiver.toString());
         const params = new HttpParams()
-            .set('sender', sender.toString()).set('reciever',receiver.toString());
+            .set('sender', sender.toString()).set('reciever', receiver.toString());
 
 
         return this.http.post<User>(url, params);

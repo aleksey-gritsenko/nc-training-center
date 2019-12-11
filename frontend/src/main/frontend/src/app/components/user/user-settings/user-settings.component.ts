@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {UserSettings} from "../../../models/user-settings";
 
@@ -8,14 +8,7 @@ import {UserSettings} from "../../../models/user-settings";
     styleUrls: ['./user-settings.component.css']
 })
 export class UserSettingsComponent implements OnInit {
-    private siteUrl: string = 'https://nc-group1-2019.herokuapp.com';
-
     items = ["Apple iPhone 7", "Huawei Mate 9", "Samsung Galaxy S7", "Motorola Moto Z"];
-
-    constructor(private http: HttpClient) {
-    }
-
-
     settingsData = [
         {value: true, name: 'subscribeOnFriends'},
         {value: true, name: 'achivements'},
@@ -24,6 +17,10 @@ export class UserSettingsComponent implements OnInit {
         {value: true, name: 'notifyAboutNewFriends'},
         {value: true, name: 'notifyAboutAchievement'},
     ];
+    private siteUrl: string = 'https://nc-group1-2019.herokuapp.com';
+
+    constructor(private http: HttpClient) {
+    }
 
     ngOnInit() {
         let form = new FormData();
@@ -54,7 +51,7 @@ export class UserSettingsComponent implements OnInit {
         alert(this.settingsData[0].value);
     }
 
-    submitSettings(){
+    submitSettings() {
 
     }
 

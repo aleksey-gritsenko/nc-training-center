@@ -6,6 +6,7 @@
     <mat-button-toggle value="new" (click)="getNewApplications(this.id.toString())"><i
         class="material-icons md-48">face</i> Newcommers
     </mat-button-toggle>
+
 </mat-button-toggle-group>
 
 
@@ -21,9 +22,10 @@
 
                 <div *ngIf="this.id == this.currentUser.id">
                     <button  class="btn btn-primary" (click)="addFriends(newApp)"><i
-                        class="material-icons " style="font-size:30px;color:whitesmoke">add</i>
+                        class="material-icons " style= "font-size:30px;color:whitesmoke" >add</i>
                     </button>
                 </div>
+
             </div>
         </li>
 
@@ -32,6 +34,7 @@
     <ng-template ngSwitchCase="all">
         <li *ngFor="let friend of userFriends">
             <div class="alert alert-primary">
+
                 <div class="name">{{friend.email}}</div>
 
                 <div routerLink="/user/{{friend.id}}"> {{friend.userName}}</div>

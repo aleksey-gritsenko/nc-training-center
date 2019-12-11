@@ -9,6 +9,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import javax.sql.DataSource;
+import java.util.Objects;
 
 @Configuration
 @ComponentScan
@@ -28,7 +29,8 @@ public class AppConfig {
 		driverManagerDataSource.setUrl(environment.getProperty("spring.datasource.url"));
 		driverManagerDataSource.setUsername(environment.getProperty("spring.datasource.username"));
 		driverManagerDataSource.setPassword(environment.getProperty("spring.datasource.password"));
-		driverManagerDataSource.setDriverClassName(environment.getProperty("spring.datasource.driver-class-name"));
+		driverManagerDataSource.setDriverClassName(
+				Objects.requireNonNull(environment.getProperty("spring.datasource.driver-class-name")));
 		return driverManagerDataSource;
 	}
 }

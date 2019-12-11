@@ -45,7 +45,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
                     Object.assign(this.updatedUser, this.user);
                 },
                 () => {
-                    this.repeatPassword='';
+                    this.repeatPassword = '';
 
                 }
             );

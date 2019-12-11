@@ -1,12 +1,12 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { AchievementService } from './achievement.service';
+import {AchievementService} from './achievement.service';
 
 describe('AchievementService', () => {
-  beforeEach(() => TestBed.configureTestingModule({}));
+    beforeEach(() => TestBed.configureTestingModule({}));
 
-  it('should be created', () => {
-    const service: AchievementService = TestBed.get(AchievementService);
-    expect(service).toBeTruthy();
-  });
+    it('should be created', () => {
+        const service: AchievementService = TestBed.get(AchievementService);
+        expect(service).toBeTruthy();
+    });
 });

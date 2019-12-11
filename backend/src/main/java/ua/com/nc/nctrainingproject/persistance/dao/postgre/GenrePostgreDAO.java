@@ -37,24 +37,23 @@ public class GenrePostgreDAO {
 			return getIdByGenre(genre);
 		}
 	}
+
 	public void createGenre(String genreName) {
 		jdbcTemplate.update(GenreQuery.CREATE_GENRE, genreName);
 	}
 
-	public List<Genre> getAllGenres(){
+	public List<Genre> getAllGenres() {
 		try {
 			return jdbcTemplate.query(GenreQuery.GET_ALL_GENRES, new GenreMapper());
-		}
-		catch(IncorrectResultSizeDataAccessException e){
+		} catch (IncorrectResultSizeDataAccessException e) {
 			return null;
 		}
 	}
 
-	public List<String> getAllGenresName(){
+	public List<String> getAllGenresName() {
 		try {
 			return jdbcTemplate.queryForList(GenreQuery.GET_ALL_GENRES_NAME, String.class);
-		}
-		catch(IncorrectResultSizeDataAccessException e){
+		} catch (IncorrectResultSizeDataAccessException e) {
 			return null;
 		}
 	}

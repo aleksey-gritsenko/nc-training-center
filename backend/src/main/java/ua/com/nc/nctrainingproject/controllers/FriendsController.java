@@ -14,14 +14,15 @@ import java.util.List;
 @RequestMapping("/friends")
 
 public class FriendsController {
-    @Autowired
-    private final FriendsService friendsService;
-    public FriendsController(FriendsService friendsService){
-        this.friendsService = friendsService;
-    }
+	@Autowired
+	private final FriendsService friendsService;
 
-    @RequestMapping(value = "/send" ,method = RequestMethod.POST)
-    public  ResponseEntity<?> sendRequest(@RequestParam int sender, @RequestParam int reciever){
+	public FriendsController(FriendsService friendsService) {
+		this.friendsService = friendsService;
+	}
+
+	@RequestMapping(value = "/send", method = RequestMethod.POST)
+	public ResponseEntity<?> sendRequest(@RequestParam int sender, @RequestParam int reciever) {
       /*  if(friendsService.checkRequest(sender,reciever)){
         friendsService.sendRequest(sender,reciever);
             return new ResponseEntity<>(HttpStatus.OK);
@@ -32,26 +33,26 @@ public class FriendsController {
        */
 
 
+		friendsService.sendRequest(sender, reciever);
+		return new ResponseEntity<>(HttpStatus.OK);
 
-        friendsService.sendRequest(sender,reciever);
-      return new ResponseEntity<>(HttpStatus.OK);
+	}
 
-    }
+	@RequestMapping(value = "/accept", method = RequestMethod.POST)
+	public void acceptRequest(@RequestParam int sender, @RequestParam int reciever) {
+		friendsService.aceptRequest(sender, reciever);
+	}
 
-    @RequestMapping(value = "/accept",method = RequestMethod.POST)
-    public void acceptRequest(@RequestParam int sender, @RequestParam int reciever){
-        friendsService.aceptRequest(sender,reciever);
-    }
+	@RequestMapping(value = "all", method = RequestMethod.GET)
+	public List<User> allFriends(@RequestParam int id) {
+		return friendsService.getAllFriends(id);
 
-    @RequestMapping(value = "all"  ,method = RequestMethod.GET)
-    public List<User> allFriends(@RequestParam int id){
-        return friendsService.getAllFriends(id);
+	}
 
-    }
-    @RequestMapping(value = "new"  ,method = RequestMethod.GET)
-    public List<User> allNewFriends(@RequestParam int id){
-        return friendsService.getAllNewRequests(id);
+	@RequestMapping(value = "new", method = RequestMethod.GET)
+	public List<User> allNewFriends(@RequestParam int id) {
+		return friendsService.getAllNewRequests(id);
 
-    }
+	}
 
 }

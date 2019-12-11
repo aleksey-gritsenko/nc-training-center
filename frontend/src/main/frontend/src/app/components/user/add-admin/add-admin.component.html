@@ -26,13 +26,15 @@
                 <div class="col-md">
                     <div class="form-group">
                         <label class="bmd-label-floating">Username</label>
-                        <input autocomplete="off" class="form-control" name="username" type="text" [(ngModel)]="admin.userName">
+                        <input [(ngModel)]="admin.userName" autocomplete="off" class="form-control" name="username"
+                               type="text">
                     </div>
                 </div>
                 <div class="col-md">
                     <div class="form-group">
                         <label class="bmd-label-floating">Email</label>
-                        <input autocomplete="off" class="form-control" name="email" type="email" [(ngModel)]="admin.email">
+                        <input [(ngModel)]="admin.email" autocomplete="off" class="form-control" name="email"
+                               type="email">
                     </div>
                 </div>
             </div>
@@ -40,25 +42,27 @@
                 <div class="col-md">
                     <div class="form-group">
                         <label class="bmd-label-floating">Password</label>
-                        <input class="form-control" name="password" type="password" [(ngModel)]="admin.userPassword">
+                        <input [(ngModel)]="admin.userPassword" class="form-control" name="password" type="password">
                     </div>
                 </div>
                 <div class="col-md">
                     <div class="form-group">
                         <label class="bmd-label-floating">Repeat Password</label>
-                        <input class="form-control" name="repeat password" type="password" [(ngModel)]="repeatPassword">
+                        <input [(ngModel)]="repeatPassword" class="form-control" name="repeat password" type="password">
                     </div>
                 </div>
             </div>
             <div [ngSwitch]="editStatus">
-                <div class="alert alert-success text-center" role="alert" *ngSwitchCase="'success'">
+                <div *ngSwitchCase="'success'" class="alert alert-success text-center" role="alert">
                     Success! The agent has been created
                 </div>
-                <div class="alert alert-danger text-center" role="alert" *ngSwitchCase="'error'">
+                <div *ngSwitchCase="'error'" class="alert alert-danger text-center" role="alert">
                     This email or username is already exist! Try again!
                 </div>
             </div>
-            <button class="btn btn-primary pull-right" type="button" [disabled]="admin.userPassword != repeatPassword" (click)="createAgent()">Create agent</button>
+            <button (click)="createAgent()" [disabled]="admin.userPassword != repeatPassword" class="btn btn-primary pull-right"
+                    type="button">Create agent
+            </button>
         </form>
     </div>
 </div>

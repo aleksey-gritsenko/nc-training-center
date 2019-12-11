@@ -1,29 +1,8 @@
-import {
-    Component,
-    ChangeDetectionStrategy,
-    ViewChild,
-    TemplateRef,
-    OnInit
-} from '@angular/core';
-import {
-    startOfDay,
-    endOfDay,
-    subDays,
-    addDays,
-    endOfMonth,
-    parseISO,
-    isSameDay,
-    isSameMonth,
-    addHours
-} from 'date-fns';
+import {ChangeDetectionStrategy, Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
+import {addHours, endOfDay, isSameDay, isSameMonth, startOfDay} from 'date-fns';
 import {Subject} from 'rxjs';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {
-    CalendarEvent,
-    CalendarEventAction,
-    CalendarEventTimesChangedEvent,
-    CalendarView
-} from 'angular-calendar';
+import {CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarView} from 'angular-calendar';
 
 import {CommonService} from "../../services/common/common.service";
 import {Announcement} from "../../models/announcement";
@@ -63,7 +42,8 @@ export class CalendarComponent implements OnInit {
         action: string;
         event: CalendarEvent;
     };
-
+    refresh: Subject<any> = new Subject();
+    events: CalendarEvent[] = [];
     actions: CalendarEventAction[] = [
         {
             label: '<i class="fa fa-fw fa-pencil"></i>',
@@ -81,13 +61,11 @@ export class CalendarComponent implements OnInit {
             }
         }
     ];
-
-    refresh: Subject<any> = new Subject();
-
-    events: CalendarEvent[] = [];
-
     activeDayIsOpen: boolean = true;
     annoucementList: Announcement[];
+
+    constructor(private modal: NgbModal, public comServ: CommonService) {
+    }
 
     ngOnInit() {
 
@@ -109,9 +87,6 @@ export class CalendarComponent implements OnInit {
                 console.log("Error in getting announcements from server")
             }
         );
-    }
-
-    constructor(private modal: NgbModal, public comServ: CommonService) {
     }
 
     dayClicked({date, events}: { date: Date; events: CalendarEvent[] }): void {

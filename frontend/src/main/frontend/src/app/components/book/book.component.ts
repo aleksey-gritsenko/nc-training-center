@@ -19,19 +19,16 @@ export class BookComponent implements OnInit {
     suggestionBook: Book[] = [];
     bookId: any;
 
+    addAnnouncementVisible: boolean = false;
+    updateBookVisible: boolean = false;
+
+
     //TODO check with model UserBook, not with boolean
     userAddedBook: boolean = true;
     userAddedToRead: boolean = true;
     userAddedToFav: boolean = true;
 
     userBook: UserBook = new UserBook();
-
-    constructor(private apiService: CommonService,
-                private route: ActivatedRoute,
-                private router: Router,
-                private storage: StorageService) {
-    }
-
     bookForm = new FormGroup({
         header: new FormControl(''),
         genre: new FormControl(''),
@@ -41,11 +38,18 @@ export class BookComponent implements OnInit {
         author: new FormControl('')
     });
 
+    constructor(private apiService: CommonService,
+                private route: ActivatedRoute,
+                private router: Router,
+                private storage: StorageService) {
+    }
+
     ngOnInit() {
         this.bookForm.disable();
         this.bookId = parseInt(this.route.snapshot.paramMap.get('bookId'));
         this.getBook(this.bookId);
         this.checkAdmin();
+        this.checkUser();
         this.makeSuggestion();
     }
 
@@ -59,10 +63,17 @@ export class BookComponent implements OnInit {
         );
     }
 
-    //TODO
+
+    checkUser(){
+        if (this.storage.getUser()!=null) {
+            this.addAnnouncementVisible = true;
+        }
+    }
+
     checkAdmin() {
-        if( this.storage.getUser().userRole=='moderator') {
+        if (this.storage.getUser().userRole == 'moderator') {
             this.bookForm.enable();
+            this.updateBookVisible = true;
         }
     }
 

@@ -11,34 +11,34 @@ import java.util.List;
 
 public class FriendsService {
 
-    private final FriendsPostgreDAO friendsPostgreDAO;
+	private final FriendsPostgreDAO friendsPostgreDAO;
 
-    @Autowired
-    public FriendsService(FriendsPostgreDAO friendsPostgreDAO) {
-        this.friendsPostgreDAO = friendsPostgreDAO;
-    }
+	@Autowired
+	public FriendsService(FriendsPostgreDAO friendsPostgreDAO) {
+		this.friendsPostgreDAO = friendsPostgreDAO;
+	}
 
-    public void sendRequest(int sender, int reciever) {
-        friendsPostgreDAO.sendRequest(sender, reciever);
-    }
+	public void sendRequest(int sender, int reciever) {
+		friendsPostgreDAO.sendRequest(sender, reciever);
+	}
 
-    public void aceptRequest(int sender, int reciever) {
-        friendsPostgreDAO.acceptRequest(sender, reciever);
-    }
+	public void aceptRequest(int sender, int reciever) {
+		friendsPostgreDAO.acceptRequest(sender, reciever);
+	}
 
-    public List<User> getAllFriends(int user) {
-        return friendsPostgreDAO.getAllFriends(user);
-    }
+	public List<User> getAllFriends(int user) {
+		return friendsPostgreDAO.getAllFriends(user);
+	}
 
-    public List<User> getAllNewRequests(int user) {
-        return friendsPostgreDAO.getAllNewRequests(user);
-    }
+	public List<User> getAllNewRequests(int user) {
+		return friendsPostgreDAO.getAllNewRequests(user);
+	}
 
-    public boolean checkRequest(int sender,int reciever) {
+	public boolean checkRequest(int sender, int reciever) {
 
-        return  sender != reciever
-                & friendsPostgreDAO.getSender(sender, reciever).size() == 0
-                & friendsPostgreDAO.getReciever(sender, reciever).size() == 0;
-    }
+		return sender != reciever
+				& friendsPostgreDAO.getSender(sender, reciever).size() == 0
+				& friendsPostgreDAO.getReciever(sender, reciever).size() == 0;
+	}
 
 }

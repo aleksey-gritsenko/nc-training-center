@@ -14,40 +14,39 @@ import java.util.Optional;
 @RestController
 @CrossOrigin
 public class AuthorizationController {
-    private final AuthorizationService authorizationService;
+	private final AuthorizationService authorizationService;
+	@Autowired
+	UserSettingsPostgreDAO userSettingsPostgreDAO;
 
-    @Autowired
-    public AuthorizationController(AuthorizationService authorizationService) {
-        this.authorizationService = authorizationService;
-    }
+	@Autowired
+	public AuthorizationController(AuthorizationService authorizationService) {
+		this.authorizationService = authorizationService;
+	}
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public ResponseEntity<?> login(@RequestParam(name = "login") String login,
-                                   @RequestParam(name = "password") String password) {
-        User response = authorizationService.auth(login, password);
-        return Optional.ofNullable(response).map(ResponseEntity::ok).orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
-    }
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	public ResponseEntity<?> login(@RequestParam(name = "login") String login,
+								   @RequestParam(name = "password") String password) {
+		User response = authorizationService.auth(login, password);
+		return Optional.ofNullable(response).map(ResponseEntity::ok).orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+	}
 
-    @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public ResponseEntity<?> registration(@RequestParam(name = "login") String login,
-                                          @RequestParam(name = "password") String password,
-                                          @RequestParam(name = "email") String email) {
-        User response = authorizationService.register(login, password, email);
-        return Optional.ofNullable(response).map(ResponseEntity::ok).orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
-    }
+	@RequestMapping(value = "/registration", method = RequestMethod.POST)
+	public ResponseEntity<?> registration(@RequestParam(name = "login") String login,
+										  @RequestParam(name = "password") String password,
+										  @RequestParam(name = "email") String email) {
+		User response = authorizationService.register(login, password, email);
+		return Optional.ofNullable(response).map(ResponseEntity::ok).orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
+	}
 
-    @Autowired
-    UserSettingsPostgreDAO userSettingsPostgreDAO;
-
-    @RequestMapping(value = "/test", method = RequestMethod.GET)
-    public void test() {
-        UserSettings userSettings = userSettingsPostgreDAO.getSettingsListById(5);
-        System.out.println(userSettings.getAchievements());
-        System.out.println(userSettings.getNotifyAboutNewFriends());
-        System.out.println(userSettings.getBookNotification());
-        System.out.println(userSettings.getNotifyAboutAchievement());
-        System.out.println(userSettings.getSubscribeOnFriendReview());
-        System.out.println(userSettings.getSubscribeOnFriends());
-    }
+	@RequestMapping(value = "/test", method = RequestMethod.GET)
+	public void test() {
+		UserSettings userSettings = userSettingsPostgreDAO.getSettingsListById(5);
+		System.out.println(userSettings.getAchievements());
+		System.out.println(userSettings.getNotifyAboutNewFriends());
+		System.out.println(userSettings.getBookNotification());
+		System.out.println(userSettings.getNotifyAboutAchievement());
+		System.out.println(userSettings.getSubscribeOnFriendReview());
+		System.out.println(userSettings.getSubscribeOnFriends());
+	}
 
 }

@@ -316,7 +316,7 @@ alter table " action_type" rename to action_type;
 
 
 
-create table notifications
+create table activities
 (
    user_id int
       constraint notifications_users_user_id_fk
@@ -360,7 +360,7 @@ create unique index actions_id_uindex
 alter table actions
   add constraint actions_pk
     primary key (id);
-create table notifications
+create table activities
 (
   notification_id serial not null,
   user_id int
@@ -372,9 +372,9 @@ create table notifications
 );
 
 create unique index notifications_notification_id_uindex
-  on notifications (notification_id);
+  on activities (notification_id);
 
-alter table notifications
+alter table activities
   add constraint notifications_pk
     primary key (notification_id);
 

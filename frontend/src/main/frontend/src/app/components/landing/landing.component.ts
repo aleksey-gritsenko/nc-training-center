@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {CommonService} from "../../services/common/common.service";
 import {Book} from "../../models/book";
+
 //import {WebSocketAPI} from "../../websocket/webSocketAPI";
 
 @Component({
@@ -24,8 +25,8 @@ export class LandingComponent implements OnInit {
     ngOnInit() {
     }
 
- /*   send() {
-        this.webSocketAPI._send('Test message');
-    }*/
+    /*   send() {
+           this.webSocketAPI._send('Test message');
+       }*/
 
 }

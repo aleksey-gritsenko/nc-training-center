@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
 
 <div class="container">
     <div class="row">
@@ -6,40 +6,41 @@
             <div class="tab" role="tabpanel">
                 <!-- Nav tabs -->
                 <ul class="nav nav-tabs " role="tablist">
-                    <li role="presentation"><a routerLink="/login" aria-controls="home" role="tab">sign in</a></li>
-                    <li role="presentation" class="active"><a aria-controls="profile" role="tab">sign up</a></li>
+                    <li role="presentation"><a aria-controls="home" role="tab" routerLink="/login">sign in</a></li>
+                    <li class="active" role="presentation"><a aria-controls="profile" role="tab">sign up</a></li>
                 </ul>
                 <!-- Tab panes -->
                 <div class="tab-content tabs">
-                    <div role="tabpanel" class="tab-pane fade in active" id="Section2">
-                        <form class="form-horizontal" #f="ngForm">
+                    <div class="tab-pane fade in active" id="Section2" role="tabpanel">
+                        <form #f="ngForm" class="form-horizontal">
                             <div class="form-group">
                                 <label for="exampleInputLogin1">Login</label>
-                                <input type="text" class="form-control" autocomplete="off" name="login"
-                                       id="exampleInputLogin1" [(ngModel)]="model.login">
+                                <input [(ngModel)]="model.login" autocomplete="off" class="form-control" id="exampleInputLogin1"
+                                       name="login" type="text">
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Email address</label>
-                                <input type="email" class="form-control" name="email" id="exampleInputEmail1"
-                                       [(ngModel)]="model.email">
+                                <input [(ngModel)]="model.email" class="form-control" id="exampleInputEmail1" name="email"
+                                       type="email">
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputPassword1">Password</label>
-                                <input type="password" class="form-control" autocomplete="off" name="password"
-                                       id="exampleInputPassword1" [(ngModel)]="model.password">
+                                <input [(ngModel)]="model.password" autocomplete="off" class="form-control" id="exampleInputPassword1"
+                                       name="password" type="password">
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputPasswordConfirm1">Confirm password</label>
-                                <input type="password" class="form-control" autocomplete="off" name="passwordConfirm"
-                                       id="exampleInputPasswordConfirm1" [(ngModel)]="confirmPassword">
+                                <input [(ngModel)]="confirmPassword" autocomplete="off" class="form-control" id="exampleInputPasswordConfirm1"
+                                       name="passwordConfirm" type="password">
                             </div>
                             <div class="form-group">
-                                <div class="alert alert-danger text-center" role="alert" *ngIf="isError">
+                                <div *ngIf="isError" class="alert alert-danger text-center" role="alert">
                                     Something went wrong! Please try again!
                                 </div>
-                                <button type="submit" [disabled]="!(this.model.login.length != 0 && this.model.password.length > 0
-                                        && this.model.email.length > 0 && this.model.password==confirmPassword)" class="btn btn-default"
-                                        (click)="register()">
+                                <button (click)="register()" [disabled]="!(this.model.login.length != 0 && this.model.password.length > 0
+                                        && this.model.email.length > 0 && this.model.password==confirmPassword)"
+                                        class="btn btn-default"
+                                        type="submit">
                                     Sign up
                                 </button>
                             </div>
