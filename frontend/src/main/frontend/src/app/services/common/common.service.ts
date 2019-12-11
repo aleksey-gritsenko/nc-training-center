@@ -39,8 +39,8 @@ export class CommonService {
     }
 
     getBooksByFilter(filter: BookFilter): Observable<Book[]> {
-        const url = `${this.booksUrl}/filter`;
-        //const url = `${this.localhost}/book/filter`;
+        //const url = `${this.booksUrl}/filter`;
+        const url = `${this.localhost}/book/filter`;
         console.log(filter);
         return this.http.post<Book[]>(url, filter);
     }
@@ -84,6 +84,8 @@ export class CommonService {
     }
 
     createAnnouncement(announcement: Announcement): Observable<Announcement> {
+       // const url = `${this.announcementsUrl}/newAnnouncement`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
+    // const url = `${this.localhost}/announcements/newAnnouncement`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
         const url = `${this.announcementsUrl}/newAnnouncement` + '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
         //const url = `${this.localhost}/announcements/newAnnouncement`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
         return this.http.post<Announcement>(url, announcement);
@@ -101,27 +103,35 @@ export class CommonService {
         return this.http.post<Announcement>(url, announcement);
     }
 
-    addFriend(sender: User, reciever: User): Observable<User> {
-        const url = `${this.siteUrl}/friends/accept` + '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
-        //const url = `${this.localhost}/announcements/publish`;
+    acceptRequest(sender: User, reciever: User): Observable<User> {
+       // const url = `${this.siteUrl}/friends/accept` + '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
+        const url = `${this.localhost}/friends/accept`;
         const paramsSender = new HttpParams()
             .set('sender', sender.id.toString()).set('reciever', reciever.id.toString());
 
         return this.http.post<User>(url, paramsSender);
     }
 
+    rejectRequest(sender: User, reciever: User): Observable<User> {
+        // const url = `${this.siteUrl}/friends/accept` + '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
+        const url = `${this.localhost}/friends/reject`;
+        const paramsSender = new HttpParams()
+            .set('sender', sender.id.toString()).set('reciever', reciever.id.toString());
+
+        return this.http.post<User>(url, paramsSender);
+    }
     getFriends(id: string): Observable<User[]> {
-        const url = `${this.userFriendsUrl}/all` + '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
-        ;
-        //const url = `${this.localhost}/friends/all`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
+       // const url = `${this.userFriendsUrl}/all` + '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
+
+        const url = `${this.localhost}/friends/all`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
         const params = new HttpParams()
             .set('id', id);
         return this.http.get<User[]>(url, {params: params});
     }
 
     getNewApplications(id: string): Observable<User[]> {
-        const url = `${this.userFriendsUrl}/new` + '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
-        //const url = `${this.localhost}/friends/new`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
+        //const url = `${this.userFriendsUrl}/new` + '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
+        const url = `${this.localhost}/friends/new`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
         const params = new HttpParams()
             .set('id', id);
         return this.http.get<User[]>(url, {params: params});
@@ -136,8 +146,8 @@ export class CommonService {
     }
 
     getGenreByBookId(bookId: number): Observable<Genre> {
-        const url = `${this.booksUrl}/genre/book`;
-        //const url = `${this.localhost}/book/genre/book`;
+       // const url = `${this.booksUrl}/genre/book`;
+        const url = `${this.localhost}/book/genre/book`;
         const params = new HttpParams()
             .set("book", bookId.toString());
         return this.http.get<Genre>(url, {params: params});

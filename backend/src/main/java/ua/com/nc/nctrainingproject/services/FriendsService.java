@@ -26,6 +26,10 @@ public class FriendsService {
 		friendsPostgreDAO.acceptRequest(sender, reciever);
 	}
 
+	public void rejectRequest(int sender, int reciever) {
+		friendsPostgreDAO.rejectRequest(sender, reciever);
+	}
+
 	public List<User> getAllFriends(int user) {
 		return friendsPostgreDAO.getAllFriends(user);
 	}
@@ -37,8 +41,7 @@ public class FriendsService {
 	public boolean checkRequest(int sender, int reciever) {
 
 		return sender != reciever
-				& friendsPostgreDAO.getSender(sender, reciever).size() == 0
-				& friendsPostgreDAO.getReciever(sender, reciever).size() == 0;
+				& friendsPostgreDAO.getCountApplications(sender, reciever) == 0;
 	}
 
 }

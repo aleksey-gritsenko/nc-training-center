@@ -23,8 +23,8 @@ export class FriendsListComponent implements OnInit {
         //this.activatedRoute.snapshot.paramMap.get('id');
         this.currentUser = this.storage.getUser();
         this.id = +this.activatedRoute.snapshot.paramMap.get('id');
-        this.getNewApplications(this.id.toString());
-        this.getAllFriends(this.id.toString());
+       // this.getNewApplications(this.id.toString());
+        //this.getAllFriends(this.id.toString());
 
     }
 
@@ -49,7 +49,16 @@ export class FriendsListComponent implements OnInit {
     }
 
     addFriends(friend: User) {
-        this.apiService.addFriend(friend, this.currentUser).subscribe(
+        this.apiService.acceptRequest(friend, this.currentUser).subscribe(
+            res => {
+            },
+            err => {
+                alert("Error in add friends");
+            }
+        )
+    }
+    rejectFriends(friend: User) {
+        this.apiService.rejectRequest(friend, this.currentUser).subscribe(
             res => {
             },
             err => {
