@@ -5,6 +5,7 @@ import {CommonService} from "../../services/common/common.service";
 import {FormBuilder, FormGroup, FormArray, Validators, FormControl} from '@angular/forms';
 import {ActivatedRoute, Router} from "@angular/router";
 import {StorageService} from "../../services/storage/storage.service";
+import {Genre} from "../../models/genre";
 
 @Component({
     selector: 'app-add-book',
@@ -15,13 +16,18 @@ export class AddBookComponent implements OnInit {
     model:Book  = new Book();
     createdBook: FormGroup;
 
-    constructor(private apiService: CommonService,
+    constructor(private commonService: CommonService,
                 private route: ActivatedRoute,
                 private router: Router,
                 private formBuilder: FormBuilder) {
     }
-
-
+    genres: Genre[] = [];
+    getGenres(){
+        this.commonService.getAllGenre().subscribe(
+            genres => {
+                this.genres = genres;
+            });
+    }
     get authors():FormArray {
         return this.createdBook.get("authors") as FormArray
     }
@@ -47,8 +53,9 @@ export class AddBookComponent implements OnInit {
             overview: ['',Validators.required],
             status: ['',Validators.required],
             genre: ['',Validators.required],
-            authors:  this.formBuilder.array([])
+            authors:   this.formBuilder.array([],[Validators.nullValidator])
         });
+        this.getGenres();
     }
 
     createBook(): void {
@@ -59,7 +66,7 @@ export class AddBookComponent implements OnInit {
         this.model.status = book.status.value;
         this.model.authors = book.authors.value;
 
-        this.apiService.createBook(this.model)
+        this.commonService.createBook(this.model)
             .subscribe(res => {
                    console.log(this.createdBook);
                 },
@@ -67,6 +74,10 @@ export class AddBookComponent implements OnInit {
                     this.router.navigateByUrl('/error');
                 });
 
+    }
+
+    back(){
+        this.commonService.back();
     }
 
 }

@@ -42,7 +42,8 @@ export class BooksListComponent implements OnInit {
     filterGenres: SelectedItem[] = [];
     filterAuthors: SelectedItem[] = [];
     historyFilter: BookFilter;
-
+    searchGenre;
+    searchAuthor;
     userId: any;
 
     constructor(private apiService: CommonService,
@@ -206,7 +207,7 @@ export class BooksListComponent implements OnInit {
         this.historyFilter.genre.push(...(this.bookFilter.genre || []));
         this.historyFilter.author.push(...(this.bookFilter.author || []));
         this.storage.setFilter(this.historyFilter);
-
+        let oldBooks = this.books;
         this.books = [];
         this.apiService.getBooksByFilter(this.bookFilter).subscribe(
             res => {
@@ -220,7 +221,7 @@ export class BooksListComponent implements OnInit {
                     )
                 })
             },
-            error => alert("error in filter")
+            error => this.books =  oldBooks
         );
 
     }
@@ -256,17 +257,7 @@ export class BooksListComponent implements OnInit {
         );
     }
 
-    fillArray(): string[] {
-        return "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
-    }
 
-    filterGenre(char: string) {
-        this.filterGenres = this.selectedGenres.filter(genre => genre.name.charAt(0).toUpperCase() == char);
-    }
-
-    filterAuthor(char: string) {
-        this.filterAuthors = this.selectedAuthors.filter(author => author.name.charAt(0).toUpperCase() == char);
-    }
 
     checkPresentUser() {
         if (this.storage.getUser() == null) {

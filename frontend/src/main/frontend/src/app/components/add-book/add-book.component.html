@@ -23,23 +23,25 @@
                                   name="overview" required rows="5"></textarea></td>
                 </tr>
                 <tr>
-                    <td><label for="genre">Genre</label></td>
-                    <td><input formControlName="genre" class="form-control" id="genre" name="genre"
-                               required type="text"></td>
+                    <td> <label class="bmd-label-floating" for="genre">Genre</label></td>
+                    <td><select id="genre" name="genre" class="custom-select col-6" formControlName="genre">
+                        <option *ngFor="let genre of genres" [value]="genre.name">{{genre.name}}</option>
+                    </select>
+                    </td>
                 </tr>
                 <tr>Authors:
                     <td>
                         <div formArrayName="authors">
                             <div *ngFor="let author of authors.controls; let i=index">
                                 <div [formGroupName]="i">
-                                    {{i+1}}. Author name: <input type="text" formControlName="author">
+                                    {{i+1}}. Author name: <input type="text" formControlName="author" required>
                                     <button class="btn btn-primary" (click)="removeAuthor(i)">Remove</button>
                                 </div>
                             </div>
                         </div>
-                        <p>
-                            <button class="btn btn-primary" type="button" (click)="addAuthor()">Add author</button>
-                        </p>
+                        <div>
+                            <button [disabled]="!authors.valid" class="btn btn-primary" type="button" (click)="addAuthor()">Add author</button>
+                        </div>
                     </td>
                 </tr>
             </table>
@@ -49,6 +51,7 @@
                 <button (click)="createBook();" [disabled]="!createdBook.valid" class="btn btn-default btn-primary">
                     Submit
                 </button>
+                <button (click)="back();" class="btn btn-default btn-primary">Back</button>
             </div>
         </form>
     </div>
