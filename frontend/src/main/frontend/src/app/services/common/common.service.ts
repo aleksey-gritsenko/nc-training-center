@@ -45,14 +45,6 @@ export class CommonService {
         return this.http.post<Book[]>(url, filter);
     }
 
-    getBooksByTitle(title: string): Observable<Book[]> {
-        //TODO get books by title
-        let params = new HttpParams()
-            .set('title', title);
-        const url = `${this.booksUrl}/title`;
-        //const url = `${this.localhost}/book/title`;
-        return this.http.get<Book[]>(url, {params: params});
-    }
 
     getBookById(id: number): Observable<Book> {
         const url = `${this.booksUrl}/id?id=${id}`;
@@ -61,17 +53,12 @@ export class CommonService {
     }
 
     createBook(book: Book): Observable<Book> {
-        //const url = `${this.localhost}/book`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
-        const url = `${this.booksUrl}` + '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
-        console.log(book);
+        const url = `${this.localhost}/book`;
+        //const url = `${this.booksUrl}` + '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
+
         return this.http.post<Book>(url, book);
     }
 
-    updateBook(book: Book): Observable<Book> {
-        const url = `${this.booksUrl}/update` + '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
-        //const url = `${this.localhost}/book/update`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
-        return this.http.post<Book>(url, book);
-    }
 
     getAnnouncements(): Observable<Announcement[]> {
         //const url = `${this.localhost}/announcements/all`;
@@ -214,7 +201,7 @@ export class CommonService {
     }
 
     getReviewById(reviewId: number) {
-        const url = `${this.reviewsUrl}/detail` + '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
+        const url = `${this.reviewsUrl}/detail`;
         //const url = `${this.localhost}/review/detail`;
         const params = new HttpParams()
             .set('review', reviewId.toString());

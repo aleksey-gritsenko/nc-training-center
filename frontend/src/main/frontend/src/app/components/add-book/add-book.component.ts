@@ -14,6 +14,7 @@ import {Genre} from "../../models/genre";
 })
 export class AddBookComponent implements OnInit {
     model:Book  = new Book();
+    modelAuthors:Author[] = [];
     createdBook: FormGroup;
 
     constructor(private commonService: CommonService,
@@ -64,7 +65,10 @@ export class AddBookComponent implements OnInit {
         this.model.overview = book.overview.value;
         this.model.genre = book.genre.value;
         this.model.status = book.status.value;
-        this.model.authors = book.authors.value;
+        this.modelAuthors = book.authors.value;
+        this.model.authors = this.modelAuthors;
+       
+        console.log(this.model);
 
         this.commonService.createBook(this.model)
             .subscribe(res => {
