@@ -17,15 +17,17 @@ export class ViewProfileComponent implements OnInit, OnChanges {
     constructor(private userService: UserService,
                 private router: Router,
                 private storageService: StorageService) {
-        this.currentUser = storageService.getUser();
     }
 
     ngOnInit() {
+        this.currentUser = this.storageService.getUser();
     }
 
     ngOnChanges(changes: SimpleChanges): void {
         this.user = changes.user.currentValue;
-        this.isAbleToAddToFriend = this.user.id != this.currentUser.id; //TODO Add function for checking friends
+        if (this.currentUser) {
+            this.isAbleToAddToFriend = this.user.id != this.currentUser.id; //TODO Add function for checking friends
+        }
     }
 
     sendRequest() {
