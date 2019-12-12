@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit, OnDestroy, TemplateRef, ViewChild} from '@angular/core';
 import {addHours, endOfDay, isSameDay, isSameMonth, startOfDay} from 'date-fns';
 import {Subject} from 'rxjs';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
@@ -6,6 +6,8 @@ import {CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, Cale
 
 import {CommonService} from "../../services/common/common.service";
 import {Announcement} from "../../models/announcement";
+
+import {Subscription} from "rxjs";
 
 const colors: any = {
     red: {
@@ -38,6 +40,7 @@ export class CalendarComponent implements OnInit {
 
     viewDate: Date = new Date();
 
+    private subscription: Subscription;
     modalData: {
         action: string;
         event: CalendarEvent;
@@ -69,7 +72,7 @@ export class CalendarComponent implements OnInit {
 
     ngOnInit() {
 
-        this.comServ.getAnnouncements().subscribe(
+        this.subscription = this.comServ.getAnnouncements().subscribe(
             res => {
                 this.annoucementList = res;
                 for (var ann of this.annoucementList) {
@@ -153,5 +156,8 @@ export class CalendarComponent implements OnInit {
 
     closeOpenMonthViewDay() {
         this.activeDayIsOpen = false;
+    }
+    ngOnDestroy(): void {
+        if (this.subscription) this.subscription.unsubscribe();
     }
 }
