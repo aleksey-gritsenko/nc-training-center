@@ -90,4 +90,6 @@ public class UserService {
 	public List<User> getActivatedAdmins() {
 		return userPostgreDAO.getActivatedAdmins();
 	}
+
+	public List<User> getAllUsers() {return userPostgreDAO.getAllUsers();}
 }

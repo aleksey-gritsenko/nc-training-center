@@ -40,7 +40,7 @@ export class UserService {
     }
 
     searchUser(id: string) {
-        const url = `${this.siteUrl}/user/` + id + '?access_token=' +
+        const url = `${this.siteUrl}/user/${id}` + '?access_token=' +
             JSON.parse(window.sessionStorage.getItem('token')).access_token;
         return this.http.get<User>(url);
     }

@@ -1,4 +1,4 @@
-<div class="card menu" >
+<div class="card menu">
     <ul class="list-group list-group-flush">
         <li class="list-group-item" (click)="open('View')" [class.selected]="isOpen=='View'">
             About me
@@ -13,16 +13,16 @@
             *ngIf="user.userRole == 'user'" (click)="open('Achievement')">Achievement
         </li>
         <li class="list-group-item" *ngIf="isAllowedToAdd" [class.selected]="isOpen=='Add agent'"
-            (click)="open('Add agent')" >Add agent
+            (click)="open('Add agent')">Add agent
         </li>
         <li class="list-group-item" *ngIf="isAllowedToAdd" [class.selected]="isOpen=='Add achievement'"
-            (click)="open('Add achievement')" >Add achievement
+            (click)="open('Add achievement')">Add achievement
         </li>
         <li class="list-group-item" [class.selected]="isOpen=='Deactivate'"
             *ngIf="isAllowedToDeactivate" (click)="open('Deactivate')">Deactivate the account
         </li>
         <li class="list-group-item" [class.selected]="isOpen=='Publish announcements'"
-            *ngIf="user.userRole =='moderator'" (click)="open('Publish announcements')">Publish announcements
+            *ngIf="isAllowedToPublish" (click)="open('Publish announcements')">Publish announcements
         </li>
     </ul>
 </div>
