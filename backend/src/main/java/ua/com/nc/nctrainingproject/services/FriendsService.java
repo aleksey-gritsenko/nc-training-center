@@ -12,10 +12,12 @@ import java.util.List;
 public class FriendsService {
 
 	private final FriendsPostgreDAO friendsPostgreDAO;
+	private final ActionService actionService;
 
 	@Autowired
-	public FriendsService(FriendsPostgreDAO friendsPostgreDAO) {
+	public FriendsService(FriendsPostgreDAO friendsPostgreDAO, ActionService actionService) {
 		this.friendsPostgreDAO = friendsPostgreDAO;
+		this.actionService = actionService;
 	}
 
 	public void sendRequest(int sender, int reciever) {
@@ -23,6 +25,8 @@ public class FriendsService {
 	}
 
 	public void aceptRequest(int sender, int reciever) {
+		actionService.addNewAction(reciever, 1);
+		actionService.addNewAction(sender, 1);
 		friendsPostgreDAO.acceptRequest(sender, reciever);
 	}
 

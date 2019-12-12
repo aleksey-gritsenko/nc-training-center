@@ -86,8 +86,8 @@ export class CommonService {
     createAnnouncement(announcement: Announcement): Observable<Announcement> {
        // const url = `${this.announcementsUrl}/newAnnouncement`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
     // const url = `${this.localhost}/announcements/newAnnouncement`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
-        const url = `${this.announcementsUrl}/newAnnouncement` + '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
-        //const url = `${this.localhost}/announcements/newAnnouncement`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
+        //const url = `${this.announcementsUrl}/newAnnouncement` + '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
+        const url = `${this.localhost}/announcements/newAnnouncement`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
         return this.http.post<Announcement>(url, announcement);
     }
 
@@ -98,8 +98,8 @@ export class CommonService {
     }
 
     publishAnnouncement(announcement: Announcement): Observable<Announcement> {
-        const url = `${this.announcementsUrl}/publish` + '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
-        //const url = `${this.localhost}/announcements/publish`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;;
+        //const url = `${this.announcementsUrl}/publish` + '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
+        const url = `${this.localhost}/announcements/publish`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;;
         return this.http.post<Announcement>(url, announcement);
     }
 
@@ -174,8 +174,8 @@ export class CommonService {
     }
 
     createReview(review: Review): Observable<Review> {
-        const url = `${this.reviewsUrl}` + '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
-        //const url = `${this.localhost}/review`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
+        //const url = `${this.reviewsUrl}` + '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
+        const url = `${this.localhost}/review`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
         return this.http.post<Review>(url, review);
     }
 
@@ -222,8 +222,8 @@ export class CommonService {
     }
 
     addBookToUser(userBook: UserBook): Observable<UserBook> {
-        const url = `${this.userBookUrl}/add` + '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
-        //const url = `${this.localhost}/userBook/add`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
+        //const url = `${this.userBookUrl}/add` + '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
+        const url = `${this.localhost}/userBook/add`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
         console.log(userBook);
         return this.http.post<UserBook>(url, userBook);
     }
@@ -246,8 +246,8 @@ export class CommonService {
     }
 
     markUserBookAsRead(userBook: UserBook): Observable<UserBook> {
-        const url = `${this.userBookUrl}/mark_read` + '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
-        //const url = `${this.localhost}/userBook/mark_read`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
+        //const url = `${this.userBookUrl}/mark_read` + '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
+        const url = `${this.localhost}/userBook/mark_read`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
         userBook.isRead = true;
         console.log(userBook);
         return this.http.post<UserBook>(url, userBook);

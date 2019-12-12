@@ -50,28 +50,17 @@ public class ActivityService {
 		return activity;
 	}
 
-	public List<Activity> getActivityByActionID(int actionId) {
-		List<String> data = new ArrayList<>();
-		List<Activity> activities = new ArrayList<>();
-		if (actionPostgreDAO.getActionById(actionId) != null) {
-			activities = activityPostgreDAO.getActivityByActionID(actionId);
-		}
-		return activities;
-	}
-
 	public List<String> getActivityByUserID(int userId) {
 		List<String> data = new ArrayList<>();
-		List<Action> actions = new ArrayList<>();
-		List<ActionType> actionTypes = new ArrayList<>();
 
 		if (userPostgreDAO.getUserById(userId) != null) {
-			User user = userPostgreDAO.getUserById(userId);
 			List<Activity> activities = activityPostgreDAO.getActivityByUserID(userId);
 
 			for (Activity activity : activities) {
-				actions.add(actionPostgreDAO.getActionById(activity.getActionId()));
-				User actionUser = userPostgreDAO.getUserById(actionPostgreDAO.getActionById(activity.getActionId()).getUserId());
-				ActionType actionType = actionTypePostgreDAO.getActionTypeByActionTypeId(actionPostgreDAO.getActionById(activity.getActionId()).getActionTypeId());
+				Action action = actionPostgreDAO.getActionById(activity.getActionId());
+				User actionUser = userPostgreDAO.getUserById(action.getUserId());
+				ActionType actionType = actionTypePostgreDAO.getActionTypeByActionTypeId(action.getActionTypeId());
+
 				if (actionUser.getId() == userId && actionType.getEntity().equals("achievement")) {
 					data.add("You " + actionType.getActionName());
 				} else {
@@ -81,9 +70,5 @@ public class ActivityService {
 			}
 		}
 		return data;
-	}
-
-	public List<Activity> getActivityByUserActionID(int userId, int actionId) {
-		return activityPostgreDAO.getActivityByUserActionID(userId, actionId);
 	}
 }
