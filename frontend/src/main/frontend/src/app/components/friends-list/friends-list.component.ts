@@ -65,6 +65,8 @@ export class FriendsListComponent implements OnInit {
                 alert("Error in add friends");
             }
         )
+        this.getNewApplications(this.id.toString());
+
     }
 
 
