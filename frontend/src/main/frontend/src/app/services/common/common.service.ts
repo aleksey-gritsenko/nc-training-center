@@ -254,8 +254,8 @@ export class CommonService {
     }
 
     markUserBookAsFavourite(userBook: UserBook): Observable<UserBook> {
-        const url = `${this.userBookUrl}/mark_fav` + '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
-        //const url = `${this.localhost}/userBook/mark_fav`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
+        //const url = `${this.userBookUrl}/mark_fav` + '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
+        const url = `${this.localhost}/userBook/mark_fav`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
         userBook.isFavorite = true;
         console.log(userBook);
         return this.http.post<UserBook>(url, userBook);

@@ -8,18 +8,17 @@
         </div>
         <div>
             <div id="btnwrapper">
-                <button (click)="router.navigate(['/userBooks'])" class="btn btn-primary">My All Books</button>
+                <button (click)="router.navigate(['/userBooks'])" class="btn btn-primary">My Books</button>
                 <div class="divider"></div>
-                <button (click)="curBookList.getAllReadBooks()" class="btn btn-primary">My Read Books</button>
+                <button (click)="getAllReadBooks()" class="btn btn-primary">My Read Books</button>
                 <div class="divider"></div>
                 <button (click)="router.navigate(['/userBooks/favourite'])" class="btn btn-primary">My Favourite Books
                 </button>
             </div>
             <div class="row">
-                <div style="text-align: center; font-size: 30px"><h2 *ngIf="curBookList.emptyReadList">Since you do not
-                    have
-                    any read books, we suggest you most rated books</h2></div>
-                <div *ngFor="let readBook of curBookList.userReadBookList" class="col-lg-4  col-md-6">
+                <div style="text-align: center; font-size: 30px"><h2 *ngIf="emptyReadList">Since you do not
+                    have any read books, we suggest you most rated books</h2></div>
+                <div *ngFor="let readBook of userReadBookList" class="col-lg-4  col-md-6">
                     <div class="card card-profile">
                         <div class="card-body">
                             <div class="card-title">
@@ -27,63 +26,38 @@
                             </div>
                             <div class="card-description">
                                 <app-book-img [book]="readBook"></app-book-img>
-                                <div>Overview: {{readBook.overview}}</div>
-                                <div>Status: {{readBook.status}}</div>
+                                <h3>Status: {{readBook.status}}</h3>
                                 <div>
-                                    <div>Authors:</div>
+                                    <h3 *ngIf="readBook.authors">Authors:</h3>
                                     <div *ngFor="let author of readBook.authors ">
-                                        <div>{{author.name}}</div>
+                                        <h3>{{author.name}}</h3>
                                     </div>
                                 </div>
-                                <div *ngIf="readBook.genre">Genre: {{readBook.genre}}</div>
+                                <h3 *ngIf="readBook.genre">Genre: {{readBook.genre}}</h3>
+                                <div>Overview: {{readBook.overview | truncateText:250}}</div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
-        <div class="row">
-            <div *ngFor="let book of curBookList.userBookList" class="col-lg-4  col-md-6">
-                <div class="card card-profile">
-                    <div class="card-body">
-                        <div class="card-title">
-                            <h3><a [routerLink]="['book', book.id]"> {{book.header}}</a></h3>
-                        </div>
-                        <div class="card-description">
-                            <app-book-img [book]="book"></app-book-img>
-                            <h3>Status: {{book.status}}</h3>
-                            <div>
-                                <h3>Authors:</h3>
-                                <div *ngFor="let author of book.authors ">
-                                    <h3>{{author.name}}</h3>
-                                </div>
-                            </div>
-                            <h3 *ngIf="book.genre">Genre: {{book.genre}}</h3>
-                            <div>Overview: {{book.overview | truncateText:250}}</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!--     </div>-->
     </div>
 
     <div class="col-3">
         <form action="">
             <div class="card-body bmd-form-group row">
                 <div class="input-group no-border">
-                    <input [(ngModel)]="curBookList.bookFilter.header" class="form-control" name="header"
+                    <input [(ngModel)]="bookFilter.header" class="form-control" name="header"
                            placeholder="Search..." type="text">
-                    <button (click)="curBookList.searchByFilter()" class="btn btn-default btn-round btn-just-icon"
+                    <button (click)="searchByFilter()" class="btn btn-default btn-round btn-just-icon"
                             type="submit">
                         <i class="material-icons">search</i>
                         <div class="ripple-container"></div>
                     </button>
 
                 </div>
-                <button (click)="curBookList.searchByFilter()" class="btn btn-primary">Search by filter</button>
-                <button (click)="curBookList.resetFiler()" class="btn btn-primary">Reset filter</button>
+                <button (click)="searchByFilter()" class="btn btn-primary">Search by filter</button>
+                <button (click)="resetFiler()" class="btn btn-primary">Reset filter</button>
             </div>
 
             <div class="row">
@@ -93,19 +67,17 @@
                             <h2>Author</h2>
                         </div>
                         <div class="card-body row">
-                            <div *ngFor="let character of curBookList.fillArray()">
-                                <h3 (click)="curBookList.filterAuthor(character)"
+                            <div *ngFor="let character of fillArray()">
+                                <h3 (click)="filterAuthor(character)"
                                     class="font-weight-bold btn-link border-bottom">{{character}}</h3>
                             </div>
-                            <div *ngFor="let author of curBookList.filterAuthors;" class="col-6">
+                            <div *ngFor="let author of filterAuthors;" class="col-6">
                                 <label class="form-check-label">
                                     <input [(ngModel)]="author.selected" class="form-check-input" name="{{author.name}}"
                                            type="checkbox">{{author.name}}
                                     <span class="form-check-sign"><span class="check"></span></span>
                                 </label>
                             </div>
-
-
                         </div>
                     </div>
                 </div>
@@ -115,11 +87,11 @@
                             <h2>Genre</h2>
                         </div>
                         <div class="card-body row">
-                            <div *ngFor="let character of curBookList.fillArray()">
-                                <h3 (click)="curBookList.filterGenre(character)"
+                            <div *ngFor="let character of fillArray()">
+                                <h3 (click)="filterGenre(character)"
                                     class="font-weight-bold btn-link  border-bottom">{{character}}</h3>
                             </div>
-                            <div *ngFor="let genre of curBookList.filterGenres;" class="col-6">
+                            <div *ngFor="let genre of filterGenres;" class="col-6">
                                 <label class="form-check-label">
                                     <input [(ngModel)]="genre.selected" class="form-check-input" name="{{genre.name}}"
                                            type="checkbox">{{genre.name}}

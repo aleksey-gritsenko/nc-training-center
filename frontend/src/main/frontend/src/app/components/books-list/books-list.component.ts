@@ -86,18 +86,11 @@ export class BooksListComponent implements OnInit {
                     this.apiService.getMostRatedBooks().subscribe(
                         bookList => {
                             this.userBookList = bookList;
-                            console.log(this.userBookList)
                         }
                     );
                 }
             },
-            err => {
-                console.log(userBook);
-                console.log(this.userBookList);
-                console.log("Error in getting all users books")
-            }
         );
-
     }
 
     getAllFavouriteBooks() {
@@ -114,15 +107,10 @@ export class BooksListComponent implements OnInit {
                     this.apiService.getMostRatedBooks().subscribe(
                         favList => {
                             this.userFavBookList = favList;
-                            console.log(this.userFavBookList)
                         }
                     );
                 }
             },
-            err => {
-                console.log(this.userFavBookList);
-                console.log("Error in getting all favourite users books")
-            }
         );
     }
 
@@ -139,15 +127,10 @@ export class BooksListComponent implements OnInit {
                     this.apiService.getMostRatedBooks().subscribe(
                         readList => {
                             this.userReadBookList = readList;
-                            console.log(this.userReadBookList)
                         }
                     );
                 }
             },
-            err => {
-                console.log(this.userReadBookList);
-                console.log("Error in getting all read users books")
-            }
         );
     }
 

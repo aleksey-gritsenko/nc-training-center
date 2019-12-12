@@ -2,9 +2,9 @@ package ua.com.nc.nctrainingproject.persistance.dao.postgre.queries;
 
 public class AchivementQuery {
 	public static final String TABLE_NAME = "achievment";
-	public static final String ACHIEVEMENT_ID = "achievement_id";
+	public static final String ACHIEVEMENT_ID = "achievment_id";
 
-	public static final String SECOND_TABLE_NAME = "user_achievement";
+	public static final String SECOND_TABLE_NAME = "user_achievment";
 	public static final String USER_ID = "user_id";
 
 	public static final String ACHIEVEMENT_NAME = "achievment_name";
@@ -19,9 +19,9 @@ public class AchivementQuery {
 
 
 	public static final String GET_ALL = "SELECT * FROM " + TABLE_NAME;
-	public static final String GET_ALL_ACHIEVEMENT_ID_BY_USER_ID = "SELECT " + ACHIEVEMENT_ID +
+	public static final String GET_ALL_ACHIEVEMENT_ID_BY_USER_ID = "SELECT " + "achievement_id" +
 			" FROM " + SECOND_TABLE_NAME + " WHERE " + USER_ID + " =(?)";
-	public static final String CREATE_PAIR = "INSERT INTO " + SECOND_TABLE_NAME + " ( " + USER_ID + " , " + ACHIEVEMENT_ID + " ) "
+	public static final String CREATE_PAIR = "INSERT INTO " + SECOND_TABLE_NAME + " ( " + USER_ID + " , " + "achievement_id" + " ) "
 			+ " VALUES (?,?)";
 
 

@@ -48,6 +48,8 @@ public class AchivementPostgreDAO {
 	}
 
 	public AchivementDto getAchievementById(int id) {
+	//TODO this method should display length of list of achievements (not 0)
+		System.out.println(jdbcTemplate.query(AchivementQuery.GET_ALL_ACHIEVEMENT_DTO,new AchivementDtoRowMapper()).size());
 		return jdbcTemplate.queryForObject(AchivementQuery.GET_ACHIEVEMENT_DTO_BY_ID, AchivementDto.class, id);
 	}
 

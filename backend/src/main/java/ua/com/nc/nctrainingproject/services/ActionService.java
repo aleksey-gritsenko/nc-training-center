@@ -18,26 +18,29 @@ public class ActionService {
 	private final FriendsPostgreDAO friendsPostgreDAO;
 	private final ActivityPostgreDAO activityPostgreDAO;
 	private final ActionTypePostgreDAO actionTypePostgreDAO;
+	private final AchivementService achivementService;
+
 
 	@Autowired
 	public ActionService(ActionPostgreDAO actionPostgreDAO, FriendsPostgreDAO friendsPostgreDAO,
 						 ActivityPostgreDAO activityPostgreDAO,
-						 ActionTypePostgreDAO actionTypePostgreDAO) {
+						 ActionTypePostgreDAO actionTypePostgreDAO, AchivementService achivementService) {
 		this.actionPostgreDAO = actionPostgreDAO;
 		this.friendsPostgreDAO = friendsPostgreDAO;
 		this.activityPostgreDAO = activityPostgreDAO;
 		this.actionTypePostgreDAO = actionTypePostgreDAO;
+		this.achivementService = achivementService;
 	}
 
 	public Action addNewAction(int userId, int actionTypeId) {
 		createAction(new Action(userId, actionTypeId));
-
+		achivementService.assignAchievements(userId);
 		Action action = actionPostgreDAO.getActionByUserAndTypeId(userId, actionTypeId);
 
 		List<User> users = friendsPostgreDAO.getAllFriends(userId);
 
 		if (actionTypePostgreDAO.getActionTypeByActionTypeId(actionTypeId).getEntity().equals("achievement")) {
-			activityPostgreDAO.createActivity(userId, actionTypeId);
+			activityPostgreDAO.createActivity(userId, action.getActionId());
 		}
 
 		for (User user : users) {

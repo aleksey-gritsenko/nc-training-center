@@ -70,17 +70,14 @@ public class ActivityService {
 
 			for (Activity activity : activities) {
 				actions.add(actionPostgreDAO.getActionById(activity.getActionId()));
-			}
-
-			for (Action action : actions) {
-				actionTypes.add(actionTypePostgreDAO.getActionTypeByActionTypeId(action.getActionTypeId()));
-			}
-			for (ActionType actionType : actionTypes) {
-				if (user.getId() == userId && actionType.getEntity().equals("achievement")) {
+				User actionUser = userPostgreDAO.getUserById(actionPostgreDAO.getActionById(activity.getActionId()).getUserId());
+				ActionType actionType = actionTypePostgreDAO.getActionTypeByActionTypeId(actionPostgreDAO.getActionById(activity.getActionId()).getActionTypeId());
+				if (actionUser.getId() == userId && actionType.getEntity().equals("achievement")) {
 					data.add("You " + actionType.getActionName());
 				} else {
-					data.add(user.getUserName() + " " + actionType.getActionName());
+					data.add(actionUser.getUserName() + " " + actionType.getActionName());
 				}
+				deleteActivity(activity);
 			}
 		}
 		return data;

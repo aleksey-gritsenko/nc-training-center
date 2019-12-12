@@ -42,17 +42,16 @@ public class AchivementService {
 		return result;
 	}
 
-	//TODO make this method Sheduled
-	public void assignAchievements() {
-		//TODO get cur user from session
-		User currentUser = new User();
+
+	public void assignAchievements(int id) {
+
 
 		List<Achievement> achievements = achivementPostgreDAO.getAllAchievements();
 
 		for (Achievement achievement : achievements) {
-			if (actionPostgreDAO.getAllActionsByUserIdAndActionTypeId(currentUser.getId(), achievement.getActionTypeId())
-					.size() >= achievement.getCount() && !(achivementPostgreDAO.getAllAchievementsByUserId(currentUser.getId()).contains((achievement.getId())))) {
-				achivementPostgreDAO.createPair(currentUser.getId(), achievement.getGenreId());
+			if (actionPostgreDAO.getAllActionsByUserIdAndActionTypeId(id, achievement.getActionTypeId())
+					.size() >= achievement.getCount() && !(achivementPostgreDAO.getAllAchievementsByUserId(id).contains((achievement.getId())))) {
+				achivementPostgreDAO.createPair(id, achievement.getId());
 			}
 
 		}

@@ -34,6 +34,7 @@ public class AuthorizationController {
 	public ResponseEntity<?> registration(@RequestParam(name = "login") String login,
 										  @RequestParam(name = "password") String password,
 										  @RequestParam(name = "email") String email) {
+		//TODO situation when response = null is not watched
 		User response = authorizationService.register(login, password, email);
 		return Optional.ofNullable(response).map(ResponseEntity::ok).orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
 	}
