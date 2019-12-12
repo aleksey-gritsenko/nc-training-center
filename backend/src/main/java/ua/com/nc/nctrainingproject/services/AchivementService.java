@@ -51,7 +51,7 @@ public class AchivementService {
 		for (Achievement achievement : achievements) {
 			if (actionPostgreDAO.getAllActionsByUserIdAndActionTypeId(id, achievement.getActionTypeId())
 					.size() >= achievement.getCount() && !(achivementPostgreDAO.getAllAchievementsByUserId(id).contains((achievement.getId())))) {
-				achivementPostgreDAO.createPair(id, achievement.getGenreId());
+				achivementPostgreDAO.createPair(id, achievement.getId());
 			}
 
 		}

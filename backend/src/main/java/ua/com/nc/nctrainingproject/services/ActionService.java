@@ -40,7 +40,7 @@ public class ActionService {
 		List<User> users = friendsPostgreDAO.getAllFriends(userId);
 
 		if (actionTypePostgreDAO.getActionTypeByActionTypeId(actionTypeId).getEntity().equals("achievement")) {
-			activityPostgreDAO.createActivity(userId, actionTypeId);
+			activityPostgreDAO.createActivity(userId, action.getActionId());
 		}
 
 		for (User user : users) {

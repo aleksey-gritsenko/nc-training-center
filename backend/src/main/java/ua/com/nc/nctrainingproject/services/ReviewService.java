@@ -11,13 +11,16 @@ import java.util.List;
 @Service
 public class ReviewService {
 	private final ReviewPostgreDAO reviewPostgreDAO;
+	private final ActionService actionService;
 
 	@Autowired
-	ReviewService(ReviewPostgreDAO reviewPostgreDAO) {
+	ReviewService(ReviewPostgreDAO reviewPostgreDAO, ActionService actionService) {
 		this.reviewPostgreDAO = reviewPostgreDAO;
+		this.actionService = actionService;
 	}
 
 	public Review createReview(Review review) {
+		actionService.addNewAction(review.getUserId(), 6);
 		review.setReviewDate(new Date());
 		reviewPostgreDAO.createReview(review);
 		review.setReviewId(getAllReview().get(getAllReview().size() - 1).getId());

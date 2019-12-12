@@ -10,13 +10,16 @@ import java.util.List;
 @Service
 public class UserBookService {
 	private final UserBooksPostgreDAO userBooksPostgreDAO;
+	private final ActionService actionService;
 
-	public UserBookService(UserBooksPostgreDAO userBooksPostgreDAO) {
+	public UserBookService(UserBooksPostgreDAO userBooksPostgreDAO, ActionService actionService) {
 		this.userBooksPostgreDAO = userBooksPostgreDAO;
+		this.actionService = actionService;
 	}
 
 
 	public UserBook addBookToUser(UserBook userBook) {
+		actionService.addNewAction(userBook.getUserId(), 3);
 		List<Book> books = this.getAllUserBooks(userBook.getUserId());
 		if (books.stream()
 				.filter(book -> book.getId() == userBook.getBookId())
@@ -37,11 +40,13 @@ public class UserBookService {
 	}
 
 	public UserBook markBookAsRead(UserBook userBook) {
+		actionService.addNewAction(userBook.getUserId(), 5);
 		userBooksPostgreDAO.markBookAsRead(userBook.getUserId(), userBook.getBookId());
 		return userBook;
 	}
 
 	public UserBook markBookAsFavourite(UserBook userBook) {
+		actionService.addNewAction(userBook.getUserId(), 4);
 		userBooksPostgreDAO.markBookAsFavourite(userBook.getUserId(), userBook.getBookId());
 		return userBook;
 	}
