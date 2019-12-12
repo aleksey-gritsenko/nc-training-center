@@ -20,7 +20,6 @@ public class ActionService {
 	private final ActionTypePostgreDAO actionTypePostgreDAO;
 	private final AchivementService achivementService;
 
-
 	@Autowired
 	public ActionService(ActionPostgreDAO actionPostgreDAO, FriendsPostgreDAO friendsPostgreDAO,
 						 ActivityPostgreDAO activityPostgreDAO,
@@ -46,23 +45,12 @@ public class ActionService {
 		for (User user : users) {
 			activityPostgreDAO.createActivity(user.getId(), action.getActionId());
 		}
+
 		return action;
 	}
 
 	public List<Action> getAllActions() {
 		return actionPostgreDAO.getAllActions();
-	}
-
-	public Action getActionById(int actionId) {
-		return actionPostgreDAO.getActionById(actionId);
-	}
-
-	public Action getActionByUserId(int userId) {
-		return actionPostgreDAO.getActionByUserId(userId);
-	}
-
-	public Action getActionByActionTypeId(int actionTypeId) {
-		return actionPostgreDAO.getActionByActionTypeId(actionTypeId);
 	}
 
 	public void deleteActionByActionId(int actionId) {

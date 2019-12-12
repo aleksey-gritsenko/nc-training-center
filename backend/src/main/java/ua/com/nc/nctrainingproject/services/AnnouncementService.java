@@ -10,10 +10,12 @@ import java.util.List;
 @Service
 public class AnnouncementService {
 	private final AnnouncementPostgreDAO announcementsPostgreDAO;
+	private final ActionService actionService;
 
 	@Autowired
-	public AnnouncementService(AnnouncementPostgreDAO announcementsPostgreDAO) {
+	public AnnouncementService(AnnouncementPostgreDAO announcementsPostgreDAO, ActionService actionService) {
 		this.announcementsPostgreDAO = announcementsPostgreDAO;
+		this.actionService = actionService;
 	}
 
 	public Announcement getAnnouncement(int id) {
@@ -57,6 +59,7 @@ public class AnnouncementService {
 	}
 
 	public void publishAnnouncement(Announcement announcement) {
+		actionService.addNewAction(announcement.getOwnerId(), 2);
 		if (announcementsPostgreDAO.getAnnouncementByID(announcement.getAnnouncementID()) == null)
 			return;
 		announcementsPostgreDAO.publishAnnouncement(announcement);

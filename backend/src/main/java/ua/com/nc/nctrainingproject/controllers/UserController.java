@@ -84,4 +84,10 @@ public class UserController {
 		List<User> response = userService.getActivatedAdmins();
 		return response.isEmpty() ? new ResponseEntity<>(HttpStatus.BAD_REQUEST) : ResponseEntity.ok(response);
 	}
+
+	@RequestMapping(method = RequestMethod.GET, value = "/get/all")
+	public ResponseEntity<?> getAllUsers() {
+		List<User> response = userService.getAllUsers();
+		return response.isEmpty() ? new ResponseEntity<>(HttpStatus.BAD_REQUEST) : ResponseEntity.ok(response);
+	}
 }

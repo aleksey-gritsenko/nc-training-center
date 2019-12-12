@@ -23,8 +23,8 @@ export class UserFavouriteBooksComponent extends BooksListComponent implements O
     ngOnInit() {
         super.getAllFavouriteBooks();
 
-        this.getAllAuthor();
-        this.getAllGenre();
+        super.getAllAuthor();
+        super.getAllGenre();
         this.historyFilter = this.store.getFilter();
     }
 }

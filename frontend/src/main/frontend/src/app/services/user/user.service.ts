@@ -41,7 +41,7 @@ export class UserService {
     }
 
     searchUser(id: string) {
-        const url = `${this.siteUrl}/user/` + id + '?access_token=' +
+        const url = `${this.siteUrl}/user/${id}` + '?access_token=' +
             JSON.parse(window.sessionStorage.getItem('token')).access_token;
         return this.http.get<User>(url);
     }
@@ -204,12 +204,21 @@ export class UserService {
         return this.http.post<User>(url, params);
     }
 
-    getUserSettings(userId:number):Observable<UserSettings>{
+
+    getUserSettings(userId:number):Observable<UserSettings> {
         let params = new HttpParams().append(
             'userId', userId.toString()
         );
 
         let url = `${this.siteUrl}/getSettings`;
         return this.http.post<UserSettings>(url, params);
+    }
+    checkRequest(sender: number, receiver: number) {
+        let url = `${this.siteUrl}/friends/check`;
+        let form = new FormData();
+        form.append('sender', sender.toString());
+        form.append('receiver', receiver.toString());
+
+        return this.http.post(url,form);
     }
 }
