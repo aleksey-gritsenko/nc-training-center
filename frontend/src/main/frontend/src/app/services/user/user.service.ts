@@ -202,4 +202,13 @@ export class UserService {
 
         return this.http.post<User>(url, params);
     }
+
+    checkRequest(sender: number, receiver: number) {
+        let url = `${this.siteUrl}/friends/check`;
+        let form = new FormData();
+        form.append('sender', sender.toString());
+        form.append('receiver', receiver.toString());
+
+        return this.http.post(url,form);
+    }
 }
