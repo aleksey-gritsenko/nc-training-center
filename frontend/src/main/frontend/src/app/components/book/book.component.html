@@ -55,22 +55,22 @@
             </div>
         </div>
         <div *ngIf="userBookButtonVisible">
-            <button (click)="addBookToUser(book.id)" *ngIf="userAddedBook" class="btn btn-primary" id="addBook">
+            <button (click)="addBookToUser(book.id)" *ngIf="!userAddedBook" class="btn btn-primary" id="addBook">
                 Add to my books
             </button>
-            <button (click)="deleteBookFromUser(book.id)" *ngIf="!userAddedBook" class="btn btn-primary"
+            <button (click)="deleteBookFromUser(book.id)" *ngIf="userAddedBook" class="btn btn-primary"
                     id="removeBook">Remove from my books
             </button>
-            <button (click)="addBookToFavourite(book.id)" *ngIf="userAddedToFav" class="btn btn-primary" id="addFav">
+            <button (click)="addBookToFavourite(book.id)" *ngIf="!userAddedToFav" class="btn btn-primary" id="addFav">
                 Mark as favourite
             </button>
-            <button (click)="removeBookFromFav(book.id)" *ngIf="!userAddedToFav" class="btn btn-primary" id="removeFav">
+            <button (click)="removeBookFromFav(book.id)" *ngIf="userAddedToFav" class="btn btn-primary" id="removeFav">
                 Remove from favourite
             </button>
-            <button (click)="addBookToRead(book.id)" *ngIf="userAddedToRead" class="btn btn-primary" id="addRead">
+            <button (click)="addBookToRead(book.id)" *ngIf="!userAddedToRead" class="btn btn-primary" id="addRead">
                 Mark as read
             </button>
-            <button (click)="removeBookFromRead(book.id)" *ngIf="!userAddedToRead" class="btn btn-primary"
+            <button (click)="removeBookFromRead(book.id)" *ngIf="userAddedToRead" class="btn btn-primary"
                     id="removeRead">Remove from read
             </button>
         </div>

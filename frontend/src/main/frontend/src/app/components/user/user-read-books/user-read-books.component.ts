@@ -23,8 +23,8 @@ export class UserReadBooksComponent extends BooksListComponent implements OnInit
     ngOnInit() {
         super.getAllReadBooks();
 
-        this.getAllAuthor();
-        this.getAllGenre();
+        super.getAllAuthor();
+        super.getAllGenre();
         this.historyFilter = this.store.getFilter();
     }
 }
