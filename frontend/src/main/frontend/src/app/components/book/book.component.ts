@@ -126,7 +126,7 @@ export class BookComponent implements OnInit {
                 this.userBook = res;
             }
         );
-
+        this.userAddedBook = true;
         this.apiService.addBookToUser(userBook).subscribe(
             res => {
                 console.log("add book: " + JSON.stringify(res));
@@ -135,7 +135,39 @@ export class BookComponent implements OnInit {
                 console.log("Add  book error");
             }
         );
-        //}
+    }
+
+    /*    checkBooleans(){
+        let userBook: UserBook = new UserBook();
+        userBook.userId = this.storage.getUser().id;
+        userBook.bookId = this.bookId;
+        this.apiService.getUserBookById(userBook).subscribe(
+            res => {
+                this.userBook = res;
+                console.log("check bool "+JSON.stringify(this.userBook));
+            }
+        );
+        if (this.userBook != undefined) {
+            this.userAddedBook = true;
+        }
+    }*/
+
+    checkBooleans(){
+        let userBook: UserBook = new UserBook();
+        this.userBook.userId = this.storage.getUser().id;
+        this.userBook.bookId = this.bookId;
+        let userBooks: UserBook[] = [];
+        this.apiService.getAllUserBooksByUserId(this.userBook.userId).subscribe(
+            res => {userBooks = res;
+                res.forEach(userBook => userBooks.push(userBook));
+            },
+            error => {
+                console.log("userBooks: " + JSON.stringify(userBooks));
+                console.log("getAllUserBookById error")}
+        );
+        if (userBooks.includes(userBook)){
+            this.userAddedBook = true;
+        }
     }
 
     deleteBookFromUser(bookId: number) {
