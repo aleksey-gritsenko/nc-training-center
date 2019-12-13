@@ -42,7 +42,7 @@ public class ActivityController {
 	}
 
 	@RequestMapping(value = "/getUser/{userId}", method = RequestMethod.GET)
-	public List<String> getActivityByUserId(@PathVariable("userId") int userId) {
-		return activityService.getActivityByUserID(userId);
+	public ResponseEntity<List<String>> getActivityByUserId(@PathVariable("userId") int userId) {
+		return ResponseEntity.ok(activityService.getActivityByUserID(userId));
 	}
 }
