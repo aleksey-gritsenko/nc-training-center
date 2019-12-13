@@ -56,6 +56,7 @@ export class FriendsListComponent implements OnInit {
                 alert("Error in add friends");
             }
         )
+        this.getNewApplications(this.id.toString());
     }
     rejectFriends(friend: User) {
         this.apiService.rejectRequest(friend, this.currentUser).subscribe(
