@@ -44,12 +44,16 @@ export class AddBookComponent implements OnInit {
     }
     removeAuthor(i:number) {
         this.authors.removeAt(i);
+        if(i==0){
+            this.authors.push(this.newAuthor());
+        }
     }
     onSubmit() {
         console.log(this.authors.value);
     }
 
     ngOnInit() {
+
         this.createdBook = this.formBuilder.group({
             header: ['',Validators.required],
             overview: ['',Validators.required],
@@ -57,6 +61,7 @@ export class AddBookComponent implements OnInit {
             genre: ['',Validators.required],
             authors:   this.formBuilder.array([],[Validators.nullValidator])
         });
+        this.authors.push(this.newAuthor());
         this.getGenres();
     }
 
