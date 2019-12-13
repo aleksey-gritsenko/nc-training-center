@@ -7,6 +7,8 @@ import {Router} from '@angular/router';
 })
 export class RecoverService {
 
+    public userEmail: string = '';
+
     private siteUrl: string = 'https://nc-group1-2019.herokuapp.com';
 
     //private siteUrl: string = 'http://localhost:8080';
@@ -18,8 +20,9 @@ export class RecoverService {
     sendRecoverCode(email: string): void {
         const url = `${this.siteUrl}/email`;
         const form = new FormData();
-        form.append('email', email);
-        alert(email);
+        this.userEmail = email;
+        form.append('email', this.userEmail);
+        alert(this.userEmail);
         this.http.post(url, form).subscribe();
         //  location.assign('change');
     }

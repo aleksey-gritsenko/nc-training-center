@@ -93,11 +93,11 @@ export class BookComponent implements OnInit {
                     this.suggestionBook = books || [];
                 }
             );
-            this.apiService.getBooksByFilter(suggestionFilter).subscribe(
-                books => {
-                    this.suggestionBook.push(...(books || []));
-                }
-            );
+            // this.apiService.getBooksByFilter(suggestionFilter).subscribe(
+            //     books => {
+            //         this.suggestionBook.push(...(books || []));
+            //     }
+            // );
 
         }
         this.apiService.getMostRatedBooks().subscribe(
