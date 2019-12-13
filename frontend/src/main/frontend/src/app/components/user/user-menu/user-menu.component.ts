@@ -21,15 +21,15 @@ export class UserMenuComponent implements OnInit, OnChanges {
 
     constructor(private storageService: StorageService) {
         this.open('View');
+        this.currentUser = this.storageService.getUser()
     }
 
     ngOnInit() {
-        this.currentUser = this.storageService.getUser();
     }
 
     ngOnChanges(changes: SimpleChanges): void {
         this.user = changes.user.currentValue;
-        if (this.currentUser) {
+        if (changes.user.currentValue.id) {
             if (this.user.id == this.currentUser.id) {
                 this.isAllowedToDeactivate = false;
                 this.isAllowedToAdd = this.currentUser.userRole == 'super' || this.currentUser.userRole == 'admin';
