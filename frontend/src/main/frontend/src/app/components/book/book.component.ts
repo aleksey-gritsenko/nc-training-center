@@ -29,9 +29,9 @@ export class BookComponent implements OnInit {
     userBookButtonVisible: boolean = false;
 
 
-    userAddedBook: boolean;
-    userAddedToRead: boolean;
-    userAddedToFav: boolean;
+    userAddedBook: boolean = false;
+    userAddedToRead: boolean = false;
+    userAddedToFav: boolean = false;
 
 
     constructor(private apiService: CommonService,
@@ -45,6 +45,7 @@ export class BookComponent implements OnInit {
         this.getBook(this.bookId);
         this.checkUser();
         this.makeSuggestion();
+        this.checkButton();
     }
 
 
@@ -98,7 +99,6 @@ export class BookComponent implements OnInit {
                     this.suggestionBook = books || [];
                 }
             );
-
             this.apiService.getBooksByFilter(suggestionFilter).subscribe(
                 books => {
                     this.suggestionBook.push(...(books || []));
@@ -188,6 +188,24 @@ export class BookComponent implements OnInit {
         );
     }
 
+    checkButton(){
+        let userBook:UserBook = new UserBook();
+        userBook.userId = this.storage.getUser().id;
+        this.apiService.getAllUserBooks(userBook).subscribe(
+            res => {
+                this.userAddedBook = res.find(book => book.id == this.book.id) != null;
+            });
+        this.apiService.getAllFavouriteBooks(userBook).subscribe(
+            res=>{
+                this.userAddedToFav = res.find(book => book.id == this.book.id) != null;
+            }
+        );
+        this.apiService.getAllReadBooks(userBook).subscribe(
+            res=>{
+                this.userAddedToRead = res.find(book => book.id == this.book.id) != null;
+            }
+        );
+    }
     addBookToFavourite(bookId: number) {
         this.checkPresentUser();
 
