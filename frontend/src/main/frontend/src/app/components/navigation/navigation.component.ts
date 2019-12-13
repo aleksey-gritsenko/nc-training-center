@@ -17,7 +17,9 @@ export class NavigationComponent implements OnInit, OnDestroy {
     constructor(private storageService: StorageService,
                 private authenticationService: AuthenticationService
     ) {
-        this.subscription = this.storageService.currentUser.subscribe(x => this.user = x);
+        this.subscription = this.storageService.currentUser.subscribe(user => {
+            this.user = user;
+        });
     }
 
     ngOnInit() {
