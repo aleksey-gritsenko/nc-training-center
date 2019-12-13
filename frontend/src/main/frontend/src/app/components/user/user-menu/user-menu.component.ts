@@ -29,7 +29,7 @@ export class UserMenuComponent implements OnInit, OnChanges {
 
     ngOnChanges(changes: SimpleChanges): void {
         this.user = changes.user.currentValue;
-        if (changes.user.currentValue.id) {
+        if (this.user.id) {
             if (this.user.id == this.currentUser.id) {
                 this.isAllowedToDeactivate = false;
                 this.isAllowedToAdd = this.currentUser.userRole == 'super' || this.currentUser.userRole == 'admin';
