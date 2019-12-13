@@ -2,24 +2,26 @@
     <app-navigation></app-navigation>
     <router-outlet></router-outlet>
 </div>
-<div *ngIf="review" class="container">
-    <h2>Review</h2>
-    <div *ngIf="book">
-        <h3>Book: {{book.header}}</h3>
-    </div>
-    <div *ngIf="user">
-        <h3>User: {{user.userName}}</h3>
-    </div>
-    <div class="row">
-        <div *ngFor="let i of fillArray(review.grade)">
-            <i class="material-icons">star_border</i>
+<div *ngIf="review" class="container card">
+    <h2 class="card-header card-header-primary">Review</h2>
+    <div class="card-body">
+        <div *ngIf="book">
+            <h3>Book: {{book.header}}</h3>
         </div>
+        <div *ngIf="user">
+            <h3>User: {{user.userName}}</h3>
+        </div>
+        <div class="row">
+            <div *ngFor="let i of fillArray(review.grade)">
+                <i class="material-icons">star_border</i>
+            </div>
+        </div>
+        <div class="text-justify m-auto">
+            <div [innerHTML]="review.text" class="text-muted"></div>
+        </div>
+        <div>
+            <label>Date: {{review.reviewDate}}</label>
+        </div>
+        <div><button class="btn btn-primary " (click)="back()">Back</button></div>
     </div>
-    <div>
-        <div [innerHTML]="review.text" class="text-muted"></div>
-    </div>
-    <div>
-        <label>Date: {{review.reviewDate}}</label>
-    </div>
-    <div><button class="btn btn-primary " (click)="back()">Back</button></div>
 </div>

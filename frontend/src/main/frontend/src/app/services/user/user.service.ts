@@ -10,6 +10,7 @@ import {Message} from "../../models/message";
 import {BookFilter} from "../../models/bookfilter";
 import {Observable} from "rxjs";
 import {userSearch} from "../../models/userSearch";
+import {UserSettings} from "../../models/user-settings";
 
 @Injectable({
     providedIn: 'root'
@@ -203,6 +204,15 @@ export class UserService {
         return this.http.post<User>(url, params);
     }
 
+
+    getUserSettings(userId:number):Observable<UserSettings> {
+        let params = new HttpParams().append(
+            'userId', userId.toString()
+        );
+
+        let url = `${this.siteUrl}/getSettings`;
+        return this.http.post<UserSettings>(url, params);
+    }
     checkRequest(sender: number, receiver: number) {
         let url = `${this.siteUrl}/friends/check`;
         let form = new FormData();

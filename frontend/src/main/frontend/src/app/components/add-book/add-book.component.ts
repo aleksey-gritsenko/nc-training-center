@@ -6,6 +6,7 @@ import {FormBuilder, FormGroup, FormArray, Validators, FormControl} from '@angul
 import {ActivatedRoute, Router} from "@angular/router";
 import {StorageService} from "../../services/storage/storage.service";
 import {Genre} from "../../models/genre";
+import {toInteger} from "@ng-bootstrap/ng-bootstrap/util/util";
 
 @Component({
     selector: 'app-add-book',
@@ -14,6 +15,7 @@ import {Genre} from "../../models/genre";
 })
 export class AddBookComponent implements OnInit {
     model:Book  = new Book();
+    modelAuthors:Author[] = [];
     createdBook: FormGroup;
 
     constructor(private commonService: CommonService,
@@ -64,16 +66,20 @@ export class AddBookComponent implements OnInit {
         this.model.overview = book.overview.value;
         this.model.genre = book.genre.value;
         this.model.status = book.status.value;
-        this.model.authors = book.authors.value;
+
+        this.authors.getRawValue().forEach(author => {
+            let newAuthors:Author = {id:0, name:author['author']};
+            this.model.authors.push(newAuthors);
+        });
 
         this.commonService.createBook(this.model)
             .subscribe(res => {
-                   console.log(this.createdBook);
+                   console.log(this.model);
+                    this.model.authors = [];
                 },
                 err => {
                     this.router.navigateByUrl('/error');
                 });
-
     }
 
     back(){

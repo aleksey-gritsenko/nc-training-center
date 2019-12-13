@@ -91,7 +91,6 @@ export class BookComponent implements OnInit {
     makeSuggestion() {
 
         let suggestionFilter: BookFilter = this.storage.getFilter();
-        console.log(suggestionFilter);
 
         if (this.storage.getUser() != null) {
             this.apiService.makeSuggestion(this.storage.getUser().id).subscribe(
@@ -99,11 +98,13 @@ export class BookComponent implements OnInit {
                     this.suggestionBook = books || [];
                 }
             );
-            this.apiService.getBooksByFilter(suggestionFilter).subscribe(
-                books => {
-                    this.suggestionBook.push(...(books || []));
-                }
-            );
+            if(suggestionFilter.author!=[]||suggestionFilter.header!=""||suggestionFilter.genre!=[]){
+                this.apiService.getBooksByFilter(suggestionFilter).subscribe(
+                    books => {
+                        this.suggestionBook.push(...(books || []));
+                    }
+                );
+            }
         }
         this.apiService.getMostRatedBooks().subscribe(
             books => {

@@ -63,7 +63,7 @@
                             <input type="text" placeholder="Author..." class="form-control" [(ngModel)]="searchAuthor" [ngModelOptions]="{standalone: true}">
                             <div *ngFor="let author of selectedAuthors | filter:searchAuthor|slice:0:5;" class="col-12">
                                 <label class="form-check-label">
-                                    <input [(ngModel)]="author.selected" class="form-check-input" name="{{author.name}}"
+                                    <input (change)="onFilterChange($event)" [(ngModel)]="author.selected" class="form-check-input" name="{{author.name}}"
                                            type="checkbox">{{author.name}}
                                     <span class="form-check-sign"><span class="check"></span></span>
                                 </label>
