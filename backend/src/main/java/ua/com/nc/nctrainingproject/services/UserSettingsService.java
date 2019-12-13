@@ -14,8 +14,14 @@ public class UserSettingsService {
 		this.userSettingsPostgreDAO = userSettingsPostgreDAO;
 	}
 
-	public UserSettings getUserSettings(int userId) {
-		return userSettingsPostgreDAO.getSettingsListById(userId);
-	}
+
+    public UserSettings getUserSettings(int userId) {
+
+        return userSettingsPostgreDAO.getSettingsListById(userId);
+    }
+    public void updateSettings(UserSettings userSettings, int userId) {
+        userSettingsPostgreDAO.updateSettings(userId, userSettings);
+    }
+
 
 }

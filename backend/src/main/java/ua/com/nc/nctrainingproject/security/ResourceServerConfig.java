@@ -18,21 +18,22 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 		resources.resourceId(RESOURCE_ID).stateless(false);
 	}
 
-	@Override
-	public void configure(HttpSecurity http) throws Exception {
-		http.
-				anonymous().disable()
-				.authorizeRequests()
-				// .antMatchers().access("hasAuthority('DEFAULT_AUTHORITY')")
-				.antMatchers("/login/**", "/friends/accept/", "/getSettings/").access("hasAuthority('DEFAULT_AUTHORITY')")
-				.antMatchers("/announcements/publish/**").access("hasAuthority('publish announcement')")
-				.antMatchers("/review/accept/**").access("hasAuthority('publish reviews')")
-				.antMatchers("/login/**", "/test/**").access("hasAuthority('DEFAULT_AUTHORITY')")
-				.antMatchers("/review/notaccepted/**").access("hasAuthority('publish reviews')")
-				.antMatchers("/book/update/**").access("hasAuthority('publish bookOverviews')")
-				.antMatchers("/book/addFile/**").access("hasAuthority('publish bookOverviews')")
-				.antMatchers("/book/addImage/**").access("hasAuthority('publish bookOverviews')")
-				.antMatchers("/userBook/**").access("hasAuthority('DEFAULT_AUTHORITY')")
-				.and().exceptionHandling().accessDeniedHandler(new OAuth2AccessDeniedHandler());
-	}
+
+    @Override
+    public void configure(HttpSecurity http) throws Exception {
+        http.
+                anonymous().disable()
+                .authorizeRequests()
+               // .antMatchers().access("hasAuthority('DEFAULT_AUTHORITY')")
+                .antMatchers("/login/**","/friends/accept/","/getSettings/","/updateSettings/").access("hasAuthority('DEFAULT_AUTHORITY')")
+                .antMatchers("/announcements/publish/**").access("hasAuthority('publish announcement')")
+                .antMatchers("/review/accept/**").access("hasAuthority('publish reviews')")
+                .antMatchers("/login/**","/test/**").access("hasAuthority('DEFAULT_AUTHORITY')")
+                .antMatchers("/review/notaccepted/**").access("hasAuthority('publish reviews')")
+                .antMatchers("/book/update/**").access("hasAuthority('publish bookOverviews')")
+                .antMatchers("/book/addFile/**").access("hasAuthority('publish bookOverviews')")
+                .antMatchers("/book/addImage/**").access("hasAuthority('publish bookOverviews')")
+                .antMatchers("/userBook/**").access("hasAuthority('DEFAULT_AUTHORITY')")
+                .and().exceptionHandling().accessDeniedHandler(new OAuth2AccessDeniedHandler());
+    }
 }
