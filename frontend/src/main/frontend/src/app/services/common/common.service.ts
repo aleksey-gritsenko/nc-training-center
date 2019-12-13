@@ -55,7 +55,6 @@ export class CommonService {
     createBook(book: Book): Observable<Book> {
         const url = `${this.localhost}/book`;
         //const url = `${this.booksUrl}` + '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
-
         return this.http.post<Book>(url, book);
     }
 

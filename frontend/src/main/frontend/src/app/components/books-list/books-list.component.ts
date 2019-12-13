@@ -186,25 +186,26 @@ export class BooksListComponent implements OnInit {
             this.bookFilter.author.push(author.name);
         });
 
-        this.historyFilter.genre.push(...(this.bookFilter.genre || []));
-        this.historyFilter.author.push(...(this.bookFilter.author || []));
-        this.storage.setFilter(this.historyFilter);
-        let oldBooks = this.books;
-        this.books = [];
-        this.apiService.getBooksByFilter(this.bookFilter).subscribe(
-            res => {
-                this.books = res;
-                this.books.forEach(book => {
-                    this.apiService.getAuthorsByBookId(book.id).subscribe(
-                        authors => book.authors = authors
-                    );
-                    this.apiService.getGenreByBookId(book.id).subscribe(
-                        genre => book.genre = genre.name
-                    )
-                })
-            },
-            error => this.books =  oldBooks
-        );
+        if(this.bookFilter.author!=[]||this.bookFilter.header!=""||this.bookFilter.genre!=[]) {
+            this.historyFilter.genre.push(...(this.bookFilter.genre || []));
+            this.historyFilter.author.push(...(this.bookFilter.author || []));
+            this.storage.setFilter(this.historyFilter);
+            this.books = [];
+            this.apiService.getBooksByFilter(this.bookFilter).subscribe(
+                res => {
+                    this.books = res;
+                    this.books.forEach(book => {
+                        this.apiService.getAuthorsByBookId(book.id).subscribe(
+                            authors => book.authors = authors
+                        );
+                        this.apiService.getGenreByBookId(book.id).subscribe(
+                            genre => book.genre = genre.name
+                        )
+                    })
+                },
+                error => console.log('Error in book filter')
+            );
+        }
     }
 
     resetFiler() {
