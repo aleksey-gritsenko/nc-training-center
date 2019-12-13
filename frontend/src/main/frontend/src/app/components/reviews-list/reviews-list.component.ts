@@ -56,7 +56,7 @@ export class ReviewsListComponent implements OnInit {
     }
 
     getAcceptedReviews(): void {
-        this.commonService.getAcceptedReviews(this.book.id, true).subscribe(
+        this.commonService.getAcceptedReviews(this.book.id).subscribe(
             res => {
                 this.acceptedReviews = res;
                 this.acceptedReviews.forEach(
@@ -72,7 +72,7 @@ export class ReviewsListComponent implements OnInit {
     }
 
     getNotAcceptedReviews(): void {
-        this.commonService.getNotAcceptedReviews(this.book.id, false).subscribe(
+        this.commonService.getNotAcceptedReviews(this.book.id).subscribe(
             res => {
                 this.notAcceptedReviews = res;
                 this.notAcceptedReviews.forEach(
@@ -110,6 +110,8 @@ export class ReviewsListComponent implements OnInit {
                             res.username = user.userName;
                         }
                     );
+                    this.createdReview.text = "";
+                    this.createdReview.grade = null;
                     this.notAcceptedReviews.push(res);
                 },
                 err => {

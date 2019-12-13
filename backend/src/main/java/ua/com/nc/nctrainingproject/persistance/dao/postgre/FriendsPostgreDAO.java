@@ -38,17 +38,10 @@ public class FriendsPostgreDAO {
 		return jdbcTemplate.query(FriendQuery.GET_ALL_NEW_REQUESTS, new UserRowMapper(), false, user);
 	}
 
-	public List<User> getReciever(int sender, int reciever) {
-		return jdbcTemplate.query(FriendQuery.GET_RECIEVER, new UserRowMapper(), sender, reciever
-		);
-	}
 
-	public List<User> getSender(int sender, int reciever) {
-		return jdbcTemplate.query(FriendQuery.GET_SENDER, new UserRowMapper(), sender, reciever
-		);
-	}
-	public int getCountApplications(int sender, int reciever){
+	public Integer getCountApplications(int sender, int reciever){
 		return  this.jdbcTemplate.queryForObject(
 				FriendQuery.GET_COUNT_OF_APPLICATIONS, new Object[] { sender,reciever ,reciever,sender}, Integer.class);
 	}
+
 }

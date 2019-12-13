@@ -4,43 +4,61 @@
     <div class="row">
         <div class="col-md-offset-3 col-md-6">
             <div class="tab" role="tabpanel">
+                <div class="logo mb-5">
+                    <a routerLink="/">BOOKNET</a>
+                </div>
+
                 <!-- Nav tabs -->
                 <ul class="nav nav-tabs " role="tablist">
                     <li role="presentation"><a aria-controls="home" role="tab" routerLink="/login">sign in</a></li>
                     <li class="active" role="presentation"><a aria-controls="profile" role="tab">sign up</a></li>
                 </ul>
+
                 <!-- Tab panes -->
                 <div class="tab-content tabs">
                     <div class="tab-pane fade in active" id="Section2" role="tabpanel">
-                        <form #f="ngForm" class="form-horizontal">
+                        <form [formGroup]="regGroup" (ngSubmit)="register()" class="form-horizontal">
+                            <!-- Username -->
                             <div class="form-group">
-                                <label for="exampleInputLogin1">Login</label>
-                                <input [(ngModel)]="model.login" autocomplete="off" class="form-control" id="exampleInputLogin1"
-                                       name="login" type="text">
+                                <label for="username">Username</label>
+                                <input formControlName="username" autocomplete="off" class="form-control" id="username"
+                                       name="login" type="text" maxlength="20" required>
                             </div>
+
+                            <!-- Email -->
                             <div class="form-group">
-                                <label for="exampleInputEmail1">Email address</label>
-                                <input [(ngModel)]="model.email" class="form-control" id="exampleInputEmail1" name="email"
-                                       type="email">
+                                <label for="email1">Email address</label>
+                                <input formControlName="email" class="form-control" id="email1" type="email" name="email" maxlength="254" required>
                             </div>
+
+                            <!--Password-->
                             <div class="form-group">
-                                <label for="exampleInputPassword1">Password</label>
-                                <input [(ngModel)]="model.password" autocomplete="off" class="form-control" id="exampleInputPassword1"
-                                       name="password" type="password">
+                                <label for="password">Password</label>
+                                <input formControlName="password" autocomplete="off" class="form-control" id="password" maxlength="30"
+                                       name="password" type="password" required>
                             </div>
-                            <div class="form-group">
-                                <label for="exampleInputPasswordConfirm1">Confirm password</label>
-                                <input [(ngModel)]="confirmPassword" autocomplete="off" class="form-control" id="exampleInputPasswordConfirm1"
-                                       name="passwordConfirm" type="password">
+                            <div *ngIf="password.invalid && ( password.dirty) && password.errors.pattern" class="alert alert-warning text-center" role="alert">
+                                The password should contain at least 8 characters, 1 upper and 1 number
                             </div>
+
+                            <!-- Confirm Password -->
                             <div class="form-group">
-                                <div *ngIf="isError" class="alert alert-danger text-center" role="alert">
-                                    Something went wrong! Please try again!
-                                </div>
-                                <button (click)="register()" [disabled]="!(this.model.login.length != 0 && this.model.password.length > 0
-                                        && this.model.email.length > 0 && this.model.password==confirmPassword)"
-                                        class="btn btn-default"
-                                        type="submit">
+                                <label for="passwordConfirm">Confirm password</label>
+                                <input formControlName="confirmPassword" autocomplete="off" class="form-control" id="passwordConfirm"
+                                       name="passwordConfirm" type="password" required maxlength="30">
+                            </div>
+                            <div *ngIf="confirmPassword.invalid && confirmPassword.dirty && confirmPassword.value!=password.value" class="alert alert-warning text-center" role="alert">
+                                Passwords are not equal
+                            </div>
+
+                            <!-- Message -->
+                            <div *ngIf="isError" class="alert alert-danger text-center" role="alert">
+                                Something went wrong! Please try again!
+                            </div>
+
+                            <!-- Reg button -->
+                            <div class="form-group">
+                                <button [disabled]="regGroup.invalid || password.value != confirmPassword.value" class="btn btn-default" type="submit">
                                     Sign up
                                 </button>
                             </div>

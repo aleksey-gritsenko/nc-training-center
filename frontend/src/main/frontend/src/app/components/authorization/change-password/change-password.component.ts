@@ -29,4 +29,8 @@ export class ChangePasswordComponent implements OnInit {
         this.router.navigateByUrl('/login');
     }
 
+    sendAgain(): void {
+        this.service.sendCodeAgain();
+    }
+
 }
