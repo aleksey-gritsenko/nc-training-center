@@ -117,27 +117,24 @@ export class BookComponent implements OnInit {
 
     addBookToUser(bookId: number) {
         this.checkPresentUser();
-        this.apiService.getUserBookById(this.storage.getUser().id, bookId).subscribe(
+
+        let userBook: UserBook = new UserBook();
+        userBook.bookId = bookId;
+        userBook.userId = this.storage.getUser().id;
+        this.apiService.getUserBookById(userBook).subscribe(
             res => {
                 this.userBook = res;
             }
         );
-/*        if (this.userBook != undefined){
-            this.userAddedBook = true;
-        } else {*/
-            let userBook: UserBook = new UserBook();
-            userBook.bookId = bookId;
-            userBook.userId = this.storage.getUser().id;
 
-
-            this.apiService.addBookToUser(userBook).subscribe(
-                res => {
-                    console.log("add book: "+ JSON.stringify(res));
-                },
-                err => {
-                    console.log("Add  book error");
-                }
-            );
+        this.apiService.addBookToUser(userBook).subscribe(
+            res => {
+                console.log("add book: " + JSON.stringify(res));
+            },
+            err => {
+                console.log("Add  book error");
+            }
+        );
         //}
     }
 
