@@ -55,22 +55,22 @@
             </div>
         </div>
         <div *ngIf="userBookButtonVisible">
-            <button (click)="addBookToUser(book.id)" *ngIf="userAddedBook" class="btn btn-primary" id="addBook">
+            <button (click)="addBookToUser(book.id)" *ngIf="!userAddedBook" class="btn btn-primary" id="addBook">
                 Add to my books
             </button>
-            <button (click)="deleteBookFromUser(book.id)" *ngIf="!userAddedBook" class="btn btn-primary"
+            <button (click)="deleteBookFromUser(book.id)" *ngIf="userAddedBook" class="btn btn-primary"
                     id="removeBook">Remove from my books
             </button>
-            <button (click)="addBookToFavourite(book.id)" *ngIf="userAddedToFav" class="btn btn-primary" id="addFav">
+            <button (click)="addBookToFavourite(book.id)" *ngIf="!userAddedToFav" class="btn btn-primary" id="addFav">
                 Mark as favourite
             </button>
-            <button (click)="removeBookFromFav(book.id)" *ngIf="!userAddedToFav" class="btn btn-primary" id="removeFav">
+            <button (click)="removeBookFromFav(book.id)" *ngIf="userAddedToFav" class="btn btn-primary" id="removeFav">
                 Remove from favourite
             </button>
-            <button (click)="addBookToRead(book.id)" *ngIf="userAddedToRead" class="btn btn-primary" id="addRead">
+            <button (click)="addBookToRead(book.id)" *ngIf="!userAddedToRead" class="btn btn-primary" id="addRead">
                 Mark as read
             </button>
-            <button (click)="removeBookFromRead(book.id)" *ngIf="!userAddedToRead" class="btn btn-primary"
+            <button (click)="removeBookFromRead(book.id)" *ngIf="userAddedToRead" class="btn btn-primary"
                     id="removeRead">Remove from read
             </button>
         </div>
@@ -89,14 +89,14 @@
                         <div class="card-description">
                             <app-book-img [book]="bookOfSuggestions"></app-book-img>
                             <div>
-                                <div>Authors:</div>
+                                <h4>Authors:</h4>
                                 <div *ngFor="let author of bookOfSuggestions.authors ">
-                                    <div>{{author.name}}</div>
+                                    <h4>{{author.name}}</h4>
                                 </div>
                             </div>
-                            <div *ngIf="bookOfSuggestions.genre">Genre: {{bookOfSuggestions.genre}}</div>
-                            <div>Status: {{bookOfSuggestions.status}}</div>
-                            <div>Overview: {{bookOfSuggestions.overview}}</div>
+                            <h4 *ngIf="bookOfSuggestions.genre">Genre: {{bookOfSuggestions.genre}}</h4>
+                            <h4>Status: {{bookOfSuggestions.status}}</h4>
+                            <div>Overview: {{bookOfSuggestions.overview|truncateText:250}}</div>
                         </div>
                     </div>
                 </div>

@@ -25,7 +25,6 @@ export class AchievementService {
     }
 
     getUserAchievement(user: User) {
-
         let url = `${this.siteUrl}/achievement/all-for-user`;
         return this.http.post<Achievement[]>(url, user);
     }

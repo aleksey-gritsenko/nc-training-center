@@ -19,7 +19,7 @@
         <div class="row">
             <div style="text-align: center; font-size: 30px"><h2 *ngIf="emptyBookList">Since you do not have
                 any books, we suggest you most rated books</h2></div>
-            <div *ngFor="let book of userBookList" class="col-lg-4  col-md-6">
+            <div *ngFor="let book of userBookList" class="col-lg-4 align-items-stretch align-items-center row">
                 <div class="card card-profile">
                     <div class="card-body">
                         <div class="card-title">
@@ -47,13 +47,13 @@
         <form action="">
             <div class="card-body bmd-form-group row">
                 <div class="input-group no-border">
-                    <input [(ngModel)]="bookFilter.header" class="form-control" name="header"
-                           placeholder="Search..." type="text">
-                    <button (click)="searchByFilter()" class="btn btn-default btn-round btn-just-icon"
-                            type="submit">
+                    <input [(ngModel)]="bookFilter.header" class="form-control" name="header" placeholder="Search by book title"
+                           type="text">
+                    <button (click)="searchByFilter()" class="btn btn-default btn-round btn-just-icon" type="submit">
                         <i class="material-icons">search</i>
                         <div class="ripple-container"></div>
                     </button>
+
                 </div>
                 <button (click)="searchByFilter()" class="btn btn-primary">Search by filter</button>
                 <button (click)="resetFiler()" class="btn btn-primary">Reset filter</button>
@@ -66,11 +66,8 @@
                             <h2>Author</h2>
                         </div>
                         <div class="card-body row">
-                            <div *ngFor="let character of fillArray()">
-                                <h3 (click)="filterAuthor(character)"
-                                    class="font-weight-bold btn-link border-bottom">{{character}}</h3>
-                            </div>
-                            <div *ngFor="let author of filterAuthors;" class="col-6">
+                            <input type="text" placeholder="Author..." class="form-control" [(ngModel)]="searchAuthor" [ngModelOptions]="{standalone: true}">
+                            <div *ngFor="let author of selectedAuthors | filter:searchAuthor|slice:0:5;" class="col-12">
                                 <label class="form-check-label">
                                     <input [(ngModel)]="author.selected" class="form-check-input" name="{{author.name}}"
                                            type="checkbox">{{author.name}}
@@ -86,11 +83,8 @@
                             <h2>Genre</h2>
                         </div>
                         <div class="card-body row">
-                            <div *ngFor="let character of fillArray()">
-                                <h3 (click)="filterGenre(character)"
-                                    class="font-weight-bold btn-link  border-bottom">{{character}}</h3>
-                            </div>
-                            <div *ngFor="let genre of filterGenres;" class="col-6">
+                            <input type="text" placeholder="Genre..." class="form-control" [(ngModel)]="searchGenre" [ngModelOptions]="{standalone: true}">
+                            <div *ngFor="let genre of selectedGenres| filter:searchGenre|slice:0:5;" class="col-12">
                                 <label class="form-check-label">
                                     <input [(ngModel)]="genre.selected" class="form-check-input" name="{{genre.name}}"
                                            type="checkbox">{{genre.name}}
