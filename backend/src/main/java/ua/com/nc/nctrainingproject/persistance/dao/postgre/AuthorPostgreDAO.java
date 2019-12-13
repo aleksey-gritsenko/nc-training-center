@@ -46,9 +46,8 @@ public class AuthorPostgreDAO extends AbstractDAO<Author> {
 	}
 
 	public void createAuthor(Author author) {
+		author.setId(getAllAuthors().get(getAllAuthors().size()-1).getId());
 		jdbcTemplate.update(AuthorQuery.CREATE_AUTHOR, author.getName());
-		//TODO rework this to get real primary key
-		author.setId(getAllAuthors().get(getAllAuthors().size() - 1).getId());
 	}
 	/*public void updateAuthorById(int id, Author author) {
 		Object[] params = new Object[]{author.getName()};

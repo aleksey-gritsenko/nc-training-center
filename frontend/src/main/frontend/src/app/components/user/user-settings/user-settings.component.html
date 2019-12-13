@@ -1,104 +1,22 @@
-<p>user-settings works!</p>
 
 
-<!--<ul>-->
-<!--    <li *ngFor="let item of items">{{item}}</li>-->
-<!--    <input type="checkbox" [(ngModel)]="true">{{item}}-->
-<!--</ul>-->
-<!--<div class="container">-->
-<!--    <div class="row" >-->
-<!--        <div class="col-md-offset-3 col-md-6">-->
-<!--            <div class="tab" role="tabpanel">-->
-<!--&lt;!&ndash;                <ul class="nav nav-tabs" role="tablist">&ndash;&gt;-->
-<!--&lt;!&ndash;                    <li role="presentation" class="active"><a aria-controls="home" role="tab">sign in</a></li>&ndash;&gt;-->
-<!--&lt;!&ndash;                    <li role="presentation"><a routerLink="/registration" aria-controls="profile" role="tab">sign up</a>&ndash;&gt;-->
-<!--&lt;!&ndash;                    </li>&ndash;&gt;-->
-<!--&lt;!&ndash;                </ul>&ndash;&gt;-->
-<!--                <div class="tab-content tabs">-->
-<!--                    <div role="tabpanel" class="tab-pane fade in active" id="Section1">-->
-<!--                        <form class="form-horizontal" method="post" #f="ngForm" (submit)="submitSettings()">-->
-
-<!--&lt;!&ndash;                            <div class="form-group">&ndash;&gt;-->
-<!--&lt;!&ndash;                                <label for="exampleInputEmail1">Login</label>&ndash;&gt;-->
-<!--&lt;!&ndash;                                <input type="text" class="form-control" id="exampleInputEmail1" name="login"&ndash;&gt;-->
-<!--&lt;!&ndash;                                >&ndash;&gt;-->
-<!--&lt;!&ndash;                            </div>&ndash;&gt;-->
-<!--&lt;!&ndash;                            <div class="form-group">&ndash;&gt;-->
-<!--&lt;!&ndash;                                <label for="exampleInputPassword1">Password</label>&ndash;&gt;-->
-<!--&lt;!&ndash;                                <input type="password" class="form-control" id="exampleInputPassword1" name="password"&ndash;&gt;-->
-<!--&lt;!&ndash;                                >&ndash;&gt;-->
-<!--&lt;!&ndash;                            </div>&ndash;&gt;-->
-<!--&lt;!&ndash;                            <div class="form-group">&ndash;&gt;-->
-<!--&lt;!&ndash;                                <button type="submit" class="btn btn-default">Sign in</button>&ndash;&gt;-->
-<!--&lt;!&ndash;                            </div>&ndash;&gt;-->
-<!--                            &lt;!&ndash;                            <div class="alert alert-danger text-center" role="alert" *ngIf="isError">&ndash;&gt;-->
-<!--                            &lt;!&ndash;                                Username or password is incorrect!&ndash;&gt;-->
-<!--                            &lt;!&ndash;-->
-<!--                                                  </div>&ndash;&gt;-->
-<!--                            <div *ngFor="let item of settingsData">-->
-<!--                                <input value="{{item.name}}" type="checkbox" [checked]="item.value" (change)= "onToggle(item.name,item.value)">{{item.name}}-->
-<!--                            </div>-->
-<!--                            <div class="form-group forgot-pass">-->
-<!--                                <a routerLink="/recover">Forgot password?</a>-->
-<!--                            </div>-->
-<!--                        </form>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
-
-<!--<form action="" class="railway">-->
-<!--    <div class="stripes-block">-->
-<!--        <div class="line"></div>-->
-<!--    </div>-->
-<!--    <h3>Информация о пассажире</h3>-->
-<!--    <div class="form-group">-->
-<!--        <input type="text" id="name" required><label for="name">Имя</label>-->
-<!--        <input type="text" id="pass" required><label for="pass">Паспортные данные</label>-->
-<!--        <input type="email" id="email" required><label for="email">Email</label>-->
-<!--        <input type="text" id="phone" required><label for="phone">Номер телефона</label>-->
-<!--    </div>-->
-<!--    <div class="submit-block">-->
-<!--        <div class="submit-button">-->
-<!--            <i class="fa fa-train" aria-hidden="true"></i><br>-->
-<!--            <input type="submit" value="Отправить">-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</form>-->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css"/>
 
 <div class="container">
-    <div class="row">
+    <div class="row" >
         <div class="col-md-offset-3 col-md-6">
             <div class="tab" role="tabpanel">
                 <ul class="nav nav-tabs" role="tablist">
-                    <li class="active" role="presentation"><a aria-controls="home" role="tab">sign in</a></li>
-                    <li role="presentation"><a aria-controls="profile" role="tab" routerLink="/registration">sign up</a>
-                    </li>
+                    <span class = "select">Your settings:</span>
                 </ul>
                 <div class="tab-content tabs">
-                    <div class="tab-pane fade in active" id="Section1" role="tabpanel">
-                        <form #f="ngForm" (submit)="submitSettings()" class="form-horizontal" method="post">
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">Login</label>
-                                <input class="form-control" id="exampleInputEmail1" name="login" type="text"
-                                >
+                    <div role="tabpanel" class="tab-pane fade in active" id="Section1">
+                        <form class="form-horizontal" method="post" #f="ngForm" (submit)="submitSettings()">
+                            <div *ngFor="let item of settingsData">
+                                <input value="{{item.name}}" type="checkbox" [checked]="item.value" (change)= "onToggle(item.name,item.value)"> <span class="select">{{item.name}}</span>
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputPassword1">Password</label>
-                                <input class="form-control" id="exampleInputPassword1" name="password" type="password"
-                                >
-                            </div>
-                            <div class="form-group">
-                                <button class="btn btn-default" type="submit">Sign in</button>
-                            </div>
-                            <!--                            <div class="alert alert-danger text-center" role="alert" *ngIf="isError">-->
-                            <!--                                Username or password is incorrect!-->
-                            <!--                            </div>-->
-                            <div class="form-group forgot-pass">
-                                <a routerLink="/recover">Forgot password?</a>
+                                <button type="submit" class="btn btn-default">Submit settings</button>
                             </div>
                         </form>
                     </div>
@@ -107,14 +25,5 @@
         </div>
     </div>
 </div>
-
-
-<div *ngFor="let item of settingsData">
-    <input (change)="onToggle(item.name,item.value)" [checked]="item.value" type="checkbox"
-           value="{{item.name}}">{{item.name}}
-</div>
-
-
-
 
 
