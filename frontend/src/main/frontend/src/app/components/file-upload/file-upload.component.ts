@@ -27,6 +27,7 @@ export class FileUploadComponent implements OnInit {
     image: any;
     private siteUrl: string = 'https://nc-group1-2019.herokuapp.com';
 
+    maxSize:boolean = false;
     constructor(private http: HttpClient, private sanitizer: DomSanitizer, private storage: StorageService) {
     }
 
@@ -47,27 +48,32 @@ export class FileUploadComponent implements OnInit {
         let name = this.fileToUpload.name;
         let index = name.lastIndexOf(".");
         let extensions = name.substring(index, name.length);
-        if (this.imgExtensions.indexOf(extensions) != -1) {
-            const url = `${this.siteUrl}` + `/book/addImage`;
-            formData.append('img', this.fileToUpload);
-            formData.append('bookId', this.book.id.toString());
-            this.http.post(url + '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token, formData).subscribe(res => {
-                    console.log(res);
-                    this.receivedImageData = res;
-                    this.base64Data = this.receivedImageData.pic;
-                    this.convertedImage = 'data:image/png;base64,' + this.base64Data;
-                },
-                err => console.log('Error Occured during saving: ' + err)
-            );
-
+        if(event.target.files[0].size>1100){
+            this.maxSize = true;
         }
-        if (this.fileExtensions.indexOf(extensions) != -1) {
-            const url = `${this.siteUrl}` + `/book/addFile`;
-            formData.append('file', this.fileToUpload);
-            formData.append('bookId', this.book.id.toString());
-            this.http.post(url + '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token, formData).subscribe((file) => {
-                console.log(file);
-            });
+        else {
+            if (this.imgExtensions.indexOf(extensions) != -1) {
+                const url = `${this.siteUrl}` + `/book/addImage`;
+                formData.append('img', this.fileToUpload);
+                formData.append('bookId', this.book.id.toString());
+                this.http.post(url + '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token, formData).subscribe(res => {
+                        console.log(res);
+                        this.receivedImageData = res;
+                        this.base64Data = this.receivedImageData.pic;
+                        this.convertedImage = 'data:image/png;base64,' + this.base64Data;
+                    },
+                    err => console.log('Error Occured during saving: ' + err)
+                );
+
+            }
+            if (this.fileExtensions.indexOf(extensions) != -1) {
+                const url = `${this.siteUrl}` + `/book/addFile`;
+                formData.append('file', this.fileToUpload);
+                formData.append('bookId', this.book.id.toString());
+                this.http.post(url + '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token, formData).subscribe((file) => {
+                    console.log(file);
+                });
+            }
         }
     }
 
