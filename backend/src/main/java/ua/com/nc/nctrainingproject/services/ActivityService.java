@@ -36,8 +36,7 @@ public class ActivityService {
 	}
 
 	public Activity createActivity(Activity activity) {
-		if (userPostgreDAO.getUserById(activity.getUserId()) == null &&
-				activityPostgreDAO.getActivityByActionID(activity.getActionId()) == null) {
+		if (userPostgreDAO.getUserById(activity.getUserId()) == null) {
 			activityPostgreDAO.createActivity(activity.getUserId(), activity.getActionId());
 		}
 		return activity;
@@ -56,7 +55,7 @@ public class ActivityService {
 		if (userPostgreDAO.getUserById(userId) != null) {
 			List<Activity> activities = activityPostgreDAO.getActivityByUserID(userId);
 
-			for (Activity activity : activities) {
+			activities.forEach(activity -> {
 				Action action = actionPostgreDAO.getActionById(activity.getActionId());
 				User actionUser = userPostgreDAO.getUserById(action.getUserId());
 				ActionType actionType = actionTypePostgreDAO.getActionTypeByActionTypeId(action.getActionTypeId());
@@ -67,7 +66,7 @@ public class ActivityService {
 					data.add(actionUser.getUserName() + " " + actionType.getActionName());
 				}
 				deleteActivity(activity);
-			}
+			});
 		}
 		return data;
 	}

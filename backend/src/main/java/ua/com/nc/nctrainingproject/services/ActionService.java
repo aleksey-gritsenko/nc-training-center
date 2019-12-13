@@ -42,31 +42,15 @@ public class ActionService {
 			activityPostgreDAO.createActivity(userId, action.getActionId());
 		}
 
-		for (User user : users) {
+		users.forEach(user -> {
 			activityPostgreDAO.createActivity(user.getId(), action.getActionId());
-		}
+		});
 
 		return action;
-	}
-
-	public List<Action> getAllActions() {
-		return actionPostgreDAO.getAllActions();
-	}
-
-	public void deleteActionByActionId(int actionId) {
-		if (actionPostgreDAO.getActionById(actionId) != null) {
-			actionPostgreDAO.deleteActionByActionId(actionId);
-		}
 	}
 
 	public Action createAction(Action action) {
 		actionPostgreDAO.createAction(action);
 		return action;
-	}
-
-	public void updateAction(int actionId, Action action) {
-		if (actionPostgreDAO.getActionById(actionId) != null) {
-			actionPostgreDAO.updateAction(actionId, action);
-		}
 	}
 }
