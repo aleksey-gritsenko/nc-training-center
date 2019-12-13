@@ -19,7 +19,11 @@
                 <tr>
                     <td><label for="text">Text</label></td>
                     <td>
-                        <ckeditor [(ngModel)]="createdReview.text" [editor]="Editor" formControlName="text" id="text"
+                        <ckeditor [config]="{toolbar: [ 'heading', '|','bold', 'italic', 'Link', '|','numberedList',
+                        'bulletedList','|',
+                        'blockQuote','imageTextAlternative','insertTable','mediaEmbed','|', 'imageStyle:full','imageStyle:side',
+                        'Undo','Redo'], table: {toolbar: [ 'tableColumn', 'tableRow', 'mergeTableCells' ]}}"  id="text" formControlName="text"
+                                  [(ngModel)]="createdReview.text" [editor]="Editor"
                                   required></ckeditor>
                     </td>
                 </tr>

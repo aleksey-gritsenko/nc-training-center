@@ -98,13 +98,13 @@ export class BookComponent implements OnInit {
                     this.suggestionBook = books || [];
                 }
             );
-            if(suggestionFilter.author!=[]||suggestionFilter.header!=""||suggestionFilter.genre!=[]){
-                this.apiService.getBooksByFilter(suggestionFilter).subscribe(
-                    books => {
-                        this.suggestionBook.push(...(books || []));
-                    }
-                );
-            }
+
+            this.apiService.getBooksByFilter(suggestionFilter).subscribe(
+                books => {
+                    this.suggestionBook.push(...(books || []));
+                }
+            );
+
         }
         this.apiService.getMostRatedBooks().subscribe(
             books => {

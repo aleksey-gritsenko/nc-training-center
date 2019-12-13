@@ -89,14 +89,14 @@
                         <div class="card-description">
                             <app-book-img [book]="bookOfSuggestions"></app-book-img>
                             <div>
-                                <div>Authors:</div>
+                                <h4>Authors:</h4>
                                 <div *ngFor="let author of bookOfSuggestions.authors ">
-                                    <div>{{author.name}}</div>
+                                    <h4>{{author.name}}</h4>
                                 </div>
                             </div>
-                            <div *ngIf="bookOfSuggestions.genre">Genre: {{bookOfSuggestions.genre}}</div>
-                            <div>Status: {{bookOfSuggestions.status}}</div>
-                            <div>Overview: {{bookOfSuggestions.overview}}</div>
+                            <h4 *ngIf="bookOfSuggestions.genre">Genre: {{bookOfSuggestions.genre}}</h4>
+                            <h4>Status: {{bookOfSuggestions.status}}</h4>
+                            <div>Overview: {{bookOfSuggestions.overview|truncateText:250}}</div>
                         </div>
                     </div>
                 </div>
