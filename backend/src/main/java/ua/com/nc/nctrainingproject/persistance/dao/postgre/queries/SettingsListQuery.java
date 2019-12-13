@@ -13,4 +13,7 @@ public class SettingsListQuery {
 
     public static final String GET_USER_SETTINGS = "SELECT * FROM " + TABLE_NAME + " WHERE " +
             SETTINGS_LIST_ID + " = (?)";
+    public static final String UPDATE_USER_SETTINGS = "UPDATE " + TABLE_NAME + " SET subscribe_on_friends=(?)," +
+            "achievements=(?),book_notification=(?),subscribe_on_friend_review=(?),notify_about_new_friends=(?)," +
+            "notify_about_achievements=(?) WHERE settings_list_id=(?)";
 }
