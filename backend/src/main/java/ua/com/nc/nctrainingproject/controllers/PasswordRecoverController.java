@@ -22,7 +22,7 @@ public class PasswordRecoverController {
 
 	@RequestMapping("/email")
 	@ResponseBody
-	public ResponseEntity<?> emailSender(@RequestParam String email) {
+	public ResponseEntity<String> emailSender(@RequestParam String email) {
 		if (!email.trim().isEmpty()) {
 			try {
 
@@ -39,7 +39,7 @@ public class PasswordRecoverController {
 
 	@RequestMapping("/change")
 	@ResponseBody
-	public ResponseEntity<?> passwordRecoverUser(@RequestParam String recoverCode,
+	public ResponseEntity<String> passwordRecoverUser(@RequestParam String recoverCode,
 												 @RequestParam String newPassword) {
 		if (!recoverCode.trim().isEmpty() && !newPassword.trim().isEmpty()) {
 
@@ -51,10 +51,10 @@ public class PasswordRecoverController {
 	}
 
 	@RequestMapping("/resend")
-	public ResponseEntity<?> resend(String user) {
+	public ResponseEntity<String> resend(@RequestParam String user) {
 		try {
 
-			passwordRecoverService.reSend(user);
+			passwordRecoverService.resend(user);
 			return new ResponseEntity<>(HttpStatus.OK);
 
 
@@ -63,7 +63,6 @@ public class PasswordRecoverController {
 		}
 	}
 
-	//@RequestMapping("/clean")
 	@RequestMapping(value = "/clean", method = RequestMethod.GET)
 	@ResponseBody
 

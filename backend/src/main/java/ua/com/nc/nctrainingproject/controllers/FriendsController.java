@@ -22,7 +22,7 @@ public class FriendsController {
     }
 
     @RequestMapping(value = "/send", method = RequestMethod.POST)
-    public ResponseEntity<?> sendRequest(@RequestParam int sender, @RequestParam int reciever) {
+    public ResponseEntity<String> sendRequest(@RequestParam int sender, @RequestParam int reciever) {
         if (friendsService.checkRequest(sender, reciever)) {
             friendsService.sendRequest(sender, reciever);
             return new ResponseEntity<>(HttpStatus.OK);
@@ -33,7 +33,7 @@ public class FriendsController {
 
     @RequestMapping(value = "/accept", method = RequestMethod.POST)
     public void acceptRequest(@RequestParam int sender, @RequestParam int reciever) {
-        friendsService.aceptRequest(sender, reciever);
+        friendsService.acceptRequest(sender, reciever);
     }
 
     @RequestMapping(value = "/reject", method = RequestMethod.POST)
@@ -54,7 +54,7 @@ public class FriendsController {
     }
 
     @RequestMapping(value = "/check", method = RequestMethod.POST)
-    public ResponseEntity<?> checkRequest(@RequestParam int sender, @RequestParam int receiver) {
+    public ResponseEntity<String> checkRequest(@RequestParam int sender, @RequestParam int receiver) {
         if (friendsService.checkRequest(sender, receiver)) {
             return new ResponseEntity<>(HttpStatus.OK);
 

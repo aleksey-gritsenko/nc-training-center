@@ -59,13 +59,12 @@ public class BookController {
 
 	@RequestMapping(value = "/filter", method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseEntity<?> filterBook(@RequestBody FilterCriterionQuery filterCriterionQuery
+	public ResponseEntity<List<Book>> filterBook(@RequestBody FilterCriterionQuery filterCriterionQuery
 	) {
 	    if(!(filterCriterionQuery.getHeader().trim().isEmpty() &&
                 filterCriterionQuery.getAuthor().size()==0 &&
                 filterCriterionQuery.getGenre().size() ==0)) {
-            List<Book> books = bookService.filterBooks(filterCriterionQuery.getHeader()
-                    , filterCriterionQuery.getGenre(), filterCriterionQuery.getAuthor());
+            List<Book> books = bookService.filterBooks(filterCriterionQuery);
             return ResponseEntity.ok(books);
         }
 	    return  ResponseEntity.ok(new ArrayList<Book>());
