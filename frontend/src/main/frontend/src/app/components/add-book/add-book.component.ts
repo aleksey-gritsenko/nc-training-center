@@ -55,7 +55,7 @@ export class AddBookComponent implements OnInit {
     ngOnInit() {
 
         this.createdBook = this.formBuilder.group({
-            header: ['',Validators.requiredпш],
+            header: ['',Validators.required],
             overview: ['',Validators.required],
             status: ['',Validators.required],
             genre: ['',Validators.required],
