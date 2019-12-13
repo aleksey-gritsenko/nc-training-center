@@ -16,6 +16,7 @@ import ua.com.nc.nctrainingproject.services.BookService;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -60,9 +61,14 @@ public class BookController {
 	@ResponseBody
 	public ResponseEntity<?> filterBook(@RequestBody FilterCriterionQuery filterCriterionQuery
 	) {
-		List<Book> books = bookService.filterBooks(filterCriterionQuery.getHeader()
-				, filterCriterionQuery.getGenre(), filterCriterionQuery.getAuthor());
-		return ResponseEntity.ok(books);
+	    if(!(filterCriterionQuery.getHeader().trim().isEmpty() &&
+                filterCriterionQuery.getAuthor().size()==0 &&
+                filterCriterionQuery.getGenre().size() ==0)) {
+            List<Book> books = bookService.filterBooks(filterCriterionQuery.getHeader()
+                    , filterCriterionQuery.getGenre(), filterCriterionQuery.getAuthor());
+            return ResponseEntity.ok(books);
+        }
+	    return  ResponseEntity.ok(new ArrayList<Book>());
 	}
 
 	@RequestMapping(value = "/genres", method = RequestMethod.GET)

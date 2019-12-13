@@ -98,8 +98,8 @@ export class CommonService {
     }
 
     publishAnnouncement(announcement: Announcement): Observable<Announcement> {
-        const url = `${this.announcementsUrl}/publish` + '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
-        //const url = `${this.localhost}/announcements/publish`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;;
+        //const url = `${this.announcementsUrl}/publish` + '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
+        const url = `${this.localhost}/announcements/publish`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;;
         return this.http.post<Announcement>(url, announcement);
     }
 

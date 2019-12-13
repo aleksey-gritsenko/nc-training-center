@@ -23,6 +23,7 @@ public class PasswordRecoverService {
 	private final CodePostgreDAO codePostgreDAO;
 	private final JavaMailSender sender;
 	private final BCryptPasswordEncoder bCryptPasswordEncoder;
+	private final String theme = "Password recover email";
 
 	@Autowired
 	public PasswordRecoverService(JavaMailSender sender, CodePostgreDAO codePostgreDAO, UserPostgreDAO userPostgreDAO, BCryptPasswordEncoder bCryptPasswordEncoder) {
@@ -47,19 +48,25 @@ public class PasswordRecoverService {
 			array[i] = rn.nextInt(9) + 1;
 			generatedString = String.format("%s%d", generatedString, array[i]);
 		}
+		for (int i:array
+			 ) {
+
+
+			i = rn.nextInt(9) + 1;
+			generatedString = String.format("%s%d", generatedString, i);
+		}
 		codePostgreDAO.createCode(generatedString, email);
 
 		return generatedString;
 	}
 
 	public void makeEmail(String email) throws MessagingException {
-		System.out.println(email);
 		MimeMessage message = sender.createMimeMessage();
 		MimeMessageHelper helper = new MimeMessageHelper(message);
 		helper.setTo(email);
 
 		helper.setText(generateCode(email));
-		helper.setSubject("Password recover email");
+		helper.setSubject(theme);
 
 		sender.send(message);
 	}
@@ -101,7 +108,6 @@ public class PasswordRecoverService {
 		System.out.println(code);
 		RecoverCode codeDB = getCode(code);
 		if (codeDB != null) {
-			System.out.println("In the password recover with code db!!!");
 			userPostgreDAO.updatePassword(bCryptPasswordEncoder.encode(newPassword), codeDB.getEmail());
 			deleteCode(code);
 			return true;
