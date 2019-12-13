@@ -19,8 +19,15 @@ public class SettingsListPostgreDAO implements SettingsListDAO {
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
 	}
 
-	@Override
-	public UserSettings getUserSettingsById(int settingsId) {
-		return jdbcTemplate.queryForObject(SettingsListQuery.GET_USER_SETTINGS, new UserSettingsRowMaper(), settingsId);
-	}
+
+    @Override
+    public UserSettings getUserSettingsById(int settingsId) {
+        return jdbcTemplate.queryForObject(SettingsListQuery.GET_USER_SETTINGS, new UserSettingsRowMaper(), settingsId);
+    }
+
+    public void updateSettings(int settingsId, UserSettings userSettings) {
+        jdbcTemplate.update(SettingsListQuery.UPDATE_USER_SETTINGS,userSettings.getSubscribeOnFriends(),userSettings.getAchievements(),
+                userSettings.getBookNotification(),userSettings.getSubscribeOnFriendReview(),userSettings.getNotifyAboutNewFriends(),userSettings.getNotifyAboutAchievement(),settingsId);
+    }
+
 }

@@ -30,4 +30,8 @@ public class UserSettingsPostgreDAO implements UserSettingsDAO {
 	public UserSettings getSettingsListById(int userId) {
 		return settingsListPostgreDAO.getUserSettingsById(getSettingsListId(userId));
 	}
+
+    public void updateSettings(int userId, UserSettings userSettings) {
+        settingsListPostgreDAO.updateSettings(getSettingsListId(userId),userSettings);
+    }
 }
