@@ -165,7 +165,7 @@ export class CommonService {
         return this.http.post<Review>(url, review);
     }
 
-    getNotAcceptedReviews(bookId: number, status: boolean): Observable<Review[]> {
+    getNotAcceptedReviews(bookId: number): Observable<Review[]> {
         const params = new HttpParams()
             .set('book', bookId.toString());
         const url = `${this.reviewsUrl}/accepted` + '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
@@ -174,7 +174,7 @@ export class CommonService {
         return this.http.get<Review[]>(url, {params: params});
     }
 
-    getAcceptedReviews(bookId: number, status: boolean): Observable<Review[]> {
+    getAcceptedReviews(bookId: number): Observable<Review[]> {
         const params = new HttpParams()
             .set('book', bookId.toString());
         const url = `${this.reviewsUrl}/accepted`;
