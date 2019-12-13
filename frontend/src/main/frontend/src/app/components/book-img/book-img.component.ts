@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Book} from "../../models/book";
 import {DomSanitizer} from "@angular/platform-browser";
 import {CommonService} from "../../services/common/common.service";
+import {error} from "util";
 
 @Component({
     selector: 'app-book-img',
@@ -32,7 +33,8 @@ export class BookImgComponent implements OnInit {
                 if (res) {
                     reader.readAsDataURL(res);
                 }
-            }
+            },
+            error=>console.log(error)
         );
     }
 

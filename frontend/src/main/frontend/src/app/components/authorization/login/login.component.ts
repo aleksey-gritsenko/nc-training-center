@@ -1,17 +1,17 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {ActivatedRoute, Router} from '@angular/router';
+import { Router} from '@angular/router';
 import {AuthenticationService} from '../../../services/authentification/authentication.service';
 import {StorageService} from "../../../services/storage/storage.service";
 import {SpringAuthService} from "../../../services/security/spring-auth.service";
 import {Subscription} from "rxjs";
 import {FormControl, FormGroup} from "@angular/forms";
-import { Validators } from '@angular/forms';
+import {UserService} from "../../../services/user/user.service";
 
 @Component({
     selector: 'app-login',
     templateUrl: './login.component.html',
-    styleUrls: ['../../../resources/styles/Authorization.css', './login.component.css']
+    styleUrls: ['../../../resources/styles/Authorization.css']
 })
 export class LoginComponent implements OnInit, OnDestroy {
     loginGroup: FormGroup;
@@ -24,7 +24,6 @@ export class LoginComponent implements OnInit, OnDestroy {
     constructor(
         private http: HttpClient,
         public serv: AuthenticationService,
-        private route: ActivatedRoute,
         private router: Router,
         private storageService: StorageService,
         private springAuth: SpringAuthService) {
@@ -36,7 +35,6 @@ export class LoginComponent implements OnInit, OnDestroy {
             password: new FormControl('')
         });
     }
-    //Validators.pattern(/[A-Za-z0-9]+/))
 
     ngOnDestroy(): void {
         if (this.subscription) {
@@ -54,6 +52,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.isError = false;
         let username = this.username.value;
         let password = this.password.value;
+
         this.subscription = this.springAuth.authentificate(username, password).subscribe(
             data => {
                 window.sessionStorage.setItem('token', JSON.stringify(data));
