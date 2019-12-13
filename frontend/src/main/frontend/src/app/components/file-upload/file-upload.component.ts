@@ -50,7 +50,7 @@ export class FileUploadComponent implements OnInit {
         let index = name.lastIndexOf(".");
         let extensions = name.substring(index, name.length);
         console.log(event.target.files[0].size);
-        if(event.target.files[0].size/1000>1100 && this.fileExtensions.indexOf(extensions) != -1){
+        if(event.target.files[0].size/1000>1100){
             this.maxSize = true;
         }
         else {
@@ -59,7 +59,6 @@ export class FileUploadComponent implements OnInit {
                 formData.append('img', this.fileToUpload);
                 formData.append('bookId', this.book.id.toString());
                 this.http.post(url + '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token, formData).subscribe(res => {
-                        console.log(res);
                         this.receivedImageData = res;
                         this.base64Data = this.receivedImageData.pic;
                         this.convertedImage = 'data:image/png;base64,' + this.base64Data;
@@ -83,7 +82,6 @@ export class FileUploadComponent implements OnInit {
         const url = `${this.siteUrl}` + `/book/bookFile`;
         return this.http.post(url, this.book, {responseType: 'blob' as 'text'}).subscribe(
             (res) => {
-                console.log(res);
                 let blob = new Blob([res], {type: 'application/pdf'});
                 this.book.fileURL = URL.createObjectURL(blob);
                 let file = new File([blob], this.book.header, {type: blob.type});

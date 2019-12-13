@@ -59,7 +59,6 @@ export class ReviewsListComponent implements OnInit {
         this.commonService.getAcceptedReviews(this.book.id).subscribe(
             res => {
                 this.acceptedReviews = res;
-                console.log(res);
                 this.acceptedReviews.forEach(
                     review => {
                         this.userService.searchUser(review.userId.toString()).subscribe(

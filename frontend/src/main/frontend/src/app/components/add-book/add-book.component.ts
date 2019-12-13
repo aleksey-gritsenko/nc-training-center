@@ -15,15 +15,15 @@ import {toInteger} from "@ng-bootstrap/ng-bootstrap/util/util";
 })
 export class AddBookComponent implements OnInit {
     model:Book  = new Book();
-    modelAuthors:Author[] = [];
+    genres: Genre[] = [];
     createdBook: FormGroup;
+    regExp = new RegExp(/^[A-Za-z0-9_]+$/);
 
     constructor(private commonService: CommonService,
                 private route: ActivatedRoute,
                 private router: Router,
                 private formBuilder: FormBuilder) {
     }
-    genres: Genre[] = [];
     getGenres(){
         this.commonService.getAllGenre().subscribe(
             genres => {
@@ -36,7 +36,7 @@ export class AddBookComponent implements OnInit {
 
     newAuthor(): FormGroup {
         return this.formBuilder.group({
-            author:'',
+            author:['',Validators.pattern(this.regExp)]
         })
     }
     addAuthor() {
@@ -48,18 +48,14 @@ export class AddBookComponent implements OnInit {
             this.authors.push(this.newAuthor());
         }
     }
-    onSubmit() {
-        console.log(this.authors.value);
-    }
-
     ngOnInit() {
 
         this.createdBook = this.formBuilder.group({
-            header: ['',Validators.required],
-            overview: ['',Validators.required],
-            status: ['',Validators.required],
-            genre: ['',Validators.required],
-            authors:   this.formBuilder.array([],[Validators.nullValidator])
+            header: ['',[Validators.required, Validators.pattern(this.regExp)]],
+            overview: ['',[Validators.required,Validators.pattern(this.regExp)]],
+            status: ['',[Validators.required,Validators.pattern(this.regExp)]],
+            genre: ['',[Validators.required,Validators.pattern(this.regExp)]],
+            authors:   this.formBuilder.array([])
         });
         this.authors.push(this.newAuthor());
         this.getGenres();
@@ -79,7 +75,6 @@ export class AddBookComponent implements OnInit {
 
         this.commonService.createBook(this.model)
             .subscribe(res => {
-                   console.log(this.model);
                     this.model.authors = [];
                 },
                 err => {
