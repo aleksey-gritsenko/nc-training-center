@@ -72,6 +72,10 @@ public class UserBookService {
 	public List<Book> getAllReadBooks(int userId) {
 		return userBooksPostgreDAO.getAllReadBooks(userId);
 	}
+
+	public List<UserBook> getAllUserBooksByUserId(int userId){
+		return userBooksPostgreDAO.getAllUserBooksByUserId(userId);
+	}
 }
 
 

@@ -35,4 +35,7 @@ public class UserBooksQuery {
 
 	public static final String GET_USER_BOOK_BY_USER_AND_BOOK_ID = "SELECT * FROM " + TABLE_NAME + " WHERE " +
 			USER_ID + "= (?)" + " AND " + BOOK_ID + "=(?)";
+
+	public static final String GET_ALL_USER_BOOKS = "SELECT * FROM " + TABLE_NAME + " WHERE " +
+			USER_ID + "= (?)";
 }

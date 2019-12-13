@@ -28,7 +28,7 @@ public class UserBookController {
 		return Optional.ofNullable(response).map(ResponseEntity::ok).orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
 	}
 
-	@RequestMapping(value = "/getById", method = RequestMethod.POST)
+	@RequestMapping(value = "/getById", method = RequestMethod.GET)
 	public ResponseEntity<?> getUserBookById(@RequestBody UserBook userBook) {
 		UserBook response = userBookService.getUserBookByBookUserId(userBook);
 		return Optional.ofNullable(response).map(ResponseEntity::ok).orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
@@ -80,6 +80,12 @@ public class UserBookController {
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
 	public ResponseEntity<?> deleteBookFromAdded(@RequestBody UserBook userBook) {
 		UserBook response = userBookService.deleteBookFromAdded(userBook);
+		return Optional.ofNullable(response).map(ResponseEntity::ok).orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
+	}
+
+	@RequestMapping(value = "/getAllById", method = RequestMethod.GET)
+	public ResponseEntity<?> getAllUserBooksByUserId(@RequestParam(name = "userId") int userId) {
+		List<UserBook> response = userBookService.getAllUserBooksByUserId(userId);
 		return Optional.ofNullable(response).map(ResponseEntity::ok).orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
 	}
 
