@@ -3,7 +3,7 @@
 
 <div class="container">
     <div *ngIf="book" class="row">
-        <form [formGroup]="bookForm" class="card">
+        <div class="card">
             <div class="card-body">
                 <div class="justify-content-center row">
                     <h2>{{book.header}}</h2>
@@ -17,72 +17,60 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>
-                            <input [(ngModel)]="book.header" class="form-control" formControlName="header" placeholder="name"
-                                       required/>
-                        </td>
-                    </tr>
-                    <tr>
                         <td *ngIf="authors">
-                            <label class="bmd-label-floating" for="authors">Authors:</label>
+                            <div class="bmd-label-floating" >Authors:</div>
                         </td>
                         <td *ngFor="let author of authors" class="row">
-                            <input [(ngModel)]="author.name" class="form-control" formControlName="author" id="authors" required
-                                   type="text">
+                            {{author.name}}
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <label class="bmd-label-floating" for="status">Status:</label>
+                            Status
                         </td>
                         <td>
-                            <input [(ngModel)]="book.status" class="form-control" formControlName="status" id="status"
-                                   required type="text">
+                            {{book.status}}
                         </td>
                     </tr>
                     <tr *ngIf="book.genre">
                         <td>
-                            <label class="bmd-label-floating" for="genre">Genre</label>
+                            Genre:
                         </td>
                         <td>
-                            <input [(ngModel)]="book.genre" class="form-control" formControlName="genre" id="genre"
-                                   required type="text">
+                            {{book.genre}}
                         </td>
                     </tr>
                     <tr>
                         <td colspan="3">
-                            <textarea [(ngModel)]="book.overview" class="form-control" formControlName="overview" id="overview" required
-                                      rows="10" type="text"></textarea>
+                            {{book.overview}}
                         </td>
                     </tr>
                 </table>
                 <div>
                     <app-file-upload [book]="book"></app-file-upload>
                 </div>
-                <button *ngIf="updateBookVisible" (click)="updateBook()" [disabled]="!bookForm.valid" class="btn btn-default">Save changes
-                </button>
                 <div *ngIf = "addAnnouncementVisible" class="btn-default btn">
                     <a   [routerLink]="['/books',book.id,'announcement']">Create announcement</a>
                 </div>
             </div>
-        </form>
-        <div>
-            <button (click)="addBookToUser(book.id)" *ngIf="userAddedBook" class="btn btn-primary" id="addBook">
+        </div>
+        <div *ngIf="userBookButtonVisible">
+            <button (click)="addBookToUser(book.id)" *ngIf="!userAddedBook" class="btn btn-primary" id="addBook">
                 Add to my books
             </button>
-            <button (click)="deleteBookFromUser(book.id)" *ngIf="!userAddedBook" class="btn btn-primary"
+            <button (click)="deleteBookFromUser(book.id)" *ngIf="userAddedBook" class="btn btn-primary"
                     id="removeBook">Remove from my books
             </button>
-            <button (click)="addBookToFavourite(book.id)" *ngIf="userAddedToFav" class="btn btn-primary" id="addFav">
+            <button (click)="addBookToFavourite(book.id)" *ngIf="!userAddedToFav" class="btn btn-primary" id="addFav">
                 Mark as favourite
             </button>
-            <button (click)="removeBookFromFav(book.id)" *ngIf="!userAddedToFav" class="btn btn-primary" id="removeFav">
+            <button (click)="removeBookFromFav(book.id)" *ngIf="userAddedToFav" class="btn btn-primary" id="removeFav">
                 Remove from favourite
             </button>
-            <button (click)="addBookToRead(book.id)" *ngIf="userAddedToRead" class="btn btn-primary" id="addRead">
+            <button (click)="addBookToRead(book.id)" *ngIf="!userAddedToRead" class="btn btn-primary" id="addRead">
                 Mark as read
             </button>
-            <button (click)="removeBookFromRead(book.id)" *ngIf="!userAddedToRead" class="btn btn-primary"
+            <button (click)="removeBookFromRead(book.id)" *ngIf="userAddedToRead" class="btn btn-primary"
                     id="removeRead">Remove from read
             </button>
         </div>
@@ -91,8 +79,8 @@
         <app-reviews-list [book]="book"></app-reviews-list>
     </div>
     <div>
-        <div class="row">
-            <div *ngFor="let bookOfSuggestions of suggestionBook |  slice:0:3" class="col-3 col-lg-4  col-md-6">
+        <div class="row justify-content-between">
+        <div *ngFor="let bookOfSuggestions of suggestionBook |  slice:0:3" class="col-3 col-lg-4  col-md-6 align-items-stretch row">
                 <div class="card card-profile">
                     <div class="card-body">
                         <div class="card-title">
@@ -100,15 +88,15 @@
                         </div>
                         <div class="card-description">
                             <app-book-img [book]="bookOfSuggestions"></app-book-img>
-                            <div>Status: {{bookOfSuggestions.status}}</div>
-                            <div>Overview: {{bookOfSuggestions.overview}}</div>
                             <div>
-                                <div>Authors:</div>
+                                <h4>Authors:</h4>
                                 <div *ngFor="let author of bookOfSuggestions.authors ">
-                                    <div>{{author.name}}</div>
+                                    <h4>{{author.name}}</h4>
                                 </div>
                             </div>
-                            <div *ngIf="bookOfSuggestions.genre">Genre: {{bookOfSuggestions.genre}}</div>
+                            <h4 *ngIf="bookOfSuggestions.genre">Genre: {{bookOfSuggestions.genre}}</h4>
+                            <h4>Status: {{bookOfSuggestions.status}}</h4>
+                            <div>Overview: {{bookOfSuggestions.overview|truncateText:250}}</div>
                         </div>
                     </div>
                 </div>

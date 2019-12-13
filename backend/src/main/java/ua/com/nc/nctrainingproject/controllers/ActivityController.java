@@ -42,9 +42,4 @@ public class ActivityController {
 	public ResponseEntity<?> getActivityByUserId(@PathVariable("userId") int userId) {
 		return ResponseEntity.ok(activityService.getActivityByUserID(userId));
 	}
-
-	@RequestMapping(value = "/getAction/{actionId}", method = RequestMethod.GET)
-	public ResponseEntity<?> getActivityByActionId(@PathVariable("actionId") int actionId) {
-		return ResponseEntity.ok(activityService.getActivityByActionID(actionId));
-	}
 }

@@ -52,9 +52,10 @@ public class FriendsController {
         return friendsService.getAllNewRequests(id);
 
     }
+
     @RequestMapping(value = "/check", method = RequestMethod.POST)
-    public ResponseEntity<?> checkRequest(@RequestParam int sender, @RequestParam int reciever) {
-        if (friendsService.checkRequest(sender, reciever)) {
+    public ResponseEntity<?> checkRequest(@RequestParam int sender, @RequestParam int receiver) {
+        if (friendsService.checkRequest(sender, receiver)) {
             return new ResponseEntity<>(HttpStatus.OK);
 
         }

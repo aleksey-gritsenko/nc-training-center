@@ -17,7 +17,6 @@ public class UserBookService {
 		this.actionService = actionService;
 	}
 
-
 	public UserBook addBookToUser(UserBook userBook) {
 		actionService.addNewAction(userBook.getUserId(), 3);
 		List<Book> books = this.getAllUserBooks(userBook.getUserId());
@@ -72,6 +71,10 @@ public class UserBookService {
 
 	public List<Book> getAllReadBooks(int userId) {
 		return userBooksPostgreDAO.getAllReadBooks(userId);
+	}
+
+	public List<UserBook> getAllUserBooksByUserId(int userId){
+		return userBooksPostgreDAO.getAllUserBooksByUserId(userId);
 	}
 }
 

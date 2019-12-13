@@ -17,9 +17,6 @@ export class UserProfileComponent implements OnInit, OnDestroy {
     routSubscription: Subscription;
     searchSubscription: Subscription;
 
-    isCurrUserAnAdmin: boolean;
-    isThisCurrUserProfile: boolean;
-
     currentUser: User; //The user in the system
     user: User = new User(); //The user page we look at
 
@@ -27,7 +24,6 @@ export class UserProfileComponent implements OnInit, OnDestroy {
                 private userService: UserService,
                 private route: ActivatedRoute,
                 private router: Router) {
-        // this.isOpen = "View";
     }
 
     ngOnInit() {
@@ -37,7 +33,6 @@ export class UserProfileComponent implements OnInit, OnDestroy {
             }
             else {
                 this.currentUser = this.user = user;
-                this.isCurrUserAnAdmin = this.currentUser.userRole != 'user';
 
                 this.routSubscription = this.route.params.subscribe(param => {
                     this.isOpen = 'View';
@@ -46,7 +41,6 @@ export class UserProfileComponent implements OnInit, OnDestroy {
                     }
                     else {
                         this.user = this.currentUser;
-                        this.isThisCurrUserProfile = true;
                     }
                 });
             }
@@ -63,13 +57,14 @@ export class UserProfileComponent implements OnInit, OnDestroy {
         this.user = new User();
         this.searchSubscription = this.userService.searchUser(id).subscribe(
             user => {
-                if (!this.isCurrUserAnAdmin && user.userRole != 'user') this.router.navigateByUrl('/error');
+                if (this.currentUser.userRole == 'user' && user.userRole != 'user') {
+                    this.router.navigateByUrl('/error');
+                }
                 this.user = user;
             },
             error => {
                 this.router.navigateByUrl('/error');
             });
-        this.isThisCurrUserProfile = false;
     }
 
     ngOnDestroy(): void {

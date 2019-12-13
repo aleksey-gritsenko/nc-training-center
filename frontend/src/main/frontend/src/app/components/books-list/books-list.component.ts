@@ -17,7 +17,7 @@ import {StorageService} from "../../services/storage/storage.service";
 
 export class BooksListComponent implements OnInit {
 
-    searchTitle: string;
+
     genres: Genre[] = [];
     authors: Author[] = [];
     books: Book[] = [];
@@ -42,7 +42,8 @@ export class BooksListComponent implements OnInit {
     filterGenres: SelectedItem[] = [];
     filterAuthors: SelectedItem[] = [];
     historyFilter: BookFilter;
-
+    searchGenre;
+    searchAuthor;
     userId: any;
 
     constructor(private apiService: CommonService,
@@ -72,6 +73,9 @@ export class BooksListComponent implements OnInit {
         if(this.storage.getUser().userRole=='moderator'){
             this.addBookVisible = true;
         }
+    }
+    onFilterChange(eve: any){
+        this.searchByFilter();
     }
     getUsersBookList() {
         this.checkPresentUser();
@@ -139,7 +143,6 @@ export class BooksListComponent implements OnInit {
         this.apiService.getAllAuthor().subscribe(
             res => {
                 this.authors = res;
-                console.log(res);
                 this.authors.forEach(author => {
                     this.selectedAuthors.push({name: author.name, selected: false});
                 });
@@ -157,7 +160,6 @@ export class BooksListComponent implements OnInit {
                 this.genres = res;
                 this.genres.forEach(genre => {
                     this.selectedGenres.push({name: genre.name, selected: false});
-                    console.log(this.selectedGenres);
                 });
             },
             err => {
@@ -167,25 +169,6 @@ export class BooksListComponent implements OnInit {
 
     }
 
-    searchByTitle() {
-        if (this.searchTitle != "") {
-            this.bookFilter.header = this.searchTitle;
-            this.apiService.getBooksByFilter(this.bookFilter).subscribe(
-                res => {
-                    this.books = res;
-                    this.books.forEach(book => {
-                        this.apiService.getAuthorsByBookId(book.id).subscribe(
-                            authors => book.authors = authors
-                        );
-                        this.apiService.getGenreByBookId(book.id).subscribe(
-                            genre => book.genre = genre.name
-                        )
-                    })
-
-                }
-            )
-        }
-    }
 
     searchByFilter() {
         this.bookFilter.author = [];
@@ -203,10 +186,10 @@ export class BooksListComponent implements OnInit {
             this.bookFilter.author.push(author.name);
         });
 
+
         this.historyFilter.genre.push(...(this.bookFilter.genre || []));
         this.historyFilter.author.push(...(this.bookFilter.author || []));
         this.storage.setFilter(this.historyFilter);
-
         this.books = [];
         this.apiService.getBooksByFilter(this.bookFilter).subscribe(
             res => {
@@ -220,7 +203,7 @@ export class BooksListComponent implements OnInit {
                     )
                 })
             },
-            error => alert("error in filter")
+            error => console.log('Error in book filter')
         );
 
     }
@@ -256,17 +239,7 @@ export class BooksListComponent implements OnInit {
         );
     }
 
-    fillArray(): string[] {
-        return "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
-    }
 
-    filterGenre(char: string) {
-        this.filterGenres = this.selectedGenres.filter(genre => genre.name.charAt(0).toUpperCase() == char);
-    }
-
-    filterAuthor(char: string) {
-        this.filterAuthors = this.selectedAuthors.filter(author => author.name.charAt(0).toUpperCase() == char);
-    }
 
     checkPresentUser() {
         if (this.storage.getUser() == null) {

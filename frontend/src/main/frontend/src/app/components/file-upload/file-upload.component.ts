@@ -5,6 +5,7 @@ import {Book} from "../../models/book";
 import * as FileSaver from 'file-saver';
 import {DomSanitizer} from "@angular/platform-browser";
 import {StorageService} from "../../services/storage/storage.service";
+import {User} from "../../models/user";
 
 
 @Component({
@@ -30,8 +31,11 @@ export class FileUploadComponent implements OnInit {
     }
 
     ngOnInit() {
-        if (this.storage.getUser().userRole == 'moderator') {
-            this.fileUploadVisible = true;
+        let user:User = this.storage.getUser();
+        if(user!=null){
+            if (user.userRole == 'moderator') {
+                this.fileUploadVisible = true;
+            }
         }
     }
 

@@ -51,7 +51,7 @@ import {AdminRightsComponent} from "./components/admin-rights/admin-rights.compo
 import {UserAchievementComponent} from './components/user/user-achievement/user-achievement.component';
 import {AddBookComponent} from './components/add-book/add-book.component';
 import {UserMenuComponent} from './components/user/user-menu/user-menu.component';
-
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import {HashLocationStrategy, LocationStrategy} from "@angular/common";
 
 @NgModule({
@@ -112,7 +112,8 @@ import {HashLocationStrategy, LocationStrategy} from "@angular/common";
         CalendarModule.forRoot({
             provide: DateAdapter,
             useFactory: adapterFactory
-        })
+        }),
+        Ng2SearchPipeModule
     ],
 
     providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}, AuthenticationService],
