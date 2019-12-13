@@ -25,10 +25,10 @@ public class AchievementController {
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	@ResponseBody
 	public Achievement createAchievement
-			(@RequestBody Achievement a) {
+			(@RequestBody Achievement achievement) {
 
-		achivementService.createAchevement(a); //TODO Entered service, but something wrong
-		return a;
+		achivementService.createAchevement(achievement);
+		return achievement;
 	}
 
 	@RequestMapping(value = "/all", method = RequestMethod.GET)
@@ -38,7 +38,7 @@ public class AchievementController {
 		return achivementService.getAllAchievementDtos();
 	}
 
-	@RequestMapping(value = "/all-for-user", method = RequestMethod.POST)
+	@RequestMapping(value = "/all-for-user", method = RequestMethod.GET)
 	@ResponseBody
 	public List<AchivementDto> getAllForUser(@RequestBody User user) {
 		//TODO check if user model got from from front has id

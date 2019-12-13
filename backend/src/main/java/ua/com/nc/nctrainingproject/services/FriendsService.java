@@ -24,7 +24,7 @@ public class FriendsService {
 		friendsPostgreDAO.sendRequest(sender, reciever);
 	}
 
-	public void aceptRequest(int sender, int reciever) {
+	public void acceptRequest(int sender, int reciever) {
 		actionService.addNewAction(reciever, 1);
 		actionService.addNewAction(sender, 1);
 		friendsPostgreDAO.acceptRequest(sender, reciever);

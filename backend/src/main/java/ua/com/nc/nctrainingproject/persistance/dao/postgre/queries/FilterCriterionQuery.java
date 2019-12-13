@@ -3,27 +3,26 @@ package ua.com.nc.nctrainingproject.persistance.dao.postgre.queries;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Stream;
 
 @Component
 public class FilterCriterionQuery {
-	private ArrayList<String> genre;
+	private List<String> genre;
 	private String header;
-	private ArrayList<String> author;
+	private List<String> author;
 	private Object[] args;
+	private final String CONDITION_OR =" OR ";
+	private final String CONDITION_AND =" AND ";
+	private final int FROM = 0;
+	private final String PERCENT ="%";
 
 	public FilterCriterionQuery() {
 		genre = new ArrayList<>();
 		author = new ArrayList<>();
 	}
 
-	public Object[] getArgs() {
-		return args;
-	}
 
-	public void setArgs(Object[] args) {
-		this.args = args;
-	}
 
 	public String makeQuery() {
 
@@ -33,30 +32,6 @@ public class FilterCriterionQuery {
 		return checkStr(q);
 	}
 
-	private String checkStr(String string) {
-		string = string.trim();
-		if (string.endsWith("OR")) {
-			string = string.substring(0, string.length() - 2);
-		}
-		if (string.endsWith("AND")){
-			string = string.substring(0, string.length() - 3);
-		}
-		return string;
-
-	}
-
-
-	public Object[] makeArrayArgs() {
-		ArrayList<Object> argsList = new ArrayList<>();
-		ArrayList<String> headers = new ArrayList<>();
-		headers.add(header);
-
-		argsList.addAll(author);
-		argsList.addAll(genre);
-		argsList.addAll(headers);
-		args = argsList.toArray();
-		return args;
-	}
 
 	public Object[] makeArrayArgsStream() {
 		ArrayList<String> headers = new ArrayList<>();
@@ -69,50 +44,43 @@ public class FilterCriterionQuery {
 
 		return args;
 	}
+	private String checkStr(String string) {
+		string = string.trim();
+		if (string.endsWith(CONDITION_OR.trim())) {
+			string = string.substring(FROM, string.length() - CONDITION_OR.trim().length());
+		}
+		if (string.endsWith(CONDITION_AND.trim())){
+			string = string.substring(FROM, string.length() - CONDITION_AND.trim().length());
+		}
+		return string;
 
-	private String makeConditions(ArrayList<String> arg, String condition) {
+	}
+
+
+	private String makeConditions(List<String> arg, String condition) {
 		String conditionString = " ";
 		if (arg.size() != 0) {
 			conditionString =
-					arg.stream().map((i) -> condition + " OR ")
-							.reduce((g, n) -> g + n).get();
+					arg.stream().map((i) -> condition + CONDITION_OR)
+							.reduce((wholeString, newCondition) -> wholeString + newCondition).get();
 			conditionString = checkStr(conditionString);
-			conditionString = conditionString + " AND ";
+			conditionString = conditionString + CONDITION_AND;
 		}
 
 		return conditionString;
 	}
 
-	private String makeGenresConditions() {
-		String genresCondition = " ";
-		if (genre.size() != 0) {
-			genresCondition =
-					genre.stream().map((i) -> BookQuery.CONDITIONS_GENRES + " OR ")
-							.reduce((g, n) -> g + n).get();
-		}
-		return genresCondition;
-	}
 
-	private String makeAuthorConditions() {
-		String authorCondition = " ";
-
-		if (author.size() != 0) {
-			authorCondition = author.stream().map((i) -> BookQuery.CONDITION_AUTHOR
-					+ " OR ").reduce((g, n) -> g + n).get();
-
-		}
-		return authorCondition;
-	}
 
 	private String makeHeaderCondition() {
-		if (header != null && !header.equals("") && header.length() != 0) {
-			header = "%"+header + "%";
+		if (!header.trim().isEmpty()) {
+			header = PERCENT +header + PERCENT;
 			return BookQuery.CONDITIONS_NAME;
 		}
 		return " ";
 	}
 
-	public ArrayList<String> getGenre() {
+	public List<String> getGenre() {
 		return genre;
 	}
 
@@ -128,11 +96,18 @@ public class FilterCriterionQuery {
 		this.header = header;
 	}
 
-	public ArrayList<String> getAuthor() {
+	public List<String> getAuthor() {
 		return author;
 	}
 
 	public void setAuthor(ArrayList<String> author) {
 		this.author = author;
+	}
+	public Object[] getArgs() {
+		return args;
+	}
+
+	public void setArgs(Object[] args) {
+		this.args = args;
 	}
 }

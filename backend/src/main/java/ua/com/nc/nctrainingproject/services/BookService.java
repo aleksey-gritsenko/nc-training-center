@@ -55,11 +55,12 @@ public class BookService {
 		return bookPostgreDAO.getAllBooks();
 	}
 
-	public List<Book> filterBooks(String header, ArrayList<String> genre,
-								  ArrayList<String> author) {
-		filterCriterionQuery.setAuthor(author);
+	public List<Book> filterBooks(FilterCriterionQuery filterCriterionQuery) {
+		/*filterCriterionQuery.setAuthor(author);
 		filterCriterionQuery.setGenre(genre);
 		filterCriterionQuery.setHeader(header);
+
+		 */
 		return bookPostgreDAO.filterBooks(filterCriterionQuery);
 	}
 
