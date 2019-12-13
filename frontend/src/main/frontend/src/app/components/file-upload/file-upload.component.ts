@@ -25,14 +25,15 @@ export class FileUploadComponent implements OnInit {
     base64Data: any;
     convertedImage: any;
     image: any;
-    private siteUrl: string = 'https://nc-group1-2019.herokuapp.com';
-
+    //private siteUrl: string = 'https://nc-group1-2019.herokuapp.com';
+    private siteUrl: string = 'http://localhost:8080';
     maxSize:boolean = false;
     constructor(private http: HttpClient, private sanitizer: DomSanitizer, private storage: StorageService) {
     }
 
     ngOnInit() {
         let user:User = this.storage.getUser();
+        console.log(user);
         if(user!=null){
             if (user.userRole == 'moderator') {
                 this.fileUploadVisible = true;
@@ -40,7 +41,7 @@ export class FileUploadComponent implements OnInit {
         }
     }
 
-    // private localhost: string = 'http://localhost:8080';
+
 
     postFile(event) {
         this.fileToUpload = event.target.files[0];
@@ -48,7 +49,8 @@ export class FileUploadComponent implements OnInit {
         let name = this.fileToUpload.name;
         let index = name.lastIndexOf(".");
         let extensions = name.substring(index, name.length);
-        if(event.target.files[0].size>1100){
+        console.log(event.target.files[0].size);
+        if(event.target.files[0].size/1000>1100 && this.fileExtensions.indexOf(extensions) != -1){
             this.maxSize = true;
         }
         else {
@@ -62,7 +64,7 @@ export class FileUploadComponent implements OnInit {
                         this.base64Data = this.receivedImageData.pic;
                         this.convertedImage = 'data:image/png;base64,' + this.base64Data;
                     },
-                    err => console.log('Error Occured during saving: ' + err)
+                    err => console.log(err)
                 );
 
             }

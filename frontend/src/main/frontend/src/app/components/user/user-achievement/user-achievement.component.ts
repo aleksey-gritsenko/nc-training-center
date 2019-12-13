@@ -16,12 +16,9 @@ import {ActionEntity} from "../../../models/action-entity";
 })
 export class UserAchievementComponent implements OnInit {
     private settings = new Map<string,boolean>();
-
     ActionEntity = ActionEntity;
     achievements: Achievement[] = [];
-    resultAchievement:Achievement[] = [];
     allGenres: Genre[] = [];
-    userSettings:UserSettings = new UserSettings();
     @Input() private user: User;
 
     constructor(private achievementService: AchievementService,
@@ -33,13 +30,7 @@ export class UserAchievementComponent implements OnInit {
         this.commonService.getAllGenre().subscribe(
             res => this.allGenres
         );
-        this.getUserSettings();
         this.getAllAchievement();
-        this.settings.set(ActionEntity.book,this.userSettings.bookNotification);
-        this.settings.set(ActionEntity.achievement, this.userSettings.notifyAboutAchievement);
-        this.settings.set(ActionEntity.review, this.userSettings.subscribeOnFriendReview);
-        this.settings.set(ActionEntity.user, this.userSettings.subscribeOnFriends);
-        this.checkUserSettings();
     }
 
     getAllAchievement() {
@@ -50,21 +41,4 @@ export class UserAchievementComponent implements OnInit {
         );
     }
 
-    getUserSettings(){
-        this.userService.getUserSettings(this.user.id).subscribe(
-            res=>{
-                this.userSettings = res;
-                console.log(res)
-            }
-        )
-    }
-
-    checkUserSettings(){
-        this.achievements.forEach(achievement=>{
-            if(this.settings.get(achievement.entity)) {
-                this.resultAchievement.push(achievement);
-            }
-        });
-
-    }
 }

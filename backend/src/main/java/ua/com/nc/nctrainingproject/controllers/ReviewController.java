@@ -22,7 +22,6 @@ public class ReviewController {
 
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<?> addReview(@RequestBody Review review) {
-		System.out.println(review);
 		Review response = reviewService.createReview(review);
 		return Optional.ofNullable(response).map(ResponseEntity::ok).orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
 	}
@@ -51,7 +50,6 @@ public class ReviewController {
 
 	@RequestMapping(value = "/accept")
 	public void acceptReview(@RequestBody Review review) {
-		System.out.println(review);
 		reviewService.acceptReview(review);
 	}
 
