@@ -34,16 +34,17 @@ public class BookController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<?> addBook(@RequestBody Book book) {
+	public ResponseEntity<Book> addBook(@RequestBody Book book) {
 		Book response = bookService.createBook(book);
-		return Optional.ofNullable(response).map(ResponseEntity::ok).orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
+		return Optional.ofNullable(response).map(ResponseEntity::ok)
+				.orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
 	}
 
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
-	public ResponseEntity<?> updateBook(@RequestBody Book book) {
+	public ResponseEntity<Book> updateBook(@RequestBody Book book) {
 		Book response = bookService.updateBook(book);
-
-		return Optional.ofNullable(response).map(ResponseEntity::ok).orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
+		return Optional.ofNullable(response).map(ResponseEntity::ok)
+				.orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
 	}
 
 	@RequestMapping(value = "/id", method = RequestMethod.GET)
@@ -53,8 +54,8 @@ public class BookController {
 	}
 
 	@RequestMapping(value = "/all", method = RequestMethod.GET)
-	public ResponseEntity<?> getAllBooks() {
-		return ResponseEntity.ok(bookService.getAllBooks());
+	public List<Book> getAllBooks() {
+		return bookService.getAllBooks();
 	}
 
 	@RequestMapping(value = "/filter", method = RequestMethod.POST)

@@ -40,13 +40,13 @@ export class BookComponent implements OnInit {
         this.getBook(this.bookId);
         this.checkUser();
         this.makeSuggestion();
-        this.checkButton();
     }
 
     checkUser(){
         if (this.storage.getUser()!=null) {
             this.addAnnouncementVisible = true;
             this.userBookButtonVisible = true;
+            this.checkButton();
         }
     }
 
@@ -93,11 +93,11 @@ export class BookComponent implements OnInit {
                     this.suggestionBook = books || [];
                 }
             );
-            // this.apiService.getBooksByFilter(suggestionFilter).subscribe(
-            //     books => {
-            //         this.suggestionBook.push(...(books || []));
-            //     }
-            // );
+            this.apiService.getBooksByFilter(suggestionFilter).subscribe(
+                books => {
+                    this.suggestionBook.push(...(books || []));
+                }
+            );
 
         }
         this.apiService.getMostRatedBooks().subscribe(

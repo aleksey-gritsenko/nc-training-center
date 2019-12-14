@@ -6,6 +6,7 @@ import * as FileSaver from 'file-saver';
 import {DomSanitizer} from "@angular/platform-browser";
 import {StorageService} from "../../services/storage/storage.service";
 import {User} from "../../models/user";
+import {error} from "util";
 
 
 @Component({
@@ -25,6 +26,9 @@ export class FileUploadComponent implements OnInit {
     base64Data: any;
     convertedImage: any;
     image: any;
+    file:any;
+    blob:any;
+    downloadDisable:boolean = false;
     //private siteUrl: string = 'https://nc-group1-2019.herokuapp.com';
     private siteUrl: string = 'http://localhost:8080';
     maxSize:boolean = false;
@@ -39,9 +43,22 @@ export class FileUploadComponent implements OnInit {
                 this.fileUploadVisible = true;
             }
         }
+        this.uploadFile()
     }
 
 
+    uploadFile(){
+        const url = `${this.siteUrl}` + `/book/bookFile`;
+        return this.http.post(url, this.book, {responseType: 'blob' as 'text'}).subscribe(
+            (res) => {
+                this.blob = new Blob([res], {type: 'application/pdf'});
+                this.downloadDisable = true;
+            },
+            error=>{
+                console.log(error);
+            }
+        );
+    }
 
     postFile(event) {
         this.fileToUpload = event.target.files[0];
@@ -50,7 +67,7 @@ export class FileUploadComponent implements OnInit {
         let index = name.lastIndexOf(".");
         let extensions = name.substring(index, name.length);
         console.log(event.target.files[0].size);
-        if(event.target.files[0].size/1000>1100 && this.fileExtensions.indexOf(extensions) != -1){
+        if(event.target.files[0].size/1000>1100){
             this.maxSize = true;
         }
         else {
@@ -59,7 +76,6 @@ export class FileUploadComponent implements OnInit {
                 formData.append('img', this.fileToUpload);
                 formData.append('bookId', this.book.id.toString());
                 this.http.post(url + '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token, formData).subscribe(res => {
-                        console.log(res);
                         this.receivedImageData = res;
                         this.base64Data = this.receivedImageData.pic;
                         this.convertedImage = 'data:image/png;base64,' + this.base64Data;
@@ -80,15 +96,8 @@ export class FileUploadComponent implements OnInit {
     }
 
     downloadPDF(): any {
-        const url = `${this.siteUrl}` + `/book/bookFile`;
-        return this.http.post(url, this.book, {responseType: 'blob' as 'text'}).subscribe(
-            (res) => {
-                console.log(res);
-                let blob = new Blob([res], {type: 'application/pdf'});
-                this.book.fileURL = URL.createObjectURL(blob);
-                let file = new File([blob], this.book.header, {type: blob.type});
-                FileSaver.saveAs(file);
-            }
-        );
+        this.book.fileURL = URL.createObjectURL(this.blob);
+        this.file = new File([this.blob], this.book.header, {type: this.blob.type});
+        FileSaver.saveAs(this.file);
     }
 }

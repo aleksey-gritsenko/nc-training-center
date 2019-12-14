@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import ua.com.nc.nctrainingproject.models.Activity;
 import ua.com.nc.nctrainingproject.services.ActivityService;
 
+import java.util.List;
 import java.util.Optional;
 
 @CrossOrigin
@@ -22,24 +23,26 @@ public class ActivityController {
 	}
 
 	@RequestMapping(value = "/all", method = RequestMethod.GET)
-	public ResponseEntity<?> getAllActivities() {
-		return ResponseEntity.ok(activityService.getAllActivities());
+	public List<Activity> getAllActivities() {
+		return activityService.getAllActivities();
 	}
 
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
-	public ResponseEntity<?> createActivity(@RequestBody Activity activity) {
+	public ResponseEntity<Activity> createActivity(@RequestBody Activity activity) {
 		Activity response = activityService.createActivity(activity);
-		return Optional.ofNullable(response).map(ResponseEntity::ok).orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
+		return Optional.ofNullable(response).map(ResponseEntity::ok)
+				.orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
 	}
 
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
-	public ResponseEntity<?> deleteActivity(@RequestBody Activity activity) {
+	public ResponseEntity<Activity> deleteActivity(@RequestBody Activity activity) {
 		Activity response = activityService.deleteActivity(activity);
-		return Optional.ofNullable(response).map(ResponseEntity::ok).orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
+		return Optional.ofNullable(response).map(ResponseEntity::ok)
+				.orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
 	}
 
 	@RequestMapping(value = "/getUser/{userId}", method = RequestMethod.GET)
-	public ResponseEntity<?> getActivityByUserId(@PathVariable("userId") int userId) {
+	public ResponseEntity<List<String>> getActivityByUserId(@PathVariable("userId") int userId) {
 		return ResponseEntity.ok(activityService.getActivityByUserID(userId));
 	}
 }

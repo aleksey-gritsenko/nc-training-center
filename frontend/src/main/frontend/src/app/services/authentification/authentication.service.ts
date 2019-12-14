@@ -24,6 +24,7 @@ export class AuthenticationService {
 
     logout() {
         window.sessionStorage.removeItem('token');
+        window.sessionStorage.removeItem('user');
         this.storageService.setUser(null);
     }
 

@@ -22,8 +22,7 @@ export class UserAchievementComponent implements OnInit {
     @Input() private user: User;
 
     constructor(private achievementService: AchievementService,
-                private commonService: CommonService,
-                private userService:UserService) {
+                private commonService: CommonService) {
     }
 
     ngOnInit() {

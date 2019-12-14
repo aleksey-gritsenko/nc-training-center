@@ -4,7 +4,7 @@
     </a>
 
     <div aria-labelledby="userMenuLabel" class="dropdown-menu dropdown-menu-right">
-        <div *ngFor="let activity of activities"><a class="dropdown-item">{{activity}}</a></div>
+        <div *ngFor="let activity of activities | slice:0:5"><a class="dropdown-item">{{activity}}</a></div>
         <a href="javascript:void(0)"></a>
 
     </div>

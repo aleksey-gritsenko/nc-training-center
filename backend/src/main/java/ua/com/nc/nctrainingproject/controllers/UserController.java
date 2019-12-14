@@ -62,27 +62,23 @@ public class UserController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/allAdmins")
-	public ResponseEntity<?> getAdmins() {
-		List<User> response = userService.getAllAdmins();
-		return response.isEmpty() ? new ResponseEntity<>(HttpStatus.BAD_REQUEST) : ResponseEntity.ok(response);
+	public List<User> getAdmins() {
+		return userService.getAllAdmins();
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/allModer")
-	public ResponseEntity<?> getModerators() {
-		List<User> response = userService.getAllModerators();
-		return response.isEmpty() ? new ResponseEntity<>(HttpStatus.BAD_REQUEST) : ResponseEntity.ok(response);
+	public List<User> getModerators() {
+		return userService.getAllModerators();
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/allActivatedModer")
-	public ResponseEntity<?> getActivatedModerators() {
-		List<User> response = userService.getActivatedModerators();
-		return response.isEmpty() ? new ResponseEntity<>(HttpStatus.BAD_REQUEST) : ResponseEntity.ok(response);
+	public List<User> getActivatedModerators() {
+		return userService.getActivatedModerators();
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/allActivatedAdmin")
-	public ResponseEntity<?> getActivatedAdmins() {
-		List<User> response = userService.getActivatedAdmins();
-		return response.isEmpty() ? new ResponseEntity<>(HttpStatus.BAD_REQUEST) : ResponseEntity.ok(response);
+	public List<User> getActivatedAdmins() {
+		return userService.getActivatedAdmins();
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/get/all")
