@@ -6,6 +6,7 @@ import * as FileSaver from 'file-saver';
 import {DomSanitizer} from "@angular/platform-browser";
 import {StorageService} from "../../services/storage/storage.service";
 import {User} from "../../models/user";
+import {error} from "util";
 
 
 @Component({
@@ -25,6 +26,7 @@ export class FileUploadComponent implements OnInit {
     base64Data: any;
     convertedImage: any;
     image: any;
+    downloadDisable:boolean = false;
     //private siteUrl: string = 'https://nc-group1-2019.herokuapp.com';
     private siteUrl: string = 'http://localhost:8080';
     maxSize:boolean = false;
@@ -39,6 +41,10 @@ export class FileUploadComponent implements OnInit {
                 this.fileUploadVisible = true;
             }
         }
+        const url = `${this.siteUrl}` + `/book/bookFile`;
+        this.http.post(url, this.book, {responseType: 'blob' as 'text'}).subscribe(
+            error=>this.downloadDisable = true
+        );
     }
 
 
@@ -86,6 +92,9 @@ export class FileUploadComponent implements OnInit {
                 this.book.fileURL = URL.createObjectURL(blob);
                 let file = new File([blob], this.book.header, {type: blob.type});
                 FileSaver.saveAs(file);
+            },
+            error=>{
+                this.downloadDisable = true;
             }
         );
     }
