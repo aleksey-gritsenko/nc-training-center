@@ -9,9 +9,9 @@ export class RecoverService {
 
     public userEmail: string = '';
 
-    private siteUrl: string = 'https://nc-group1-2019.herokuapp.com';
+  //  private siteUrl: string = 'https://nc-group1-2019.herokuapp.com';
 
-    //private siteUrl: string = 'http://localhost:8080';
+    private siteUrl: string = 'http://localhost:8080';
 
 
     constructor(private http: HttpClient, private router: Router) {
@@ -22,7 +22,6 @@ export class RecoverService {
         const form = new FormData();
         this.userEmail = email;
         form.append('email', this.userEmail);
-        alert(this.userEmail);
         this.http.post(url, form).subscribe();
         //  location.assign('change');
     }

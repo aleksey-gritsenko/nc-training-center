@@ -11,12 +11,12 @@ import org.springframework.security.oauth2.provider.error.OAuth2AccessDeniedHand
 @EnableResourceServer
 public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
-	private static final String RESOURCE_ID = "resource_id";
+    private static final String RESOURCE_ID = "resource_id";
 
-	@Override
-	public void configure(ResourceServerSecurityConfigurer resources) {
-		resources.resourceId(RESOURCE_ID).stateless(false);
-	}
+    @Override
+    public void configure(ResourceServerSecurityConfigurer resources) {
+        resources.resourceId(RESOURCE_ID).stateless(false);
+    }
 
 
     @Override
@@ -24,16 +24,10 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
         http.
                 anonymous().disable()
                 .authorizeRequests()
-               // .antMatchers().access("hasAuthority('DEFAULT_AUTHORITY')")
-                .antMatchers("/login/**","/friends/accept/","/getSettings/","/updateSettings/").access("hasAuthority('DEFAULT_AUTHORITY')")
-                .antMatchers("/announcements/publish/**").access("hasAuthority('publish announcement')")
-                .antMatchers("/review/accept/**").access("hasAuthority('publish reviews')")
-                .antMatchers("/login/**","/test/**").access("hasAuthority('DEFAULT_AUTHORITY')")
-                .antMatchers("/review/notaccepted/**").access("hasAuthority('publish reviews')")
-                .antMatchers("/book/update/**").access("hasAuthority('publish bookOverviews')")
-                .antMatchers("/book/addFile/**").access("hasAuthority('publish bookOverviews')")
-                .antMatchers("/book/addImage/**").access("hasAuthority('publish bookOverviews')")
-                .antMatchers("/userBook/**").access("hasAuthority('DEFAULT_AUTHORITY')")
+                .antMatchers(SecurityFinals.LOGIN_URL, SecurityFinals.FRIENDS_ACCEPT_URL, SecurityFinals.GET_SETTINGS_URL, SecurityFinals.UPDATE_SETTINGS_URL, SecurityFinals.USER_BOOK_URL).hasAuthority(SecurityFinals.DEFAULT_AUTHORITY)
+                .antMatchers(SecurityFinals.ANNOUNCEMENT_PUBLISH_URL).hasAuthority(SecurityFinals.PUBLISH_ANNOUNCEMENT)
+                .antMatchers(SecurityFinals.REVIEW_ACCEPT_URL, SecurityFinals.REVIEW_NOT_ACCEPTED_URL).hasAuthority(SecurityFinals.PUBLISH_REVIEWS)
+                .antMatchers(SecurityFinals.BOOK_UPDATE_URL, SecurityFinals.BOOK_ADD_FILE_URL, SecurityFinals.BOOK_ADD_IMAGE_URL).hasAuthority(SecurityFinals.PUBLISH_BOOK_OVERWIEWS)
                 .and().exceptionHandling().accessDeniedHandler(new OAuth2AccessDeniedHandler());
     }
 }

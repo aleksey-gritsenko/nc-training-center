@@ -6,8 +6,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import ua.com.nc.nctrainingproject.models.Action;
+import ua.com.nc.nctrainingproject.models.ActionType;
 import ua.com.nc.nctrainingproject.services.ActionService;
+import ua.com.nc.nctrainingproject.services.ActionTypeService;
 
+import java.util.List;
 import java.util.Optional;
 
 @CrossOrigin
@@ -15,10 +18,13 @@ import java.util.Optional;
 @RequestMapping("/action")
 public class ActionController {
 
+
+	private final ActionTypeService actionTypeService;
 	private final ActionService actionService;
 
 	@Autowired
-	public ActionController(ActionService actionService) {
+	public ActionController(ActionTypeService actionTypeService, ActionService actionService) {
+		this.actionTypeService = actionTypeService;
 		this.actionService = actionService;
 	}
 
@@ -35,5 +41,10 @@ public class ActionController {
 		Action response = actionService.createAction(action);
 		return Optional.ofNullable(response).map(ResponseEntity::ok)
 				.orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
+	}
+
+	@RequestMapping(value = "/all-types", method = RequestMethod.GET)
+	public List<ActionType> getAllActionTypes() {
+		return actionTypeService.getAllActionTypes();
 	}
 }

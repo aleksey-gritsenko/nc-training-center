@@ -43,14 +43,16 @@ public class AchivementPostgreDAO {
 		return jdbcTemplate.query(AchivementQuery.GET_ALL_ACHIEVEMENT_DTO, new AchivementDtoRowMapper());
 	}
 
-	public List<Integer> getAllAchievementsByUserId(int id) {
+	public List<Integer> getAllAchievementIdsByUserId(int id) {
 		return jdbcTemplate.queryForList(AchivementQuery.GET_ALL_ACHIEVEMENT_ID_BY_USER_ID, Integer.class, id);
 	}
 
-	public AchivementDto getAchievementById(int id) {
-	//TODO this method should display length of list of achievements (not 0)
-		System.out.println(jdbcTemplate.query(AchivementQuery.GET_ALL_ACHIEVEMENT_DTO,new AchivementDtoRowMapper()).size());
-		return jdbcTemplate.queryForObject(AchivementQuery.GET_ACHIEVEMENT_DTO_BY_ID, AchivementDto.class, id);
+	public AchivementDto getAchievementDtoById(int id) {
+		return jdbcTemplate.queryForObject(AchivementQuery.GET_ACHIEVEMENT_DTO_BY_ID, new AchivementDtoRowMapper(), id);
+	}
+
+	public Achievement getAchievementById(int id){
+		return jdbcTemplate.queryForObject(AchivementQuery.GET_ACHIEVEMENT_BY_ID, new AchievementRowMapper(), id);
 	}
 
 	public List<Achievement> getAllAchievements() {

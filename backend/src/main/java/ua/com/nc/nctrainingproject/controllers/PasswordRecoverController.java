@@ -13,6 +13,7 @@ import javax.mail.MessagingException;
 @CrossOrigin
 @Controller
 public class PasswordRecoverController {
+
 	private final PasswordRecoverService passwordRecoverService;
 
 	@Autowired
@@ -51,12 +52,11 @@ public class PasswordRecoverController {
 	}
 
 	@RequestMapping("/resend")
-	public ResponseEntity<String> resend(@RequestParam String user) {
+	public ResponseEntity<String> resend(@RequestParam String email) {
 		try {
 
-			passwordRecoverService.resend(user);
+			passwordRecoverService.resend(email);
 			return new ResponseEntity<>(HttpStatus.OK);
-
 
 		} catch (MessagingException ex) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -70,6 +70,4 @@ public class PasswordRecoverController {
 	public void cleanCodes() {
 		passwordRecoverService.deleteALL();
 	}
-
-
 }

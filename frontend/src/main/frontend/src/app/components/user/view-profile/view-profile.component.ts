@@ -29,7 +29,7 @@ export class ViewProfileComponent implements OnInit, OnChanges, OnDestroy {
     ngOnChanges(changes: SimpleChanges): void {
         this.user = changes.user.currentValue;
         if (this.currentUser && this.currentUser.id != this.user.id && this.currentUser.userRole == 'user') {
-            this.subscription = this.userService.checkRequest(this.currentUser.id, this.user.id).subscribe( //TODO Doesn`t appear after other tabs
+            this.subscription = this.userService.checkRequest(this.currentUser.id, this.user.id).subscribe(
                 () => {
                     this.isAbleToAddToFriend = false;
                 },

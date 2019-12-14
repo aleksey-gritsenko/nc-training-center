@@ -18,7 +18,6 @@ public class AdminRightsService {
 	private final AdminRightsPostgreDAO adminRightsPostgreDAO;
 	private final UserPostgreDAO userPostgreDAO;
 	private final RightsPostgreDAO rightsPostgreDAO;
-	//TODO rewrite to add possibility to add new rights
 	private final int NUMBER_OF_RIGHTS = 3;
 	private final String role = "moderator";
 

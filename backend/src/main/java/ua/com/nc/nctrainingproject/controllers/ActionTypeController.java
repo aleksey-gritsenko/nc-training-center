@@ -1,6 +1,7 @@
 package ua.com.nc.nctrainingproject.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,7 +24,7 @@ public class ActionTypeController {
 	}
 
 	@RequestMapping(value = "/all", method = RequestMethod.GET)
-	public List<ActionType> getAllActionTypes() {
-		return actionTypeService.getAllActionTypes();
+	public ResponseEntity<List<ActionType>> getAllActionTypes() {
+		return ResponseEntity.ok(actionTypeService.getAllActionTypes());
 	}
 }

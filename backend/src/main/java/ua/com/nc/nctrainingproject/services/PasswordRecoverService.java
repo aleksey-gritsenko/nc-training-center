@@ -5,6 +5,8 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 import ua.com.nc.nctrainingproject.models.RecoverCode;
 import ua.com.nc.nctrainingproject.persistance.dao.postgre.CodePostgreDAO;
 import ua.com.nc.nctrainingproject.persistance.dao.postgre.UserPostgreDAO;
@@ -26,6 +28,7 @@ public class PasswordRecoverService {
 		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
 	}
 
+	@Transactional(isolation = Isolation.DEFAULT)
 	public boolean passwordRecover(String code, String newPassword) {
 		RecoverCode codeDB = getCode(code);
 		if (codeDB != null) {
@@ -36,15 +39,17 @@ public class PasswordRecoverService {
 		return false;
 	}
 
-	public void resend(String user) throws MessagingException {
-		deleteCodeEmail(user);
-		makeEmail(user);
+	@Transactional(isolation = Isolation.DEFAULT)
+	public void resend(String email) throws MessagingException {
+		deleteCodeEmail(email);
+		makeEmail(email);
 
 	}
 
 	public void deleteALL() {
 		codePostgreDAO.deleteAll();
 	}
+
 	public void makeEmail(String email) throws MessagingException {
 		MimeMessage message = sender.createMimeMessage();
 		MimeMessageHelper helper = new MimeMessageHelper(message);
@@ -61,7 +66,6 @@ public class PasswordRecoverService {
 	}
 
 
-
 	private String generateCode(String email) {
 		String generatedString = "";
 		if (codePostgreDAO.getCodeByEmail(email) != null) {
@@ -69,25 +73,32 @@ public class PasswordRecoverService {
 		}
 		int[] array = new int[LENGTH_CODE];
 		Random rn = new Random();
-
-		for (int i:array) {
+/*
+        for (int i : array) {
             i = rn.nextInt(TO) + FROM;
-			generatedString = String.format("%s%d", generatedString, i);
+            generatedString = String.format("%s%d", generatedString, i);
+        }
+ */
+
+		for (int i = 0; i < array.length; i++) {
+			array[i] = rn.nextInt(FROM) + TO;
+			generatedString = String.format("%s%d", generatedString, array[i]);
 		}
+
 		codePostgreDAO.createCode(generatedString, email);
 
 		return generatedString;
 	}
 
 
-
 	private boolean verifyEmail(String email) {
 		return userPostgreDAO.getUserEmail(email) != null;
 	}
 
-	public boolean checkDB() {
-		return codePostgreDAO.checkDB() > CodeRecoverQuery.MAX_VAL;
-	}
+    /*public boolean checkDB() {
+        return codePostgreDAO.checkDB() > CodeRecoverQuery.MAX_VAL;
+    }
+     */
 
 
 	private boolean isEmail(String email) {
@@ -108,6 +119,7 @@ public class PasswordRecoverService {
 	private RecoverCode getCode(String code) {
 		return codePostgreDAO.getCodeBy(code);
 	}
+
 	private final UserPostgreDAO userPostgreDAO;
 	private final CodePostgreDAO codePostgreDAO;
 	private final JavaMailSender sender;
