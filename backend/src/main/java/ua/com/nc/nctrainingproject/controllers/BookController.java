@@ -110,7 +110,7 @@ public class BookController {
 	// ========== FILE MANAGEMENT ==========
 
 	@RequestMapping(value = "/addFile", method = RequestMethod.POST)
-	public ResponseEntity<?> addBookFile(@RequestParam(name = "bookId") int book,
+	public ResponseEntity<BookFile> addBookFile(@RequestParam(name = "bookId") int book,
 										 @RequestParam(name = "file") MultipartFile file) throws IOException {
 		BookFile bookFile = new BookFile(book, file.getBytes());
 		BookFile response = bookFileManagementService.addFile(bookFile);
@@ -118,7 +118,7 @@ public class BookController {
 	}
 
 	@RequestMapping(value = "/addImage", method = RequestMethod.POST)
-	public ResponseEntity<?> addBookImage(@RequestParam(name = "bookId") int book,
+	public ResponseEntity<BookImage> addBookImage(@RequestParam(name = "bookId") int book,
 										  @RequestParam(name = "img") MultipartFile file) throws IOException {
 		BookImage bookImage = new BookImage(book, file.getBytes());
 		BookImage response = bookFileManagementService.addImage(bookImage);
@@ -138,9 +138,9 @@ public class BookController {
 
 	@RequestMapping(produces = MediaType.IMAGE_PNG_VALUE, value = "/bookImage")
 	@ResponseBody
-	byte[] getBookImage(@RequestBody Book book) {
+	public ResponseEntity<byte[]> getBookImage(@RequestBody Book book) {
 		BookImage bookImage = bookFileManagementService.getBookImage(book);
-		return bookImage.getImage();
+		return Optional.ofNullable(bookImage.getImage()).map(ResponseEntity::ok).orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
 	}
 
 	@RequestMapping(value = "/updateFile", method = RequestMethod.POST)
