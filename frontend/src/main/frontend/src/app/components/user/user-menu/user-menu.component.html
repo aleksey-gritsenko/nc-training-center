@@ -18,7 +18,7 @@
         <li class="list-group-item" *ngIf="isAllowedToAdd" [class.selected]="isOpen=='Add achievement'"
             (click)="open('Add achievement')">Add achievement
         </li>
-        <li class="list-group-item" *ngIf="user.userRole != 'user'" [class.selected]="isOpen=='Admin rights'"
+        <li class="list-group-item" *ngIf="isAllowedToAdd" [class.selected]="isOpen=='Admin rights'"
             (click)="open('Admin rights')">Admin rights
         </li>
         <li class="list-group-item" [class.selected]="isOpen=='Deactivate'"

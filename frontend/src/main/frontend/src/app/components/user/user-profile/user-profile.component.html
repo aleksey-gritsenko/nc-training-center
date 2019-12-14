@@ -13,6 +13,7 @@
                 <app-deactivate-account *ngSwitchCase="'Deactivate'"></app-deactivate-account>
                 <app-friends-list *ngSwitchCase="'Friends'"></app-friends-list>
                 <app-announcement-proposition *ngSwitchCase="'Publish announcements'"></app-announcement-proposition>
+                <app-admin-rights *ngSwitchCase="'Admin rights'"></app-admin-rights>
             </div>
             <div class="col-md-4">
                 <app-user-menu [user]="user" (toOpen)="open($event)"></app-user-menu>
