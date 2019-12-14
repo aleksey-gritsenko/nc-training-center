@@ -39,8 +39,6 @@ export class AnnouncementPropositionComponent implements OnInit {
     }
 
     public publishAnnouncement(announcement: Announcement) {
-        let url = 'http://localhost:8080/announcements/publish';
-
         //announcement.admin_id = this.storage.getUser().id;
         this.apiService.publishAnnouncement(announcement).subscribe(
             res => {

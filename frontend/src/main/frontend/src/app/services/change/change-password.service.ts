@@ -7,9 +7,9 @@ import {RecoverService} from "../recover/recover.service";
 })
 export class ChangePasswordService {
 
-   // private siteUrl: string = 'https://nc-group1-2019.herokuapp.com';
+    private siteUrl: string = 'https://nc-group1-2019.herokuapp.com';
 
-    private siteUrl: string = 'http://localhost:8080';
+   // private siteUrl: string = 'http://localhost:8080';
 
     constructor(private http: HttpClient, private recService: RecoverService) {
     }

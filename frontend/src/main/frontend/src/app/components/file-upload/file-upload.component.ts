@@ -29,8 +29,8 @@ export class FileUploadComponent implements OnInit {
     file:any;
     blob:any;
     downloadDisable:boolean = false;
-    //private siteUrl: string = 'https://nc-group1-2019.herokuapp.com';
-    private siteUrl: string = 'http://localhost:8080';
+    private siteUrl: string = 'https://nc-group1-2019.herokuapp.com';
+    //private siteUrl: string = 'http://localhost:8080';
     maxSize:boolean = false;
     constructor(private http: HttpClient, private sanitizer: DomSanitizer, private storage: StorageService) {
     }

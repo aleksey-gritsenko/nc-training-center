@@ -9,8 +9,8 @@ import {UserSettings} from "../../../models/user-settings";
 })
 export class UserSettingsComponent implements OnInit {
 
-    // private siteUrl: string = 'https://nc-group1-2019.herokuapp.com';
-    private siteUrl: string = 'http://localhost:8080';
+    private siteUrl: string = 'https://nc-group1-2019.herokuapp.com';
+    //private siteUrl: string = 'http://localhost:8080';
 
 
     constructor(private http: HttpClient) {
