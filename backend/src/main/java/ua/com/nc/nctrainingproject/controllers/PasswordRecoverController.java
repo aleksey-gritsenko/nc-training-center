@@ -70,7 +70,4 @@ public class PasswordRecoverController {
 	public void cleanCodes() {
 		passwordRecoverService.deleteALL();
 	}
-
-
-
 }

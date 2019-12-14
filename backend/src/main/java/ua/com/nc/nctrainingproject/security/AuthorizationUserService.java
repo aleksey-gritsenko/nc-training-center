@@ -27,14 +27,15 @@ public class AuthorizationUserService implements UserDetailsService, UserService
 		if (user == null) {
 			throw new UsernameNotFoundException("Invalid username or password");
 		}
-		System.out.println("Trying to authorize!!");
+		System.out.println("AUTHORIZATION!!");
 
 		return new org.springframework.security.core.userdetails.User(user.getUserName(), user.getUserPassword(), getAuthority(user.getId()));
 	}
 
 	private List<SimpleGrantedAuthority> getAuthority(int adminId) {
+		System.out.println("Trying to authorize");
 		List<SimpleGrantedAuthority> authorities = adminRightsPostgreDAO.getAllAuthoritiesByAdminId(adminId);
-		authorities.add(new SimpleGrantedAuthority("DEFAULT_AUTHORITY"));
+		authorities.add(new SimpleGrantedAuthority(SecurityFinals.DEFAULT_AUTHORITY));
 		return authorities;
 	}
 
