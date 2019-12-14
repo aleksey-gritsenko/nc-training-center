@@ -14,7 +14,6 @@
                             </select>
                         </div>
                     </td>
-
                 </tr>
                 <tr>
                     <td><label for="text">Text</label></td>
@@ -28,6 +27,10 @@
                     </td>
                 </tr>
             </table>
+            <div class="col-4 row m-auto">
+                <div *ngIf="successCreatedReview" class="success-link m-auto p-2"><h3 class="text-dark text-center">Success added review!!!!!</h3></div>
+                <div *ngIf="errorCreatedReview" class="danger-link m-auto p-2"><h3 class="text-dark text-center">Error created review!!!!!</h3></div>
+            </div>
             <button (click)="createReview();" [disabled]="!createdReviewForm.valid" class="btn btn-default">Submit
             </button>
         </form>

@@ -63,8 +63,7 @@ export class LoginComponent implements OnInit, OnDestroy {
                             }
                             else {
                                 this.storageService.setUser(user);
-                                sessionStorage.setItem('user', JSON.stringify(user)); //TODO Should store encrypted user
-                                this.router.navigateByUrl('/');
+                                sessionStorage.setItem('user', JSON.stringify(user));                                this.router.navigateByUrl('/');
                             }
                         },);
             },

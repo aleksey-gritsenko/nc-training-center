@@ -23,22 +23,10 @@ public class AnnouncementService {
 	}
 
 	public List<Announcement> getAnnouncements() {
-
 		return announcementsPostgreDAO.getAnnouncements();
 	}
 
 	public List<Announcement> getPublishedAnnouncements() {
-	/*	//test
-		List<Announcement> res = new ArrayList<>();
-		Announcement an = new Announcement();
-		an.setAdmin_id(1);
-		an.setAnnouncementDate(new  Date());
-		an.setBookID(1);
-		an.setAnnouncementID(1);
-		an.setDescription("TEST");
-		res.add(an);
-		return res;
-		//end test*/
 		return announcementsPostgreDAO.getPublishedAnnouncements();
 	}
 
@@ -46,34 +34,40 @@ public class AnnouncementService {
 		return announcementsPostgreDAO.getUnpublishedAnnouncements();
 	}
 
-	public void createAnnouncement(Announcement announcement) {
-		if (announcementsPostgreDAO.getAnnouncementByID(announcement.getAnnouncementID()) != null)
-			return;
-		announcementsPostgreDAO.createAnnouncement(announcement);
+	public Announcement createAnnouncement(Announcement announcement) {
+		if (announcementsPostgreDAO.getAnnouncementByID(announcement.getAnnouncementID()) == null){
+			announcementsPostgreDAO.createAnnouncement(announcement);
+		}
+		return announcement;
 	}
 
-	public void proposeAnnouncement(Announcement announcement) {
-		if (announcementsPostgreDAO.getAnnouncementByID(announcement.getAnnouncementID()) != null)
-			return;
-		announcementsPostgreDAO.proposeAnnouncement(announcement);
+	public Announcement proposeAnnouncement(Announcement announcement) {
+		if (announcementsPostgreDAO.getAnnouncementByID(announcement.getAnnouncementID()) == null){
+			announcementsPostgreDAO.proposeAnnouncement(announcement);
+		}
+		return announcement;
 	}
 
-	public void publishAnnouncement(Announcement announcement) {
-		actionService.addNewAction(announcement.getOwnerId(), 2);
-		if (announcementsPostgreDAO.getAnnouncementByID(announcement.getAnnouncementID()) == null)
-			return;
-		announcementsPostgreDAO.publishAnnouncement(announcement);
+	public Announcement publishAnnouncement(Announcement announcement) {
+		if (announcementsPostgreDAO.getAnnouncementByID(announcement.getAnnouncementID()) != null) {
+			actionService.addNewAction(announcement.getOwnerId(), 2);
+			announcementsPostgreDAO.publishAnnouncement(announcement);
+		}
+		return announcement;
 	}
 
-	public void deleteAnnouncement(int id) {
-		if (announcementsPostgreDAO.getAnnouncementByID(id) == null)
-			return;
-		announcementsPostgreDAO.deleteAnnouncement(id);
+	public Announcement deleteAnnouncement(int id) {
+		Announcement announcement = announcementsPostgreDAO.getAnnouncementByID(id);
+		if (announcement != null) {
+			announcementsPostgreDAO.deleteAnnouncement(announcement.getAnnouncementID());
+		}
+		return announcement;
 	}
 
-	public void updateAnnouncement(Announcement announcement) {
-		if (announcementsPostgreDAO.getAnnouncementByID(announcement.getAnnouncementID()) == null)
-			return;
-		announcementsPostgreDAO.updateAnnouncement(announcement);
+	public Announcement updateAnnouncement(Announcement announcement) {
+		if (announcementsPostgreDAO.getAnnouncementByID(announcement.getAnnouncementID()) != null){
+			announcementsPostgreDAO.updateAnnouncement(announcement);
+		}
+		return announcement;
 	}
 }

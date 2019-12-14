@@ -26,10 +26,9 @@ public class PasswordRecoverService {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private static final String THEME = "Password recover email";
     private static final int LENGTH_CODE = 6;
-    private static final int FROM = 0;
-    private static final int TO = 9;
+    private static final int FROM = 9;
+    private static final int TO = 1;
     private static final String EMAIL_REGEX = "^[A-Za-z0-9+_.-]+@(.+)$";
-
     @Autowired
     public PasswordRecoverService(JavaMailSender sender, CodePostgreDAO codePostgreDAO, UserPostgreDAO userPostgreDAO, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.sender = sender;
@@ -64,6 +63,7 @@ public class PasswordRecoverService {
         MimeMessage message = sender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);
         helper.setTo(email);
+
         helper.setText(generateCode(email));
         helper.setSubject(THEME);
 

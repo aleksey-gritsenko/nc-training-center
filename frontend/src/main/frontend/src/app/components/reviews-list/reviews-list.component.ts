@@ -20,6 +20,8 @@ export class ReviewsListComponent implements OnInit {
     @Input() book: Book;
     addReviewVisible: boolean;
 
+    successCreatedReview:boolean = false;
+    errorCreatedReview:boolean = false;
     createdReview: Review = new Review();
     notAcceptedReviewVisible:boolean = false;
     createdReviewForm = this.formBuilder.group({
@@ -105,6 +107,7 @@ export class ReviewsListComponent implements OnInit {
         newCreatedReview.userId = this.storage.getUser().id;
         this.commonService.createReview(newCreatedReview)
             .subscribe(res => {
+                    this.successCreatedReview = true;
                     this.userService.searchUser(res.userId.toString()).subscribe(
                         user => {
                             res.username = user.userName;
@@ -115,7 +118,7 @@ export class ReviewsListComponent implements OnInit {
                     this.notAcceptedReviews.push(res);
                 },
                 err => {
-                    this.router.navigateByUrl('/error');
+                    this.errorCreatedReview = true;
                 }
             );
 

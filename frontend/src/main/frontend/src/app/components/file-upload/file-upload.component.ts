@@ -37,7 +37,6 @@ export class FileUploadComponent implements OnInit {
 
     ngOnInit() {
         let user:User = this.storage.getUser();
-        console.log(user);
         if(user!=null){
             if (user.userRole == 'moderator') {
                 this.fileUploadVisible = true;

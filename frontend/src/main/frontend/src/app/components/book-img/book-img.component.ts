@@ -28,7 +28,7 @@ export class BookImgComponent implements OnInit {
             res => {
                 let reader = new FileReader();
                 reader.addEventListener("load", () => {
-                    this.book.photoURL = reader.result;
+                    this.book.photoURL = reader.result
                 }, false);
                 if (res) {
                     reader.readAsDataURL(res);
