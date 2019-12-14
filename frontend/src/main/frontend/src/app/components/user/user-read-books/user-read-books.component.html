@@ -17,7 +17,7 @@
                 </button>
             </div>
             <div>
-            <div class="row justify-content-around">
+                <div class="row justify-content-center">
                 <div style="text-align: center; font-size: 30px"><h3 *ngIf="emptyReadList">Since you do not
                     have read books, we suggest you most rated books</h3></div>
                 <div *ngFor="let readBook of userReadBookList | filter:searchTitle" class="col-lg-4 align-items-stretch align-items-center row">

@@ -16,7 +16,7 @@
                     <div class="divider"></div>
                     <button (click)="getAllFavouriteBooks()" class="btn btn-primary">My Favourite Books</button>
                 </div>
-                <div class="justify-content-around row">
+                <div class="row justify-content-center">
                     <div style="text-align: center; font-size: 30px"><h3 *ngIf="emptyFavList">Since you do not
                         have favourite books, we suggest you most rated books</h3></div>
                     <div *ngFor="let favBook of userFavBookList | filter:searchTitle"
