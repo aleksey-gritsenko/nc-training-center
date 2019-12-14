@@ -3,6 +3,7 @@ import {CommonService} from "../../../services/common/common.service";
 import {BooksListComponent} from "../../books-list/books-list.component";
 import {ActivatedRoute, Router} from "@angular/router";
 import {StorageService} from "../../../services/storage/storage.service";
+import {BookFilter} from "../../../models/bookfilter";
 
 @Component({
     selector: 'app-user-books',
@@ -21,8 +22,8 @@ export class UserBooksComponent extends BooksListComponent implements OnInit {
     ngOnInit() {
         super.getUsersBookList();
 
-        super.getAllGenre();
         super.getAllAuthor();
-        super.getBooks();
+        super.getAllGenre();
+        super.checkHistoryFilter();
     }
 }

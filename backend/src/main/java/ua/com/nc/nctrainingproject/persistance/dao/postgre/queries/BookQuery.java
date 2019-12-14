@@ -19,6 +19,8 @@ public class BookQuery {
 	public static final String REVIEW_TABLE = "review";
 	public static final String GRADE = "grade";
 
+	public static final String USER_BOOKS = "user_books";
+
 	public static final String GET_ALL = "SELECT *" + " FROM " + TABLE_NAME;
 
 	public static final String GET_BOOK = GET_ALL + " WHERE " + TABLE_NAME + "." + BOOK_ID + " =(?)";
@@ -57,6 +59,13 @@ public class BookQuery {
 	public static final String GET_BOOKS_FILTRATION =
 			"select " + TABLE_NAME + "." + BOOK_ID + " , " + HEADER + ", " + AUTHOR + ", " + OVERVIEW + " ," + STATUS + " ," + PHOTO + ", " + FILE + ", " + GENRE + " " +
 					" from " + TABLE_NAME + " join " + GENRES_TABLE + " ON " + TABLE_NAME + "." + GENRE_ID + " = " + GENRES_TABLE + "." + GENRE_ID +
+					" join " + AuthorBookQuery.TABLE_NAME + " on " + TABLE_NAME + "." + BOOK_ID + " = " + AuthorBookQuery.TABLE_NAME + "." + AuthorBookQuery.BOOK_ID +
+					" join " + AuthorQuery.TABLE_NAME + " on " + AuthorBookQuery.TABLE_NAME + "." + AuthorBookQuery.AUTHOR_ID + " = " + AuthorQuery.TABLE_NAME + "." + AuthorQuery.ID + " where ";
+
+	public static final String GET_BOOKS_FILTRATION_USER_BOOKS =
+			"select " + TABLE_NAME + "." + BOOK_ID + " , " + HEADER + ", " + AUTHOR + ", " + OVERVIEW + " ," + STATUS + " ," + PHOTO + ", " + FILE + ", " + GENRE + " from " + USER_BOOKS +
+					" join " + TABLE_NAME + " ON " + USER_BOOKS + "." + BOOK_ID + " = " + TABLE_NAME + "." + BOOK_ID +
+					" join " + GENRES_TABLE + " ON " + TABLE_NAME + "." + GENRE_ID + " = " + GENRES_TABLE + "." + GENRE_ID +
 					" join " + AuthorBookQuery.TABLE_NAME + " on " + TABLE_NAME + "." + BOOK_ID + " = " + AuthorBookQuery.TABLE_NAME + "." + AuthorBookQuery.BOOK_ID +
 					" join " + AuthorQuery.TABLE_NAME + " on " + AuthorBookQuery.TABLE_NAME + "." + AuthorBookQuery.AUTHOR_ID + " = " + AuthorQuery.TABLE_NAME + "." + AuthorQuery.ID + " where ";
 

@@ -22,7 +22,7 @@ export class CommonService {
     };
     private siteUrl: string = 'https://nc-group1-2019.herokuapp.com';
     // if you want to test your code on localhost - change siteUrl to localhost where this is needed
-    //private localhost: string = 'http://localhost:8080';
+    private localhost: string = 'http://localhost:8080';
     private booksUrl: string = `${this.siteUrl}/book`;
     private announcementsUrl: string = `${this.siteUrl}/announcements`;
     private reviewsUrl: string = `${this.siteUrl}/review`;
@@ -41,6 +41,13 @@ export class CommonService {
     getBooksByFilter(filter: BookFilter): Observable<Book[]> {
         const url = `${this.booksUrl}/filter`;
         //const url = `${this.localhost}/book/filter`;
+        console.log(filter);
+        return this.http.post<Book[]>(url, filter);
+    }
+
+    getUserBooksByFilter(filter: BookFilter): Observable<Book[]> {
+        //const url = `${this.booksUrl}/filterUser`;
+        const url = `${this.localhost}/book/filterUser`;
         console.log(filter);
         return this.http.post<Book[]>(url, filter);
     }

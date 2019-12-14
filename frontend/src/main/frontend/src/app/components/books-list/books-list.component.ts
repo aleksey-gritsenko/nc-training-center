@@ -58,6 +58,10 @@ export class BooksListComponent implements OnInit {
         this.getBooks();
         this.getAllAuthor();
         this.getAllGenre();
+        this.checkHistoryFilter();
+    }
+
+    checkHistoryFilter(){
         this.historyFilter = this.storage.getFilter();
     }
 
