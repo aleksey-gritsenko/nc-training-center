@@ -51,7 +51,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
         let username = this.username.value;
         let password = this.password.value;
 
-        this.securitySubscription = this.authenticationService.register(username, password, this.email.value).subscribe(
+        this.regSubscription = this.authenticationService.register(username, password, this.email.value).subscribe(
             res => {
                 this.securitySubscription = this.springAuth.authentificate(username, password).subscribe(
                     data => {

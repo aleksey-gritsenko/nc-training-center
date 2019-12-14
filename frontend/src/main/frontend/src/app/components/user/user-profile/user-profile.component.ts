@@ -27,6 +27,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
+        this.isOpen = 'View';
         this.userSubscription = this.storageService.currentUser.subscribe(user => {
             if (!user) {
                 this.router.navigateByUrl('/login');
@@ -35,7 +36,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
                 this.currentUser = this.user = user;
 
                 this.routSubscription = this.route.params.subscribe(param => {
-                    this.isOpen = 'View';
+                    // this.isOpen = 'View';
                     if (this.currentUser.id != param.id) {
                         this.getUserInfo(param.id);
                     }

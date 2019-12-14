@@ -31,7 +31,7 @@
                     <div class="form-group">
                         <label class="bmd-label-floating">Password</label>
                         <input [(ngModel)]="updatedUser.userPassword" class="form-control" name="password"
-                               type="password" maxlength="30" #password="ngModel"
+                               type="password" maxlength="30" #password="ngModel" required
                                pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$">
                     </div>
                 </div>
@@ -59,7 +59,7 @@
                 Passwords are not equal
             </div>
             <div *ngIf="editStatus == 'error'" class="alert alert-danger text-center" role="alert">
-                This email is already exist! Try again!
+                Something went wrong! Try again!
             </div>
 
             <button (click)="update()"

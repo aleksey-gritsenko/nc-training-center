@@ -1,10 +1,9 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {User} from "../../../models/user";
 import {UserService} from "../../../services/user/user.service";
 import {ActivatedRoute} from "@angular/router";
 import {StorageService} from "../../../services/storage/storage.service";
 import {Subscription} from "rxjs";
-import {FormControl, FormGroup} from "@angular/forms";
 
 @Component({
     selector: 'app-edit-profile',
@@ -15,9 +14,8 @@ export class EditProfileComponent implements OnInit, OnDestroy {
     repeatPassword: string = '';
     editStatus: string;
 
-    @Input() private user: User;
-
-    updateGroup: FormGroup;
+    @Input() user: User;
+    @Output() userChange = new EventEmitter();
 
     private updatedUser: User = new User();
     private subscription: Subscription;
@@ -29,30 +27,23 @@ export class EditProfileComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         Object.assign(this.updatedUser, this.user);
-
-        this.updateGroup = new FormGroup({
-            email: new FormControl(this.updatedUser.email),
-            password: new FormControl(),
-            repeatPassword: new FormControl()
-        });
     }
 
     update(): void {
-        if (this.userService.equals(this.updatedUser, this.user)) return;
+        this.editStatus = '';
+        // if (this.userService.equals(this.updatedUser, this.user)) return;
         this.subscription = this.userService.updateProfile(this.updatedUser)
             .subscribe(
                 user => {
                     this.editStatus = 'success';
-                    this.storageService.setUser(user);
+                    this.repeatPassword = '';
+                    this.userChange.emit(user);
                 },
                 error => {
                     this.editStatus = 'error';
                     Object.assign(this.updatedUser, this.user);
-                },
-                () => {
                     this.repeatPassword = '';
-                }
-            );
+                });
     }
 
     ngOnDestroy(): void {

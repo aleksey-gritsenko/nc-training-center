@@ -7,7 +7,7 @@
             <form class="navbar-form">
                 <div class="input-group no-border">
                     <input [(ngModel)]="searchString" autocomplete="off" class="form-control" name="search-field"
-                           placeholder="Search..." type="text">
+                           placeholder="Search..." type="text" maxlength="20">
                     <button (click)="clear()" [queryParams]="{search: searchString}" class="btn btn-default btn-round btn-just-icon"
                             routerLink="/search" type="button">
                         <i class="material-icons">search</i>
