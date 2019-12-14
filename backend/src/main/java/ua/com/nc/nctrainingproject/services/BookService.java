@@ -59,10 +59,6 @@ public class BookService {
         return bookPostgreDAO.filterBooks(filterCriterionQuery);
     }
 
-    public List<Book> filterUserBooks(FilterCriterionQuery filterCriterionQuery) {
-        return bookPostgreDAO.filterUserBooks(filterCriterionQuery);
-    }
-
     public List<Author> getAllAuthors() {
         return authorPostgreDAO.getAllAuthors();
     }

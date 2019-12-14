@@ -62,13 +62,6 @@ public class BookQuery {
 					" join " + AuthorBookQuery.TABLE_NAME + " on " + TABLE_NAME + "." + BOOK_ID + " = " + AuthorBookQuery.TABLE_NAME + "." + AuthorBookQuery.BOOK_ID +
 					" join " + AuthorQuery.TABLE_NAME + " on " + AuthorBookQuery.TABLE_NAME + "." + AuthorBookQuery.AUTHOR_ID + " = " + AuthorQuery.TABLE_NAME + "." + AuthorQuery.ID + " where ";
 
-	public static final String GET_BOOKS_FILTRATION_USER_BOOKS =
-			"select " + TABLE_NAME + "." + BOOK_ID + " , " + HEADER + ", " + AUTHOR + ", " + OVERVIEW + " ," + STATUS + " ," + PHOTO + ", " + FILE + ", " + GENRE + " from " + USER_BOOKS +
-					" join " + TABLE_NAME + " ON " + USER_BOOKS + "." + BOOK_ID + " = " + TABLE_NAME + "." + BOOK_ID +
-					" join " + GENRES_TABLE + " ON " + TABLE_NAME + "." + GENRE_ID + " = " + GENRES_TABLE + "." + GENRE_ID +
-					" join " + AuthorBookQuery.TABLE_NAME + " on " + TABLE_NAME + "." + BOOK_ID + " = " + AuthorBookQuery.TABLE_NAME + "." + AuthorBookQuery.BOOK_ID +
-					" join " + AuthorQuery.TABLE_NAME + " on " + AuthorBookQuery.TABLE_NAME + "." + AuthorBookQuery.AUTHOR_ID + " = " + AuthorQuery.TABLE_NAME + "." + AuthorQuery.ID + " where ";
-
 	public static final String CONDITIONS_GENRES = GENRE + "=(?)";
 	public static final String CONDITIONS_NAME = HEADER + " ILIKE " + "(?)";
 	public static final String CONDITION_AUTHOR = AUTHOR + " =(?)";

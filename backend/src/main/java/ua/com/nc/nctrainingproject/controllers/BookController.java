@@ -71,18 +71,6 @@ public class BookController {
 	    return  ResponseEntity.ok(new ArrayList<Book>());
 	}
 
-	@RequestMapping(value = "/filterUser", method = RequestMethod.POST)
-	@ResponseBody
-	public ResponseEntity<List<Book>> filterUserBook(@RequestBody FilterCriterionQuery filterCriterionQuery) {
-		if(!(filterCriterionQuery.getHeader().trim().isEmpty() &&
-				filterCriterionQuery.getAuthor().size() == 0 &&
-				filterCriterionQuery.getGenre().size() == 0)) {
-			List<Book> books = bookService.filterUserBooks(filterCriterionQuery);
-			return ResponseEntity.ok(books);
-		}
-		return ResponseEntity.ok(new ArrayList<>());
-	}
-
 	@RequestMapping(value = "/genres", method = RequestMethod.GET)
 	public ResponseEntity<?> getAllGenres() {
 		return ResponseEntity.ok(bookService.getAllGenres());
