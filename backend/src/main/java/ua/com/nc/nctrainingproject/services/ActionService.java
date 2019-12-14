@@ -33,7 +33,6 @@ public class ActionService {
 
 	public Action addNewAction(int userId, int actionTypeId) {
 		createAction(new Action(userId, actionTypeId));
-		achivementService.assignAchievements(userId);
 		Action action = actionPostgreDAO.getActionByUserAndTypeId(userId, actionTypeId);
 
 		List<User> users = friendsPostgreDAO.getAllFriends(userId);
@@ -46,6 +45,7 @@ public class ActionService {
 			activityPostgreDAO.createActivity(user.getId(), action.getActionId());
 		});
 
+		achivementService.assignAchievements(userId);
 		return action;
 	}
 

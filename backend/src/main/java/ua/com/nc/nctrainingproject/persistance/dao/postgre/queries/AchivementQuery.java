@@ -19,6 +19,7 @@ public class AchivementQuery {
 
 
 	public static final String GET_ALL = "SELECT * FROM " + TABLE_NAME;
+	public static final String GET_ACHIEVEMENT_BY_ID = "SELECT * FROM " + TABLE_NAME +  " WHERE " + ACHIEVEMENT_ID + " =(?);";
 	public static final String GET_ALL_ACHIEVEMENT_ID_BY_USER_ID = "SELECT " + "achievement_id" +
 			" FROM " + SECOND_TABLE_NAME + " WHERE " + USER_ID + " =(?)";
 	public static final String CREATE_PAIR = "INSERT INTO " + SECOND_TABLE_NAME + " ( " + USER_ID + " , " + "achievement_id" + " ) "
