@@ -30,14 +30,6 @@ public class FilterCriterionQuery {
         return checkStr(queryWithConditions);
     }
 
-    public String makeQueryForUserBooks() {
-        String queryWithConditions = BookQuery.GET_BOOKS_FILTRATION_USER_BOOKS +
-                makeConditions(author, BookQuery.CONDITION_AUTHOR) + makeConditions(genre, BookQuery.CONDITIONS_GENRES) + makeHeaderCondition();
-
-        return checkStr(queryWithConditions);
-    }
-
-
     public Object[] makeArrayArgsStream() {
         ArrayList<String> headers = new ArrayList<>();
         if (header.length() != 0) {
