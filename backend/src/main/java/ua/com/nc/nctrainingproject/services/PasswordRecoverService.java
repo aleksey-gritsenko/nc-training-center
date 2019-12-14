@@ -101,7 +101,6 @@ public class PasswordRecoverService {
 		System.out.println(code);
 		RecoverCode codeDB = getCode(code);
 		if (codeDB != null) {
-			System.out.println("In the password recover with code db!!!");
 			userPostgreDAO.updatePassword(bCryptPasswordEncoder.encode(newPassword), codeDB.getEmail());
 			deleteCode(code);
 			return true;

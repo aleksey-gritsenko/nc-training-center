@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {RecView} from '../../../models/recview';
 import {RecoverService} from '../../../services/recover/recover.service';
 import {ActivatedRoute, Router} from '@angular/router';
+import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {UserService} from "../../../services/user/user.service";
 
 @Component({
     selector: 'app-recover',
@@ -9,19 +11,26 @@ import {ActivatedRoute, Router} from '@angular/router';
     styleUrls: ['../../../resources/styles/Authorization.css']
 })
 export class RecoverComponent implements OnInit {
+    recoverGroup: FormGroup;
     model: RecView = {
         id: 0,
         login: '',
         email: ''
     };
 
-    constructor(private recoverService: RecoverService, private router: Router,
+    constructor(private recoverService: RecoverService,
+                private userService: UserService,
+                private router: Router,
                 private route: ActivatedRoute) {
-
     }
 
     ngOnInit() {
+        this.recoverGroup = new FormGroup({email: new FormControl('', [Validators.pattern(this.userService.emailRegExp)])})
 
+    }
+
+    get email() {
+        return this.recoverGroup.get('email');
     }
 
 
