@@ -17,7 +17,7 @@ import {UserSettings} from "../../models/user-settings";
 })
 export class UserService {
 
-    inputRegExp = new RegExp(/^(?=[a-zA-z])+[a-zA-Z0-9]*$/);
+    inputRegExp = new RegExp(/^(?=[a-zA-z])+[a-zA-Z0-9_]*$/);
     passwordRegExp = new RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/);
     emailRegExp = new RegExp(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/);
 

@@ -50,6 +50,7 @@ export class ViewProfileComponent implements OnInit, OnChanges, OnDestroy {
     sendRequest() {
         this.userService.sendRequest(this.currentUser.id, this.user.id).subscribe(
             res => {
+                this.isAbleToAddToFriend = false;
             },
             err => {
                 alert("Error in add friends");
