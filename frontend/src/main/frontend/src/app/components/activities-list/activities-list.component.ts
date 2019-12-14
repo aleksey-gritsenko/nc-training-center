@@ -24,7 +24,6 @@ export class ActivitiesListComponent implements OnInit {
             this.getAllActivitiesByUserId(this.storage.getUser().id).subscribe(
                 res => {
                     this.activities.push(...res || []);
-                    console.log(this.activities)
                 }
             )
         }
@@ -33,7 +32,6 @@ export class ActivitiesListComponent implements OnInit {
     getAllActivitiesByUserId(userId: number): Observable<string[]> {
         //const url = `${this.siteUrl}/activity/getUser/userId?userId=${userId}`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
         const url = `${this.siteUrl}/activity/getUser/${userId}`;
-        console.log(url);
         return this.http.get<string[]>(url);
     }
 }

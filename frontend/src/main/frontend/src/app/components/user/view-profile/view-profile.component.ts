@@ -20,21 +20,22 @@ export class ViewProfileComponent implements OnInit, OnChanges, OnDestroy {
     constructor(private userService: UserService,
                 private router: Router,
                 private storageService: StorageService) {
+        this.currentUser = this.storageService.getUser();
     }
 
     ngOnInit() {
-        this.currentUser = this.storageService.getUser();
     }
 
     ngOnChanges(changes: SimpleChanges): void {
         this.user = changes.user.currentValue;
-        if (this.currentUser && this.currentUser.id != this.user.id && this.currentUser.userRole == 'user') {
+
+        if (this.user.id && this.currentUser.id != this.user.id && this.currentUser.userRole == 'user') {
             this.subscription = this.userService.checkRequest(this.currentUser.id, this.user.id).subscribe(
                 () => {
-                    this.isAbleToAddToFriend = false;
+                    this.isAbleToAddToFriend = true;
                 },
             () => {
-                    this.isAbleToAddToFriend = true;
+                    this.isAbleToAddToFriend = false;
             }
             );
         }

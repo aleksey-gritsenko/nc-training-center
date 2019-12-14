@@ -20,7 +20,6 @@ export class UserMenuComponent implements OnInit, OnChanges {
     isAllowedToPublish: boolean;
 
     constructor(private storageService: StorageService) {
-        this.open('View');
         this.currentUser = this.storageService.getUser()
     }
 
@@ -28,7 +27,9 @@ export class UserMenuComponent implements OnInit, OnChanges {
     }
 
     ngOnChanges(changes: SimpleChanges): void {
+        this.open('View');
         this.user = changes.user.currentValue;
+
         if (this.user.id) {
             if (this.user.id == this.currentUser.id) {
                 this.isAllowedToDeactivate = false;
