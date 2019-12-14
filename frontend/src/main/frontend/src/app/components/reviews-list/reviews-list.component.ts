@@ -20,8 +20,8 @@ export class ReviewsListComponent implements OnInit {
     @Input() book: Book;
     addReviewVisible: boolean;
 
-    successCreatedReview:boolean = true;
-    errorCreatedReview:boolean = true;
+    successCreatedReview:boolean = false;
+    errorCreatedReview:boolean = false;
     createdReview: Review = new Review();
     notAcceptedReviewVisible:boolean = false;
     createdReviewForm = this.formBuilder.group({
