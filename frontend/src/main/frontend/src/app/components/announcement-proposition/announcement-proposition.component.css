@@ -16,7 +16,7 @@
     margin-bottom: .25rem;
     padding: .325rem .825rem .325rem 1.325rem;
     color: #fff;
-    background: DarkSlateGray;
+    background: DarkMagenta	;
     opacity: .9;
 }
 
@@ -31,5 +31,5 @@
     top: 0;
     bottom: 0;
     width: 0.5rem;
-    background: DarkGrey;
+    background: Magenta;
 }

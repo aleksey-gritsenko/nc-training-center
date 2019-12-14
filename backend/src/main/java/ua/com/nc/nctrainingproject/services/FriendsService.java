@@ -20,18 +20,18 @@ public class FriendsService {
 		this.actionService = actionService;
 	}
 
-	public void sendRequest(int sender, int reciever) {
-		friendsPostgreDAO.sendRequest(sender, reciever);
+	public void sendRequest(int sender, int receiver) {
+		friendsPostgreDAO.sendRequest(sender, receiver);
 	}
 
-	public void acceptRequest(int sender, int reciever) {
-		friendsPostgreDAO.acceptRequest(sender, reciever);
-		actionService.addNewAction(reciever, 1);
+	public void acceptRequest(int sender, int receiver) {
+		friendsPostgreDAO.acceptRequest(sender, receiver);
+		actionService.addNewAction(receiver, 1);
 		actionService.addNewAction(sender, 1);
 	}
 
-	public void rejectRequest(int sender, int reciever) {
-		friendsPostgreDAO.rejectRequest(sender, reciever);
+	public void rejectRequest(int sender, int receiver) {
+		friendsPostgreDAO.rejectRequest(sender, receiver);
 	}
 
 	public List<User> getAllFriends(int user) {
@@ -42,10 +42,10 @@ public class FriendsService {
 		return friendsPostgreDAO.getAllNewRequests(user);
 	}
 
-	public boolean checkRequest(int sender, int reciever) {
+	public boolean checkRequest(int sender, int receiver) {
 
-		return sender != reciever
-				& friendsPostgreDAO.getCountApplications(sender, reciever) == 0;
+		return sender != receiver
+				& friendsPostgreDAO.getCountApplications(sender, receiver) == 0;
 	}
 
 }
