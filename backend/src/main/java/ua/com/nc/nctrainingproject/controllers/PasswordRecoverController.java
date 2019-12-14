@@ -51,10 +51,10 @@ public class PasswordRecoverController {
 	}
 
 	@RequestMapping("/resend")
-	public ResponseEntity<String> resend(@RequestParam String user) {
+	public ResponseEntity<String> resend(@RequestParam String email) {
 		try {
 
-			passwordRecoverService.resend(user);
+			passwordRecoverService.resend(email);
 			return new ResponseEntity<>(HttpStatus.OK);
 
 
