@@ -24,6 +24,14 @@
                                 <input formControlName="username" autocomplete="off" class="form-control" id="username"
                                        name="login" type="text" maxlength="20" required>
                             </div>
+                            <div *ngIf="username.invalid && username.dirty && !username.errors.required" class="alert alert-warning text-center" role="alert">
+                                <div *ngIf="username.errors.minlength">
+                                    Should be at least 4 characters
+                                </div>
+                                <div *ngIf="username.errors.pattern">
+                                    Should includes only latins and numbers and starts with letter
+                                </div>
+                            </div>
 
                             <!-- Email -->
                             <div class="form-group">
@@ -38,7 +46,7 @@
                                        name="password" type="password" required>
                             </div>
                             <div *ngIf="password.invalid && ( password.dirty) && password.errors.pattern" class="alert alert-warning text-center" role="alert">
-                                The password should contain at least 8 characters, 1 upper and 1 number
+                                Should contain at least 8 characters, 1 upper and 1 number
                             </div>
 
                             <!-- Confirm Password -->
