@@ -1,102 +1,69 @@
 <app-navigation></app-navigation>
-<div style="padding-top: 67px;margin-left: 70px;"></div>
+<app-sidebar></app-sidebar>
+<div style="padding-top: 67px; margin-left: 260px">
 
-<div class="content row">
-    <div class="col-9">
-        <div class="text-muted">
-            <h1 id="myText">My Books List</h1>
-        </div>
-        <div>
-            <div id="btnwrapper">
-                <button (click)="router.navigate(['/userBooks'])" class="btn btn-primary">My Books</button>
-                <div class="divider"></div>
-                <button (click)="router.navigate(['/userBooks/read'])" class="btn btn-primary">My Read Books</button>
-                <div class="divider"></div>
-                <button (click)="router.navigate(['/userBooks/favourite'])" class="btn btn-primary">My Favourite Books
-                </button>
+    <div class="row">
+        <div class="col-9">
+            <div class="justify-content-center row text-muted content">
+                <h1 id="myText">My Books List</h1>
             </div>
-        </div>
-        <div class="row">
-            <div style="text-align: center; font-size: 30px"><h2 *ngIf="emptyBookList">Since you do not have
-                any books, we suggest you most rated books</h2></div>
-            <div *ngFor="let book of userBookList" class="col-lg-4 align-items-stretch align-items-center row">
-                <div class="card card-profile">
-                    <div class="card-body">
-                        <div class="card-title">
-                            <h3><a [routerLink]="['book', book.id]"> {{book.header}}</a></h3>
-                        </div>
-                        <div class="card-description">
-                            <app-book-img [book]="book"></app-book-img>
-                            <h3>Status: {{book.status}}</h3>
-                            <div>
-                                <h3 *ngIf="book.authors">Authors:</h3>
-                                <div *ngFor="let author of book.authors ">
-                                    <h3>{{author.name}}</h3>
-                                </div>
-                            </div>
-                            <h3 *ngIf="book.genre">Genre: {{book.genre}}</h3>
-                            <div>Overview: {{book.overview | truncateText:250}}</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-3">
-        <form action="">
-            <div class="card-body bmd-form-group row">
-                <div class="m-auto">
-                    <h3>Filter</h3>
-                </div>
-                <div class="input-group no-border">
-                    <input class="col-12 form-control" [(ngModel)]="bookFilter.header"  name="header" placeholder="Search by book title"
-                           type="text" required>
-                    <button (click)="searchByFilter()" [disabled]="!bookFilter.header" class="btn btn-default btn-round btn-just-icon" type="submit">
-                        <i class="material-icons">search</i>
-                        <span class="ripple-container"></span>
+            <div>
+                <div id="btnwrapper">
+                    <button (click)="router.navigate(['/userBooks'])" class="btn btn-primary">My Books</button>
+                    <div class="divider"></div>
+                    <button (click)="router.navigate(['/userBooks/read'])" class="btn btn-primary">My Read Books
+                    </button>
+                    <div class="divider"></div>
+                    <button (click)="router.navigate(['/userBooks/favourite'])" class="btn btn-primary">My Favourite
+                        Books
                     </button>
                 </div>
-                <button (click)="searchByFilter()" [disabled]="!bookFilter.header"  class="btn btn-primary">Search by filter</button>
-                <button (click)="resetFiler()" class="btn btn-primary">Reset filter</button>
             </div>
+            <div>
+            <div class="row justify-content-around">
+                <div><h3 *ngIf="emptyBookList">Since you do not have
+                    any books, we suggest you most rated books</h3></div>
+                <div *ngFor="let book of userBookList | filter:searchTitle"
+                     class="col-lg-4 align-items-stretch row">
+                    <div class="card card-profile">
+                        <div class="card-body">
+                            <div class="card-title">
+                                <h3><a [routerLink]="['book', book.id]"> {{book.header}}</a></h3>
+                            </div>
+                            <div class="card-description">
+                                <app-book-img [book]="book"></app-book-img>
+                                <h3>Status: {{book.status}}</h3>
+                                <div>
+                                    <h3 *ngIf="book.authors">Authors:</h3>
+                                    <div *ngFor="let author of book.authors ">
+                                        <h3>{{author.name}}</h3>
+                                    </div>
+                                </div>
+                                <h3 *ngIf="book.genre">Genre: {{book.genre}}</h3>
+                                <div>Overview: {{book.overview | truncateText:250}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
 
-            <div class="row">
-                <div class="col-12">
-                    <div class="card form-check">
-                        <div class="card-title card-header-primary">
-                            <h2>Author</h2>
-                        </div>
-                        <div class="card-body row">
-                            <label><input type="text" placeholder="Author..." class="form-control" [(ngModel)]="searchAuthor" [ngModelOptions]="{standalone: true}"></label>
-                            <div *ngFor="let author of selectedAuthors | filter:searchAuthor|slice:0:5;" class="col-12">
-                                <label class="form-check-label">
-                                    <input (change)="onFilterChange($event)" [(ngModel)]="author.selected" class="form-check-input" name="{{author.name}}"
-                                           type="checkbox">{{author.name}}
-                                    <span class="form-check-sign"><span class="check"></span></span>
-                                </label>
-                            </div>
-                        </div>
+        <div class="col-3">
+            <form action="">
+                <div class="card-body bmd-form-group row">
+                    <div class="m-auto">
+                        <h3>Search Book</h3>
+                    </div>
+                    <div class="input-group no-border">
+                        <input class="col-12 form-control" [(ngModel)]="searchTitle" name="header"
+                               placeholder="Search by book title"
+                               type="text" required>
+                        <i class="material-icons">search</i>
+                        <span class="ripple-container"></span>
                     </div>
                 </div>
-                <div class="col-12">
-                    <div class="card form-check">
-                        <div class="card-title card-header-primary">
-                            <h2>Genre</h2>
-                        </div>
-                        <div class="card-body row">
-                            <label><input type="text" placeholder="Genre..." class="form-control" [(ngModel)]="searchGenre" [ngModelOptions]="{standalone: true}"></label>
-                            <div *ngFor="let genre of selectedGenres| filter:searchGenre|slice:0:5;" class="col-12">
-                                <label class="form-check-label">
-                                    <input (change)="onFilterChange($event)" [(ngModel)]="genre.selected" class="form-check-input" name="{{genre.name}}"
-                                           type="checkbox">{{genre.name}}
-                                    <span class="form-check-sign"><span class="check"></span></span>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
 </div>

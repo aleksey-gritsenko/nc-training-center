@@ -23,6 +23,7 @@ import {UserReadBooksComponent} from "./components/user/user-read-books/user-rea
 import {UserSettingsComponent} from "./components/user/user-settings/user-settings.component";
 import {AdminRightsComponent} from "./components/admin-rights/admin-rights.component";
 import {AddBookComponent} from "./components/add-book/add-book.component";
+import {Book} from "./models/book";
 
 
 const routes: Routes = [
@@ -91,8 +92,8 @@ const routes: Routes = [
         component: BookComponent
     },
     {
-      path:'books/addBook',
-      component: AddBookComponent
+        path: 'books/addBook',
+        component: AddBookComponent
     },
     {
         path: 'books/book/:bookId/review/:reviewId',
@@ -128,6 +129,30 @@ const routes: Routes = [
     },
     {
         path: 'userBooks/favourite/book/:bookId',
+        component: BookComponent
+    },
+    {
+        path: 'userBooks/favourite/books',
+        component: BooksListComponent
+    },
+    {
+        path: 'userBooks/read/books',
+        component: BooksListComponent
+    },
+    {
+        path: 'userBooks/books',
+        component: BooksListComponent
+    },
+    {
+        path: 'userBooks/favourite/books/book/:bookId',
+        component: BooksListComponent
+    },
+    {
+        path: 'userBooks/read/books/book/:bookId',
+        component: BooksListComponent
+    },
+    {
+        path: 'userBooks/books/book/:bookId',
         component: BookComponent
     },
     {

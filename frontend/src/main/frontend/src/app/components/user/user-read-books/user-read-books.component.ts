@@ -11,6 +11,8 @@ import {StorageService} from "../../../services/storage/storage.service";
 })
 export class UserReadBooksComponent extends BooksListComponent implements OnInit {
 
+    private searchTitle: string;
+
     constructor(apiService: CommonService,
                 route: ActivatedRoute,
                 router: Router,

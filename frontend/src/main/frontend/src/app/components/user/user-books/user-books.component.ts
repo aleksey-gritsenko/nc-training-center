@@ -3,7 +3,6 @@ import {CommonService} from "../../../services/common/common.service";
 import {BooksListComponent} from "../../books-list/books-list.component";
 import {ActivatedRoute, Router} from "@angular/router";
 import {StorageService} from "../../../services/storage/storage.service";
-import {BookFilter} from "../../../models/bookfilter";
 
 @Component({
     selector: 'app-user-books',
@@ -11,6 +10,8 @@ import {BookFilter} from "../../../models/bookfilter";
     styleUrls: ['./user-books.component.css']
 })
 export class UserBooksComponent extends BooksListComponent implements OnInit {
+
+    private searchTitle: string;
 
     constructor(apiService: CommonService,
                 route: ActivatedRoute,

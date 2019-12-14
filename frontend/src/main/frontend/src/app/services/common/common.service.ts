@@ -45,14 +45,6 @@ export class CommonService {
         return this.http.post<Book[]>(url, filter);
     }
 
-    getUserBooksByFilter(filter: BookFilter): Observable<Book[]> {
-        //const url = `${this.booksUrl}/filterUser`;
-        const url = `${this.localhost}/book/filterUser`;
-        console.log(filter);
-        return this.http.post<Book[]>(url, filter);
-    }
-
-
     getBookById(id: number): Observable<Book> {
         const url = `${this.booksUrl}/id?id=${id}`;
         //const url = `${this.localhost}/book/id?id=${id}`;
