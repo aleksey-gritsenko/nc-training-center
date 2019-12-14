@@ -38,6 +38,9 @@ export class SearchComponent implements OnInit, OnDestroy {
                     this.userService.getAll().subscribe(
                         res => {
                             this.userModel = res;
+                        },
+                        () => {
+                            this.userModel = null;
                         }
                     );
                 }

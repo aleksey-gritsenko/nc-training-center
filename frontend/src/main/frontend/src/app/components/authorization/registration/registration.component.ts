@@ -34,7 +34,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
             username: new FormControl('', [Validators.minLength(4), Validators.pattern(this.userService.inputRegExp)]),
             email: new FormControl('', [Validators.pattern(this.userService.emailRegExp)]),
             password: new FormControl('', Validators.pattern(this.userService.passwordRegExp)),
-            confirmPassword: new FormControl('', Validators.pattern(this.userService.passwordRegExp))
+            confirmPassword: new FormControl('')
         });
     }
 

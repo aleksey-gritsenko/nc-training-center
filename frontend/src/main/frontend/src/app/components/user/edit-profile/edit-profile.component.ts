@@ -4,6 +4,7 @@ import {UserService} from "../../../services/user/user.service";
 import {ActivatedRoute} from "@angular/router";
 import {StorageService} from "../../../services/storage/storage.service";
 import {Subscription} from "rxjs";
+import {FormControl, FormGroup} from "@angular/forms";
 
 @Component({
     selector: 'app-edit-profile',
@@ -16,6 +17,8 @@ export class EditProfileComponent implements OnInit, OnDestroy {
 
     @Input() private user: User;
 
+    updateGroup: FormGroup;
+
     private updatedUser: User = new User();
     private subscription: Subscription;
 
@@ -25,11 +28,13 @@ export class EditProfileComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        // this.subscription = this.storageService.currentUser.subscribe(user => {
-        //     this.currentUser = user;
-        //     Object.assign(this.updatedUser, this.currentUser);
-        // });
         Object.assign(this.updatedUser, this.user);
+
+        this.updateGroup = new FormGroup({
+            email: new FormControl(this.updatedUser.email),
+            password: new FormControl(),
+            repeatPassword: new FormControl()
+        });
     }
 
     update(): void {
@@ -46,12 +51,13 @@ export class EditProfileComponent implements OnInit, OnDestroy {
                 },
                 () => {
                     this.repeatPassword = '';
-
                 }
             );
     }
 
     ngOnDestroy(): void {
-        if (this.subscription) this.subscription.unsubscribe();
+        if (this.subscription) {
+            this.subscription.unsubscribe();
+        }
     }
 }
