@@ -3,29 +3,24 @@
         <h4 class="card-title">Achievement</h4>
     </div>
     <div class="card-body row justify-content-center">
-        <div *ngFor="let achievement of achievements" class="row col-4">
-            <div>
-                <div class="row">
-                    <div *ngIf="achievement.entity==ActionEntity.book">
-                        <i class="material-icons">library_books</i>
-                    </div>
-                    <div *ngIf="achievement.entity==ActionEntity.user">
-                        <i class="material-icons">people_outline</i>
-                    </div>
-                    <div *ngIf="achievement.entity==ActionEntity.review">
-                        <i class="material-icons">rate_review</i>
-                    </div>
-                    <div *ngIf="achievement.entity==ActionEntity.announcement">
-                        <i class="material-icons">announcement</i>
-                    </div>
-                    <h2 class="card-header">{{user.userName}}</h2>
-                </div>
-                <h3>
-                    <span> {{achievement.achievementName.toUpperCase()}} </span>
-                    <span> {{achievement.count}} </span>
-                    <span> {{achievement.entity.toUpperCase()}}!!!</span>
-                </h3>
-            </div>
+        <div *ngFor="let achievement of achievements">
+            <h3>
+            <span *ngIf="achievement.entity==ActionEntity.book">
+                <i class="material-icons">library_books</i>
+            </span>
+                <span *ngIf="achievement.entity==ActionEntity.user">
+                <i class="material-icons">people_outline</i>
+            </span>
+                <span *ngIf="achievement.entity==ActionEntity.review">
+                <i class="material-icons">rate_review</i>
+            </span>
+                <span *ngIf="achievement.entity==ActionEntity.announcement">
+                <i class="material-icons">announcement</i>
+            </span>
+                <span class="card-header">{{user.userName}}</span>
+                <span> {{achievement.achievementName.toUpperCase()}} !!!</span>
+            </h3>
         </div>
     </div>
 </div>
+
