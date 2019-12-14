@@ -19,10 +19,6 @@ public abstract class AbstractDAO<T extends Entity> {
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
 	}
 
-	// protected void create(String query, Entity entity) {
-	// jdbcTemplate.update(query, entity);
-	//}
-
 	protected void create(String query, Object[] params) {
 		jdbcTemplate.update(query, params);
 	}

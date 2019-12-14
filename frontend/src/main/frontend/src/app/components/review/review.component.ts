@@ -30,7 +30,7 @@ export class ReviewComponent implements OnInit {
 
     getReview(): void {
         const id = +this.route.snapshot.paramMap.get('reviewId');
-        this.commonService.getReviewById(id).subscribe(
+        this.subscription = this.commonService.getReviewById(id).subscribe(
             review => {
                 this.review = new Review();
                 this.review = review;

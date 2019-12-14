@@ -74,6 +74,16 @@ public class BookPostgreDAO extends AbstractDAO<Book> {
         return books;
     }
 
+    public List<Book> filterUserBooks(FilterCriterionQuery filterCriterionQuery) {
+        String query = filterCriterionQuery.makeQueryForUserBooks();
+        Object[] args = filterCriterionQuery.makeArrayArgsStream();
+        List<Book> books = jdbcTemplate.query(query, args, new BookRowMapper());
+        for (Book book : books) {
+            book.setAuthors(authorBookPostgreDAO.getAuthorsByBookId(book.getId()));
+        }
+        return books;
+    }
+
     public Genre getGenreByBookId(int bookId) {
         List<Genre> genres = jdbcTemplate.query(BookQuery.GET_GENRE_BY_BOOK_ID, new GenreMapper(), bookId);
         if (genres.size() == 0) {

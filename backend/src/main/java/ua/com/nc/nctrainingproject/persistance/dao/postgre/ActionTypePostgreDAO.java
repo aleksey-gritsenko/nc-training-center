@@ -26,38 +26,16 @@ public class ActionTypePostgreDAO implements ActionTypeDAO {
 		return jdbcTemplate.query(ActionTypeQuery.GET_ALL_ACTION_TYPES, new ActionTypeRowMapper());
 	}
 
-	public List<String> getAllActionTypesNames() {
-		return jdbcTemplate.queryForList(ActionTypeQuery.GET_ALL_ACTION_TYPES_NAMES, String.class);
-	}
-
 	@Override
 	public ActionType getActionTypeByActionTypeId(int actionTypeId) {
-		List<ActionType> actionTypeList = jdbcTemplate.query(ActionTypeQuery.GET_BY_ACTION_TYPE_ID,
+		return jdbcTemplate.queryForObject(ActionTypeQuery.GET_BY_ACTION_TYPE_ID,
 				new ActionTypeRowMapper(), actionTypeId);
-		if (actionTypeList.size() == 0) {
-			return null;
-		}
-		return actionTypeList.get(0);
 	}
 
 	@Override
 	public ActionType getActionTypeByName(String name) {
-		List<ActionType> actionTypeList = jdbcTemplate.query(ActionTypeQuery.GET_BY_ACTION_NAME,
+		return jdbcTemplate.queryForObject(ActionTypeQuery.GET_BY_ACTION_NAME,
 				new ActionTypeRowMapper(), name);
-		if (actionTypeList.size() == 0) {
-			return null;
-		}
-		return actionTypeList.get(0);
-	}
-
-	public ActionType getActionTypeByNameGenre(String name, int genreId) {
-		List<ActionType> actionTypeList = jdbcTemplate.query(ActionTypeQuery.GET_BY_ACTION_NAME_GENRE,
-				new ActionTypeRowMapper(), name, genreId);
-
-		if (actionTypeList.size() == 0) {
-			return null;
-		}
-		return actionTypeList.get(0);
 	}
 
 	@Override

@@ -55,12 +55,8 @@ public class UserBooksPostgreDAO extends AbstractDAO {
 	}
 
 	public UserBook getUserBookByBookUserId(int userId, int bookId) {
-		List<UserBook> userBookList = jdbcTemplate.query(UserBooksQuery.GET_USER_BOOK_BY_USER_AND_BOOK_ID,
+		return jdbcTemplate.queryForObject(UserBooksQuery.GET_USER_BOOK_BY_USER_AND_BOOK_ID,
 				new UserBookRowMapper(), userId, bookId);
-		if (userBookList.size() == 0) {
-			return null;
-		}
-		return userBookList.get(0);
 	}
 
 	public void markBookAsRead(int userId, int bookId) {
