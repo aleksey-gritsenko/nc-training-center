@@ -6,7 +6,6 @@ import ua.com.nc.nctrainingproject.models.Book;
 import ua.com.nc.nctrainingproject.models.UserBook;
 import ua.com.nc.nctrainingproject.persistance.dao.AbstractDAO;
 import ua.com.nc.nctrainingproject.persistance.dao.postgre.queries.UserBooksQuery;
-import ua.com.nc.nctrainingproject.persistance.mappers.BookRowMapper;
 import ua.com.nc.nctrainingproject.persistance.mappers.UserBookRowMapper;
 
 import javax.sql.DataSource;
@@ -82,5 +81,9 @@ public class UserBooksPostgreDAO extends AbstractDAO {
 
 	public void deleteFromAdded(int userId, int bookId) {
 		update(UserBooksQuery.DELETE_BOOK_FROM_ADDED, new Object[]{userId, bookId});
+	}
+
+	public List<UserBook> getAllUserBooksByUserId(int userId) {
+		return jdbcTemplate.query(UserBooksQuery.GET_ALL_USER_BOOKS, new UserBookRowMapper(), userId);
 	}
 }

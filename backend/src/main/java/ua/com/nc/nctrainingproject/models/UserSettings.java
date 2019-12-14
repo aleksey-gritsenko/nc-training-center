@@ -1,74 +1,74 @@
 package ua.com.nc.nctrainingproject.models;
 
 public class UserSettings {
-    private Boolean subscribeOnFriends;
-    private Boolean achievements;
-    private Boolean bookNotification;
-    private Boolean subscribeOnFriendReview;
-    private Boolean notifyAboutNewFriends;
-    private Boolean notifyAboutAchievement;
+	private Boolean subscribeOnFriends;
+	private Boolean achievements;
+	private Boolean bookNotification;
+	private Boolean subscribeOnFriendReview;
+	private Boolean notifyAboutNewFriends;
+	private Boolean notifyAboutAchievement;
 
-    public UserSettings() {
+	public UserSettings() {
 
-    }
+	}
 
-    public Boolean getSubscribeOnFriends() {
-        return subscribeOnFriends;
-    }
+	public Boolean getSubscribeOnFriends() {
+		return subscribeOnFriends;
+	}
 
-    public void setSubscribeOnFriends(Boolean subscribeOnFriends) {
-        this.subscribeOnFriends = subscribeOnFriends;
-    }
+	public void setSubscribeOnFriends(Boolean subscribeOnFriends) {
+		this.subscribeOnFriends = subscribeOnFriends;
+	}
 
-    public Boolean getAchievements() {
-        return achievements;
-    }
+	public Boolean getAchievements() {
+		return achievements;
+	}
 
-    public void setAchievements(Boolean achievements) {
-        this.achievements = achievements;
-    }
+	public void setAchievements(Boolean achievements) {
+		this.achievements = achievements;
+	}
 
-    public Boolean getBookNotification() {
-        return bookNotification;
-    }
+	public Boolean getBookNotification() {
+		return bookNotification;
+	}
 
-    public void setBookNotification(Boolean bookNotification) {
-        this.bookNotification = bookNotification;
-    }
+	public void setBookNotification(Boolean bookNotification) {
+		this.bookNotification = bookNotification;
+	}
 
-    public Boolean getSubscribeOnFriendReview() {
-        return subscribeOnFriendReview;
-    }
+	public Boolean getSubscribeOnFriendReview() {
+		return subscribeOnFriendReview;
+	}
 
-    public void setSubscribeOnFriendReview(Boolean subscribeOnFriendReview) {
-        this.subscribeOnFriendReview = subscribeOnFriendReview;
-    }
+	public void setSubscribeOnFriendReview(Boolean subscribeOnFriendReview) {
+		this.subscribeOnFriendReview = subscribeOnFriendReview;
+	}
 
-    public Boolean getNotifyAboutNewFriends() {
-        return notifyAboutNewFriends;
-    }
+	public Boolean getNotifyAboutNewFriends() {
+		return notifyAboutNewFriends;
+	}
 
-    public void setNotifyAboutNewFriends(Boolean notifyAboutNewFriends) {
-        this.notifyAboutNewFriends = notifyAboutNewFriends;
-    }
+	public void setNotifyAboutNewFriends(Boolean notifyAboutNewFriends) {
+		this.notifyAboutNewFriends = notifyAboutNewFriends;
+	}
 
-    public Boolean getNotifyAboutAchievement() {
-        return notifyAboutAchievement;
-    }
+	public Boolean getNotifyAboutAchievement() {
+		return notifyAboutAchievement;
+	}
 
-    public void setNotifyAboutAchievement(Boolean notifyAboutAchievement) {
-        this.notifyAboutAchievement = notifyAboutAchievement;
-    }
+	public void setNotifyAboutAchievement(Boolean notifyAboutAchievement) {
+		this.notifyAboutAchievement = notifyAboutAchievement;
+	}
 
-    @Override
-    public String toString() {
-        return "UserSettings{" +
-                "subscribeOnFriends=" + subscribeOnFriends +
-                ", achievements=" + achievements +
-                ", bookNotification=" + bookNotification +
-                ", subscribeOnFriendReview=" + subscribeOnFriendReview +
-                ", notifyAboutNewFriends=" + notifyAboutNewFriends +
-                ", notifyAboutAchievement=" + notifyAboutAchievement +
-                '}';
-    }
+	@Override
+	public String toString() {
+		return "UserSettings{" +
+				"subscribeOnFriends=" + subscribeOnFriends +
+				", achievements=" + achievements +
+				", bookNotification=" + bookNotification +
+				", subscribeOnFriendReview=" + subscribeOnFriendReview +
+				", notifyAboutNewFriends=" + notifyAboutNewFriends +
+				", notifyAboutAchievement=" + notifyAboutAchievement +
+				'}';
+	}
 }

@@ -1,31 +1,43 @@
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
 
 <div class="container">
-    <div class="row" >
+    <div class="row">
         <div class="col-md-offset-3 col-md-6">
+
+            <!-- Nav tabs -->
             <div class="tab" role="tabpanel">
+                <div class="logo mb-5">
+                    <a routerLink="/">BOOKNET</a>
+                </div>
+
                 <ul class="nav nav-tabs" role="tablist">
-                    <li role="presentation" class="active"><a aria-controls="home" role="tab">sign in</a></li>
-                    <li role="presentation"><a routerLink="/registration" aria-controls="profile" role="tab">sign up</a>
+                    <li class="active" role="presentation"><a aria-controls="home" role="tab">sign in</a></li>
+                    <li role="presentation"><a aria-controls="profile" role="tab" routerLink="/registration">sign up</a>
                     </li>
                 </ul>
+
+                <!-- Tab panes -->
                 <div class="tab-content tabs">
-                    <div role="tabpanel" class="tab-pane fade in active" id="Section1">
-                        <form class="form-horizontal" method="post" #f="ngForm" (submit)="login()">
+                    <div class="tab-pane fade in active" id="Section1" role="tabpanel">
+                        <form [formGroup]="loginGroup" (ngSubmit)="login()" class="form-horizontal">
+                            <!-- Username -->
                             <div class="form-group">
-                                <label for="exampleInputEmail1">Login</label>
-                                <input type="text" class="form-control" id="exampleInputEmail1" name="login"
-                                       [(ngModel)]="model.login">
+                                <label for="username">Username</label>
+                                <input formControlName="username" class="form-control" id="username" type="text" maxlength="25" required>
                             </div>
+                            <!-- Password -->
                             <div class="form-group">
-                                <label for="exampleInputPassword1">Password</label>
-                                <input type="password" class="form-control" id="exampleInputPassword1" name="password"
-                                       [(ngModel)]="model.password">
+                                <label for="password">Password</label>
+                                <input formControlName="password" class="form-control" id="password"
+                                       type="password" required maxlength="25">
                             </div>
+
                             <div class="form-group">
-                                <button type="submit" class="btn btn-default">Sign in</button>
+                                <button [disabled]="loginGroup.invalid" class="btn btn-default" type="submit">Sign in
+                                </button>
                             </div>
-                            <div class="alert alert-danger text-center" role="alert" *ngIf="isError">
+
+                            <div *ngIf="isError" class="alert alert-danger text-center" role="alert">
                                 Username or password is incorrect!
                             </div>
                             <div class="form-group forgot-pass">

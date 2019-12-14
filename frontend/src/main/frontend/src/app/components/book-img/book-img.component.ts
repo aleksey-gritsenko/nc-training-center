@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Book} from "../../models/book";
 import {DomSanitizer} from "@angular/platform-browser";
 import {CommonService} from "../../services/common/common.service";
+import {error} from "util";
 
 @Component({
     selector: 'app-book-img',
@@ -10,30 +11,36 @@ import {CommonService} from "../../services/common/common.service";
 })
 export class BookImgComponent implements OnInit {
 
-    @Input() book:Book;
+    @Input() book: Book;
+
     constructor(private apiService: CommonService,
-                private sanitizer: DomSanitizer) { }
+                private sanitizer: DomSanitizer) {
+    }
 
     ngOnInit() {
-        if(this.book!=null) {
+        if (this.book != null) {
             this.getImgByBook();
         }
     }
 
-    getImgByBook(){
+    getImgByBook() {
         this.apiService.getImageByBook(this.book).subscribe(
-            res=>{
+            res => {
                 let reader = new FileReader();
                 reader.addEventListener("load", () => {
-                    this.book.photoURL = reader.result;
+                    this.book.photoURL = reader.result
                 }, false);
                 if (res) {
                     reader.readAsDataURL(res);
                 }
+            },
+            error=> {
+                console.log(error);
             }
         );
     }
-    getSantizeUrl(url : string) {
+
+    getSantizeUrl(url: string) {
         return this.sanitizer.bypassSecurityTrustUrl(url);
     }
 }

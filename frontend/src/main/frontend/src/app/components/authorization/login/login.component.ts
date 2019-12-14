@@ -1,60 +1,76 @@
-import {Component, OnInit} from '@angular/core';
-import {LogView} from '../../../models/logview';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {ActivatedRoute, Router} from '@angular/router';
-
+import { Router} from '@angular/router';
 import {AuthenticationService} from '../../../services/authentification/authentication.service';
 import {StorageService} from "../../../services/storage/storage.service";
 import {SpringAuthService} from "../../../services/security/spring-auth.service";
+import {Subscription} from "rxjs";
+import {FormControl, FormGroup} from "@angular/forms";
 
 @Component({
     selector: 'app-login',
     templateUrl: './login.component.html',
     styleUrls: ['../../../resources/styles/Authorization.css']
 })
-export class LoginComponent implements OnInit {
-    model: LogView = {
-        id: 0,
-        login: '',
-        password: ''
-    };
+export class LoginComponent implements OnInit, OnDestroy {
+    loginGroup: FormGroup;
 
     isError: boolean = false;
-    returnUrl: string;
-    errorMessage = '';
+
+    subscription: Subscription;
+    loginSubscription: Subscription;
 
     constructor(
-        private http: HttpClient, public serv: AuthenticationService,
-        private route: ActivatedRoute,
+        private http: HttpClient,
+        public serv: AuthenticationService,
         private router: Router,
         private storageService: StorageService,
         private springAuth: SpringAuthService) {
     }
 
     ngOnInit() {
-        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+        this.loginGroup = new FormGroup({
+            username: new FormControl(''),
+            password: new FormControl('')
+        });
     }
 
+    ngOnDestroy(): void {
+        if (this.subscription) {
+            this.subscription.unsubscribe();
+        }
+        if (this.loginSubscription) {
+            this.loginSubscription.unsubscribe();
+        }
+    }
+
+    get username() {return this.loginGroup.get('username');}
+    get password() {return this.loginGroup.get('password');}
+
     login(): void {
-        this.springAuth.authentificate(this.model.login, this.model.password).subscribe(
+        this.isError = false;
+        let username = this.username.value;
+        let password = this.password.value;
+
+        this.subscription = this.springAuth.authentificate(username, password).subscribe(
             data => {
                 window.sessionStorage.setItem('token', JSON.stringify(data));
-                if (this.model.login.length == 0 || this.model.password.length == 0) return;
-                this.serv.login(this.model.login, this.model.password)
-                    .subscribe(
+
+                this.loginSubscription = this.serv.login(username, password).subscribe(
                         user => {
-                            if (!user.verified) this.router.navigateByUrl('/verify');
+                            if (!user.verified) {
+                                this.router.navigateByUrl('/verify');
+                            }
                             else {
                                 this.storageService.setUser(user);
-                                this.router.navigate([this.returnUrl]);
+                                sessionStorage.setItem('user', JSON.stringify(user));                                this.router.navigateByUrl('/');
                             }
-                        });
+                        },);
             },
-            error1 => {
+            () => {
                 this.isError = true;
-                this.model.password = '';
+                this.loginGroup.patchValue({password: ''});
             }
         );
-
     }
 }

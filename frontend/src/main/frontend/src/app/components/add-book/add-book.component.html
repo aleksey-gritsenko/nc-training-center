@@ -1,0 +1,61 @@
+<div class="navigation">
+    <app-navigation></app-navigation>
+    <router-outlet></router-outlet>
+</div>
+<div class="container content">
+    <div class="card">
+        <h1 class="card-header card-header-primary">Create new  book</h1>
+        <form [formGroup]="createdBook"  action="" class="card-body">
+            <table class="table">
+                <tr>
+                    <td><label for="header">Header</label></td>
+                    <td><input formControlName="header"  class="form-control" id="header"
+                               name="header" required type="text"></td>
+                </tr>
+                <tr>
+                    <td><label for="status">Status</label></td>
+                    <td><input formControlName="status"  class="form-control" id="status"
+                               name="status" required type="text"></td>
+                </tr>
+                <tr>
+                    <td><label for="overview">Overview</label></td>
+                    <td><textarea formControlName="overview" class="form-control" id="overview"
+                                  name="overview" required rows="5"></textarea></td>
+                </tr>
+                <tr>
+                    <td> <label class="bmd-label-floating" for="genre">Genre</label></td>
+                    <td><select id="genre" name="genre" class="custom-select col-6" formControlName="genre">
+                        <option *ngFor="let genre of genres" [value]="genre.name">{{genre.name}}</option>
+                    </select>
+                    </td>
+                </tr>
+                <tr>Authors:
+                    <td>
+                        <div formArrayName="authors">
+                            <div *ngFor="let author of authors.controls; let i=index">
+                                <div [formGroupName]="i">
+                                    {{i+1}}. Author name: <input type="text" formControlName="author" required>
+                                    <button class="btn btn-primary" (click)="removeAuthor(i)">Remove</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <button [disabled]="!authors.valid" class="btn btn-primary" type="button" (click)="addAuthor()">Add author</button>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            <div>
+
+                <button (click)="createBook();" [disabled]="!createdBook.valid" class="btn btn-default btn-primary">
+                    Submit
+                </button>
+                <button (click)="back();" class="btn btn-default btn-primary">Back</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+

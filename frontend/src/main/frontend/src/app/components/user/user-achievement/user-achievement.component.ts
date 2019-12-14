@@ -4,6 +4,10 @@ import {Achievement} from "../../../models/achievement";
 import {AchievementService} from "../../../services/achievement/achievement.service";
 import {CommonService} from "../../../services/common/common.service";
 import {Genre} from "../../../models/genre";
+import {UserService} from "../../../services/user/user.service";
+import {UserSettings} from "../../../models/user-settings";
+import {ActionEntity} from "../../../models/action-entity";
+
 
 @Component({
     selector: 'app-user-achievement',
@@ -11,23 +15,29 @@ import {Genre} from "../../../models/genre";
     styleUrls: ['./user-achievement.component.css']
 })
 export class UserAchievementComponent implements OnInit {
+    private settings = new Map<string,boolean>();
+    ActionEntity = ActionEntity;
+    achievements: Achievement[] = [];
+    allGenres: Genre[] = [];
     @Input() private user: User;
-    achievements:Achievement[];
-    constructor(private achievementService:AchievementService, private commonService:CommonService) { }
-    allGenres:Genre[]=[];
+
+    constructor(private achievementService: AchievementService,
+                private commonService: CommonService) {
+    }
+
     ngOnInit() {
         this.commonService.getAllGenre().subscribe(
-           res=>this.allGenres
+            res => this.allGenres
         );
         this.getAllAchievement();
     }
 
-    getAllAchievement(){
+    getAllAchievement() {
         this.achievementService.getUserAchievement(this.user).subscribe(
-            res=>{this.achievements = res;
-            this.achievements.forEach(achievement=>this.allGenres.forEach(
-                genre=>achievement.genreName=genre.id.toString()==achievement.genre?genre.name:""));
-            console.log(this.achievements)}
+            res => {
+                this.achievements = res;
+            }
         );
     }
+
 }

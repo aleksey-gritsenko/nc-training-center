@@ -1,15 +1,14 @@
 package ua.com.nc.nctrainingproject.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ua.com.nc.nctrainingproject.models.Announcement;
 import ua.com.nc.nctrainingproject.services.AnnouncementService;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin
@@ -24,61 +23,56 @@ public class AnnouncementController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
-	public List<Announcement> getPublishedAnnouncements() {
-		return announcementService.getPublishedAnnouncements();
+	public ResponseEntity<List<Announcement>> getPublishedAnnouncements() {
+		List<Announcement> response = announcementService.getPublishedAnnouncements();
+		return Optional.ofNullable(response).map(ResponseEntity::ok).orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
 	}
 
 	@RequestMapping(value = "/new", method = RequestMethod.GET)
-	public List<Announcement> getUnpublishedAnnouncements() {
-		return announcementService.getUnpublishedAnnouncements();
+	public ResponseEntity<List<Announcement>> getUnpublishedAnnouncements() {
+		List<Announcement> response = announcementService.getUnpublishedAnnouncements();
+		return Optional.ofNullable(response).map(ResponseEntity::ok).orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
 	}
 
 	@RequestMapping(value = "/all", method = RequestMethod.GET)
-	public List<Announcement> getAllAnnouncements() {
-		return announcementService.getAnnouncements();
+	public ResponseEntity<List<Announcement>> getAllAnnouncements() {
+		List<Announcement> response = announcementService.getAnnouncements();
+		return Optional.ofNullable(response).map(ResponseEntity::ok).orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public Announcement getAnnouncement(@PathVariable("id") int id) {
-		return announcementService.getAnnouncement(id);
+	public ResponseEntity<Announcement> getAnnouncement(@PathVariable("id") int id) {
+		Announcement response = announcementService.getAnnouncement(id);
+		return Optional.ofNullable(response).map(ResponseEntity::ok).orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
 	}
 
 	@RequestMapping(value = "/newAnnouncement", method = RequestMethod.POST)
-	public Announcement createAnnouncement(@RequestBody Announcement announcement){
-		announcementService.createAnnouncement(announcement);
-		return announcement;
+	public ResponseEntity<Announcement> createAnnouncement(@RequestBody Announcement announcement) {
+		Announcement response = announcementService.createAnnouncement(announcement);
+		return Optional.ofNullable(response).map(ResponseEntity::ok).orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
 	}
 
 	@RequestMapping(value = "/proposeAnnouncement", method = RequestMethod.POST)
-	public Announcement proposeAnnouncement(@RequestBody Announcement announcement){
-		announcementService.proposeAnnouncement(announcement);
-		System.out.println(announcement.toString());
-
-		return announcement;
+	public ResponseEntity<Announcement> proposeAnnouncement(@RequestBody Announcement announcement) {
+		Announcement response = announcementService.proposeAnnouncement(announcement);
+		return Optional.ofNullable(response).map(ResponseEntity::ok).orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
 	}
-/*
-	@RequestMapping(value = "/new/{id}", method = RequestMethod.POST)
-	public void publishAnnouncement(@PathVariable("id") int id) {
-		announcementService.publishAnnouncement(id);
-	}
-
- */
 
 	@RequestMapping(value = "/publish", method = RequestMethod.POST)
-	public void publishAnnouncement(@RequestBody Announcement announcement) {
-		System.out.println("ann "+announcement.toString());
-		System.out.println("id "+announcement.getId());
-		announcementService.publishAnnouncement(announcement);
+	public ResponseEntity<Announcement>  publishAnnouncement(@RequestBody Announcement announcement) {
+		Announcement response = announcementService.publishAnnouncement(announcement);
+		return Optional.ofNullable(response).map(ResponseEntity::ok).orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
 	}
 
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
-	public void deleteAnnouncement(@PathVariable("id") int id) {
-		announcementService.deleteAnnouncement(id);
+	public ResponseEntity<Announcement> deleteAnnouncement(@PathVariable("id") int id) {
+		Announcement response = announcementService.deleteAnnouncement(id);
+		return Optional.ofNullable(response).map(ResponseEntity::ok).orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
 	}
 
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
-	public Announcement updateAnnouncement(@RequestBody Announcement announcement){
-		announcementService.updateAnnouncement(announcement);
-		return announcement;
+	public ResponseEntity<Announcement>  updateAnnouncement(@RequestBody Announcement announcement) {
+		Announcement response = announcementService.updateAnnouncement(announcement);
+		return Optional.ofNullable(response).map(ResponseEntity::ok).orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
 	}
 }

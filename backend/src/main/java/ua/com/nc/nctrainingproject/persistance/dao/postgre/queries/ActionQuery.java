@@ -31,5 +31,5 @@ public class ActionQuery {
 			+ " (" + USER_ID + "," + ACTION_TYPE_ID + ")" + " VALUES(?,?)";
 
 	public static final String GET_ALL_BY_USER_ID_BY_ACTION_TYPE_ID = "SELECT * FROM " + TABLE_NAME +
-				" WHERE " + USER_ID + " =(?) AND " + ACTION_TYPE_ID + " =(?)";
+			" WHERE " + USER_ID + " =(?) AND " + ACTION_TYPE_ID + " =(?)";
 }

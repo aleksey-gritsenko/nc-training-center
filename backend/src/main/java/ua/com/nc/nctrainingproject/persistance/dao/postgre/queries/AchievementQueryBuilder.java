@@ -7,15 +7,16 @@ import ua.com.nc.nctrainingproject.persistance.dao.postgre.AchivementPostgreDAO;
 import java.util.List;
 
 public class AchievementQueryBuilder {
-    private List<AchivementDto> achivementDtos;
-    private final AchivementPostgreDAO achivementPostgreDAO;
+	private final AchivementPostgreDAO achivementPostgreDAO;
+	private List<AchivementDto> achivementDtos;
 
-    @Autowired
-    public AchievementQueryBuilder(AchivementPostgreDAO achivementPostgreDAO) {
-        this.achivementPostgreDAO = achivementPostgreDAO;
-    }
-    private void getAllAchievements(){
-        achivementDtos = achivementPostgreDAO.getAllAchievementDto();
-    }
+	@Autowired
+	public AchievementQueryBuilder(AchivementPostgreDAO achivementPostgreDAO) {
+		this.achivementPostgreDAO = achivementPostgreDAO;
+	}
+
+	private void getAllAchievements() {
+		achivementDtos = achivementPostgreDAO.getAllAchievementDto();
+	}
 
 }

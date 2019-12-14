@@ -9,23 +9,24 @@ import java.util.List;
 
 @Repository
 public class RightsPostgreDAO {
-    private final JdbcTemplate jdbcTemplate;
+	private final JdbcTemplate jdbcTemplate;
 
-    @Autowired
-    public RightsPostgreDAO(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-    }
+	@Autowired
+	public RightsPostgreDAO(JdbcTemplate jdbcTemplate) {
+		this.jdbcTemplate = jdbcTemplate;
+	}
 
-    public String getDescriptionByRightId(int rightId) {
+	public String getDescriptionByRightId(int rightId) {
 
-       return jdbcTemplate.queryForObject(RightsQuery.GET_DESCRIPTION_BY_RIGHT_ID, new Object[]{rightId}, String.class);
-    }
-    public Integer getRightIdByDescription(String description) {
+		return jdbcTemplate.queryForObject(RightsQuery.GET_DESCRIPTION_BY_RIGHT_ID, new Object[]{rightId}, String.class);
+	}
 
-        return jdbcTemplate.queryForObject(RightsQuery.GET_RIGHT_ID_BY_DESCRIPTION, new Object[]{description}, Integer.class);
-    }
+	public Integer getRightIdByDescription(String description) {
 
-    public List<String> getAllDescriptions(){
-        return jdbcTemplate.queryForList(RightsQuery.GET_ALL_DESCRIPTIONS,String.class);
-    }
+		return jdbcTemplate.queryForObject(RightsQuery.GET_RIGHT_ID_BY_DESCRIPTION, new Object[]{description}, Integer.class);
+	}
+
+	public List<String> getAllDescriptions() {
+		return jdbcTemplate.queryForList(RightsQuery.GET_ALL_DESCRIPTIONS, String.class);
+	}
 }

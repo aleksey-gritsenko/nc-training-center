@@ -14,37 +14,40 @@ import {Subscription} from "rxjs";
 export class SearchComponent implements OnInit, OnDestroy {
     search: string = '';
     userModel: userSearch[] = [];
-    currUser: User;
 
-    private routSubscription: Subscription;
-    private userSubscription: Subscription;
+    routSubscription: Subscription;
+    searchSubscription: Subscription;
 
     constructor(private route: ActivatedRoute,
-                private userService: UserService,
-                private storageService: StorageService) {}
+                private userService: UserService) {
+    }
 
     ngOnInit() {
-        this.userSubscription = this.storageService.currentUser.subscribe(
-            user => {
-            this.currUser = user;
-        });
         this.routSubscription = this.route.queryParams.subscribe(
             param => {
                 if (param.search.length > 0) {
                     this.search = param.search;
-                    this.userService.searchByUsername(this.search).toPromise().then(
+                    this.searchSubscription = this.userService.searchByUsername(this.search).subscribe(
                         res => {
                             this.userModel = res;
                         },
                         () => {
                             this.userModel = null;
                         });
-                } else this.search = null; //TODO Should return all users
+                } else {
+                    this.userService.getAll().subscribe(
+                        res => {
+                            this.userModel = res;
+                        }
+                    );
+                }
             })
     }
 
     ngOnDestroy(): void {
-        this.userSubscription.unsubscribe();
         this.routSubscription.unsubscribe();
+        if (this.searchSubscription) {
+            this.searchSubscription.unsubscribe();
+        }
     }
 }

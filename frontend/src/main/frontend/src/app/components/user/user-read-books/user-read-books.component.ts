@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {BookComponent} from "../../book/book.component";
 import {BooksListComponent} from "../../books-list/books-list.component";
 import {CommonService} from "../../../services/common/common.service";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -10,17 +9,19 @@ import {StorageService} from "../../../services/storage/storage.service";
     templateUrl: './user-read-books.component.html',
     styleUrls: ['./user-read-books.component.css']
 })
-export class UserReadBooksComponent implements OnInit {
+export class UserReadBooksComponent extends BooksListComponent implements OnInit {
 
-    private curBook: BookComponent = new BookComponent(this.apiService, this.route, this.router, this.storage);
-    private curBookList: BooksListComponent = new BooksListComponent(this.apiService, this.route, this.router, this.storage);
-
-    constructor(private apiService: CommonService, private route: ActivatedRoute, private router: Router,
-                private storage: StorageService) {
+    constructor(apiService: CommonService,
+                route: ActivatedRoute,
+                router: Router,
+                storage: StorageService) {
+        super(apiService, route, router, storage);
     }
 
     ngOnInit() {
-        this.curBookList.getAllReadBooks();
-    }
+        super.getAllReadBooks();
 
+        super.getAllAuthor();
+        super.getAllGenre();
+    }
 }

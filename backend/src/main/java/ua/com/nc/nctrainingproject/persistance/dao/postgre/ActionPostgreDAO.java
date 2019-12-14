@@ -58,7 +58,7 @@ public class ActionPostgreDAO implements ActionDAO {
 		if (actionList.size() == 0) {
 			return null;
 		}
-		return actionList.get(actionList.size()-1);
+		return actionList.get(actionList.size() - 1);
 	}
 
 	@Override

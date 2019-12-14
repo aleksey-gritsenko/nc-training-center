@@ -3,10 +3,10 @@ import {Book} from '../../models/book';
 import {CommonService} from "../../services/common/common.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Author} from "../../models/author";
-import {FormControl, FormGroup} from "@angular/forms";
 import {BookFilter} from "../../models/bookfilter";
 import {StorageService} from "../../services/storage/storage.service";
 import {UserBook} from "../../models/userBook";
+import {Subscription} from "rxjs";
 
 @Component({
     selector: 'app-book',
@@ -19,12 +19,15 @@ export class BookComponent implements OnInit {
     suggestionBook: Book[] = [];
     bookId: any;
 
-    //TODO check with model UserBook, not with boolean
-    userAddedBook: boolean = true;
-    userAddedToRead: boolean = true;
-    userAddedToFav: boolean = true;
+    addAnnouncementVisible: boolean = false;
+    userBookButtonVisible: boolean = false;
 
-    userBook: UserBook = new UserBook();
+    userAddedBook: boolean = false;
+    userAddedToRead: boolean = false;
+    userAddedToFav: boolean = false;
+    userFavReadVisible: boolean = false;
+
+    private subscription: Subscription;
 
     constructor(private apiService: CommonService,
                 private route: ActivatedRoute,
@@ -32,40 +35,20 @@ export class BookComponent implements OnInit {
                 private storage: StorageService) {
     }
 
-    bookForm = new FormGroup({
-        header: new FormControl(''),
-        genre: new FormControl(''),
-        status: new FormControl(''),
-        overview: new FormControl(''),
-        file: new FormControl(''),
-        author: new FormControl('')
-    });
-
     ngOnInit() {
-        this.bookForm.disable();
         this.bookId = parseInt(this.route.snapshot.paramMap.get('bookId'));
         this.getBook(this.bookId);
-        this.checkAdmin();
+        this.checkUser();
         this.makeSuggestion();
     }
 
-    updateBook(): void {
-        const newCreatedBook: Book = Object.assign({}, this.book);
-        this.apiService.updateBook(newCreatedBook).subscribe(
-            res => {
-                this.book = res;
-                console.log(res);
-            }
-        );
-    }
-
-    //TODO
-    checkAdmin() {
-        if( this.storage.getUser().userRole=='moderator') {
-            this.bookForm.enable();
+    checkUser(){
+        if (this.storage.getUser()!=null) {
+            this.addAnnouncementVisible = true;
+            this.userBookButtonVisible = true;
+            this.checkButton();
         }
     }
-
 
     getBook(bookId: number): void {
         this.apiService.getBookById(bookId).subscribe(
@@ -103,7 +86,6 @@ export class BookComponent implements OnInit {
     makeSuggestion() {
 
         let suggestionFilter: BookFilter = this.storage.getFilter();
-        console.log(suggestionFilter);
 
         if (this.storage.getUser() != null) {
             this.apiService.makeSuggestion(this.storage.getUser().id).subscribe(
@@ -116,6 +98,7 @@ export class BookComponent implements OnInit {
                     this.suggestionBook.push(...(books || []));
                 }
             );
+
         }
         this.apiService.getMostRatedBooks().subscribe(
             books => {
@@ -129,24 +112,16 @@ export class BookComponent implements OnInit {
 
     addBookToUser(bookId: number) {
         this.checkPresentUser();
-        let userBook: UserBook = new UserBook();
-        userBook.userId = this.storage.getUser().id;
-        userBook.bookId = bookId;
-        this.apiService.getUserBookById(this.storage.getUser().id, bookId).subscribe(
-            res => {
-                userBook = res;
-            }, error => {
-                console.log("Error occured")
-            }
-        );
-        this.userAddedBook = false;
 
-        this.apiService.addBookToUser(userBook).subscribe(
+        let userBook: UserBook = new UserBook();
+        userBook.bookId = bookId;
+        userBook.userId = this.storage.getUser().id;
+
+        this.userAddedBook = true;
+        this.userFavReadVisible = true;
+        this.subscription = this.apiService.addBookToUser(userBook).subscribe(
             res => {
-                console.log(res);
-            },
-            err => {
-                console.log("Add  book error");
+                console.log("add book: " + JSON.stringify(res));
             }
         );
     }
@@ -157,14 +132,35 @@ export class BookComponent implements OnInit {
         let userBook: UserBook = new UserBook();
         userBook.userId = this.storage.getUser().id;
         userBook.bookId = bookId;
-        this.userAddedBook = true;
-
-        this.apiService.deleteFromAdded(userBook).subscribe(
+        this.userAddedBook = false;
+        this.userFavReadVisible = false;
+        this.subscription = this.apiService.deleteFromAdded(userBook).subscribe(
             res => {
                 console.log(res);
-            },
-            err => {
-                console.log("Add  book error");
+            }
+        );
+    }
+
+    checkButton(){
+        let userBook:UserBook = new UserBook();
+        userBook.userId = this.storage.getUser().id;
+        userBook.bookId = this.bookId;
+        this.subscription = this.apiService.getAllUserBooks(userBook).subscribe(
+            res => {
+                this.userAddedBook = res.find(book => book.id == this.book.id) != null;
+                this.userFavReadVisible = res.find(book => book.id == this.book.id) != null;
+
+            });
+        this.subscription = this.apiService.getAllFavouriteBooks(userBook).subscribe(
+            res=>{
+                this.userAddedToFav = res.find(book => book.id == this.book.id) != null;
+                this.userFavReadVisible = res.find(book => book.id == this.book.id) != null;
+            }
+        );
+        this.subscription = this.apiService.getAllReadBooks(userBook).subscribe(
+            res=>{
+                this.userAddedToRead = res.find(book => book.id == this.book.id) != null;
+                this.userFavReadVisible = res.find(book => book.id == this.book.id) != null;
             }
         );
     }
@@ -176,13 +172,10 @@ export class BookComponent implements OnInit {
         userBook.userId = this.storage.getUser().id;
         userBook.bookId = bookId;
 
-        this.userAddedToFav = false;
-        this.apiService.markUserBookAsFavourite(userBook).subscribe(
+        this.userAddedToFav = true;
+        this.subscription = this.apiService.markUserBookAsFavourite(userBook).subscribe(
             res => {
-                console.log(res);
-            },
-            err => {
-                console.log("Add to FAV book error");
+                console.log("add to fav book: "+ JSON.stringify(res));
             }
         );
     }
@@ -193,13 +186,11 @@ export class BookComponent implements OnInit {
         let userBook: UserBook = new UserBook();
         userBook.userId = this.storage.getUser().id;
         userBook.bookId = bookId;
-        this.userAddedToRead = false;
-        this.apiService.markUserBookAsRead(userBook).subscribe(
+
+        this.userAddedToRead = true;
+        this.subscription = this.apiService.markUserBookAsRead(userBook).subscribe(
             res => {
-                console.log(res);
-            },
-            err => {
-                console.log("Add to READ book error");
+                console.log("add to read book: "+ JSON.stringify(res));
             }
         );
     }
@@ -210,13 +201,11 @@ export class BookComponent implements OnInit {
         let userBook: UserBook = new UserBook();
         userBook.userId = this.storage.getUser().id;
         userBook.bookId = bookId;
-        this.userAddedToFav = true;
-        this.apiService.removeFromFavourite(userBook).subscribe(
+
+        this.userAddedToFav = false;
+        this.subscription = this.apiService.removeFromFavourite(userBook).subscribe(
             res => {
                 console.log(res);
-            },
-            err => {
-                console.log("Remove from FAV book error");
             }
         );
     }
@@ -228,13 +217,10 @@ export class BookComponent implements OnInit {
         userBook.userId = this.storage.getUser().id;
         userBook.bookId = bookId;
 
-        this.userAddedToRead = true;
-        this.apiService.removeFromRead(userBook).subscribe(
+        this.userAddedToRead = false;
+        this.subscription = this.apiService.removeFromRead(userBook).subscribe(
             res => {
                 console.log(res);
-            },
-            err => {
-                console.log("Remove from READ book error");
             }
         );
     }
@@ -248,6 +234,12 @@ export class BookComponent implements OnInit {
     checkPresentUser() {
         if (this.storage.getUser() == null) {
             this.router.navigate(['/login']);
+        }
+    }
+
+    ngOnDestroy(): void {
+        if (this.subscription) {
+            this.subscription.unsubscribe();
         }
     }
 }

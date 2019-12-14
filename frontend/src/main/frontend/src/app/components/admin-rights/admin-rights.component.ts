@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import {AdminService} from '../../services/admin/admin.service';
 import {AdminRightsDto} from '../../models/admin-rights-dto';
-
+import {Subscription} from "rxjs";
 @Component({
     selector: 'app-admin-rights',
     templateUrl: './admin-rights.component.html',
@@ -10,12 +10,13 @@ import {AdminRightsDto} from '../../models/admin-rights-dto';
 export class AdminRightsComponent implements OnInit {
     data: AdminRightsDto[] = [];
     rightTypes: string[] = [];
+    private subscription: Subscription;
 
     constructor(private service: AdminService) {
     }
 
     ngOnInit() {
-        this.service.getAllRights().subscribe(
+        this.subscription = this.service.getAllRights().subscribe(
             res => {
                 this.data = res;
             },
@@ -23,7 +24,7 @@ export class AdminRightsComponent implements OnInit {
                 console.log(err);
             }
         );
-        this.service.getAllRightTypes().subscribe(
+        this.subscription = this.service.getAllRightTypes().subscribe(
             res => {
                 this.rightTypes = res;
             },
@@ -47,5 +48,8 @@ export class AdminRightsComponent implements OnInit {
         } else {
             dto.rights.push(right);
         }
+    }
+    ngOnDestroy(): void {
+        if (this.subscription) this.subscription.unsubscribe();
     }
 }

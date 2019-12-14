@@ -2,11 +2,25 @@
     <div class="card-header card-header-primary">
         <h4 class="card-title">Achievement</h4>
     </div>
-    <div class="card-body">
+    <div class="card-body row justify-content-center">
         <div *ngFor="let achievement of achievements">
-            <span>{{user.userName}} </span><span>{{achievement.action}} </span><span>{{achievement.count}} </span>
-            <span>{{achievement.entity}} </span><span>{{achievement.genreName}}</span>
+            <h3>
+            <span *ngIf="achievement.entity==ActionEntity.book">
+                <i class="material-icons">library_books</i>
+            </span>
+                <span *ngIf="achievement.entity==ActionEntity.user">
+                <i class="material-icons">people_outline</i>
+            </span>
+                <span *ngIf="achievement.entity==ActionEntity.review">
+                <i class="material-icons">rate_review</i>
+            </span>
+                <span *ngIf="achievement.entity==ActionEntity.announcement">
+                <i class="material-icons">announcement</i>
+            </span>
+                <span class="card-header">{{user.userName}}</span>
+                <span> {{achievement.achievementName.toUpperCase()}} !!!</span>
+            </h3>
         </div>
-        <span>{{user.userName}}</span><span>add </span><span>5 </span><span>books </span><span></span>
     </div>
 </div>
+

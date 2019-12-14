@@ -22,6 +22,7 @@ import {UserFavouriteBooksComponent} from "./components/user/user-favourite-book
 import {UserReadBooksComponent} from "./components/user/user-read-books/user-read-books.component";
 import {UserSettingsComponent} from "./components/user/user-settings/user-settings.component";
 import {AdminRightsComponent} from "./components/admin-rights/admin-rights.component";
+import {AddBookComponent} from "./components/add-book/add-book.component";
 
 
 const routes: Routes = [
@@ -88,6 +89,10 @@ const routes: Routes = [
     {
         path: 'books/book/:bookId',
         component: BookComponent
+    },
+    {
+      path:'books/addBook',
+      component: AddBookComponent
     },
     {
         path: 'books/book/:bookId/review/:reviewId',

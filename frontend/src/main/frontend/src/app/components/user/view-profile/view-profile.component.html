@@ -11,6 +11,8 @@
                 <h4>Email: {{user.email}}</h4>
             </div>
         </div>
-        <button *ngIf="isAbleToAddToFriend && currentUser.userRole == 'user'" class="btn btn-primary pull-right" type="button" (click)="sendRequest()">Add friend</button>
+        <button (click)="sendRequest()" *ngIf="isAbleToAddToFriend"
+                class="btn btn-primary pull-right" type="button">Add friend
+        </button>
     </div>
 </div>

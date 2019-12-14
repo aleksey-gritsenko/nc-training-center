@@ -7,15 +7,21 @@ import ua.com.nc.nctrainingproject.persistance.dao.postgre.UserSettingsPostgreDA
 
 @Service
 public class UserSettingsService {
-    private final UserSettingsPostgreDAO userSettingsPostgreDAO;
+	private final UserSettingsPostgreDAO userSettingsPostgreDAO;
 
-    @Autowired
-    public UserSettingsService(UserSettingsPostgreDAO userSettingsPostgreDAO) {
-        this.userSettingsPostgreDAO = userSettingsPostgreDAO;
-    }
+	@Autowired
+	public UserSettingsService(UserSettingsPostgreDAO userSettingsPostgreDAO) {
+		this.userSettingsPostgreDAO = userSettingsPostgreDAO;
+	}
 
-    public UserSettings getUserSettings(int userId){
+
+    public UserSettings getUserSettings(int userId) {
+
         return userSettingsPostgreDAO.getSettingsListById(userId);
     }
+    public void updateSettings(UserSettings userSettings, int userId) {
+        userSettingsPostgreDAO.updateSettings(userId, userSettings);
+    }
+
 
 }

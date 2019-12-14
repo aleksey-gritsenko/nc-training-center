@@ -4,7 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ua.com.nc.nctrainingproject.models.Action;
 import ua.com.nc.nctrainingproject.models.User;
-import ua.com.nc.nctrainingproject.persistance.dao.postgre.*;
+import ua.com.nc.nctrainingproject.persistance.dao.postgre.ActionPostgreDAO;
+import ua.com.nc.nctrainingproject.persistance.dao.postgre.ActionTypePostgreDAO;
+import ua.com.nc.nctrainingproject.persistance.dao.postgre.FriendsPostgreDAO;
+import ua.com.nc.nctrainingproject.persistance.dao.postgre.ActivityPostgreDAO;
 
 import java.util.List;
 
@@ -13,66 +16,41 @@ public class ActionService {
 
 	private final ActionPostgreDAO actionPostgreDAO;
 	private final FriendsPostgreDAO friendsPostgreDAO;
-	private final NotificationPostgreDAO notificationPostgreDAO;
+	private final ActivityPostgreDAO activityPostgreDAO;
 	private final ActionTypePostgreDAO actionTypePostgreDAO;
+	private final AchivementService achivementService;
 
 	@Autowired
 	public ActionService(ActionPostgreDAO actionPostgreDAO, FriendsPostgreDAO friendsPostgreDAO,
-						 NotificationPostgreDAO notificationPostgreDAO,
-						 ActionTypePostgreDAO actionTypePostgreDAO) {
+						 ActivityPostgreDAO activityPostgreDAO,
+						 ActionTypePostgreDAO actionTypePostgreDAO, AchivementService achivementService) {
 		this.actionPostgreDAO = actionPostgreDAO;
 		this.friendsPostgreDAO = friendsPostgreDAO;
-		this.notificationPostgreDAO = notificationPostgreDAO;
+		this.activityPostgreDAO = activityPostgreDAO;
 		this.actionTypePostgreDAO = actionTypePostgreDAO;
+		this.achivementService = achivementService;
 	}
 
 	public Action addNewAction(int userId, int actionTypeId) {
 		createAction(new Action(userId, actionTypeId));
-
 		Action action = actionPostgreDAO.getActionByUserAndTypeId(userId, actionTypeId);
 
 		List<User> users = friendsPostgreDAO.getAllFriends(userId);
 
 		if (actionTypePostgreDAO.getActionTypeByActionTypeId(actionTypeId).getEntity().equals("achievement")) {
-			notificationPostgreDAO.createNotification(userId, actionTypeId);
+			activityPostgreDAO.createActivity(userId, action.getActionId());
 		}
 
-		for (User user : users) {
-			notificationPostgreDAO.createNotification(user.getId(), action.getActionId());
-		}
+		users.forEach(user -> {
+			activityPostgreDAO.createActivity(user.getId(), action.getActionId());
+		});
+
+		achivementService.assignAchievements(userId);
 		return action;
-	}
-
-	public List<Action> getAllActions() {
-		return actionPostgreDAO.getAllActions();
-	}
-
-	public Action getActionById(int actionId) {
-		return actionPostgreDAO.getActionById(actionId);
-	}
-
-	public Action getActionByUserId(int userId) {
-		return actionPostgreDAO.getActionByUserId(userId);
-	}
-
-	public Action getActionByActionTypeId(int actionTypeId) {
-		return actionPostgreDAO.getActionByActionTypeId(actionTypeId);
-	}
-
-	public void deleteActionByActionId(int actionId) {
-		if (actionPostgreDAO.getActionById(actionId) != null) {
-			actionPostgreDAO.deleteActionByActionId(actionId);
-		}
 	}
 
 	public Action createAction(Action action) {
 		actionPostgreDAO.createAction(action);
 		return action;
-	}
-
-	public void updateAction(int actionId, Action action) {
-		if (actionPostgreDAO.getActionById(actionId) != null) {
-			actionPostgreDAO.updateAction(actionId, action);
-		}
 	}
 }

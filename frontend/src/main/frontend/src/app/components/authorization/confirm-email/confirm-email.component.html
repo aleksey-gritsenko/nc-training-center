@@ -1,36 +1,37 @@
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
 
 <div class="container">
     <div class="row">
         <div class="col-md-offset-3 col-md-6">
             <div class="tab" role="tabpanel">
                 <div class="tab-content tabs">
-                    <div role="tabpanel" class="tab-pane fade in active" id="Section1">
-                        <form class="form-horizontal" method="post" #f="ngForm">
+                    <div class="tab-pane fade in active" id="Section1" role="tabpanel">
+                        <form #f="ngForm" class="form-horizontal" method="post">
                             <div class="form-group">
                                 <h4>Account activation</h4>
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Email</label>
-                                <input type="text" class="form-control" id="exampleInputEmail1" name="email"
-                                       [(ngModel)]="email">
+                                <input [(ngModel)]="email" class="form-control" id="exampleInputEmail1" name="email"
+                                       type="text">
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputCode">Code</label>
-                                <input type="text" class="form-control" id="exampleInputCode" name="code"
-                                       [(ngModel)]="code">
+                                <input [(ngModel)]="code" class="form-control" id="exampleInputCode" name="code"
+                                       type="text">
                             </div>
-                            <div class="alert alert-danger text-center" role="alert" *ngIf="message=='error'">
+                            <div *ngIf="message=='error'" class="alert alert-danger text-center" role="alert">
                                 Email or cod is incorrect! Please try again!
                             </div>
-                            <div class="alert alert-warning text-center" role="alert" *ngIf="message=='send'">
+                            <div *ngIf="message=='send'" class="alert alert-warning text-center" role="alert">
                                 The code has been sent
                             </div>
                             <div class="form-group send text-center">
-                                <button type="button" class="btn btn-default send-btn" (click)="resend()">Send code</button>
+                                <button (click)="resend()" class="btn btn-default send-btn" type="button">Send code
+                                </button>
                             </div>
                             <div class="form-group">
-                                <button type="button" class="btn btn-default" (click)="confirm()">Confirm email</button>
+                                <button (click)="confirm()" class="btn btn-default" type="button">Confirm email</button>
                             </div>
                         </form>
                     </div>

@@ -9,12 +9,12 @@ import java.sql.SQLException;
 
 public class BookImageMapper implements RowMapper<BookImage> {
 
-    @Override
-    public BookImage mapRow(ResultSet resultSet, int i) throws SQLException {
-        BookImage bookImage = new BookImage();
+	@Override
+	public BookImage mapRow(ResultSet resultSet, int i) throws SQLException {
+		BookImage bookImage = new BookImage();
 
-        bookImage.setBookId(resultSet.getInt(BookFileManagementQuery.BOOK_ID));
-        bookImage.setImage(resultSet.getBytes(BookFileManagementQuery.FILE));
-        return bookImage;
-    }
+		bookImage.setBookId(resultSet.getInt(BookFileManagementQuery.BOOK_ID));
+		bookImage.setImage(resultSet.getBytes(BookFileManagementQuery.FILE));
+		return bookImage;
+	}
 }

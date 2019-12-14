@@ -10,39 +10,43 @@ import java.util.List;
 @Service
 public class UserBookService {
 	private final UserBooksPostgreDAO userBooksPostgreDAO;
+	private final ActionService actionService;
 
-	public UserBookService(UserBooksPostgreDAO userBooksPostgreDAO) {
+	public UserBookService(UserBooksPostgreDAO userBooksPostgreDAO, ActionService actionService) {
 		this.userBooksPostgreDAO = userBooksPostgreDAO;
+		this.actionService = actionService;
 	}
-
 
 	public UserBook addBookToUser(UserBook userBook) {
 		List<Book> books = this.getAllUserBooks(userBook.getUserId());
 		if (books.stream()
-				.filter(book->book.getId() == userBook.getBookId())
+				.filter(book -> book.getId() == userBook.getBookId())
 				.findFirst()
-				.orElse(null)==null){
+				.orElse(null) == null) {
 			userBooksPostgreDAO.addBookToUser(userBook);
+			actionService.addNewAction(userBook.getUserId(), 3);
 			return userBook;
 		}
 		return null;
 	}
 
-	public UserBook getUserBookByBookUserId(UserBook userBook){
+	public UserBook getUserBookByBookUserId(UserBook userBook) {
 		return userBooksPostgreDAO.getUserBookByBookUserId(userBook.getUserId(), userBook.getBookId());
 	}
 
-	public List<Book> getAllUserBooks(int userId){
+	public List<Book> getAllUserBooks(int userId) {
 		return userBooksPostgreDAO.getAllUserBooks(userId);
 	}
 
 	public UserBook markBookAsRead(UserBook userBook) {
 		userBooksPostgreDAO.markBookAsRead(userBook.getUserId(), userBook.getBookId());
+		actionService.addNewAction(userBook.getUserId(), 5);
 		return userBook;
 	}
 
 	public UserBook markBookAsFavourite(UserBook userBook) {
 		userBooksPostgreDAO.markBookAsFavourite(userBook.getUserId(), userBook.getBookId());
+		actionService.addNewAction(userBook.getUserId(), 4);
 		return userBook;
 	}
 
@@ -67,6 +71,10 @@ public class UserBookService {
 
 	public List<Book> getAllReadBooks(int userId) {
 		return userBooksPostgreDAO.getAllReadBooks(userId);
+	}
+
+	public List<UserBook> getAllUserBooksByUserId(int userId){
+		return userBooksPostgreDAO.getAllUserBooksByUserId(userId);
 	}
 }
 

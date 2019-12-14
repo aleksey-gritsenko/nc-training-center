@@ -45,12 +45,12 @@ public class ActionType {
 		this.entity = entity;
 	}
 
-	public void setGenreId(int genreId) {
-		this.genreId = genreId;
-	}
-
 	public int getGenreId() {
 		return genreId;
+	}
+
+	public void setGenreId(int genreId) {
+		this.genreId = genreId;
 	}
 
 	@Override

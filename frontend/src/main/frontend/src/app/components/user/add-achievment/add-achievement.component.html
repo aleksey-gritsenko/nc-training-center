@@ -13,7 +13,7 @@
             <div class="row">
                 <div class="col-md">
                     <label class="bmd-label-floating" for="entity">Entity</label>
-                    <select class="custom-select" name="entity" id="entity" [(ngModel)]="model.entity" (click)="chooseActionsByEntity()">
+                    <select class="custom-select" name="entity" id="entity" [(ngModel)]="model.entity" (ngModelChange)="chooseActionsByEntity()">
                         <option>announcement</option>
                         <option>book</option>
                         <option>review</option>
@@ -31,16 +31,16 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="Action">Action</label>
-                        <select class="custom-select" name="Action" id="Action" [(ngModel)]="model.action">
-                            <option *ngFor="let action of certainActionList">{{action['actionName']}}</option>
+                        <select class="custom-select" name="Action" id="Action" [(ngModel)]="model.actionTypeId">
+                            <option *ngFor="let action of certainActionList" [value]="action.actionTypeId">{{action.actionName}}</option>
                         </select>
                     </div>
                 </div>
                 <div class="col-md-6" *ngIf="model.entity == 'book'">
                     <div class="form-group">
                         <label class="bmd-label-floating" for="genre">Genre</label>
-                        <select id="genre" name="genre" class="custom-select" [(ngModel)]="model.genre">
-                            <option *ngFor="let genre of genreList">{{genre}}</option>
+                        <select id="genre" name="genre" class="custom-select" [(ngModel)]="model.genreId">
+                            <option *ngFor="let genre of genreList" [value]="genre.id">{{genre.name}}</option>
                         </select>
                     </div>
                 </div>

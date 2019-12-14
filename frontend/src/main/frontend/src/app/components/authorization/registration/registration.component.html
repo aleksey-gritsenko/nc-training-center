@@ -1,45 +1,72 @@
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
 
 <div class="container">
     <div class="row">
         <div class="col-md-offset-3 col-md-6">
             <div class="tab" role="tabpanel">
+                <div class="logo mb-5">
+                    <a routerLink="/">BOOKNET</a>
+                </div>
+
                 <!-- Nav tabs -->
                 <ul class="nav nav-tabs " role="tablist">
-                    <li role="presentation"><a routerLink="/login" aria-controls="home" role="tab">sign in</a></li>
-                    <li role="presentation" class="active"><a aria-controls="profile" role="tab">sign up</a></li>
+                    <li role="presentation"><a aria-controls="home" role="tab" routerLink="/login">sign in</a></li>
+                    <li class="active" role="presentation"><a aria-controls="profile" role="tab">sign up</a></li>
                 </ul>
+
                 <!-- Tab panes -->
                 <div class="tab-content tabs">
-                    <div role="tabpanel" class="tab-pane fade in active" id="Section2">
-                        <form class="form-horizontal" #f="ngForm">
+                    <div class="tab-pane fade in active" id="Section2" role="tabpanel">
+                        <form [formGroup]="regGroup" (ngSubmit)="register()" class="form-horizontal">
+                            <!-- Username -->
                             <div class="form-group">
-                                <label for="exampleInputLogin1">Login</label>
-                                <input type="text" class="form-control" autocomplete="off" name="login"
-                                       id="exampleInputLogin1" [(ngModel)]="model.login">
+                                <label for="username">Username</label>
+                                <input formControlName="username" autocomplete="off" class="form-control" id="username"
+                                       name="login" type="text" maxlength="20" required>
                             </div>
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">Email address</label>
-                                <input type="email" class="form-control" name="email" id="exampleInputEmail1"
-                                       [(ngModel)]="model.email">
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleInputPassword1">Password</label>
-                                <input type="password" class="form-control" autocomplete="off" name="password"
-                                       id="exampleInputPassword1" [(ngModel)]="model.password">
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleInputPasswordConfirm1">Confirm password</label>
-                                <input type="password" class="form-control" autocomplete="off" name="passwordConfirm"
-                                       id="exampleInputPasswordConfirm1" [(ngModel)]="confirmPassword">
-                            </div>
-                            <div class="form-group">
-                                <div class="alert alert-danger text-center" role="alert" *ngIf="isError">
-                                    Something went wrong! Please try again!
+                            <div *ngIf="username.invalid && username.dirty && !username.errors.required" class="alert alert-warning text-center" role="alert">
+                                <div *ngIf="username.errors.minlength">
+                                    Should be at least 4 characters
                                 </div>
-                                <button type="submit" [disabled]="!(this.model.login.length != 0 && this.model.password.length > 0
-                                        && this.model.email.length > 0 && this.model.password==confirmPassword)" class="btn btn-default"
-                                        (click)="register()">
+                                <div *ngIf="username.errors.pattern">
+                                    Should includes only latins and numbers and starts with letter
+                                </div>
+                            </div>
+
+                            <!-- Email -->
+                            <div class="form-group">
+                                <label for="email1">Email address</label>
+                                <input formControlName="email" class="form-control" id="email1" type="email" name="email" maxlength="254" required>
+                            </div>
+
+                            <!--Password-->
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input formControlName="password" autocomplete="off" class="form-control" id="password" maxlength="30"
+                                       name="password" type="password" required>
+                            </div>
+                            <div *ngIf="password.invalid && ( password.dirty) && password.errors.pattern" class="alert alert-warning text-center" role="alert">
+                                Should contain at least 8 characters, 1 upper and 1 number
+                            </div>
+
+                            <!-- Confirm Password -->
+                            <div class="form-group">
+                                <label for="passwordConfirm">Confirm password</label>
+                                <input formControlName="confirmPassword" autocomplete="off" class="form-control" id="passwordConfirm"
+                                       name="passwordConfirm" type="password" required maxlength="30">
+                            </div>
+                            <div *ngIf="confirmPassword.invalid && confirmPassword.dirty && confirmPassword.value!=password.value" class="alert alert-warning text-center" role="alert">
+                                Passwords are not equal
+                            </div>
+
+                            <!-- Message -->
+                            <div *ngIf="isError" class="alert alert-danger text-center" role="alert">
+                                Something went wrong! Please try again!
+                            </div>
+
+                            <!-- Reg button -->
+                            <div class="form-group">
+                                <button [disabled]="regGroup.invalid || password.value != confirmPassword.value" class="btn btn-default" type="submit">
                                     Sign up
                                 </button>
                             </div>

@@ -11,34 +11,41 @@ import java.util.List;
 
 public class FriendsService {
 
-    private final FriendsPostgreDAO friendsPostgreDAO;
+	private final FriendsPostgreDAO friendsPostgreDAO;
+	private final ActionService actionService;
 
-    @Autowired
-    public FriendsService(FriendsPostgreDAO friendsPostgreDAO) {
-        this.friendsPostgreDAO = friendsPostgreDAO;
-    }
+	@Autowired
+	public FriendsService(FriendsPostgreDAO friendsPostgreDAO, ActionService actionService) {
+		this.friendsPostgreDAO = friendsPostgreDAO;
+		this.actionService = actionService;
+	}
 
-    public void sendRequest(int sender, int reciever) {
-        friendsPostgreDAO.sendRequest(sender, reciever);
-    }
+	public void sendRequest(int sender, int receiver) {
+		friendsPostgreDAO.sendRequest(sender, receiver);
+	}
 
-    public void aceptRequest(int sender, int reciever) {
-        friendsPostgreDAO.acceptRequest(sender, reciever);
-    }
+	public void acceptRequest(int sender, int receiver) {
+		friendsPostgreDAO.acceptRequest(sender, receiver);
+		actionService.addNewAction(receiver, 1);
+		actionService.addNewAction(sender, 1);
+	}
 
-    public List<User> getAllFriends(int user) {
-        return friendsPostgreDAO.getAllFriends(user);
-    }
+	public void rejectRequest(int sender, int receiver) {
+		friendsPostgreDAO.rejectRequest(sender, receiver);
+	}
 
-    public List<User> getAllNewRequests(int user) {
-        return friendsPostgreDAO.getAllNewRequests(user);
-    }
+	public List<User> getAllFriends(int user) {
+		return friendsPostgreDAO.getAllFriends(user);
+	}
 
-    public boolean checkRequest(int sender,int reciever) {
+	public List<User> getAllNewRequests(int user) {
+		return friendsPostgreDAO.getAllNewRequests(user);
+	}
 
-        return  sender != reciever
-                & friendsPostgreDAO.getSender(sender, reciever).size() == 0
-                & friendsPostgreDAO.getReciever(sender, reciever).size() == 0;
-    }
+	public boolean checkRequest(int sender, int receiver) {
+
+		return sender != receiver
+				& friendsPostgreDAO.getCountApplications(sender, receiver) == 0;
+	}
 
 }

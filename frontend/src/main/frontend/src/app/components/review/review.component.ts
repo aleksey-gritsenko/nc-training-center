@@ -5,6 +5,7 @@ import {ActivatedRoute} from "@angular/router";
 import {Book} from "../../models/book";
 import {User} from "../../models/user";
 import {UserService} from "../../services/user/user.service";
+import {Subscription} from "rxjs";
 
 @Component({
     selector: 'app-review',
@@ -12,18 +13,20 @@ import {UserService} from "../../services/user/user.service";
     styleUrls: ['./review.component.css']
 })
 export class ReviewComponent implements OnInit {
-    // do we need only one review?
+
     @Input() review: Review;
-    @Input() book:Book;
-    user:User = new User();
+    @Input() book: Book;
+    user: User = new User();
+
+    private subscription: Subscription;
+
     constructor(private commonService: CommonService, private route: ActivatedRoute,
-                private  userService:UserService) {
+                private  userService: UserService) {
     }
 
     ngOnInit() {
         this.getReview();
     }
-
 
     getReview(): void {
         const id = +this.route.snapshot.paramMap.get('reviewId');
@@ -31,16 +34,29 @@ export class ReviewComponent implements OnInit {
             review => {
                 this.review = new Review();
                 this.review = review;
-                this.commonService.getBookById(review.bookId).subscribe(
-                    book=>{this.book=book});
-                this.userService.searchUser(review.userId.toString()).subscribe(
-                    user=>this.user=user
+                this.subscription = this.commonService.getBookById(review.bookId).subscribe(
+                    book => {
+                        this.book = book
+                    });
+                this.subscription = this.userService.searchUser(review.userId.toString()).subscribe(
+                    user => this.user = user
                 );
 
             }
         );
     }
-    fillArray(grade:number){
-        return Array.from({ length: grade }, (v, i) => i)
+
+    fillArray(grade: number) {
+        return Array.from({length: grade}, (v, i) => i)
+    }
+
+    back() {
+        this.commonService.back();
+    }
+
+    ngOnDestroy(): void {
+        if (this.subscription) {
+            this.subscription.unsubscribe();
+        }
     }
 }

@@ -1,15 +1,14 @@
 import {Entity} from './entity'
-import {Author} from  './author'
-import {Genre} from "./genre";
+import {Author} from './author'
+
 export class Book extends Entity {
     header: string;
     overview: string;
     status: string;
     genre: string;
-    authors: Array<Author> = [];
-    fileId:number;
-    photo:number;
-    photoURL:string|ArrayBuffer;
-    fileURL:string|ArrayBuffer;
+    authors: Author[] = [];
+    photo: number;
+    photoURL: string | ArrayBuffer;
+    fileURL: string | ArrayBuffer;
 }
 

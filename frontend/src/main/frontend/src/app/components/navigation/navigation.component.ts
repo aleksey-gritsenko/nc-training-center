@@ -10,15 +10,16 @@ import {Subscription} from "rxjs";
     styleUrls: ['./navigation.component.css']
 })
 export class NavigationComponent implements OnInit, OnDestroy {
-    private user: User;
     searchString: string = '';
-
     subscription: Subscription;
+    private user: User;
 
     constructor(private storageService: StorageService,
                 private authenticationService: AuthenticationService
-                ) {
-        this.subscription = this.storageService.currentUser.subscribe(x => this.user = x);
+    ) {
+        this.subscription = this.storageService.currentUser.subscribe(user => {
+            this.user = user;
+        });
     }
 
     ngOnInit() {

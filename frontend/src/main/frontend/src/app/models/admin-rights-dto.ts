@@ -1,6 +1,6 @@
 import {User} from "./user";
 
-export class AdminRightsDto{
+export class AdminRightsDto {
     admin: User;
     rights: string[];
 

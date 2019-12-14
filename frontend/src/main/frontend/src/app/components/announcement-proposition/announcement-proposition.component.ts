@@ -13,13 +13,11 @@ import {CommonService} from "../../services/common/common.service";
 })
 export class AnnouncementPropositionComponent implements OnInit {
 
-    private siteUrl: string = 'https://nc-group1-2019.herokuapp.com';
-
     announcements: Announcement[] = [];
     currentUser: User;
+    private siteUrl: string = 'https://nc-group1-2019.herokuapp.com';
 
-
-    constructor(private http: HttpClient,private route: ActivatedRoute  , private storage: StorageService,private apiService :CommonService) {
+    constructor(private http: HttpClient, private route: ActivatedRoute, private storage: StorageService, private apiService: CommonService) {
     }
 
     ngOnInit() {
@@ -39,17 +37,17 @@ export class AnnouncementPropositionComponent implements OnInit {
             }
         )
     }
-    public publishAnnouncement(announcement : Announcement){
-        let url = 'http://localhost:8080/announcements/publish';
 
+    public publishAnnouncement(announcement: Announcement) {
         //announcement.admin_id = this.storage.getUser().id;
         this.apiService.publishAnnouncement(announcement).subscribe(
-            res=>{
+            res => {
                 //location.reload();
             },
             err => {
                 alert(JSON.parse(JSON.stringify(err)).message);
             }
         );
+        this.getAllAnnouncement();
     }
 }
