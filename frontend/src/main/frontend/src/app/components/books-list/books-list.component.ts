@@ -8,6 +8,7 @@ import {Genre} from "../../models/genre";
 import {Author} from "../../models/author";
 import {UserBook} from "../../models/userBook";
 import {StorageService} from "../../services/storage/storage.service";
+import {Subscription} from "rxjs";
 
 @Component({
     selector: 'app-books-list',
@@ -16,7 +17,6 @@ import {StorageService} from "../../services/storage/storage.service";
 })
 
 export class BooksListComponent implements OnInit {
-
 
     genres: Genre[] = [];
     authors: Author[] = [];
@@ -27,8 +27,6 @@ export class BooksListComponent implements OnInit {
     @Input() userFavBookList: Book[] = [];
     @Input() userReadBookList: Book[] = [];
     book: Book;
-
-
 
     bookFilter: BookFilter = new BookFilter();
     addBookVisible: boolean = false;
@@ -45,6 +43,8 @@ export class BooksListComponent implements OnInit {
     searchGenre;
     searchAuthor;
     userId: any;
+
+    private subscription: Subscription;
 
     constructor(private apiService: CommonService,
                 private route: ActivatedRoute,
@@ -69,25 +69,28 @@ export class BooksListComponent implements OnInit {
             this.checkModerator();
         }
     }
+
     checkModerator(){
         if(this.storage.getUser().userRole=='moderator'){
             this.addBookVisible = true;
         }
     }
+
     onFilterChange(event: any){
         this.searchByFilter();
     }
+
     getUsersBookList() {
         this.checkPresentUser();
+
         let userBook: UserBook = new UserBook();
         userBook.userId = this.storage.getUser().id;
-        this.apiService.getAllUserBooks(userBook).subscribe(
+        this.subscription = this.apiService.getAllUserBooks(userBook).subscribe(
             res => {
-                console.log(res);
                 this.userBookList = res;
                 if (this.userBookList.length == 0) {
                     this.emptyBookList = true;
-                    this.apiService.getMostRatedBooks().subscribe(
+                    this.subscription = this.apiService.getMostRatedBooks().subscribe(
                         bookList => {
                             this.userBookList = bookList;
                         }
@@ -102,13 +105,12 @@ export class BooksListComponent implements OnInit {
 
         let userBook: UserBook = new UserBook();
         userBook.userId = this.storage.getUser().id;
-        this.apiService.getAllFavouriteBooks(userBook).subscribe(
+        this.subscription = this.apiService.getAllFavouriteBooks(userBook).subscribe(
             res => {
-                console.log(this.userFavBookList);
                 this.userFavBookList = res;
                 if (this.userFavBookList.length == 0) {
                     this.emptyFavList = true;
-                    this.apiService.getMostRatedBooks().subscribe(
+                    this.subscription = this.apiService.getMostRatedBooks().subscribe(
                         favList => {
                             this.userFavBookList = favList;
                         }
@@ -123,12 +125,12 @@ export class BooksListComponent implements OnInit {
 
         let userBook: UserBook = new UserBook();
         userBook.userId = this.storage.getUser().id;
-        this.apiService.getAllReadBooks(userBook).subscribe(
+        this.subscription = this.apiService.getAllReadBooks(userBook).subscribe(
             res => {
                 this.userReadBookList = res;
                 if (this.userReadBookList.length == 0) {
                     this.emptyReadList = true;
-                    this.apiService.getMostRatedBooks().subscribe(
+                    this.subscription = this.apiService.getMostRatedBooks().subscribe(
                         readList => {
                             this.userReadBookList = readList;
                         }
@@ -137,7 +139,6 @@ export class BooksListComponent implements OnInit {
             },
         );
     }
-
 
     getAllAuthor() {
         this.apiService.getAllAuthor().subscribe(
@@ -168,7 +169,6 @@ export class BooksListComponent implements OnInit {
         );
 
     }
-
 
     searchByFilter() {
         this.bookFilter.author = [];
@@ -239,11 +239,15 @@ export class BooksListComponent implements OnInit {
         );
     }
 
-
-
     checkPresentUser() {
         if (this.storage.getUser() == null) {
             this.router.navigate(['/login']);
+        }
+    }
+
+    ngOnDestroy(): void {
+        if (this.subscription) {
+            this.subscription.unsubscribe();
         }
     }
 }

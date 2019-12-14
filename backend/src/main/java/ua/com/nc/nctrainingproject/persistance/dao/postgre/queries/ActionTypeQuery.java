@@ -29,12 +29,7 @@ public class ActionTypeQuery {
 	public static final String CREATE_ACTION_TYPE = "INSERT INTO " + TABLE_NAME
 			+ " (" + ACTION_TYPE_ID + ", " + ACTION_NAME + ", " + ENTITY + "," + GENRE_ID + ")" + " VALUES(?,?,?,?)";
 
-	public static final String UPDATE_ACTION_TYPE_BY_ID =
-			"UPDATE " + TABLE_NAME + " SET " + ACTION_NAME + " =(?)" +
-					" SET " + ENTITY + " =(?) " +
-					" SET " + GENRE_ID + " =(?)" +
-
-					" WHERE " + ACTION_TYPE_ID + " =(?)";
-
+	public static final String UPDATE_ACTION_TYPE_BY_ID = "UPDATE " + TABLE_NAME + " SET " + ACTION_NAME + " =(?)" +
+					" SET " + ENTITY + " =(?) " + " SET " + GENRE_ID + " =(?)" + " WHERE " + ACTION_TYPE_ID + " =(?)";
 }
 

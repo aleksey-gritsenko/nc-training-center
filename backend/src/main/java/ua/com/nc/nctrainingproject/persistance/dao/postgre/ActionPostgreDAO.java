@@ -28,7 +28,8 @@ public class ActionPostgreDAO implements ActionDAO {
 
 	@Override
 	public List<Action> getAllActionsByUserIdAndActionTypeId(int userId, int actionTypeId) {
-		return jdbcTemplate.query(ActionQuery.GET_ALL_BY_USER_ID_BY_ACTION_TYPE_ID, new ActionRowMapper(), userId, actionTypeId);
+		return jdbcTemplate.query(ActionQuery.GET_ALL_BY_USER_ID_BY_ACTION_TYPE_ID,
+				new ActionRowMapper(), userId, actionTypeId);
 	}
 
 	@Override
@@ -43,12 +44,8 @@ public class ActionPostgreDAO implements ActionDAO {
 
 	@Override
 	public Action getActionByUserId(int userId) {
-		List<Action> actionList = jdbcTemplate.query(ActionQuery.GET_BY_USER_ID,
+		return jdbcTemplate.queryForObject(ActionQuery.GET_BY_USER_ID,
 				new ActionRowMapper(), userId);
-		if (actionList.size() == 0) {
-			return null;
-		}
-		return actionList.get(0);
 	}
 
 	@Override
@@ -63,12 +60,8 @@ public class ActionPostgreDAO implements ActionDAO {
 
 	@Override
 	public Action getActionByActionTypeId(int actionTypeId) {
-		List<Action> actionList = jdbcTemplate.query(ActionQuery.GET_BY_ACTION_TYPE_ID,
+		return jdbcTemplate.queryForObject(ActionQuery.GET_BY_USER_ID,
 				new ActionRowMapper(), actionTypeId);
-		if (actionList.size() == 0) {
-			return null;
-		}
-		return actionList.get(0);
 	}
 
 	@Override
@@ -88,6 +81,4 @@ public class ActionPostgreDAO implements ActionDAO {
 		jdbcTemplate.update(ActionQuery.UPDATE_ACTION_BY_ID, action.getUserId(),
 				action.getActionTypeId(), actionId);
 	}
-
-
 }
