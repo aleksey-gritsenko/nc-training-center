@@ -16,6 +16,7 @@ import ua.com.nc.nctrainingproject.services.BookService;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,16 +34,17 @@ public class BookController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<?> addBook(@RequestBody Book book) {
+	public ResponseEntity<Book> addBook(@RequestBody Book book) {
 		Book response = bookService.createBook(book);
-		return Optional.ofNullable(response).map(ResponseEntity::ok).orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
+		return Optional.ofNullable(response).map(ResponseEntity::ok)
+				.orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
 	}
 
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
-	public ResponseEntity<?> updateBook(@RequestBody Book book) {
+	public ResponseEntity<Book> updateBook(@RequestBody Book book) {
 		Book response = bookService.updateBook(book);
-
-		return Optional.ofNullable(response).map(ResponseEntity::ok).orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
+		return Optional.ofNullable(response).map(ResponseEntity::ok)
+				.orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
 	}
 
 	@RequestMapping(value = "/id", method = RequestMethod.GET)
@@ -52,17 +54,21 @@ public class BookController {
 	}
 
 	@RequestMapping(value = "/all", method = RequestMethod.GET)
-	public ResponseEntity<?> getAllBooks() {
-		return ResponseEntity.ok(bookService.getAllBooks());
+	public List<Book> getAllBooks() {
+		return bookService.getAllBooks();
 	}
 
 	@RequestMapping(value = "/filter", method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseEntity<?> filterBook(@RequestBody FilterCriterionQuery filterCriterionQuery
+	public ResponseEntity<List<Book>> filterBook(@RequestBody FilterCriterionQuery filterCriterionQuery
 	) {
-		List<Book> books = bookService.filterBooks(filterCriterionQuery.getHeader()
-				, filterCriterionQuery.getGenre(), filterCriterionQuery.getAuthor());
-		return ResponseEntity.ok(books);
+	    if(!(filterCriterionQuery.getHeader().trim().isEmpty() &&
+                filterCriterionQuery.getAuthor().size()==0 &&
+                filterCriterionQuery.getGenre().size() ==0)) {
+            List<Book> books = bookService.filterBooks(filterCriterionQuery);
+            return ResponseEntity.ok(books);
+        }
+	    return  ResponseEntity.ok(new ArrayList<Book>());
 	}
 
 	@RequestMapping(value = "/genres", method = RequestMethod.GET)

@@ -50,5 +50,6 @@ export class AnnouncementPropositionComponent implements OnInit {
                 alert(JSON.parse(JSON.stringify(err)).message);
             }
         );
+        this.getAllAnnouncement();
     }
 }

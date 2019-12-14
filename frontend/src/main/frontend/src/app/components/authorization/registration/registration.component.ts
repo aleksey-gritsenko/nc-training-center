@@ -11,7 +11,7 @@ import {UserService} from "../../../services/user/user.service";
 @Component({
     selector: 'app-registration',
     templateUrl: './registration.component.html',
-    styleUrls: ['../../../resources/styles/Authorization.css']
+    styleUrls: ['../../../resources/styles/Authorization.css', './registration.component.css']
 })
 export class RegistrationComponent implements OnInit, OnDestroy {
     regGroup: FormGroup;

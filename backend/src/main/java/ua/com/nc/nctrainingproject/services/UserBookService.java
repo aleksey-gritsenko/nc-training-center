@@ -18,13 +18,13 @@ public class UserBookService {
 	}
 
 	public UserBook addBookToUser(UserBook userBook) {
-		actionService.addNewAction(userBook.getUserId(), 3);
 		List<Book> books = this.getAllUserBooks(userBook.getUserId());
 		if (books.stream()
 				.filter(book -> book.getId() == userBook.getBookId())
 				.findFirst()
 				.orElse(null) == null) {
 			userBooksPostgreDAO.addBookToUser(userBook);
+			actionService.addNewAction(userBook.getUserId(), 3);
 			return userBook;
 		}
 		return null;
@@ -39,14 +39,14 @@ public class UserBookService {
 	}
 
 	public UserBook markBookAsRead(UserBook userBook) {
-		actionService.addNewAction(userBook.getUserId(), 5);
 		userBooksPostgreDAO.markBookAsRead(userBook.getUserId(), userBook.getBookId());
+		actionService.addNewAction(userBook.getUserId(), 5);
 		return userBook;
 	}
 
 	public UserBook markBookAsFavourite(UserBook userBook) {
-		actionService.addNewAction(userBook.getUserId(), 4);
 		userBooksPostgreDAO.markBookAsFavourite(userBook.getUserId(), userBook.getBookId());
+		actionService.addNewAction(userBook.getUserId(), 4);
 		return userBook;
 	}
 

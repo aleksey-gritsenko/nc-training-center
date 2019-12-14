@@ -25,10 +25,10 @@ public class AchievementController {
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	@ResponseBody
 	public Achievement createAchievement
-			(@RequestBody Achievement a) {
+			(@RequestBody Achievement achievement) {
 
-		achivementService.createAchevement(a); //TODO Entered service, but something wrong
-		return a;
+		achivementService.createAchevement(achievement);
+		return achievement;
 	}
 
 	@RequestMapping(value = "/all", method = RequestMethod.GET)

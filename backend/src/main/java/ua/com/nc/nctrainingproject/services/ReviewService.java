@@ -20,10 +20,10 @@ public class ReviewService {
 	}
 
 	public Review createReview(Review review) {
-		actionService.addNewAction(review.getUserId(), 6);
 		review.setReviewDate(new Date());
 		reviewPostgreDAO.createReview(review);
 		review.setReviewId(getAllReview().get(getAllReview().size() - 1).getId());
+		actionService.addNewAction(review.getUserId(), 6);
 		return review;
 	}
 

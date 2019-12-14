@@ -2,15 +2,15 @@
 
 <div style="padding-top: 67px; margin-left: 70px"></div>
 
-<div>
-    <div>
-        <button (click)="sendData()">Submit</button>
+<div class="container">
+    <div class="submit-block">
+        <button (click)="sendData()" class="submit-button">Submit</button>
     </div>
-    <div *ngFor="let el of data;">
-        <div class="card-body row">{{el.user.userName}}</div>
+    <div *ngFor="let el of data;" class="form-group">
+        <div  class="card-header">{{el.user.userName}}</div>
         <div *ngFor="let right of rightTypes;">
-            <div>{{right}}:
-                <button (click)="changeRightStatus(el,right)">{{hasRight(el, right)}}</button>
+            <div class="card-description">{{right}}:
+                <button (click)="changeRightStatus(el,right)" class="btn btn-primary btn-default">{{hasRight(el, right)}}</button>
             </div>
 
         </div>

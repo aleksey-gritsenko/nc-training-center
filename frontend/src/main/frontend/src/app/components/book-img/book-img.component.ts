@@ -34,7 +34,9 @@ export class BookImgComponent implements OnInit {
                     reader.readAsDataURL(res);
                 }
             },
-            error=>console.log(error)
+            error=> {
+                console.log(error);
+            }
         );
     }
 

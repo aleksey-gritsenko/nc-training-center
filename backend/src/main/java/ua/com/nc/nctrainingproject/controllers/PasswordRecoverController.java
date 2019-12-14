@@ -13,64 +13,64 @@ import javax.mail.MessagingException;
 @CrossOrigin
 @Controller
 public class PasswordRecoverController {
-    private final PasswordRecoverService passwordRecoverService;
 
-    @Autowired
-    public PasswordRecoverController(PasswordRecoverService passwordRecoverService) {
-        this.passwordRecoverService = passwordRecoverService;
-    }
+	private final PasswordRecoverService passwordRecoverService;
 
-    @RequestMapping("/email")
-    @ResponseBody
-    public ResponseEntity<?> emailSender(@RequestParam String email) {
-        if (!email.trim().isEmpty()) {
-            try {
+	@Autowired
+	public PasswordRecoverController(PasswordRecoverService passwordRecoverService) {
+		this.passwordRecoverService = passwordRecoverService;
+	}
 
-                if (passwordRecoverService.checkEmail(email)) {
-                    passwordRecoverService.makeEmail(email);
-                    return new ResponseEntity<>(HttpStatus.OK);
-                }
-            } catch (MessagingException ex) {
-                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-            }
-        }
-        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-    }
+	@RequestMapping("/email")
+	@ResponseBody
+	public ResponseEntity<String> emailSender(@RequestParam String email) {
+		if (!email.trim().isEmpty()) {
+			try {
 
-    @RequestMapping("/change")
-    @ResponseBody
-    public ResponseEntity<String> passwordRecoverUser(@RequestParam String recoverCode,
-                                                      @RequestParam String newPassword) {
-        if (!recoverCode.trim().isEmpty() && !newPassword.trim().isEmpty()) {
+				if (passwordRecoverService.checkEmail(email)) {
+					passwordRecoverService.makeEmail(email);
+					return new ResponseEntity<>(HttpStatus.OK);
+				}
+			} catch (MessagingException ex) {
+				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			}
+		}
+		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+	}
 
-            if (passwordRecoverService.passwordRecover(recoverCode, newPassword)) {
-                return new ResponseEntity<>(HttpStatus.OK);
-            }
-        }
-        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-    }
+	@RequestMapping("/change")
+	@ResponseBody
+	public ResponseEntity<String> passwordRecoverUser(@RequestParam String recoverCode,
+												 @RequestParam String newPassword) {
+		if (!recoverCode.trim().isEmpty() && !newPassword.trim().isEmpty()) {
 
-    @RequestMapping("/resend")
-    public ResponseEntity<?> resend(String user) {
-        try {
+			if (passwordRecoverService.passwordRecover(recoverCode, newPassword)) {
+				return new ResponseEntity<>(HttpStatus.OK);
+			}
+		}
+		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+	}
 
-            passwordRecoverService.reSend(user);
-            return new ResponseEntity<>(HttpStatus.OK);
+	@RequestMapping("/resend")
+	public ResponseEntity<String> resend(@RequestParam String email) {
+		try {
 
+			passwordRecoverService.resend(email);
+			return new ResponseEntity<>(HttpStatus.OK);
 
-        } catch (MessagingException ex) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-    }
+		} catch (MessagingException ex) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+	}
 
-    //@RequestMapping("/clean")
-    @RequestMapping(value = "/clean", method = RequestMethod.GET)
-    @ResponseBody
+	@RequestMapping(value = "/clean", method = RequestMethod.GET)
+	@ResponseBody
 
-    @Scheduled(fixedRate = 3600000)
-    public void cleanCodes() {
-        passwordRecoverService.deleteALL();
-    }
+	@Scheduled(fixedRate = 3600000)
+	public void cleanCodes() {
+		passwordRecoverService.deleteALL();
+	}
+
 
 
 }

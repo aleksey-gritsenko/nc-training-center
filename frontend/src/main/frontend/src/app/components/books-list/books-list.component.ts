@@ -74,7 +74,7 @@ export class BooksListComponent implements OnInit {
             this.addBookVisible = true;
         }
     }
-    onFilterChange(eve: any){
+    onFilterChange(event: any){
         this.searchByFilter();
     }
     getUsersBookList() {

@@ -1,12 +1,10 @@
 
-<div class="custom-file col-3  border-bottom ">
-    <input *ngIf="fileUploadVisible"><input class="custom-file-input" (change)="postFile($event)" id="file" name="file" type="file">
+<div *ngIf="fileUploadVisible" class="custom-file col-3  border-bottom ">
+    <input class="custom-file-input" (change)="postFile($event)" id="file" name="file" type="file">
     <label for="file" class="text-gray custom-file-label">Choose file</label>
 </div>
 <h3 *ngIf="maxSize">Error!!!! Max file size exceeded (1000 bytes)</h3>
 <div>
-    <div class="btn btn-primary">
-        <div (click)="downloadPDF()">Download</div>
-    </div>
+    <button class="btn btn-primary" [disabled]="!downloadDisable"  (click)="downloadPDF()">Download</button>
 </div>
 

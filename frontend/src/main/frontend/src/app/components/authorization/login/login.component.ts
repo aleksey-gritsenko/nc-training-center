@@ -6,7 +6,6 @@ import {StorageService} from "../../../services/storage/storage.service";
 import {SpringAuthService} from "../../../services/security/spring-auth.service";
 import {Subscription} from "rxjs";
 import {FormControl, FormGroup} from "@angular/forms";
-import {UserService} from "../../../services/user/user.service";
 
 @Component({
     selector: 'app-login',

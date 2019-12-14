@@ -16,8 +16,10 @@ public class ActionTypeQuery {
 
 	public static final String GET_BY_ACTION_NAME = GET_ALL_ACTION_TYPES
 			+ " WHERE " + ACTION_NAME + " =(?)";
+
 	public static final String GET_BY_ACTION_NAME_GENRE = GET_ALL_ACTION_TYPES
 			+ " WHERE " + ACTION_NAME + " =(?) " + " AND " + GENRE_ID + " =(?) ";
+
 	public static final String GET_BY_ENTITY = GET_ALL_ACTION_TYPES
 			+ " WHERE " + ENTITY + " =(?)";
 
@@ -28,7 +30,6 @@ public class ActionTypeQuery {
 			+ " (" + ACTION_TYPE_ID + ", " + ACTION_NAME + ", " + ENTITY + "," + GENRE_ID + ")" + " VALUES(?,?,?,?)";
 
 	public static final String UPDATE_ACTION_TYPE_BY_ID =
-
 			"UPDATE " + TABLE_NAME + " SET " + ACTION_NAME + " =(?)" +
 					" SET " + ENTITY + " =(?) " +
 					" SET " + GENRE_ID + " =(?)" +
