@@ -14,7 +14,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
     repeatPassword: string = '';
     editStatus: string;
 
-    @Input() private user: User; //TODO Try to fix edit password
+    @Input() private user: User;
 
     private updatedUser: User = new User();
     private subscription: Subscription;

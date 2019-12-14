@@ -32,7 +32,6 @@ public class GenrePostgreDAO {
 		try {
 			return jdbcTemplate.queryForObject(GenreQuery.GET_ID_BY_GENRE, Integer.class, genre);
 		} catch (IncorrectResultSizeDataAccessException e) {
-			//TODO rework for situation when there 2 simular genres
 			createGenre(genre);
 			return getIdByGenre(genre);
 		}
