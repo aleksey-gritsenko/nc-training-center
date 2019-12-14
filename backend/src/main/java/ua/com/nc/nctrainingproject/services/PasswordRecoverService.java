@@ -20,6 +20,16 @@ import java.util.regex.Pattern;
 
 @Service
 public class PasswordRecoverService {
+    private final UserPostgreDAO userPostgreDAO;
+    private final CodePostgreDAO codePostgreDAO;
+    private final JavaMailSender sender;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private static final String THEME = "Password recover email";
+    private static final int LENGTH_CODE = 6;
+    private static final int FROM = 0;
+    private static final int TO = 9;
+    private static final String EMAIL_REGEX = "^[A-Za-z0-9+_.-]+@(.+)$";
+
     @Autowired
     public PasswordRecoverService(JavaMailSender sender, CodePostgreDAO codePostgreDAO, UserPostgreDAO userPostgreDAO, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.sender = sender;
@@ -46,7 +56,7 @@ public class PasswordRecoverService {
 
     }
 
-    public void deleteALL() {
+    public void deleteALLDeadCodes() {
         codePostgreDAO.deleteAll();
     }
 
@@ -54,7 +64,6 @@ public class PasswordRecoverService {
         MimeMessage message = sender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);
         helper.setTo(email);
-
         helper.setText(generateCode(email));
         helper.setSubject(THEME);
 
@@ -62,7 +71,7 @@ public class PasswordRecoverService {
     }
 
     public boolean checkEmail(String email) {
-        return verifyEmail(email) && isEmail(email);
+        return isEmail(email) && verifyEmail(email);
     }
 
 
@@ -73,22 +82,12 @@ public class PasswordRecoverService {
         }
         int[] array = new int[LENGTH_CODE];
         Random rn = new Random();
-/*
-        for (int i : array) {
-            i = rn.nextInt(TO) + FROM;
-            generatedString = String.format("%s%d", generatedString, i);
-        }
-
-
- */
-
         for (int i = 0; i < array.length; i++) {
-            array[i] = rn.nextInt(FROM) + TO;
+            array[i] = rn.nextInt(TO) + FROM;
             generatedString = String.format("%s%d", generatedString, array[i]);
         }
 
 
-        System.out.println(generatedString);
         codePostgreDAO.createCode(generatedString, email);
 
         return generatedString;
@@ -98,12 +97,6 @@ public class PasswordRecoverService {
     private boolean verifyEmail(String email) {
         return userPostgreDAO.getUserEmail(email) != null;
     }
-
-    /*public boolean checkDB() {
-        return codePostgreDAO.checkDB() > CodeRecoverQuery.MAX_VAL;
-    }
-
-     */
 
 
     private boolean isEmail(String email) {
@@ -125,13 +118,5 @@ public class PasswordRecoverService {
         return codePostgreDAO.getCodeBy(code);
     }
 
-    private final UserPostgreDAO userPostgreDAO;
-    private final CodePostgreDAO codePostgreDAO;
-    private final JavaMailSender sender;
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
-    private final String THEME = "Password recover email";
-    private final int LENGTH_CODE = 6;
-    private final int FROM = 9;
-    private final int TO = 1;
-    private final String EMAIL_REGEX = "^[A-Za-z0-9+_.-]+@(.+)$";
+
 }
