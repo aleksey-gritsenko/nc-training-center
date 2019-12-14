@@ -4,6 +4,7 @@ import {RecoverService} from '../../../services/recover/recover.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {UserService} from "../../../services/user/user.service";
+import {StorageService} from "../../../services/storage/storage.service";
 
 @Component({
     selector: 'app-recover',
@@ -21,7 +22,10 @@ export class RecoverComponent implements OnInit {
     constructor(private recoverService: RecoverService,
                 private userService: UserService,
                 private router: Router,
-                private route: ActivatedRoute) {
+                private storageService: StorageService) {
+        if (storageService.getUser()) {
+            this.router.navigateByUrl('/');
+        }
     }
 
     ngOnInit() {

@@ -4,6 +4,7 @@ import {ChangePasswordService} from '../../../services/change/change-password.se
 import {Router} from "@angular/router";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {UserService} from "../../../services/user/user.service";
+import {StorageService} from "../../../services/storage/storage.service";
 
 @Component({
     selector: 'app-change-password',
@@ -19,10 +20,13 @@ export class ChangePasswordComponent implements OnInit {
         confirmPassword: ''
     };
 
-
     constructor(private service: ChangePasswordService,
                 private router: Router,
-                private userService: UserService) {
+                private userService: UserService,
+                private storageService: StorageService) {
+        if (storageService.getUser()) {
+            this.router.navigateByUrl('/');
+        }
     }
 
     get code() {

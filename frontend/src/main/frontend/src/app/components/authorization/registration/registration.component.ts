@@ -27,6 +27,9 @@ export class RegistrationComponent implements OnInit, OnDestroy {
                 private authenticationService: AuthenticationService,
                 private springAuth: SpringAuthService,
                 private userService: UserService) {
+        if (storage.getUser()) {
+            this.router.navigateByUrl('/');
+        }
     }
 
     ngOnInit() {

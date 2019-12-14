@@ -24,29 +24,18 @@ public class AuthorizationController {
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public ResponseEntity<?> login(@RequestParam(name = "login") String login,
+	public ResponseEntity<User> login(@RequestParam(name = "login") String login,
 								   @RequestParam(name = "password") String password) {
 		User response = authorizationService.auth(login, password);
-		return Optional.ofNullable(response).map(ResponseEntity::ok).orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+		return Optional.ofNullable(response).map(ResponseEntity::ok).orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
 	}
 
 	@RequestMapping(value = "/registration", method = RequestMethod.POST)
-	public ResponseEntity<?> registration(@RequestParam(name = "login") String login,
+	public ResponseEntity<User> registration(@RequestParam(name = "login") String login,
 										  @RequestParam(name = "password") String password,
 										  @RequestParam(name = "email") String email) {
 		User response = authorizationService.register(login, password, email);
 		return Optional.ofNullable(response).map(ResponseEntity::ok).orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
-	}
-
-	@RequestMapping(value = "/test", method = RequestMethod.GET)
-	public void test() {
-		UserSettings userSettings = userSettingsPostgreDAO.getSettingsListById(5);
-		System.out.println(userSettings.getAchievements());
-		System.out.println(userSettings.getNotifyAboutNewFriends());
-		System.out.println(userSettings.getBookNotification());
-		System.out.println(userSettings.getNotifyAboutAchievement());
-		System.out.println(userSettings.getSubscribeOnFriendReview());
-		System.out.println(userSettings.getSubscribeOnFriends());
 	}
 
 }
