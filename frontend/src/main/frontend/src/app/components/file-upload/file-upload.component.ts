@@ -26,6 +26,8 @@ export class FileUploadComponent implements OnInit {
     base64Data: any;
     convertedImage: any;
     image: any;
+    file:any;
+    blob:any;
     downloadDisable:boolean = false;
     //private siteUrl: string = 'https://nc-group1-2019.herokuapp.com';
     private siteUrl: string = 'http://localhost:8080';
@@ -41,13 +43,22 @@ export class FileUploadComponent implements OnInit {
                 this.fileUploadVisible = true;
             }
         }
-        const url = `${this.siteUrl}` + `/book/bookFile`;
-        this.http.post(url, this.book, {responseType: 'blob' as 'text'}).subscribe(
-            error=>this.downloadDisable = true
-        );
+        this.uploadFile()
     }
 
 
+    uploadFile(){
+        const url = `${this.siteUrl}` + `/book/bookFile`;
+        return this.http.post(url, this.book, {responseType: 'blob' as 'text'}).subscribe(
+            (res) => {
+                this.blob = new Blob([res], {type: 'application/pdf'});
+                this.downloadDisable = true;
+            },
+            error=>{
+                console.log(error);
+            }
+        );
+    }
 
     postFile(event) {
         this.fileToUpload = event.target.files[0];
@@ -85,17 +96,8 @@ export class FileUploadComponent implements OnInit {
     }
 
     downloadPDF(): any {
-        const url = `${this.siteUrl}` + `/book/bookFile`;
-        return this.http.post(url, this.book, {responseType: 'blob' as 'text'}).subscribe(
-            (res) => {
-                let blob = new Blob([res], {type: 'application/pdf'});
-                this.book.fileURL = URL.createObjectURL(blob);
-                let file = new File([blob], this.book.header, {type: blob.type});
-                FileSaver.saveAs(file);
-            },
-            error=>{
-                this.downloadDisable = true;
-            }
-        );
+        this.book.fileURL = URL.createObjectURL(this.blob);
+        this.file = new File([this.blob], this.book.header, {type: this.blob.type});
+        FileSaver.saveAs(this.file);
     }
 }
