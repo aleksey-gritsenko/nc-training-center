@@ -168,7 +168,7 @@ export class CommonService {
     getNotAcceptedReviews(bookId: number): Observable<Review[]> {
         const params = new HttpParams()
             .set('book', bookId.toString());
-        const url = `${this.reviewsUrl}/accepted` + '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
+        const url = `${this.reviewsUrl}/notaccepted` + '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
         //const url = `${this.localhost}/review/notaccepted`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
         return this.http.get<Review[]>(url, {params: params});
     }
