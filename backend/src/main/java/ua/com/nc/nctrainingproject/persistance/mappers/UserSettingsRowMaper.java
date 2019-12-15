@@ -11,7 +11,7 @@ public class UserSettingsRowMaper implements RowMapper<UserSettings> {
 	@Override
 	public UserSettings mapRow(ResultSet resultSet, int i) throws SQLException {
 		UserSettings userSettings = new UserSettings();
-		userSettings.setSubscribeOnFriends(resultSet.getBoolean(SettingsListQuery.SUBSCRIBE_ON_FRIENDS));
+		userSettings.setNotifyAboutAnnouncements(resultSet.getBoolean(SettingsListQuery.SUBSCRIBE_ON_FRIENDS));
 		userSettings.setAchievements(resultSet.getBoolean(SettingsListQuery.ACHIEVEMENTS));
 		userSettings.setBookNotification(resultSet.getBoolean(SettingsListQuery.BOOK_NOTIFICATION));
 		userSettings.setSubscribeOnFriendReview(resultSet.getBoolean(SettingsListQuery.SUBSCRIBE_ON_FRIEND_REVIEW));

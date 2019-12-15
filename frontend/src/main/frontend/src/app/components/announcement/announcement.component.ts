@@ -41,7 +41,7 @@ export class AnnouncementComponent implements OnInit {
             + "-" +  this.currentDate.getDate()
         this.model
         this.id
-            = parseInt(this.route.snapshot.paramMap.get('id'));
+            = parseInt(this.route.snapshot.paramMap.get('bookId'));
         this.storage
         //this.model
         //this.id = parseInt(this.route.snapshot.paramMap.get('id'));
@@ -57,7 +57,7 @@ export class AnnouncementComponent implements OnInit {
     createAnnouncement(): void {
         let url = `${this.siteUrl}/announcements/proposeAnnouncement`;
         this.model.bookID = this.id;
-        if (this.currentUser.userRole == 'admin') {
+        if (this.currentUser.userRole == 'moderator') {
 
             this.model.status = 'PUBLISHED';
             this.model.admin_id = this.currentUser.id;

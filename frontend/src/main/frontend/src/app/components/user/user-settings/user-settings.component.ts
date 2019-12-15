@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {UserSettings} from "../../../models/user-settings";
+import {StorageService} from "../../../services/storage/storage.service";
 
 @Component({
     selector: 'app-user-settings',
@@ -9,37 +10,35 @@ import {UserSettings} from "../../../models/user-settings";
 })
 export class UserSettingsComponent implements OnInit {
 
-    private siteUrl: string = 'https://nc-group1-2019.herokuapp.com';
-    //private siteUrl: string = 'http://localhost:8080';
+    // private siteUrl: string = 'https://nc-group1-2019.herokuapp.com';
+    private siteUrl: string = 'http://localhost:8080';
 
 
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient, private storage: StorageService) {
     }
 
 
     settingsData = [
-        {value: true, name: 'subscribeOnFriends'},
-        {value: true, name: 'achivements'},
-        {value: true, name: 'bookNotification'},
-        {value: true, name: 'subscribeOnFriendReview'},
-        {value: true, name: 'notifyAboutNewFriends'},
-        {value: true, name: 'notifyAboutAchievement'},
+        {value: true, name: 'notify about friends announcements'},
+        {value: true, name: 'notify about friends actions with books'},
+        {value: true, name: 'notify about friends achievements'},
+        {value: true, name: 'notify about new friends'},
+        {value: true, name: 'notify about friends reviews'},
     ];
 
     ngOnInit() {
         let form = new FormData();
-        form.append('userId', '5');
+        form.append('userId', String(this.storage.getUser().id));
         const params = new HttpParams()
-            .set('userId', '5');
+            .set('userId', String(this.storage.getUser().id));
 
         this.http.get<UserSettings>(this.siteUrl + '/getSettings' + '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token, {params: params}).subscribe(
             settings => {
-                this.settingsData[0].value = settings.subscribeOnFriends;
-                this.settingsData[1].value = settings.achievements;
-                this.settingsData[2].value = settings.bookNotification;
-                this.settingsData[3].value = settings.subscribeOnFriendReview;
-                this.settingsData[4].value = settings.notifyAboutNewFriends;
-                this.settingsData[5].value = settings.notifyAboutAchievement;
+                this.settingsData[0].value = settings.notifyAboutAnnouncements;
+                this.settingsData[1].value = settings.bookNotification;
+                this.settingsData[2].value = settings.achievements;
+                this.settingsData[3].value = settings.notifyAboutNewFriends;
+                this.settingsData[4].value = settings.subscribeOnFriendReview;
             },
             error1 => {
                 alert('Error')
@@ -54,19 +53,17 @@ export class UserSettingsComponent implements OnInit {
             reverseValue = false;
         }
         this.settingsData.filter(data => data.name === name).map(dt => dt.value = reverseValue);
-        alert(this.settingsData[0].value);
     }
 
     submitSettings() {
         let form = new FormData();
         var myString: string = <string><any>this.settingsData[0].value;
         form.append('subscribeOnFriends', String(this.settingsData[0].value));
-        form.append('achivements', String(this.settingsData[1].value));
-        form.append('bookNotification', String(this.settingsData[2].value));
-        form.append('subscribeOnFriendReview', String(this.settingsData[3].value));
-        form.append('notifyAboutNewFriends', String(this.settingsData[4].value));
-        form.append('notifyAboutAchievement', String(this.settingsData[5].value));
-        form.append('userId', '5');
+        form.append('bookNotification', String(this.settingsData[1].value));
+        form.append('achivements', String(this.settingsData[2].value));
+        form.append('notifyAboutNewFriends', String(this.settingsData[3].value));
+        form.append('subscribeOnFriendReview', String(this.settingsData[4].value));
+        form.append('userId', String(this.storage.getUser().id));
 
         this.http.post(this.siteUrl + '/updateSettings' + '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token, form).subscribe(
             data => {
