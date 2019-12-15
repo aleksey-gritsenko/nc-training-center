@@ -15,9 +15,9 @@ export class UserSettingsComponent implements OnInit {
     private updateSubscription: Subscription;
     isError: boolean = false;
 
-     private siteUrl: string = 'https://nc-group1-2019.herokuapp.com';
+    private siteUrl: string = 'https://nc-group1-2019.herokuapp.com';
 
-   // private siteUrl: string = 'http://localhost:8080';
+   //  private siteUrl: string = 'http://localhost:8080';
 
     constructor(private http: HttpClient, private storage: StorageService) {
     }
@@ -32,6 +32,7 @@ export class UserSettingsComponent implements OnInit {
     ];
 
     ngOnInit() {
+        alert(JSON.parse(window.sessionStorage.getItem('token')).access_token);
         let form = new FormData();
         form.append('userId', String(this.storage.getUser().id));
         const params = new HttpParams()
@@ -47,7 +48,6 @@ export class UserSettingsComponent implements OnInit {
             },
             error1 => {
                 this.isError = true;
-
             }
         );
     }
