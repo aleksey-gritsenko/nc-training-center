@@ -51,7 +51,8 @@ export class FileUploadComponent implements OnInit {
         return this.http.post(url, this.book, {responseType: 'blob' as 'text'}).subscribe(
             (res) => {
                 this.blob = new Blob([res], {type: 'application/pdf'});
-                this.downloadDisable = true;
+                if(this.blob.size != 0){
+                this.downloadDisable = true;}
             },
             error=>{
                 console.log(error);
