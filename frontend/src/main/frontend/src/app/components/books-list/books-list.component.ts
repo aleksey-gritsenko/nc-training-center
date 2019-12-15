@@ -154,7 +154,7 @@ export class BooksListComponent implements OnInit {
 
             },
             err => {
-                alert("error in get all author")
+                console.log(err)
             }
         );
     }
@@ -168,7 +168,7 @@ export class BooksListComponent implements OnInit {
                 });
             },
             err => {
-                alert("error in get all genre")
+                console.log(err)
             }
         );
 
