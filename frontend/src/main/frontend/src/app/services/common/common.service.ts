@@ -22,7 +22,7 @@ export class CommonService {
     };
     private siteUrl: string = 'https://nc-group1-2019.herokuapp.com';
     // if you want to test your code on localhost - change siteUrl to localhost where this is needed
-    //private localhost: string = 'http://localhost:8080';
+    private localhost: string = 'http://localhost:8080';
     private booksUrl: string = `${this.siteUrl}/book`;
     private announcementsUrl: string = `${this.siteUrl}/announcements`;
     private reviewsUrl: string = `${this.siteUrl}/review`;
@@ -98,8 +98,8 @@ export class CommonService {
     }
 
     rejectRequest(sender: User, reciever: User): Observable<User> {
-        const url = `${this.siteUrl}/friends/accept` + '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
-        //const url = `${this.localhost}/friends/reject`;
+      //  const url = `${this.siteUrl}/friends/reject` + '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
+        const url = `${this.localhost}/friends/reject`;
         const paramsSender = new HttpParams()
             .set('sender', sender.id.toString()).set('reciever', reciever.id.toString());
 
