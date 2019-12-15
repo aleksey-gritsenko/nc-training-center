@@ -26,6 +26,7 @@ public class AuthorizationService {
 
 			if (user != null && user.isActivated()) {
 				if (bCryptPasswordEncoder.matches(password, user.getUserPassword())) {
+					user.setUserPassword("");
 					return user;
 				}
 			}

@@ -29,7 +29,7 @@
                                     Should be at least 4 characters
                                 </div>
                                 <div *ngIf="username.errors.pattern">
-                                    Should includes only latins and numbers and starts with letter
+                                    Should include only latins and numbers and starts with letter
                                 </div>
                             </div>
 
@@ -55,7 +55,7 @@
                                 <input formControlName="confirmPassword" autocomplete="off" class="form-control" id="passwordConfirm"
                                        name="passwordConfirm" type="password" required maxlength="30">
                             </div>
-                            <div *ngIf="confirmPassword.invalid && confirmPassword.dirty && confirmPassword.value!=password.value" class="alert alert-warning text-center" role="alert">
+                            <div *ngIf="confirmPassword.invalid && confirmPassword.dirty || confirmPassword.value!=password.value" class="alert alert-warning text-center" role="alert">
                                 Passwords are not equal
                             </div>
 

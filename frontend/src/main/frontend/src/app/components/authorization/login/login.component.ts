@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import { Router} from '@angular/router';
+import {Router} from '@angular/router';
 import {AuthenticationService} from '../../../services/authentification/authentication.service';
 import {StorageService} from "../../../services/storage/storage.service";
 import {SpringAuthService} from "../../../services/security/spring-auth.service";
@@ -20,12 +20,14 @@ export class LoginComponent implements OnInit, OnDestroy {
     subscription: Subscription;
     loginSubscription: Subscription;
 
-    constructor(
-        private http: HttpClient,
-        public serv: AuthenticationService,
-        private router: Router,
-        private storageService: StorageService,
-        private springAuth: SpringAuthService) {
+    constructor(private http: HttpClient,
+                public serv: AuthenticationService,
+                private router: Router,
+                private storageService: StorageService,
+                private springAuth: SpringAuthService) {
+        if (storageService.getUser()) {
+            this.router.navigateByUrl('/');
+        }
     }
 
     ngOnInit() {
@@ -44,8 +46,13 @@ export class LoginComponent implements OnInit, OnDestroy {
         }
     }
 
-    get username() {return this.loginGroup.get('username');}
-    get password() {return this.loginGroup.get('password');}
+    get username() {
+        return this.loginGroup.get('username');
+    }
+
+    get password() {
+        return this.loginGroup.get('password');
+    }
 
     login(): void {
         this.isError = false;
@@ -57,15 +64,15 @@ export class LoginComponent implements OnInit, OnDestroy {
                 window.sessionStorage.setItem('token', JSON.stringify(data));
 
                 this.loginSubscription = this.serv.login(username, password).subscribe(
-                        user => {
-                            if (!user.verified) {
-                                this.router.navigateByUrl('/verify');
-                            }
-                            else {
-                                this.storageService.setUser(user);
-                                sessionStorage.setItem('user', JSON.stringify(user));                                this.router.navigateByUrl('/');
-                            }
-                        },);
+                    user => {
+                        if (!user.verified || !user.activated) {
+                            this.router.navigateByUrl('/verify');
+                        } else {
+                            this.storageService.setUser(user);
+                            sessionStorage.setItem('user', JSON.stringify(user));
+                            this.router.navigateByUrl('/');
+                        }
+                    });
             },
             () => {
                 this.isError = true;

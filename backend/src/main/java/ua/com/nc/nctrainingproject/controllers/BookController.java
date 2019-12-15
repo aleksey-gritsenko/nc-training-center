@@ -128,6 +128,9 @@ public class BookController {
 
 	@RequestMapping(produces = MediaType.APPLICATION_PDF_VALUE, value = "/bookFile", method = RequestMethod.POST)
 	public ResponseEntity<?> getBookFile(@RequestBody Book book) {
+		if (bookFileManagementService.getBookFile(book) == null){
+			return ResponseEntity.ok(null);
+		}
 		ByteArrayInputStream stream = new ByteArrayInputStream(bookFileManagementService.getBookFile(book).getFile());
 		System.out.println(stream);
 		return ResponseEntity

@@ -22,7 +22,7 @@ public class UserController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "/update")
-	ResponseEntity<?> update(@RequestParam(name = "login") String login,
+	ResponseEntity<User> update(@RequestParam(name = "login") String login,
 							 @RequestParam(name = "newPassword") String newPassword,
 							 @RequestParam(name = "newEmail") String newEmail) {
 		User newData = new User(login, newPassword, newEmail);
@@ -31,21 +31,20 @@ public class UserController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/{id}")
-	ResponseEntity<?> get(@PathVariable(value = "id") int id) {
+	ResponseEntity<User> get(@PathVariable(value = "id") int id) {
 		User response = userService.getById(id);
-		return response != null ? ResponseEntity.ok(response) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		return Optional.ofNullable(response).map(ResponseEntity::ok).orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "/create/admin")
-	ResponseEntity<?> createAdmin(@RequestBody User admin) {
+	ResponseEntity<User> createAdmin(@RequestBody User admin) {
 		User response = userService.createAdmin(admin);
 		return Optional.ofNullable(response).map(ResponseEntity::ok).orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "/activate")
-	public ResponseEntity<?> activate(@RequestParam(name = "email") String email,
-									  @RequestParam(name = "code") String code
-	) {
+	public ResponseEntity<User> activate(@RequestParam(name = "email") String email,
+									  @RequestParam(name = "code") String code) {
 		User response = userService.activateAccount(email, code);
 		return Optional.ofNullable(response).map(ResponseEntity::ok).orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
 	}
@@ -56,7 +55,7 @@ public class UserController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/search/{searchName}")
-	public ResponseEntity<?> searchUsers(@PathVariable(value = "searchName") String searchName) {
+	public ResponseEntity<List<User>> searchUsers(@PathVariable(value = "searchName") String searchName) {
 		List<User> response = userService.searchUsersByUsername(searchName);
 		return response.isEmpty() ? new ResponseEntity<>(HttpStatus.BAD_REQUEST) : ResponseEntity.ok(response);
 	}

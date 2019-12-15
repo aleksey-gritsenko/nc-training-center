@@ -6,7 +6,7 @@
         <div class="row">
             <div [ngSwitch]="isOpen" class="col-md-8">
                 <app-view-profile *ngSwitchCase="'View'" [user]="user"></app-view-profile>
-                <app-edit-profile *ngSwitchCase="'Edit'" [user]="user"></app-edit-profile>
+                <app-edit-profile *ngSwitchCase="'Edit'" [(user)]="user"></app-edit-profile>
                 <app-user-achievement *ngSwitchCase="'Achievement'" [user]="user"></app-user-achievement>
                 <app-add-admin *ngSwitchCase="'Add agent'"></app-add-admin>
                 <app-add-achievment *ngSwitchCase="'Add achievement'"></app-add-achievment>

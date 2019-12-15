@@ -27,6 +27,9 @@ export class RegistrationComponent implements OnInit, OnDestroy {
                 private authenticationService: AuthenticationService,
                 private springAuth: SpringAuthService,
                 private userService: UserService) {
+        if (storage.getUser()) {
+            this.router.navigateByUrl('/');
+        }
     }
 
     ngOnInit() {
@@ -34,7 +37,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
             username: new FormControl('', [Validators.minLength(4), Validators.pattern(this.userService.inputRegExp)]),
             email: new FormControl('', [Validators.pattern(this.userService.emailRegExp)]),
             password: new FormControl('', Validators.pattern(this.userService.passwordRegExp)),
-            confirmPassword: new FormControl('', Validators.pattern(this.userService.passwordRegExp))
+            confirmPassword: new FormControl('')
         });
     }
 
@@ -48,13 +51,12 @@ export class RegistrationComponent implements OnInit, OnDestroy {
         let username = this.username.value;
         let password = this.password.value;
 
-        this.securitySubscription = this.authenticationService.register(username, password, this.email.value).subscribe(
+        this.regSubscription = this.authenticationService.register(username, password, this.email.value).subscribe(
             res => {
                 this.securitySubscription = this.springAuth.authentificate(username, password).subscribe(
                     data => {
                         window.sessionStorage.setItem('token', JSON.stringify(data));
                     });
-                this.storage.setUser(res);
                 this.router.navigateByUrl('/verify');
             },
             err => {

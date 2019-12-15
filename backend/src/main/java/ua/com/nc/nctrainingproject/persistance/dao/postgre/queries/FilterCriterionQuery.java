@@ -30,7 +30,6 @@ public class FilterCriterionQuery {
         return checkStr(queryWithConditions);
     }
 
-
     public Object[] makeArrayArgsStream() {
         ArrayList<String> headers = new ArrayList<>();
         if (header.length() != 0) {

@@ -4,49 +4,68 @@
         <p class="card-category">Complete your profile</p>
     </div>
     <div class="card-body">
-        <form>
+        <form #f="ngForm">
             <div class="row">
+
+                <!-- Username -->
                 <div class="col-md align-self-center">
                     <label for="userName">Username: </label>
                     <h4 id="userName">{{updatedUser.userName}}</h4>
                 </div>
+
+                <!-- Email -->
                 <div class="col-md">
                     <div class="form-group">
-                        <label class="bmd-label-floating">Email</label>
-                        <input [(ngModel)]="updatedUser.email" autocomplete="off" class="form-control" name="emailField"
-                               type="email">
+                        <label class="bmd-label-floating" for="email">Email</label>
+                        <input [(ngModel)]="updatedUser.email" autocomplete="off" class="form-control" name="email"
+                               id="email"
+                               type="email" maxlength="254" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required
+                               #email="ngModel">
                     </div>
                 </div>
             </div>
             <div class="row">
+
+                <!-- Password -->
                 <div class="col-md">
                     <div class="form-group">
                         <label class="bmd-label-floating">Password</label>
                         <input [(ngModel)]="updatedUser.userPassword" class="form-control" name="password"
-                               type="password">
+                               type="password" maxlength="30" #password="ngModel" required
+                               pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$">
                     </div>
                 </div>
+
+                <!-- Repeat password -->
                 <div class="col-md">
                     <div class="form-group">
                         <label class="bmd-label-floating">Repeat Password</label>
-                        <input [(ngModel)]="repeatPassword" class="form-control" name="repeat-password" type="password">
+                        <input [(ngModel)]="repeatPassword" class="form-control" name="repeat-password" type="password"
+                               maxlength="30" #repPassword="ngModel" required>
                     </div>
                 </div>
             </div>
-            <div [ngSwitch]="editStatus">
-                <div *ngSwitchCase="'success'" class="alert alert-success text-center" role="alert">
-                    Success! The user has been changed
-                </div>
-                <div *ngSwitchCase="'password'" class="alert alert-warning text-center" role="alert">
-                    The password should contain at least 8 characters, 1 upper letter and 1 number
-                </div>
-                <div *ngSwitchCase="'error'" class="alert alert-danger text-center" role="alert">
-                    This email is already exist! Try again!
-                </div>
+
+            <!-- Messages -->
+
+            <div *ngIf="editStatus=='success'" class="alert alert-success text-center" role="alert">
+                Success! The user has been changed
             </div>
-            <button (click)="update()" [disabled]="userService.equals(user, updatedUser) || (user.userPassword != updatedUser.userPassword && updatedUser.userPassword != repeatPassword)"
-                    class="btn btn-primary pull-right"
-                    type="button">Update Profile
+            <div *ngIf="password.invalid && password.dirty && password.errors.pattern"
+                 class="alert alert-warning text-center" role="alert">
+                The password should contain at least 8 characters, 1 upper letter and 1 number
+            </div>
+            <div *ngIf="password.value != repPassword.value" class="alert alert-warning text-center" role="alert">
+                Passwords are not equal
+            </div>
+            <div *ngIf="editStatus == 'error'" class="alert alert-danger text-center" role="alert">
+                Something went wrong! Try again!
+            </div>
+
+            <button (click)="update()"
+                    [disabled]="email.invalid || user.email == updatedUser.email && password.errors || (updatedUser.userPassword != repeatPassword)"
+                    class="btn btn-primary pull-right" type="button">
+                Update Profile
             </button>
         </form>
     </div>

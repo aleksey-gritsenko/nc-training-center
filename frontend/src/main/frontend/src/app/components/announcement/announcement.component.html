@@ -17,8 +17,12 @@
 
             <div class="form-group col-md-6">
                 <label for="inputDescription">Description</label>
-                <input [(ngModel)]="model.description" class="form-control" id="inputDescription" name="description"
-                       placeholder="Description" type="text">
+                <input [(ngModel)]="model.description"
+                       class="form-control" id="inputDescription" name="description"
+                       placeholder="Description" maxlength="100"
+                       type="text"
+                       #text="ngModel" required pattern ="^(?=\D)+\w*$"
+                >
             </div>
         </div>
         <div class="form-group">
@@ -30,8 +34,10 @@
 
 
 
-            <button [disabled]="!( this.model.announcementDate > this.formatted_date &&
-                this.model.description.length > 0)" class="btn btn-primary" (click)="createAnnouncement()">Save
+            <button
+                [disabled]="!( this.model.announcementDate > this.formatted_date &&
+                this.model.description.length > 0 && text.valid )" class="btn btn-primary"
+                (click)="createAnnouncement()"  [routerLink]="['/books']"><a>Save</a>
 
         </button>
     </form>

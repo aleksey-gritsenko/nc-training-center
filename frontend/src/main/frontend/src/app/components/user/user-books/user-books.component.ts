@@ -11,6 +11,8 @@ import {StorageService} from "../../../services/storage/storage.service";
 })
 export class UserBooksComponent extends BooksListComponent implements OnInit {
 
+    private searchTitle: string;
+
     constructor(apiService: CommonService,
                 route: ActivatedRoute,
                 router: Router,
@@ -21,8 +23,8 @@ export class UserBooksComponent extends BooksListComponent implements OnInit {
     ngOnInit() {
         super.getUsersBookList();
 
-        super.getAllGenre();
         super.getAllAuthor();
-        super.getBooks();
+        super.getAllGenre();
+        super.checkHistoryFilter();
     }
 }

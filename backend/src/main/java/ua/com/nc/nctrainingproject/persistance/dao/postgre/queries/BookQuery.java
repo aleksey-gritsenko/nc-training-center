@@ -19,6 +19,8 @@ public class BookQuery {
 	public static final String REVIEW_TABLE = "review";
 	public static final String GRADE = "grade";
 
+	public static final String USER_BOOKS = "user_books";
+
 	public static final String GET_ALL = "SELECT *" + " FROM " + TABLE_NAME;
 
 	public static final String GET_BOOK = GET_ALL + " WHERE " + TABLE_NAME + "." + BOOK_ID + " =(?)";

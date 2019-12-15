@@ -45,7 +45,6 @@ export class CommonService {
         return this.http.post<Book[]>(url, filter);
     }
 
-
     getBookById(id: number): Observable<Book> {
         const url = `${this.booksUrl}/id?id=${id}`;
         //const url = `${this.localhost}/book/id?id=${id}`;

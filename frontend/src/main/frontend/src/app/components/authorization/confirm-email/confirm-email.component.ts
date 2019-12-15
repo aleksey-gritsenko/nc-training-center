@@ -17,6 +17,9 @@ export class ConfirmEmailComponent implements OnInit {
     constructor(private storageService: StorageService,
                 private authenticationService: AuthenticationService,
                 private router: Router) {
+        if (storageService.getUser()) {
+            this.router.navigateByUrl('/');
+        }
     }
 
     ngOnInit() {
@@ -26,6 +29,7 @@ export class ConfirmEmailComponent implements OnInit {
         if (this.email.length != 0 && this.code.length != 0) {
             this.authenticationService.confirmEmail(this.email, this.code)
                 .toPromise().then(user => {
+                    this.storageService.setUser(user);
                     this.router.navigateByUrl('/')
                 },
                 error => {
