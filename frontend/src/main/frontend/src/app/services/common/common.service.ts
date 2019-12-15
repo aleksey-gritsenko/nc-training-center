@@ -60,7 +60,7 @@ export class CommonService {
 
     getAnnouncements(): Observable<Announcement[]> {
         //const url = `${this.localhost}/announcements/all`;
-        const url = `${this.announcementsUrl}/all`;
+        const url = `${this.announcementsUrl}`;
         return this.http.get<Announcement[]>(url);
     }
 
