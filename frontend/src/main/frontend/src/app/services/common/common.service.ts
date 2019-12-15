@@ -41,7 +41,6 @@ export class CommonService {
     getBooksByFilter(filter: BookFilter): Observable<Book[]> {
         const url = `${this.booksUrl}/filter`;
         //const url = `${this.localhost}/book/filter`;
-        console.log(filter);
         return this.http.post<Book[]>(url, filter);
     }
 
@@ -169,7 +168,6 @@ export class CommonService {
             .set('book', bookId.toString());
         const url = `${this.reviewsUrl}/accepted` + '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
         //const url = `${this.localhost}/review/notaccepted`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
-        console.log(params);
         return this.http.get<Review[]>(url, {params: params});
     }
 
@@ -178,7 +176,6 @@ export class CommonService {
             .set('book', bookId.toString());
         const url = `${this.reviewsUrl}/accepted`;
         //const url = `${this.localhost}/review/accepted`;
-        console.log(params);
         return this.http.get<Review[]>(url, {params: params});
     }
 
@@ -194,7 +191,6 @@ export class CommonService {
             .set('review', review.id.toString());
         const url = `${this.reviewsUrl}/delete` + '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
         //const url = `${this.localhost}/review/delete`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
-        console.log(params);
         return this.http.post<Review>(url, params);
     }
 
@@ -226,7 +222,6 @@ export class CommonService {
         const params = new HttpParams()
             .append('userId', userBook.userId.toString())
             .append('bookId', userBook.bookId.toString());
-        console.log(params);
         return this.http.get<UserBook>(url, {params: params});
     }
 
