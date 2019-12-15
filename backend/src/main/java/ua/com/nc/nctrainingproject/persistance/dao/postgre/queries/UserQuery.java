@@ -43,7 +43,7 @@ public class UserQuery {
 	public static final String GET_USERS_BY_ROLE = "SELECT * FROM " + TABLE_NAME + " WHERE " + ROLE + " =(?)";
 
 	public static final String UPDATE_STATUS_BY_EMAIL = "UPDATE " + TABLE_NAME + " SET " +
-			STATUS + " =(?)  " +
+			VERIFIED + " =(?)  " +
 
 			" WHERE " + EMAIL + " =(?)";
 
