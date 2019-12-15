@@ -57,7 +57,6 @@ export class RegistrationComponent implements OnInit, OnDestroy {
                     data => {
                         window.sessionStorage.setItem('token', JSON.stringify(data));
                     });
-                this.storage.setUser(res);
                 this.router.navigateByUrl('/verify');
             },
             err => {

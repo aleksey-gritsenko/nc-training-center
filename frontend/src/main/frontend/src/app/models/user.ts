@@ -7,4 +7,5 @@ export class User extends Entity {
     userRole: string;
     recoverCode: string;
     verified: boolean;
+    activated: boolean;
 }
