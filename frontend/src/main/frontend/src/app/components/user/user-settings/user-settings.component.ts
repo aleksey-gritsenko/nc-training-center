@@ -32,7 +32,6 @@ export class UserSettingsComponent implements OnInit {
     ];
 
     ngOnInit() {
-        alert(JSON.parse(window.sessionStorage.getItem('token')).access_token);
         let form = new FormData();
         form.append('userId', String(this.storage.getUser().id));
         const params = new HttpParams()
