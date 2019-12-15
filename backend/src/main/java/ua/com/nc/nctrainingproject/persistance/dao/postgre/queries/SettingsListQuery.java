@@ -18,4 +18,7 @@ public class SettingsListQuery {
             "achievements=(?),book_notification=(?),subscribe_on_friend_review=(?),notify_about_new_friends=(?)," +
             "notify_about_achievements=(?) WHERE settings_list_id=(?)";
 
+    public static final String CREATE_SETTINGS = "INSERT INTO " + TABLE_NAME + "(subscribe_on_friends,achievements,book_notification,subscribe_on_friend_review,notify_about_new_friends," +
+            "notify_about_achievements) VALUES (true,true,true,true,true,true)";
+
 }

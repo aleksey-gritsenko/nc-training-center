@@ -1,7 +1,7 @@
 package ua.com.nc.nctrainingproject.models;
 
 public class UserSettings {
-	private Boolean subscribeOnFriends;
+	private Boolean notifyAboutAnnouncements;
 	private Boolean achievements;
 	private Boolean bookNotification;
 	private Boolean subscribeOnFriendReview;
@@ -12,12 +12,12 @@ public class UserSettings {
 
 	}
 
-	public Boolean getSubscribeOnFriends() {
-		return subscribeOnFriends;
+	public Boolean getNotifyAboutAnnouncements() {
+		return notifyAboutAnnouncements;
 	}
 
-	public void setSubscribeOnFriends(Boolean subscribeOnFriends) {
-		this.subscribeOnFriends = subscribeOnFriends;
+	public void setNotifyAboutAnnouncements(Boolean subscribeOnFriends) {
+		this.notifyAboutAnnouncements = subscribeOnFriends;
 	}
 
 	public Boolean getAchievements() {
@@ -63,7 +63,7 @@ public class UserSettings {
 	@Override
 	public String toString() {
 		return "UserSettings{" +
-				"subscribeOnFriends=" + subscribeOnFriends +
+				"subscribeOnFriends=" + notifyAboutAnnouncements +
 				", achievements=" + achievements +
 				", bookNotification=" + bookNotification +
 				", subscribeOnFriendReview=" + subscribeOnFriendReview +

@@ -38,14 +38,14 @@ public class UserSettingsController {
 
 
     @RequestMapping(value = "/updateSettings", method = RequestMethod.POST)
-    public ResponseEntity<?> updateUserSettings(String subscribeOnFriends, String achivements, String bookNotification, String subscribeOnFriendReview, String notifyAboutNewFriends, String notifyAboutAchievement, String userId) {
+    public ResponseEntity<?> updateUserSettings(String subscribeOnFriends, String achivements, String bookNotification, String subscribeOnFriendReview, String notifyAboutNewFriends, String userId) {
         UserSettings userSettings = new UserSettings();
-        userSettings.setSubscribeOnFriends(Boolean.valueOf(subscribeOnFriends));
+        userSettings.setNotifyAboutAnnouncements(Boolean.valueOf(subscribeOnFriends));
         userSettings.setAchievements(Boolean.valueOf(achivements));
         userSettings.setBookNotification(Boolean.valueOf(bookNotification));
         userSettings.setSubscribeOnFriendReview(Boolean.valueOf(subscribeOnFriendReview));
         userSettings.setNotifyAboutNewFriends(Boolean.valueOf(notifyAboutNewFriends));
-        userSettings.setNotifyAboutAchievement(Boolean.valueOf(notifyAboutAchievement));
+        userSettings.setNotifyAboutAchievement(true);
         userSettingsService.updateSettings(userSettings,Integer.valueOf(userId));
         return new ResponseEntity<>(HttpStatus.CHECKPOINT);
     }
