@@ -15,7 +15,6 @@ import {ActionEntity} from "../../../models/action-entity";
     styleUrls: ['./user-achievement.component.css']
 })
 export class UserAchievementComponent implements OnInit {
-    private settings = new Map<string,boolean>();
     ActionEntity = ActionEntity;
     achievements: Achievement[] = [];
     allGenres: Genre[] = [];

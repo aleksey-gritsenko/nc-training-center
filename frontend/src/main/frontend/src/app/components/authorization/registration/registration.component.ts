@@ -56,8 +56,8 @@ export class RegistrationComponent implements OnInit, OnDestroy {
                 this.securitySubscription = this.springAuth.authentificate(username, password).subscribe(
                     data => {
                         window.sessionStorage.setItem('token', JSON.stringify(data));
+                        this.router.navigateByUrl('/verify');
                     });
-                this.router.navigateByUrl('/verify');
             },
             err => {
                 this.isError = true;

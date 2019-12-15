@@ -11,7 +11,9 @@ import {Observable} from 'rxjs';
 })
 export class ActivitiesListComponent implements OnInit {
     activities: string[] = [];
+
    // private siteUrl: string = 'http://localhost:8080';
+
     private siteUrl: string = 'https://nc-group1-2019.herokuapp.com';
 
     constructor(private storage: StorageService,
