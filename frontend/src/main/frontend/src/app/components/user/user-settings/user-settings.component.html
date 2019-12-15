@@ -17,6 +17,9 @@
                     <div class="form-group">
                         <button type="submit" class="btn btn-default">Submit settings</button>
                     </div>
+                    <div *ngIf="isError" class="alert alert-danger text-center" role="alert">
+                        Error in getting your settings!
+                    </div>
                 </form>
             </div>
         </div>

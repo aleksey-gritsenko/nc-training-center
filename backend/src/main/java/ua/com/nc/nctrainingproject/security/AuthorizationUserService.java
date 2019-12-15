@@ -15,47 +15,45 @@ import java.util.List;
 @Service(value = "userAuthService")
 public class AuthorizationUserService implements UserDetailsService, UserService {
 
-	@Autowired
-	UserPostgreDAO userPostgreDAO;
-	@Autowired
-	AdminRightsPostgreDAO adminRightsPostgreDAO;
+    @Autowired
+    UserPostgreDAO userPostgreDAO;
+    @Autowired
+    AdminRightsPostgreDAO adminRightsPostgreDAO;
 
 
-	@Override
-	public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-		User user = userPostgreDAO.getUserByUserName(s);
-		if (user == null) {
-			throw new UsernameNotFoundException("Invalid username or password");
-		}
-		System.out.println("AUTHORIZATION!!");
+    @Override
+    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
+        User user = userPostgreDAO.getUserByUserName(s);
+        if (user == null) {
+            throw new UsernameNotFoundException("Invalid username or password");
+        }
 
-		return new org.springframework.security.core.userdetails.User(user.getUserName(), user.getUserPassword(), getAuthority(user.getId()));
-	}
+        return new org.springframework.security.core.userdetails.User(user.getUserName(), user.getUserPassword(), getAuthority(user.getId()));
+    }
 
-	private List<SimpleGrantedAuthority> getAuthority(int adminId) {
-		System.out.println("Trying to authorize");
-		List<SimpleGrantedAuthority> authorities = adminRightsPostgreDAO.getAllAuthoritiesByAdminId(adminId);
-		authorities.add(new SimpleGrantedAuthority(SecurityFinals.DEFAULT_AUTHORITY));
-		return authorities;
-	}
+    private List<SimpleGrantedAuthority> getAuthority(int adminId) {
+        List<SimpleGrantedAuthority> authorities = adminRightsPostgreDAO.getAllAuthoritiesByAdminId(adminId);
+        authorities.add(new SimpleGrantedAuthority(SecurityFinals.DEFAULT_AUTHORITY));
+        return authorities;
+    }
 
-	@Override
-	public User save(User user) {
-		return null;
-	}
+    @Override
+    public User save(User user) {
+        return null;
+    }
 
-	@Override
-	public List<User> findAll() {
-		return null;
-	}
+    @Override
+    public List<User> findAll() {
+        return null;
+    }
 
-	@Override
-	public User findOne(long id) {
-		return null;
-	}
+    @Override
+    public User findOne(long id) {
+        return null;
+    }
 
-	@Override
-	public void delete(long id) {
+    @Override
+    public void delete(long id) {
 
-	}
+    }
 }

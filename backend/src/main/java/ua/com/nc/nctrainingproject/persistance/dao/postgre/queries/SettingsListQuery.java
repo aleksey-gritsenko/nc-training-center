@@ -2,7 +2,7 @@ package ua.com.nc.nctrainingproject.persistance.dao.postgre.queries;
 
 public class SettingsListQuery {
 
-    private static final String TABLE_NAME = "settings_list";
+    public static final String TABLE_NAME = "settings_list";
     public static final String SETTINGS_LIST_ID = "settings_list_id";
     public static final String SUBSCRIBE_ON_FRIENDS = "subscribe_on_friends";
     public static final String ACHIEVEMENTS = "achievements";
@@ -19,6 +19,7 @@ public class SettingsListQuery {
             "notify_about_achievements=(?) WHERE settings_list_id=(?)";
 
     public static final String CREATE_SETTINGS = "INSERT INTO " + TABLE_NAME + "(subscribe_on_friends,achievements,book_notification,subscribe_on_friend_review,notify_about_new_friends," +
-            "notify_about_achievements) VALUES (true,true,true,true,true,true)";
+            "notify_about_achievements,user_id) VALUES (true,true,true,true,true,true,(?))";
 
+    public static final String GET_ID = "SELECT " + SETTINGS_LIST_ID + " FROM " + TABLE_NAME + " where user_id=(?)";
 }

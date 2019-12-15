@@ -34,4 +34,10 @@ public class UserSettingsPostgreDAO implements UserSettingsDAO {
     public void updateSettings(int userId, UserSettings userSettings) {
         settingsListPostgreDAO.updateSettings(getSettingsListId(userId),userSettings);
     }
+
+	public void createSettings(int userId, int settingsListId) {
+		jdbcTemplate.update(UserSettingsQuery.CREATE, userId, settingsListId);
+	}
+
+
 }

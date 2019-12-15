@@ -2,6 +2,8 @@ import {Component, Input, OnInit} from '@angular/core';
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {UserSettings} from "../../../models/user-settings";
 import {StorageService} from "../../../services/storage/storage.service";
+import {Subscription} from 'rxjs';
+
 
 @Component({
     selector: 'app-user-settings',
@@ -9,10 +11,13 @@ import {StorageService} from "../../../services/storage/storage.service";
     styleUrls: ['../../../resources/styles/Authorization.css', './user-settings.component.css']
 })
 export class UserSettingsComponent implements OnInit {
+    private subscription: Subscription;
+    private updateSubscription: Subscription;
+    isError: boolean = false;
 
-    // private siteUrl: string = 'https://nc-group1-2019.herokuapp.com';
-    private siteUrl: string = 'http://localhost:8080';
+     private siteUrl: string = 'https://nc-group1-2019.herokuapp.com';
 
+   // private siteUrl: string = 'http://localhost:8080';
 
     constructor(private http: HttpClient, private storage: StorageService) {
     }
@@ -32,7 +37,7 @@ export class UserSettingsComponent implements OnInit {
         const params = new HttpParams()
             .set('userId', String(this.storage.getUser().id));
 
-        this.http.get<UserSettings>(this.siteUrl + '/getSettings' + '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token, {params: params}).subscribe(
+        this.subscription = this.http.get<UserSettings>(this.siteUrl + '/getSettings' + '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token, {params: params}).subscribe(
             settings => {
                 this.settingsData[0].value = settings.notifyAboutAnnouncements;
                 this.settingsData[1].value = settings.bookNotification;
@@ -41,9 +46,19 @@ export class UserSettingsComponent implements OnInit {
                 this.settingsData[4].value = settings.subscribeOnFriendReview;
             },
             error1 => {
-                alert('Error')
+                this.isError = true;
+
             }
         );
+    }
+
+    ngOnDestroy(): void {
+        if (this.subscription) {
+            this.subscription.unsubscribe();
+        }
+        if (this.updateSubscription) {
+            this.updateSubscription.unsubscribe();
+        }
     }
 
     onToggle(name: string, value: boolean) {
@@ -65,12 +80,11 @@ export class UserSettingsComponent implements OnInit {
         form.append('subscribeOnFriendReview', String(this.settingsData[4].value));
         form.append('userId', String(this.storage.getUser().id));
 
-        this.http.post(this.siteUrl + '/updateSettings' + '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token, form).subscribe(
+        this.updateSubscription = this.http.post(this.siteUrl + '/updateSettings' + '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token, form).subscribe(
             data => {
-                //    this.router.navigate([this.returnUrl]);
             },
             error1 => {
-                alert('Error in submit');
+                this.isError = true;
             }
         );
     }

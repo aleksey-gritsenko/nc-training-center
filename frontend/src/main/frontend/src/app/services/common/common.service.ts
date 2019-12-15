@@ -10,6 +10,7 @@ import {Author} from "../../models/author";
 import {UserBook} from "../../models/userBook";
 import {User} from "../../models/user";
 import {Location} from '@angular/common';
+import {UserSettings} from "../../models/user-settings";
 
 @Injectable({
     providedIn: 'root'
@@ -22,7 +23,7 @@ export class CommonService {
     };
     private siteUrl: string = 'https://nc-group1-2019.herokuapp.com';
     // if you want to test your code on localhost - change siteUrl to localhost where this is needed
-    private localhost: string = 'http://localhost:8080';
+   // private localhost: string = 'http://localhost:8080';
     private booksUrl: string = `${this.siteUrl}/book`;
     private announcementsUrl: string = `${this.siteUrl}/announcements`;
     private reviewsUrl: string = `${this.siteUrl}/review`;
@@ -41,7 +42,6 @@ export class CommonService {
     getBooksByFilter(filter: BookFilter): Observable<Book[]> {
         const url = `${this.booksUrl}/filter`;
         //const url = `${this.localhost}/book/filter`;
-        console.log(filter);
         return this.http.post<Book[]>(url, filter);
     }
 
@@ -98,8 +98,8 @@ export class CommonService {
     }
 
     rejectRequest(sender: User, reciever: User): Observable<User> {
-      //  const url = `${this.siteUrl}/friends/reject` + '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
-        const url = `${this.localhost}/friends/reject`;
+        const url = `${this.siteUrl}/friends/reject` + '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
+        //const url = `${this.localhost}/friends/reject`;
         const paramsSender = new HttpParams()
             .set('sender', sender.id.toString()).set('reciever', reciever.id.toString());
 
@@ -169,7 +169,6 @@ export class CommonService {
             .set('book', bookId.toString());
         const url = `${this.reviewsUrl}/accepted` + '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
         //const url = `${this.localhost}/review/notaccepted`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
-        console.log(params);
         return this.http.get<Review[]>(url, {params: params});
     }
 
@@ -178,7 +177,6 @@ export class CommonService {
             .set('book', bookId.toString());
         const url = `${this.reviewsUrl}/accepted`;
         //const url = `${this.localhost}/review/accepted`;
-        console.log(params);
         return this.http.get<Review[]>(url, {params: params});
     }
 
@@ -194,7 +192,6 @@ export class CommonService {
             .set('review', review.id.toString());
         const url = `${this.reviewsUrl}/delete` + '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
         //const url = `${this.localhost}/review/delete`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
-        console.log(params);
         return this.http.post<Review>(url, params);
     }
 
@@ -226,7 +223,6 @@ export class CommonService {
         const params = new HttpParams()
             .append('userId', userBook.userId.toString())
             .append('bookId', userBook.bookId.toString());
-        console.log(params);
         return this.http.get<UserBook>(url, {params: params});
     }
 
@@ -304,6 +300,10 @@ export class CommonService {
         const url = `${this.booksUrl}/bookImage`;
         //const url = `${this.localhost}/book/bookImage`;
         return this.http.post(url, book, {responseType: 'blob'});
+    }
+
+    getUserSettings(userSettings: UserSettings){
+        const url = ''
     }
 
     back() {

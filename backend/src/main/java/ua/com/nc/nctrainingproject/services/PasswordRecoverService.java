@@ -24,7 +24,7 @@ public class PasswordRecoverService {
     private final CodePostgreDAO codePostgreDAO;
     private final JavaMailSender sender;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
-    private static final String THEME = "Password recover email";
+    private static final String THEME = "Email with code";
     private static final int LENGTH_CODE = 6;
     private static final int FROM = 0;
     private static final int TO = 9;
