@@ -81,8 +81,8 @@ public class PasswordRecoverService {
         if (codePostgreDAO.getCodeByEmail(email) != null) {
             deleteCodeEmail(email);
         }
-
-        codePostgreDAO.createCode(generateCode(), email);
+        generatedString = generateCode();
+        codePostgreDAO.createCode(generatedString, email);
 
         return generatedString;
     }
