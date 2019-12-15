@@ -65,14 +65,14 @@ export class LoginComponent implements OnInit, OnDestroy {
 
                 this.loginSubscription = this.serv.login(username, password).subscribe(
                     user => {
-                        if (!user.verified) {
+                        if (!user.verified || !user.activated) {
                             this.router.navigateByUrl('/verify');
                         } else {
                             this.storageService.setUser(user);
                             sessionStorage.setItem('user', JSON.stringify(user));
                             this.router.navigateByUrl('/');
                         }
-                    },);
+                    });
             },
             () => {
                 this.isError = true;

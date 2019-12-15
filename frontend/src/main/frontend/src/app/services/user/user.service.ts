@@ -25,9 +25,9 @@ export class UserService {
     friend: User;
     book: Book;
 
-    // private siteUrl: string = 'https://nc-group1-2019.herokuapp.com';
+    private siteUrl: string = 'https://nc-group1-2019.herokuapp.com';
 
-    siteUrl: string = 'http://localhost:8080';
+    // siteUrl: string = 'http://localhost:8080';
 
     constructor(private http: HttpClient, private commonService: CommonService) {
     }

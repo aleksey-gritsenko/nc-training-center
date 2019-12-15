@@ -4,38 +4,38 @@
     <div class="row">
         <div class="col-md-offset-3 col-md-6">
             <div class="tab" role="tabpanel">
-                <div class="tab-content tabs">
-                    <div class="tab-pane fade in active" id="Section1" role="tabpanel">
-                        <form #f="ngForm" class="form-horizontal" method="post">
-                            <div class="form-group">
-                                <h4>Account activation</h4>
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">Email</label>
-                                <input [(ngModel)]="email" class="form-control" id="exampleInputEmail1" name="email"
-                                       type="text">
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleInputCode">Code</label>
-                                <input [(ngModel)]="code" class="form-control" id="exampleInputCode" name="code"
-                                       type="text">
-                            </div>
-                            <div *ngIf="message=='error'" class="alert alert-danger text-center" role="alert">
-                                Email or cod is incorrect! Please try again!
-                            </div>
-                            <div *ngIf="message=='send'" class="alert alert-warning text-center" role="alert">
-                                The code has been sent
-                            </div>
-                            <div class="form-group send text-center">
-                                <button (click)="resend()" class="btn btn-default send-btn" type="button">Send code
-                                </button>
-                            </div>
-                            <div class="form-group">
-                                <button (click)="confirm()" class="btn btn-default" type="button">Confirm email</button>
-                            </div>
-                        </form>
-                    </div>
+                <div class="logo mb-5">
+                    <a routerLink="/">BOOKNET</a>
                 </div>
+
+                <form #f="ngForm" class="form-horizontal" method="post">
+                    <div class="form-group">
+                        <h4>Account activation</h4>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Email</label>
+                        <input [(ngModel)]="email" class="form-control" id="exampleInputEmail1" name="email"
+                               type="text">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputCode">Code</label>
+                        <input [(ngModel)]="code" class="form-control" id="exampleInputCode" name="code"
+                               type="text">
+                    </div>
+                    <div *ngIf="message=='error'" class="alert alert-danger text-center" role="alert">
+                        Email or cod is incorrect! Please try again!
+                    </div>
+                    <div *ngIf="message=='send'" class="alert alert-warning text-center" role="alert">
+                        The code has been sent
+                    </div>
+                    <div class="form-group send text-center">
+                        <button (click)="resend()" class="btn btn-default send-btn" type="button">Send code
+                        </button>
+                    </div>
+                    <div class="form-group">
+                        <button (click)="confirm()" class="btn btn-default" type="button">Confirm email</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
