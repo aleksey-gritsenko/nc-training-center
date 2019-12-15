@@ -5,6 +5,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ua.com.nc.nctrainingproject.models.UserSettings;
+import ua.com.nc.nctrainingproject.persistance.dao.postgre.SettingsListPostgreDAO;
+import ua.com.nc.nctrainingproject.persistance.dao.postgre.UserSettingsPostgreDAO;
 import ua.com.nc.nctrainingproject.services.UserSettingsService;
 
 import java.util.Optional;
@@ -13,20 +15,18 @@ import java.util.Optional;
 @CrossOrigin
 @RequestMapping
 public class UserSettingsController {
-	private final UserSettingsService userSettingsService;
+    private final UserSettingsService userSettingsService;
 
-	@Autowired
-	public UserSettingsController(UserSettingsService userSettingsService) {
-		this.userSettingsService = userSettingsService;
-	}
-
+    @Autowired
+    public UserSettingsController(UserSettingsService userSettingsService) {
+        this.userSettingsService = userSettingsService;
+    }
 
     @RequestMapping(method = RequestMethod.GET, value = "/getSettings")
     public ResponseEntity<?> getSettings(@RequestParam(name = "userId") int userId) {
         UserSettings responce = userSettingsService.getUserSettings(userId);
         return Optional.ofNullable(responce).map(ResponseEntity::ok).orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
     }
-    
 
 
     @RequestMapping(value = "/updateSettings", method = RequestMethod.POST)
@@ -38,7 +38,7 @@ public class UserSettingsController {
         userSettings.setSubscribeOnFriendReview(Boolean.valueOf(subscribeOnFriendReview));
         userSettings.setNotifyAboutNewFriends(Boolean.valueOf(notifyAboutNewFriends));
         userSettings.setNotifyAboutAchievement(true);
-        userSettingsService.updateSettings(userSettings,Integer.valueOf(userId));
+        userSettingsService.updateSettings(userSettings, Integer.valueOf(userId));
         return new ResponseEntity<>(HttpStatus.CHECKPOINT);
     }
 

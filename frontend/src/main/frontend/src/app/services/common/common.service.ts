@@ -10,6 +10,7 @@ import {Author} from "../../models/author";
 import {UserBook} from "../../models/userBook";
 import {User} from "../../models/user";
 import {Location} from '@angular/common';
+import {UserSettings} from "../../models/user-settings";
 
 @Injectable({
     providedIn: 'root'
@@ -304,6 +305,10 @@ export class CommonService {
         const url = `${this.booksUrl}/bookImage`;
         //const url = `${this.localhost}/book/bookImage`;
         return this.http.post(url, book, {responseType: 'blob'});
+    }
+
+    getUserSettings(userSettings: UserSettings){
+        const url = ''
     }
 
     back() {
