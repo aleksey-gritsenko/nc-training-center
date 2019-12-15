@@ -60,7 +60,7 @@ export class CommonService {
 
     getAnnouncements(): Observable<Announcement[]> {
         //const url = `${this.localhost}/announcements/all`;
-        const url = `${this.announcementsUrl}/all`;
+        const url = `${this.announcementsUrl}`;
         return this.http.get<Announcement[]>(url);
     }
 
@@ -98,8 +98,8 @@ export class CommonService {
     }
 
     rejectRequest(sender: User, reciever: User): Observable<User> {
-        const url = `${this.siteUrl}/friends/accept` + '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
-        //const url = `${this.localhost}/friends/reject`;
+      //  const url = `${this.siteUrl}/friends/reject` + '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
+        const url = `${this.localhost}/friends/reject`;
         const paramsSender = new HttpParams()
             .set('sender', sender.id.toString()).set('reciever', reciever.id.toString());
 

@@ -1,5 +1,5 @@
 export class UserSettings {
-    subscribeOnFriends: boolean;
+    notifyAboutAnnouncements: boolean;
     achievements: boolean;
     bookNotification: boolean;
     subscribeOnFriendReview: boolean;
