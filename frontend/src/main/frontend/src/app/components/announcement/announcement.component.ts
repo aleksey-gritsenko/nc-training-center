@@ -41,7 +41,7 @@ export class AnnouncementComponent implements OnInit {
             + "-" +  this.currentDate.getDate()
         this.model
         this.id
-            = parseInt(this.route.snapshot.paramMap.get('id'));
+            = parseInt(this.route.snapshot.paramMap.get('bookId'));
         this.storage
         //this.model
         //this.id = parseInt(this.route.snapshot.paramMap.get('id'));
