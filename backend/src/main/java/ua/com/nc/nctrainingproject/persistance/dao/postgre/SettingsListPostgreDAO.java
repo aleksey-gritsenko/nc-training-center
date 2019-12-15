@@ -12,12 +12,12 @@ import javax.sql.DataSource;
 
 @Repository
 public class SettingsListPostgreDAO implements SettingsListDAO {
-	private final JdbcTemplate jdbcTemplate;
+    private final JdbcTemplate jdbcTemplate;
 
-	@Autowired
-	public SettingsListPostgreDAO(DataSource dataSource) {
-		this.jdbcTemplate = new JdbcTemplate(dataSource);
-	}
+    @Autowired
+    public SettingsListPostgreDAO(DataSource dataSource) {
+        this.jdbcTemplate = new JdbcTemplate(dataSource);
+    }
 
 
     @Override
@@ -26,8 +26,12 @@ public class SettingsListPostgreDAO implements SettingsListDAO {
     }
 
     public void updateSettings(int settingsId, UserSettings userSettings) {
-        jdbcTemplate.update(SettingsListQuery.UPDATE_USER_SETTINGS,userSettings.getSubscribeOnFriends(),userSettings.getAchievements(),
-                userSettings.getBookNotification(),userSettings.getSubscribeOnFriendReview(),userSettings.getNotifyAboutNewFriends(),userSettings.getNotifyAboutAchievement(),settingsId);
+        jdbcTemplate.update(SettingsListQuery.UPDATE_USER_SETTINGS, userSettings.getNotifyAboutAnnouncements(), userSettings.getAchievements(),
+                userSettings.getBookNotification(), userSettings.getSubscribeOnFriendReview(), userSettings.getNotifyAboutNewFriends(), userSettings.getNotifyAboutAchievement(), settingsId);
+    }
+
+    public void createSettings() {
+        jdbcTemplate.update(SettingsListQuery.CREATE_SETTINGS);
     }
 
 }

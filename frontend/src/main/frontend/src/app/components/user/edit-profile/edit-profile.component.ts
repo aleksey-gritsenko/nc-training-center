@@ -31,7 +31,6 @@ export class EditProfileComponent implements OnInit, OnDestroy {
 
     update(): void {
         this.editStatus = '';
-        // if (this.userService.equals(this.updatedUser, this.user)) return;
         this.subscription = this.userService.updateProfile(this.updatedUser)
             .subscribe(
                 user => {
