@@ -23,18 +23,10 @@ public class UserSettingsController {
 
     @RequestMapping(method = RequestMethod.GET, value = "/getSettings")
     public ResponseEntity<?> getSettings(@RequestParam(name = "userId") int userId) {
-        System.out.println("Trying to get settings!!!");
         UserSettings responce = userSettingsService.getUserSettings(userId);
         return Optional.ofNullable(responce).map(ResponseEntity::ok).orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
     }
-
-    @RequestMapping(value = "/getSettings", method = RequestMethod.POST)
-    public ResponseEntity<?> getUserSettings(String userId) {
-        System.out.println(userId);
-        UserSettings response = userSettingsService.getUserSettings(Integer.valueOf(userId));
-        System.out.println(response.toString());
-        return response == null ? new ResponseEntity<>(HttpStatus.BAD_REQUEST) : ResponseEntity.ok(response);
-    }
+    
 
 
     @RequestMapping(value = "/updateSettings", method = RequestMethod.POST)

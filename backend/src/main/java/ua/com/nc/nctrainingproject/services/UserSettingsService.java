@@ -24,6 +24,7 @@ public class UserSettingsService {
     }
 
     public void updateSettings(UserSettings userSettings, int userId) {
+
         userSettingsPostgreDAO.updateSettings(userId, userSettings);
     }
 
