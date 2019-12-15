@@ -31,6 +31,7 @@
                     <div *ngIf="user" aria-labelledby="userMenuLabel" class="dropdown-menu dropdown-menu-right">
                         <a class="dropdown-item" routerLink="/user/{{user.id}}">My profile</a>
                         <a class="dropdown-item" routerLink="/userBooks">My books</a>
+                        <a class="dropdown-item" routerLink="/settings">My settings</a>
                         <a (click)="logout()" class="dropdown-item" href="javascript:void(0)">Logout</a>
                     </div>
                 </li>
