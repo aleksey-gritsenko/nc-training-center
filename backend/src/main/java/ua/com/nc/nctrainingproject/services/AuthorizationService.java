@@ -42,7 +42,6 @@ public class AuthorizationService {
 
 
     public User register(String login, String password, String email) {
-        System.out.println("In the register");
         if (!login.isEmpty() && !password.isEmpty() && !email.isEmpty()) {
             if (userPostgreDAO.getUserByUserName(login) == null && userPostgreDAO.getUserByEmail(email) == null) {
                 User user = new User(login, bCryptPasswordEncoder.encode(password), email);

@@ -39,10 +39,8 @@ export class AnnouncementPropositionComponent implements OnInit {
     }
 
     public publishAnnouncement(announcement: Announcement) {
-        //announcement.admin_id = this.storage.getUser().id;
         this.apiService.publishAnnouncement(announcement).subscribe(
             res => {
-                //location.reload();
             },
             err => {
                 alert(JSON.parse(JSON.stringify(err)).message);

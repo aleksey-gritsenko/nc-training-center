@@ -23,14 +23,14 @@ export class CommonService {
     };
     private siteUrl: string = 'https://nc-group1-2019.herokuapp.com';
     // if you want to test your code on localhost - change siteUrl to localhost where this is needed
-   // private localhost: string = 'http://localhost:8080';
+    private localhost: string = 'http://localhost:8080';
     private booksUrl: string = `${this.siteUrl}/book`;
-    private announcementsUrl: string = `${this.siteUrl}/announcements`;
+    private announcementsUrl: string = `${this.localhost}/announcements`;
     private reviewsUrl: string = `${this.siteUrl}/review`;
     private userBookUrl: string = `${this.siteUrl}/userBook`;
     private userFriendsUrl: string = `${this.siteUrl}/friends`;
 
-    constructor(private http: HttpClient,private location: Location) {
+    constructor(private http: HttpClient, private location: Location) {
     }
 
     getBooks(): Observable<Book[]> {
@@ -69,8 +69,8 @@ export class CommonService {
     }
 
     createAnnouncement(announcement: Announcement): Observable<Announcement> {
-       // const url = `${this.announcementsUrl}/newAnnouncement`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
-    // const url = `${this.localhost}/announcements/newAnnouncement`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
+        // const url = `${this.announcementsUrl}/newAnnouncement`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
+        // const url = `${this.localhost}/announcements/newAnnouncement`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
         const url = `${this.announcementsUrl}/newAnnouncement` + '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
         //const url = `${this.localhost}/announcements/newAnnouncement`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
         return this.http.post<Announcement>(url, announcement);
@@ -105,6 +105,7 @@ export class CommonService {
 
         return this.http.post<User>(url, paramsSender);
     }
+
     getFriends(id: string): Observable<User[]> {
         const url = `${this.userFriendsUrl}/all` + '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
 
@@ -167,7 +168,7 @@ export class CommonService {
     getNotAcceptedReviews(bookId: number): Observable<Review[]> {
         const params = new HttpParams()
             .set('book', bookId.toString());
-        const url = `${this.reviewsUrl}/accepted` + '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
+        const url = `${this.reviewsUrl}/notaccepted` + '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
         //const url = `${this.localhost}/review/notaccepted`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
         return this.http.get<Review[]>(url, {params: params});
     }
@@ -217,7 +218,7 @@ export class CommonService {
         return this.http.get<Book[]>(url, {params: params});
     }
 
-    getUserBookById(userBook:UserBook) {
+    getUserBookById(userBook: UserBook) {
         const url = `${this.userBookUrl}/getById` + '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
         //const url = `${this.localhost}/userBook/getById`+ '?access_token=' + JSON.parse(window.sessionStorage.getItem('token')).access_token;
         const params = new HttpParams()
@@ -302,7 +303,7 @@ export class CommonService {
         return this.http.post(url, book, {responseType: 'blob'});
     }
 
-    getUserSettings(userSettings: UserSettings){
+    getUserSettings(userSettings: UserSettings) {
         const url = ''
     }
 

@@ -46,15 +46,17 @@ export class ReviewsListComponent implements OnInit {
     }
 
     checkAdmin(){
-        if (this.storage.getUser().userRole == 'moderator') {
-            this.notAcceptedReviewVisible = true;
+        if(this.storage.getUser()!=null){
+            if (this.storage.getUser().userRole == 'moderator') {
+                this.getNotAcceptedReviews();
+                this.notAcceptedReviewVisible = true;
+            }
         }
     }
 
     ngOnChanges() {
         if (this.book != null) {
             this.getAcceptedReviews();
-            this.getNotAcceptedReviews();
             this.checkAdmin();
         }
     }
