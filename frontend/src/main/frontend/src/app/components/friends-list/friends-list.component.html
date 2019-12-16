@@ -18,7 +18,6 @@
 
                 <div class="name">{{newApp.email}}</div>
                 <div routerLink="/user/{{newApp.id}}"> {{newApp.userName}}</div>
-                <!--span class="letter">   <a>{{newApp.userName}}</a> </span-->
 
                 <div *ngIf="this.id == this.currentUser.id">
                     <button  class="btn btn-primary" (click)="addFriends(newApp)"><i
@@ -41,7 +40,7 @@
                 <div class="name">{{friend.email}}</div>
 
                 <div routerLink="/user/{{friend.id}}"> {{friend.userName}}</div>
-             
+
 
             </div>
         </li>
