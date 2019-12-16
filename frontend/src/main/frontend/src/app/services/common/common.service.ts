@@ -25,7 +25,7 @@ export class CommonService {
     // if you want to test your code on localhost - change siteUrl to localhost where this is needed
     private localhost: string = 'http://localhost:8080';
     private booksUrl: string = `${this.siteUrl}/book`;
-    private announcementsUrl: string = `${this.localhost}/announcements`;
+    private announcementsUrl: string = `${this.siteUrl}/announcements`;
     private reviewsUrl: string = `${this.siteUrl}/review`;
     private userBookUrl: string = `${this.siteUrl}/userBook`;
     private userFriendsUrl: string = `${this.siteUrl}/friends`;
