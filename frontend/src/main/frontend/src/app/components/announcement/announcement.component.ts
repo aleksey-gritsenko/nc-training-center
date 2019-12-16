@@ -43,9 +43,6 @@ export class AnnouncementComponent implements OnInit {
         this.id
             = parseInt(this.route.snapshot.paramMap.get('bookId'));
         this.storage
-        //this.model
-        //this.id = parseInt(this.route.snapshot.paramMap.get('id'));
-        //this.storage
         this.currentUser = this.storage.getUser();
         this.currentDate = new Date()
     }
@@ -67,7 +64,6 @@ export class AnnouncementComponent implements OnInit {
 
         this.apiService.createAnnouncement(this.model).subscribe (
             res => {
-                //location.reload();
             },
             err => {
                 alert(JSON.parse(JSON.stringify(err)).message);
