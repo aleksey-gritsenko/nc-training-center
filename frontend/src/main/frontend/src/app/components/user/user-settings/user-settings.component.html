@@ -1,18 +1,18 @@
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css"/>
+<app-navigation></app-navigation>
+<div style="padding-top: 67px;  "></div>
 
 
 <div class="container">
     <div class="row">
         <div class="col-md-offset-3 col-md-6">
-
-            <!-- Nav tabs -->
             <div class="tab" role="tabpanel">
-                <div class="logo mb-5">
-                    <a routerLink="/">BOOKNET</a>
+                <div class="upper mb-5">
+                    Choose your settings
                 </div>
                 <form class="form-horizontal" method="post" #f="ngForm" (submit)="submitSettings()">
-                    <div class="user-settings"  *ngFor="let item of settingsData">
-                        <input value="{{item.name}}" type="checkbox" [checked]="item.value" (change)= "onToggle(item.name,item.value)"> <span class="select">{{item.name}}</span>
+                    <div class="user-settings" *ngFor="let item of settingsData">
+                        <input value="{{item.name}}" type="checkbox" [checked]="item.value"
+                               (change)="onToggle(item.name,item.value)"> <span class="select">{{item.name}}</span>
                     </div>
                     <div class="form-group">
                         <button type="submit" class="btn btn-default">Submit settings</button>

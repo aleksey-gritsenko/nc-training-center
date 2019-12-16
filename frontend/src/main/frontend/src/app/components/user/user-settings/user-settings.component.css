@@ -5,3 +5,12 @@
     font-size: 20px;
 }
 
+.upper {
+    text-align: center;
+    border-bottom: 1px solid grey;
+    padding-bottom: 8px;
+    font-family: auto;
+    color: #FFE4B5;
+    font-size: 30px;
+}
+

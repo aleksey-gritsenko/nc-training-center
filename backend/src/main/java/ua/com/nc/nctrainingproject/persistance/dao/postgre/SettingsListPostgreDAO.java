@@ -39,56 +39,10 @@ public class SettingsListPostgreDAO implements SettingsListDAO {
     }
 
     public void createSettings(int userId) {
-        jdbcTemplate.update(SettingsListQuery.CREATE_SETTINGS,userId);
+        jdbcTemplate.update(SettingsListQuery.CREATE_SETTINGS, userId);
     }
 
     public int getSettingsListIdByUserId(int userId) {
         return jdbcTemplate.queryForObject(SettingsListQuery.GET_ID, new Object[]{userId}, Integer.class);
-    }
-
-
-
-    public void insertMessage() {
-      //  System.out.println(getSettingsListIdByUserId(111));
-        //  createSettings();
-        //  createSettings();
-//        int key =0;
-//        try {
-//          Connection connection= dataSource.getConnection();
-//            PreparedStatement preparedStatement = connection.prepareStatement(SettingsListQuery.CREATE_SETTINGS, Statement.RETURN_GENERATED_KEYS);
-//            preparedStatement.executeUpdate();
-//            ResultSet keys = preparedStatement.getGeneratedKeys();
-//            keys.next();
-//            key = keys.getInt(1);
-//            System.out.println(key);
-//            keys.close();
-//            preparedStatement.close();
-//            connection.close();
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-
-
-//        KeyHolder keyHolder = new GeneratedKeyHolder();
-//
-//        jdbcTemplate.update(connection -> {
-//            PreparedStatement ps = connection
-//                    .prepareStatement(SettingsListQuery.CREATE_SETTINGS);
-//            return ps;
-//        }, keyHolder);
-//
-//        System.out.println(keyHolder.getKey());
-
-
-//        SimpleJdbcInsert jdbcInsert = new SimpleJdbcInsert(jdbcTemplate);
-//        jdbcInsert.withTableName(SettingsListQuery.TABLE_NAME).usingGeneratedKeyColumns(
-//                "settings_list_id");
-//        Map<String, Object> parameters = new HashMap<>();
-//        parameters.put("subscribe_on_friends", true);
-//        Number key = jdbcInsert.executeAndReturnKey(new MapSqlParameterSource(
-//                parameters));
-//        System.out.println(((Number) key).intValue());
-
-
     }
 }
